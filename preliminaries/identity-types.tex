@@ -1,0 +1,491 @@
+\index{type!identity|(defstyle}%
+\indexsee{identity!type}{type, identity}%
+\indexsee{type!equality}{type, identity}%
+\indexsee{equality!type}{type, identity}%
+While the previous constructions can be seen as generalizations of
+standard set theoretic constructions, our way of handling identity  seems to be
+specific to type theory.
+According to the propositions-as-types conception, the \emph{proposition} that two elements of the same type $a,b:A$ are equal must correspond to some \emph{type}.
+Since this proposition depends on what $a$ and $b$ are, these \define{equality types} or \define{identity types} must be type families dependent on two copies of $A$.
+
+We may write the family as $\idtypevar{A}:A\to A\to\type$ (not to be mistaken for the identity function $\idfunc[A]$), so that $\idtype[A]ab$ is the type representing the proposition of equality between $a$ and $b$.
+Once we are familiar with propositions-as-types, however, it is convenient to also use the standard equality symbol for this; thus ``$\id{a}{b}$'' will also be a notation for the \emph{type} $\idtype[A]ab$ corresponding to the proposition that $a$ equals $b$.
+For clarity, we may also write ``$\id[A]{a}{b}$'' to specify the type $A$.
+If we have an element of $\id[A]{a}{b}$, we may say that $a$ and $b$ are \define{equal}, or sometimes \define{propositionally equal} if we want to emphasize that this is different from the judgmental equality $a\jdeq b$ discussed in \cref{sec:types-vs-sets}.
+\indexdef{equality!propositional}%
+\indexdef{propositional!equality}%
+
+Just as we remarked in \cref{sec:pat} that the propositions-as-types versions of ``or'' and ``there exists'' can include more information than just the fact that the proposition is true, nothing prevents  the type $\id{a}{b}$ from also including more information.
+Indeed, this is the cornerstone of the homotopical interpretation, where we regard witnesses of $\id{a}{b}$ as \emph{paths}\indexdef{path} or \emph{equivalences} between $a$ and $b$ in the space $A$.  Just as there can be more than one path between two points of a space, there can be more than one witness that two objects are equal.  Put differently, we may regard $\id{a}{b}$ as the type of \emph{identifications}\indexdef{identification} of $a$ and $b$, and there may be many different ways in which $a$ and $b$ can be identified.
+We will return to the interpretation in \cref{cha:basics}; for now we focus on the basic rules for the identity type.
+Just like all the other types considered in this chapter, it will have rules for formation, introduction, elimination, and computation, which behave formally in exactly the same way.
+
+The formation rule says that given a type $A:\UU$ and two elements $a,b:A$, we can form the type $(\id[A]{a}{b}):\UU$ in the same universe.
+The basic way to construct an element of $\id{a}{b}$ is to know that $a$ and $b$ are the same.
+Thus, the introduction rule is a dependent function
+\[\refl{} : \prd{a:A} (\id[A]{a}{a})\]
+called \define{reflexivity},
+\indexdef{reflexivity!of equality}%
+which says that every element of $A$ is equal to itself (in a specified way).  We regard $\refl{a}$ as being the
+constant path\indexdef{path!constant}\indexsee{loop!constant}{path, constant}
+at the point $a$.
+
+In particular, this means that if $a$ and $b$ are \emph{judgmentally} equal, $a\jdeq b$, then we also have an element $\refl{a} : \id[A]{a}{b}$.
+This is well-typed because $a\jdeq b$ means that also the type $\id[A]{a}{b}$ is judgmentally equal to $\id[A]{a}{a}$, which is the type of $\refl{a}$.
+
+The induction principle (i.e.\ the elimination rule) for the identity types is one of the most subtle parts of type theory, and crucial to the homotopy interpretation.
+We begin by considering an important consequence of it, the principle that ``equals may be substituted for equals'', as expressed by the following:
+\index{indiscernibility of identicals}%
+\index{equals may be substituted for equals}%
+\begin{description}
+\item[Indiscernibility of identicals:]
+For every family 
+\[
+C : A \to \UU
+\]
+there is a function
+\[
+f : \prd{x,y:A}{p:\id[A] x y} C(x) \to C(y)
+\]
+such that
+\[
+f(x,x,\refl{x}) \defeq \idfunc[C(x)].
+\]
+\end{description}
+This says that every family of types $C$ respects equality, in the sense that applying $C$ to \emph{equal} elements of $A$ also results in a function between the resulting types. The displayed equality states that the function associated to reflexivity is the identity function (and we shall see that, in general, the function $f(x,y,p): C(x) \to C(y)$ is always an equivalence of types).
+
+Indiscernibility of identicals can be regarded as a recursion principle for the identity type, analogous to those given for booleans and natural numbers above.
+Just as $\rec{\nat}$ gives a specified map $\nat\to C$ for any other type $C$ of a certain sort, indiscernibility of identicals gives a specified map from $\id[A] x y$ to certain other reflexive, binary relations on $A$, namely those of the form $C(x) \to C(y)$ for some unary predicate $C(x)$.
+We could also formulate a more general recursion principle with respect to reflexive relations of the more general form $C(x,y)$.
+However, in order to fully characterize the identity type, we must generalize this recursion principle to an induction principle, which not only considers maps out of $\id[A] x y$ but also families over it.
+Put differently, we consider not only allowing equals to be substituted for equals, but also taking into account the evidence $p$ for the equality.
+
+\subsection{Path induction}
+
+\index{generation!of a type, inductive|(}
+The induction principle for the identity type is called \define{path induction},
+\index{path!induction|(}%
+\index{induction principle!for identity type|(}%
+in view of the homotopical interpretation to be explained in  the introduction to \cref{cha:basics}.  It can be seen as stating that the family of identity types is freely generated by the elements of the form $\refl{x}: \id{x}{x}$.
+
+\begin{description}
+\item[Path induction:] 
+  Given a family 
+  \[ C : \prd{x,y:A} (\id[A]{x}{y}) \to \UU \]
+  and a function
+  \[ c :  \prd{x:A} C(x,x,\refl{x}),\]
+  there is a function
+  \[ f : \prd{x,y:A}{p:\id[A]{x}{y}} C(x,y,p) \]
+  such that 
+  \[ f(x,x,\refl{x}) \defeq c(x). \]
+\end{description}
+
+Note that just like the induction principles for products, coproducts, natural numbers, and so on, path induction allows us to define \emph{specified} functions which exhibit appropriate computational behavior.
+Just as we have \emph{the} function $f:\nat\to C$ defined by recursion from $c_0:C$ and $c_s:\nat \to C \to C$, which moreover satisfies $f(0)\jdeq c_0$ and $f(\suc(n))\jdeq c_s(n,f(n))$, we have \emph{the} function $f : \dprd{x,y:A}{p:\id[A]{x}{y}} C(x,y,p)$ defined by path induction from $c :  \prd{x:A} C(x,x,\refl{x})$, which moreover satisfies $f(x,x,\refl{x}) \jdeq c(x)$.
+
+To understand the meaning of this principle, consider first the simpler case when $C$
+does not depend on $p$.  Then we have $C:A\to A\to \UU$, which we may
+regard as a predicate depending on two elements of $A$.  We are
+interested in knowing when the proposition $C(x,y)$ holds for some pair
+of elements $x,y:A$.  In this case, the hypothesis of path induction
+says that we know $C(x,x)$ holds for all $x:A$, i.e.\ that if we
+evaluate $C$ at the pair $x, x$, we get a true proposition --- so $C$ is
+a reflexive relation.  The conclusion then tells us that $C(x,y)$ holds
+whenever $\id{x}{y}$.  This is exactly the more general recursion principle
+for reflexive relations mentioned above.
+
+The general, inductive form of the rule allows $C$ to also depend on the witness $p:\id{x}{y}$ to the identity between $x$ and $y$.  In the premise, we not only replace $x, y$ by $x,x$, but also simultaneously replace $p$ by reflexivity: to prove a property for all elements $x,y$ and paths $p : \id{x}{y}$ between them, it suffices to consider all the cases where the elements are $x,x$ and the path is $\refl{x}: \id{x}{x}$.  If we were viewing types just as sets, it would be unclear what this buys us, but since there may be many different identifications $p : \id{x}{y}$ between $x$ and $y$, it makes sense to keep track of them in considering families over the type $\id[A]{x}{y}$.
+In \cref{cha:basics} we will see that this is very important to the homotopy interpretation.
+
+If we package up path induction into a single function, it takes the form:
+\symlabel{defn:induction-ML-id}%
+\begin{narrowmultline*}
+  \indid{A} :  \dprd{C : \prd{x,y:A} (\id[A]{x}{y}) \to \UU}
+  \Parens{\tprd{x:A} C(x,x,\refl{x})} \to 
+  \narrowbreak
+  \dprd{x,y:A}{p:\id[A]{x}{y}}   C(x,y,p)
+\end{narrowmultline*}
+with the equality\index{computation rule!for identity types}
+\[ \indid{A}(C,c,x,x,\refl{x}) \defeq c(x). \]
+The function $ \indid{A}$ is traditionally called $J$.
+\indexsee{J@$J$}{induction principle for identity type}%
+We will show in \cref{lem:transport} that indiscernibility of identicals is an instance of path induction, and also give it a new name and notation.
+
+\mentalpause
+
+Given a proof $p : \id{a}{b}$,
+path induction requires us to replace \emph{both} $a$ and $b$ with the same unknown element $x$; thus in order to define an element of a family
+$C$, for all pairs of equal elements of $A$, it suffices to define it on the diagonal.
+In some proofs, however, it is simpler to make use of an equation $p : \id{a}{b}$ by replacing all occurrences of $b$ with $a$ (or vice versa), because it is sometimes easier to do the remainder of the proof for the specific element $a$ mentioned in the equality than for a general unknown~$x$.  This motivates a second induction principle for identity types, which says that the family of types $\id[A]{a}{x}$ is generated by the element $\refl{a} : \id{a}{a}$.  As we show below, this second principle is equivalent to the first; it is just sometimes a more convenient formulation.
+
+\index{path!induction based}%
+\index{induction principle!for identity type!based}%
+\begin{description}
+\item[Based path induction:] 
+  Fix an element $a:A$, and suppose given a family
+  \[ C : \prd{x:A} (\id[A]{a}{x}) \to \UU \]
+  and an element
+  \[ c : C(a,\refl{a}). \]
+  Then we obtain a function
+  \[ f : \prd{x:A}{p:\id{a}{x}} C(x,p) \]
+  such that
+  \[ f(a,\refl{a}) \defeq c.\]
+\end{description}
+
+Here, $C(x,p)$ is a family of types, where $x$ is an element of $A$ and $p$ is an element of the identity type $\id[A]{a}{x}$, for fixed $a$ in $A$. The based path induction principle says that to define an element of this family for all $x$ and $p$, it suffices to consider
+just the case where $x$ is $a$ and $p$ is $\refl{a} : \id{a}{a}$.
+
+Packaged as a function, based path induction becomes:
+\symlabel{defn:induction-PM-id}%
+\begin{align*}
+  \indidb{A} :  \dprd{a:A}{C : \prd{x:A} (\id[A]{a}{x}) \to \UU}
+  C(a,\refl{a}) \to \dprd{x:A}{p : \id[A]{a}{x}} C(x,p) 
+\end{align*}
+with the equality
+\[ \indidb{A}(a,C,c,a,\refl{a}) \defeq c. \]
+%\[ g(x)(x,\refl{x}) \defeq d(x) \]
+
+Below, we show that path induction and based path induction are equivalent.  Because of this, we will sometimes be sloppy and also refer to based path induction simply as ``path induction'', relying on the reader to infer which principle is meant from the form of the proof.
+
+\begin{rmk}\label{rmk:the-only-path-is-refl}
+  Intuitively, the induction principle for the natural numbers expresses the fact that every natural number is either $0$ or of the form $\suc(n)$ for some natural number $n$, so that if we prove a property for these cases (with induction hypothesis in the second case), then we have proved it for all natural numbers.
+  Similarly, the induction principle for $A+B$ expresses the fact that every element of $A+B$ is either of the form $\inl(a)$ or $\inr(b)$, and so on.
+  Applying this same reading to path induction, we might say that path induction expresses the fact that every path is of the form \refl{a}, so that if we prove a property for reflexivity paths, then we have proved it for all paths.
+
+  However, this reading is quite confusing in the context of the homotopy interpretation of paths, where there may be many different ways in which two elements $a$ and $b$ can be identified, and therefore many different elements of the identity type!
+  How can there be many different paths, but at the same time we have an induction principle asserting that the only path is reflexivity?
+
+The key observation is that it is not the identity \emph{type} that is inductively defined, but the identity \emph{family}.
+In particular, path induction says that the \emph{family} of types $(\id[A]{x}{y})$, as $x,y$ vary over all elements of $A$, is inductively defined by the elements of the form $\refl{x}$.
+This means that to give an element of any other family $C(x,y,p)$ dependent on a \emph{generic} element $(x,y,p)$ of the identity family, it suffices to consider the cases of the form $(x,x,\refl{x})$.
+In the homotopy interpretation, this says that the type of triples $(x,y,p)$, where $x$ and $y$ are the endpoints of the path $p$ (in other words, the $\Sigma$-type $\sm{x,y:A}(\id{x}{y})$), is inductively generated by the constant loops\index{path!constant} at each point $x$.
+As we will see in \cref{cha:basics}, in homotopy theory the space corresponding to $\sm{x,y:A}(\id{x}{y})$ is the \emph{free path space} --- the space of paths in $A$ whose endpoints may vary --- and it is in fact the case that any point of this space is homotopic to the constant loop at some point, since we can simply retract one of its endpoints along the given path.
+The analogous fact is also true in type theory: we can prove by path induction on $p:x=y$ that $\id[\sm{x,y:A}(\id{x}{y})]{(x,y,p)}{(x,x,\refl{x})}$.
+
+Similarly, based path induction says that for a fixed $a:A$, the \emph{family} of types $(\id[A]{a}{y})$, as $y$ varies over all elements of $A$, is inductively defined by the element $\refl{a}$.
+Thus, to give an element of any other family $C(y,p)$ dependent on a generic element $(y,p)$ of this family, it suffices to consider the case $(a,\refl{a})$.
+Homotopically, this expresses the fact that the space of paths starting at some chosen point (the \emph{based path space} at that point, which type-theoretically is $\sm{y:A} (\id{a}{y})$) is contractible to the constant loop on the chosen point.
+Again, the corresponding fact is also true in type theory: we can prove by based path induction on $p:a=y$ that $\id[\sm{y:A}(\id{a}{y})]{(y,p)}{(a,\refl{a})}$.
+Note also that according to the interpretation of $\Sigma$-types as subtypes mentioned in \cref{sec:pat}, the type $\sm{y:A}(\id{a}{y})$ can be regarded as ``the type of all elements of $A$ which are equal to $a$'', a type-theoretic version of the ``singleton\index{type!singleton} subset'' $\{a\}$.
+
+Neither path induction nor based path induction provides a way to give an element of a family $C(p)$ where $p$ has \emph{two fixed endpoints} $a$ and $b$.
+In particular, for a family $C: (\id[A]{a}{a}) \to \UU$ dependent on a loop, we \emph{cannot} apply path induction and consider only the case for $C(\refl{a})$, and consequently, we cannot prove that all loops are reflexivity.
+Thus, inductively defining the identity family does not prohibit non-reflexivity paths in specific instances of the identity type.
+In other words, a path $p:\id{x}{x}$ may  be not equal to reflexivity as an element of $(\id{x}{x})$, but the pair $(x,p)$ will nevertheless be equal to the pair $(x,\refl{x})$ as elements of $\sm{y:A}(\id{x}{y})$.
+
+As a topological example, consider a loop in the punctured disc \narrowequation{\setof{ (x,y) | 0 < x^2+y^2 < 2 }} which starts at $(1,0)$ and goes around the hole at $(0,0)$ once before returning back to $(1,0)$.
+If we hold both endpoints fixed at $(1,0)$, this loop cannot be deformed into a constant path while staying within the punctured disc, just as a rope looped around a pole cannot be pulled in if we keep hold of both ends.
+However, the loop can be contracted back to a constant if we allow one endpoint to vary, just as we can always gather in a rope if we only hold onto one end.
+\end{rmk}
+
+\index{path!induction|)}%
+\index{induction principle!for identity type|)}%
+\index{generation!of a type, inductive|)}
+
+\subsection{Equivalence of path induction and based path induction}
+
+The two induction principles for the identity type introduced above are equivalent.
+It is easy to see that path induction follows from the based path induction principle.
+Indeed, let us assume the premises of path induction:
+\begin{align*}
+C &: \prd{x,y:A}(\id[A]{x}{y}) \to \UU,\\
+c &: \prd{x:A} C(x,x,\refl{x}).
+\end{align*}
+Now, given an element $x:A$, we can instantiate both of the above, obtaining
+\begin{align*}
+C' &: \prd{y:A} (\id[A]{x}{y}) \to \UU,  \\
+C' &\defeq C(x), \\
+c' &: C'(x,\refl{x}), \\
+c' &\defeq c(x).
+\end{align*}
+Clearly, $C'$ and $c'$ match the premises of based path induction and hence we can construct 
+\begin{equation*}
+  g : \prd{y:A}{p : \id{x}{y}} C'(y,p)
+\end{equation*}
+with the defining equality
+\[ g(x,\refl{x}) \defeq c'.\]
+Now we observe that $g$'s codomain is equal to $C(x,y,p)$.
+Thus, discharging our assumption $x:A$, we can derive a function 
+\[ f : \prd{x,y:A}{p : \id[A]{x}{y}} C(x,y,p) \]
+with the required judgmental equality $f(x,x,\refl{x}) \judgeq g(x,\refl{x}) \defeq c' \defeq c(x)$.
+
+Another proof of this fact is to observe that any such $f$ can be obtained as an instance of $\indidb{A}$
+so it suffices to define $\indid{A}$ in terms of $\indidb{A}$ as
+\[ \indid{A}(C,c,x,y,p) \defeq \indidb{A}(x,C(x),c(x),y,p). \]
+
+The other direction is a bit trickier; it is not clear how we can use a particular instance of path induction to derive a particular instance of
+based path induction. What we can do instead is to construct one instance of path induction which shows 
+all possible instantiations of based path induction at once.
+Define
+\begin{align*}
+D &: \prd{x,y:A} (\id[A]{x}{y}) \to \UU, \\
+D(x,y,p) &\defeq \prd{C : \prd{z:A} (\id[A]{x}{z}) \to \UU} C(x,\refl{x}) \to C(y,p).
+\end{align*}
+Then we can construct the function
+\begin{align*}
+d &: \prd{x : A} D(x,x,\refl{x}), \\
+d &\defeq \lamu{x:A}\lamu{C:\prd{z:A}{p : \id[A]{x}{z}} \UU}\lam{c:C(x,\refl{x})} c
+\end{align*}
+and hence using path induction obtain
+\[ f : \prd{x,y:A}{p:\id[A]{x}{y}} D(x,y,p) \]
+with $f(x,x,\refl{x}) \defeq d(x)$. Unfolding the definition of $D$, we can expand the type of $f$:
+\[ f : \prd{x,y:A}{p:\id[A]{x}{y}}{C : \prd{z:A} (\id[A]{x}{z}) \to \UU} C(x,\refl{x}) \to C(y,p). \]
+Now given $x:A$ and $p:\id[A]{a}{x}$, we can derive the conclusion of based path induction:
+\[ f(a,x,p,C,c) : C(x,p). \]
+Notice that we also obtain the correct definitional equality.
+
+Another proof is to observe that any use of based path induction is an instance of $\indidb{A}$  and to define
+\begin{narrowmultline*}
+\indidb{A}(a,C,c,x,p) \defeq \narrowbreak
+\indid{A}
+  \begin{aligned}[t]
+    \big(
+    &\big(\lamu{x,y:A}{p:\id[A]{x}{y}} \tprd{C : \prd{z:A} (\id[A]{x}{z}) \to \UU} C(x,\refl{x}) \to C(y,p) \big),\\
+    &(\lamu{x:A}{C:\prd{z:A} (\id[A]{x}{z}) \to \UU}{d:C(x,\refl{x})} d),
+     a, x, p, C, c \big). 
+   \end{aligned}
+\end{narrowmultline*}
+
+
+Note that the construction given above uses universes. That is, if we want to
+model $\indidb{A}$ with $C : \prd{x:A} (\id[A]{a}{x}) \to \UU_i$, we need
+to use $\indid{A}$ with 
+%
+\[ D:\prd{x,y:A} (\id[A]{x}{y}) \to \UU_{i+1} \]
+%
+since $D$ quantifies over all $C$ of the given type. While this is
+compatible with our definition of universes, it is also possible to
+derive $\indidb{A}$ without using universes: we can show that $\indid{A}$ entails \cref{lem:transport,thm:contr-paths}, and that these two principles imply $\indidb{A}$ directly.
+We leave the details to the reader as \cref{ex:pm-to-ml}.
+
+We can use either of the foregoing formulations of identity types
+to establish that equality is an equivalence relation, that every function preserves equality and that every family respects equality. We leave the details to the next chapter, where this will be derived  and explained in the context of homotopy type theory.
+
+\begin{rmk}\label{rmk:propeq-vs-jdeq}
+  We emphasize that despite having some unfamiliar features, propositional equality is \emph{the} equality of mathematics in homotopy type theory.
+  This distinction does not belong to judgmental equality, which is rather a metatheoretic feature of the rules of type theory.
+  For instance, the associativity of addition for natural numbers proven in \cref{sec:inductive-types} is a \emph{propositional} equality, not a judgmental one.
+  The same is true of the commutative law (\cref{ex:add-nat-commutative}).
+  Even the very simple commutativity $n+1=1+n$ is not a judgmental equality for a generic $n$ (though it is judgmental for any specific $n$, e.g. $3+1\jdeq 1+3$, since both are judgmentally equal to $4$ by the computation rules defining $+$).
+  We can only prove such facts by using the identity type, since we can only apply the induction principle for \nat with a type as output (not a judgment).
+\end{rmk}
+
+\subsection{Disequality}
+\label{sec:disequality}
+
+Finally, let us also say something about \define{disequality},
+\indexdef{disequality}%
+which is negation of equality:%
+\footnote{We use ``inequality''
+  to refer to $<$ and $\leq$. Also, note that this is negation of the \emph{propositional} identity type.
+Of course, it makes no sense to negate judgmental equality $\jdeq$, because judgments are not subject to logical operations.}
+%
+\begin{equation*}
+  (x \neq_A y) \ \defeq\ \lnot (\id[A]{x}{y}).
+\end{equation*}
+If $x\neq y$, we say that $x$ and $y$ are \define{unequal}
+\indexdef{unequal}%
+or \define{not equal}.
+%
+Just like negation, disequality plays a less important role here than it does in classical\index{mathematics!classical}
+mathematics. For example, we cannot prove that two things are equal by proving that they
+are not unequal: that would be an application of the classical law of double negation, see \cref{sec:intuitionism}.
+
+Sometimes it is useful to phrase disequality in a positive way. For example,
+in~\cref{RD-inverse-apart-0} we shall prove that a real number $x$ has an inverse if,
+and only if, its distance from~$0$ is positive, which is a stronger requirement than $x
+\neq 0$.
+
+\index{type!identity|)}%
+
+\sectionNotes
+
+The type theory presented here is a version of Martin-L\"{o}f's intuitionistic type 
+theory~\cite{Martin-Lof-1972,Martin-Lof-1973,Martin-Lof-1979,martin-lof:bibliopolis}, which itself is based on and influenced 
+by the foundational work of Brouwer \cite{beeson}, Heyting~\cite{heyting1966intuitionism}, Scott~\cite{scott70}, de 
+Bruijn~\cite{deBruijn-1973}, Howard~\cite{howard:pat}, Tait~\cite{Tait-1966,Tait-1968}, and Lawvere~\cite{lawvere:adjinfound}\index{Lawvere}.
+\index{proof!assistant}%
+Three principal variants of Martin-L\"{o}f's type theory underlie the \NuPRL \cite{constable+86nuprl-book}, \Coq~\cite{Coq}, and 
+\Agda \cite{norell2007towards} computer implementations of type theory.  The theory given here differs from these formulations in a number 
+of respects, some of which are critical to the homotopy interpretation, while others are technical conveniences or involve concepts that 
+have not yet been studied in the homotopical setting.
+
+\index{type theory!intensional}%
+\index{type theory!extensional}%
+\index{intensional type theory}%
+\index{extensional!type theory}%
+Most significantly, the type theory described here is derived from the \emph{intensional} version of Martin-L\"{o}f's type 
+theory~\cite{Martin-Lof-1973}, rather than the \emph{extensional} version~\cite{Martin-Lof-1979}.  Whereas the extensional theory makes no 
+distinction between judgmental and propositional equality, the intensional theory regards judgmental equality as purely definitional, and 
+admits a much broader, proof-relevant interpretation of the identity type that is central to the homotopy interpretation.  From the 
+homotopical perspective, extensional type theory confines itself to homotopically discrete sets (see \cref{sec:basics-sets}), whereas the 
+intensional theory admits types with higher-dimensional structure.  The \NuPRL system~\cite{constable+86nuprl-book} is extensional, whereas 
+both \Coq~\cite{Coq} and \Agda~\cite{norell2007towards} are intensional.  Among intensional type theories, there are a number of variants 
+that differ in the structure of identity proofs.  The most liberal interpretation, on which we rely here, admits a \emph{proof-relevant} 
+interpretation of equality, whereas more restricted variants impose restrictions such as \emph{uniqueness of identity proofs 
+  (UIP)}~\cite{Streicher93},
+\indexsee{UIP}{uniqueness of identity proofs}%
+\index{uniqueness!of identity proofs}%
+stating that any two proofs of equality are judgmentally equal, and \emph{Axiom K}~\cite{Streicher93},
+\index{axiom!Streicher's Axiom K}
+stating that 
+the only proof of equality is reflexivity (up to judgmental equality).  These additional requirements may be selectively imposed in the \Coq 
+and \Agda\ systems.
+
+%(In the terminology of \cref{cha:hlevels} such a type theory is about $0$-truncated types.)
+
+Another point of variation among intensional theories is the strength of judgmental equality, particularly as regards objects of function type.  Here we include the uniqueness principle\index{uniqueness!principle} ($\eta$-conversion) $f \jdeq \lam{x} f(x)$, as a principle of judgmental equality.  This principle is used, for example, in \cref{sec:univalence-implies-funext}, to show that univalence implies propositional function extensionality.  Uniqueness principles are sometimes considered for other types.
+For instance, the uniqueness principle\index{uniqueness!principle!for product types} for the cartesian product $A\times B$ would be a judgmental version of the propositional equality $\uniq{A\times B}$ which we constructed in \cref{sec:finite-product-types}, saying that $u \jdeq (\proj1(u),\proj2(u))$.
+This and the corresponding version for dependent pairs would be reasonable choices (which we did not make), but we cannot include all such rules, because the corresponding uniqueness principle for identity types would trivialize all the higher homotopical structure.  So we are \emph{forced} to leave it out, and the question then becomes where to draw the line. With regards to inductive types, we discuss these points further in~\cref{sec:htpy-inductive}.
+
+It is important for our purposes that (propositional) equality of functions is taken to be \emph{extensional} (in a different sense than that used above!).
+This is not a consequence of the rules in this chapter; it will be expressed by \cref{axiom:funext}.
+\index{function extensionality}%
+This decision is significant for our purposes, because it specifies that equality of functions is as expected in mathematics.  Although we include \cref{axiom:funext} as an axiom, it may be derived from the univalence axiom and the uniqueness principle for functions\index{uniqueness!principle!for function types} (see \cref{sec:univalence-implies-funext}), as well as from the existence of an interval type (see \cref{thm:interval-funext}).
+
+Regarding inductive types such as products, $\Sigma$-types, coproducts, natural numbers, and so on (see \cref{cha:induction}), there are additional choices regarding the formulation of induction and recursion.
+\index{pattern matching}%
+We have taken \emph{induction principles} as basic and \emph{pattern matching} as derived from them, but one may also do the other; see \cref{cha:rules}.
+Usually in the latter case one allows also \emph{deep} pattern matching; see~\cite{Coquand92Pattern}.
+There are several reasons for our choice.
+One reason is that induction principles are what we obtain naturally in categorical semantics.
+Another is that specifying the allowable kinds of (deep) pattern matching is quite tricky;
+for instance, \Agda's
+\index{proof!assistant!Agda@\textsc{Agda}}%
+pattern matching can prove Axiom K by default,
+\index{axiom!Streicher's Axiom K}%
+although a flag \texttt{--without-K} prevents this~\cite{CDP14}.
+Finally, deep pattern matching is not well-understood for \emph{higher} inductive types (see \cref{cha:hits}).
+Therefore, we will only use pattern matches such as those described in \cref{sec:pattern-matching}, which are directly equivalent to the application of an induction principle.
+
+\index{proof!assistant!Coq@\textsc{Coq}}%
+Unlike the type theory of \Coq, we do not include a primitive type of propositions.  Instead, as discussed in \cref{sec:pat}, we embrace 
+the \emph{propositions-as-types (PAT)} principle, identifying propositions with types.
+This was suggested originally by de Bruijn~\cite{deBruijn-1973}, Howard~\cite{howard:pat}, Tait~\cite{Tait-1968}, and Martin-L\"{o}f~\cite{Martin-Lof-1972}.
+(Our decision is explained more fully in \cref{subsec:pat?,subsec:hprops}.)
+
+We do, however, include a full cumulative hierarchy of universes, so that the type formation and equality judgments become instances of the membership and equality judgments for a universe.
+As a convenience, we regard objects of a universe as types, rather than as codes for types; in the terminology of \cite{martin-lof:bibliopolis}, this means we use ``Russell-style universes'' rather than ``Tarski-style universes''.
+\index{type!universe!Tarski-style}%
+\index{type!universe!Russell-style}%
+An alternative would be to use Tarski-style universes, with an explicit coercion\index{coercion, universe-raising} function required to make an element $A:\UU$ of a universe into a type $\mathsf{El}(A)$, and just say that the coercion is omitted when working informally.
+
+We also treat the universe hierarchy as cumulative, in that every type in $\UU_i$ is also in $\UU_j$ for each $j\geq i$.
+There are different ways to implement cumulativity formally: the simplest is just to include a rule that if $A:\UU_i$ then $A:\UU_j$.
+However, this has the annoying consequence that for a type family $B:A\to \UU_i$ we cannot conclude $B:A\to\UU_j$, although we can conclude $\lam{a} B(a) : A\to\UU_j$.
+A more sophisticated approach that solves this problem is to introduce a judgmental subtyping relation $<:$ generated by $\UU_i<:\UU_j$, but this makes the type theory more complicated to study.
+Another alternative would be to include an explicit coercion function $\uparrow : \UU_i \to \UU_j$, which could be omitted when working informally.
+
+It is also not necessary that the universes be indexed by natural numbers and linearly ordered.
+For some purposes, it is more appropriate to assume only that every universe is an element of some larger universe, together with a ``directedness'' property that any two universes are jointly contained in some larger one.
+There are many other possible variations, such as including a universe ``$\UU_{\omega}$'' that contains all $\UU_i$ (or even higher ``large cardinal'' type universes), or by internalizing the hierarchy into a type family $\lam{i} \UU_i$.
+The latter is in fact done in \Agda.
+
+The path induction principle for identity types was formulated by Martin-L\"{o}f~\cite{Martin-Lof-1972}.
+The based path induction rule in the setting of Martin-L\"of type theory is due to Paulin-Mohring \cite{Moh93}; it can be seen as an intensional generalization of the concept of ``pointwise functionality''\index{pointwise!functionality} for hypothetical judgments from \NuPRL~\cite[Section~8.1]{constable+86nuprl-book}.
+The fact that Martin-L\"of's rule implies Paulin-Mohring's was proved by Streicher using Axiom K (see~\cref{sec:hedberg}), by Altenkirch and Goguen as in \cref{sec:identity-types}, and finally by Hofmann without universes (as in \cref{ex:pm-to-ml}); see~\cite[\S1.3 and Addendum]{Streicher93}.
+
+\sectionExercises
+
+\begin{ex}\label{ex:composition}
+  Given functions $f:A\to B$ and $g:B\to C$, define their \define{composite}
+  \indexdef{composition!of functions}%
+  \indexdef{function!composition}%
+ $g\circ f:A\to C$.
+  \index{associativity!of function composition}%
+  Show that we have $h \circ (g\circ f) \jdeq (h\circ g)\circ f$.
+\end{ex}
+
+\begin{ex}\label{ex:pr-to-rec}
+  Derive the recursion principle for products $\rec{A\times B} $ using only the projections, and verify that the definitional equalities are valid.
+  Do the same for $\Sigma$-types.
+\end{ex}
+
+\begin{ex}\label{ex:pr-to-ind}
+  Derive the induction principle for products $\ind{A\times B}$, using only the projections and the propositional uniqueness principle $\uniq{A\times B}$.
+  Verify that the definitional equalities are valid.
+  Generalize $\uniq{A\times B}$ to $\Sigma$-types, and do the same for $\Sigma$-types.
+  \emph{(This requires concepts from \cref{cha:basics}.)}
+\end{ex}
+
+\begin{ex}\label{ex:iterator}
+\index{iterator!for natural numbers}
+Assuming as given only the \emph{iterator} for natural numbers
+\[\ite : \prd{C:\UU} C \to (C \to C) \to \nat \to C \]
+with the defining equations
+\begin{align*}
+\ite(C,c_0,c_s,0)  &\defeq c_0, \\
+\ite(C,c_0,c_s,\suc(n)) &\defeq c_s(\ite(C,c_0,c_s,n)),
+\end{align*}
+derive a function having the type of the recursor $\rec{\nat}$.
+Show that the defining equations of the recursor hold propositionally for this function, using the induction principle for $\nat$.
+\end{ex}
+
+\begin{ex}\label{ex:sum-via-bool}
+\index{type!coproduct}%
+Show that if we define $A + B \defeq \sm{x:\bool} \rec{\bool}(\UU,A,B,x)$, then we can give a definition of $\ind{A+B}$ for which the definitional equalities stated in \cref{sec:coproduct-types} hold.
+\end{ex}
+
+\begin{ex}\label{ex:prod-via-bool}
+\index{type!product}%
+Show that if we define $A \times B \defeq \prd{x:\bool}\rec{\bool}(\UU,A,B,x)$, then we can give a definition of  $\ind{A\times B}$ for which the definitional equalities stated in \cref{sec:finite-product-types} hold propositionally (i.e.\ using equality types).
+\emph{(This requires the function extensionality axiom, which is introduced in \cref{sec:compute-pi}.)}
+\end{ex}
+
+\begin{ex}\label{ex:pm-to-ml}
+Give an alternative derivation of $\indidb{A}$ from $\indid{A}$ which avoids the use of universes.
+  \emph{(This is easiest using concepts from later chapters.)}
+\end{ex}
+
+\begin{ex}\label{ex:nat-semiring}
+  \index{multiplication!of natural numbers}%
+  Define multiplication and exponentiation using $\rec{\nat}$.
+  Verify that $(\nat,+,0,\times,1)$ is a semiring\index{semiring} using only $\ind{\nat}$.
+  You will probably also need to use symmetry and transitivity of equality, \cref{lem:opp,lem:concat}.
+\end{ex}
+
+\begin{ex}\label{ex:fin}
+  \index{finite!sets, family of}%
+  Define the type family $\Fin : \nat \to \UU$ mentioned at the end of \cref{sec:universes}, and the dependent function $\fmax : \prd{n:\nat} \Fin(n+1)$ mentioned in \cref{sec:pi-types}.
+\end{ex}
+
+\begin{ex}\label{ex:ackermann}
+  \indexdef{function!Ackermann}%
+  \indexdef{Ackermann function}%
+  Show that the Ackermann function $\ack : \nat \to \nat \to \nat$ is definable using only $\rec{\nat}$ satisfying the following equations:
+  \begin{align*}
+    \ack(0,n) &\jdeq \suc(n), \\
+    \ack(\suc(m),0) &\jdeq \ack(m,1), \\
+    \ack(\suc(m),\suc(n)) &\jdeq \ack(m,\ack(\suc(m),n)).
+  \end{align*}
+\end{ex}
+
+\begin{ex}\label{ex:neg-ldn}
+  Show that for any type $A$, we have $\neg\neg\neg A \to \neg A$.
+\end{ex}
+
+\begin{ex}\label{ex:tautologies}
+  Using the propositions as types interpretation, derive the following tautologies.
+  \begin{enumerate}
+  \item If $A$, then (if $B$ then $A$).
+  \item If $A$, then not (not $A$).
+  \item If (not $A$ or not $B$), then not ($A$ and $B$).
+  \end{enumerate}
+\end{ex}
+
+\begin{ex}\label{ex:not-not-lem}
+  Using propositions-as-types, derive the double negation of the principle of excluded middle, i.e.\ prove \emph{not (not ($P$ or not $P$))}.
+\end{ex}
+
+\begin{ex}\label{ex:without-K}
+  Why do the induction principles for identity types not allow us to construct a function $f: \prd{x:A}{p:\id{x}{x}} (\id{p}{\refl{x}})$ with the defining equation
+  \[ f(x,\refl{x}) \defeq \refl{\refl{x}} \quad ?\]
+\end{ex}
+
+\begin{ex}\label{ex:subtFromPathInd}
+  Show that indiscernibility of identicals follows from path induction.  
+\end{ex}
+
+\begin{ex}\label{ex:add-nat-commutative}
+  Show that addition of natural numbers is commutative: $\prd{i,j:\nat} (i+j=j+i)$.
+\end{ex}
