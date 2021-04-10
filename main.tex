@@ -3,12 +3,11 @@
 % THE MAIN ONES.
 
 % DOCUMENT CLASS
-\documentclass[\OPTfontsize]{book}
+\documentclass[\OPTfontsize]{ctexbook}
 
 \PassOptionsToPackage{table}{xcolor}
 
 \usepackage{etex} % We're running out of registers and dimensions, or some such
-\usepackage{CJKutf8}
 % PAGE GEOMETRY
 \usepackage[papersize={\OPTpagesize},
             twoside,
@@ -157,7 +156,6 @@
   }{}
 
 \begin{document}
-    \begin{CJK}{UTF8}{gbsn}
 % NB: This does not actually appear anywhere because we have
 % a custom title page.
 \title{Homotopy Type Theory: Univalent Foundations of Mathematics}
@@ -326,7 +324,6 @@
 
 % The back cover
 \include{back}
-    \end{CJK}
 \end{document}
 
 %%% Local Variables:

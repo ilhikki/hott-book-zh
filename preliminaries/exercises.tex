@@ -1,0 +1,104 @@
+\sectionExercises
+
+\begin{ex}\label{ex:composition}
+Given functions $f:A\to B$ and $g:B\to C$, define their \define{composite}
+\indexdef{composition!of functions}%
+\indexdef{function!composition}%
+$g\circ f:A\to C$.
+\index{associativity!of function composition}%
+Show that we have $h \circ (g\circ f) \jdeq (h\circ g)\circ f$.
+\end{ex}
+
+\begin{ex}\label{ex:pr-to-rec}
+Derive the recursion principle for products $\rec{A\times B} $ using only the projections, and verify that the definitional equalities are valid.
+Do the same for $\Sigma$-types.
+\end{ex}
+
+\begin{ex}\label{ex:pr-to-ind}
+Derive the induction principle for products $\ind{A\times B}$, using only the projections and the propositional uniqueness principle $\uniq{A\times B}$.
+Verify that the definitional equalities are valid.
+Generalize $\uniq{A\times B}$ to $\Sigma$-types, and do the same for $\Sigma$-types.
+\emph{(This requires concepts from \cref{cha:basics}.)}
+\end{ex}
+
+\begin{ex}\label{ex:iterator}
+\index{iterator!for natural numbers}
+Assuming as given only the \emph{iterator} for natural numbers
+\[\ite : \prd{C:\UU} C \to (C \to C) \to \nat \to C \]
+with the defining equations
+\begin{align*}
+    \ite(C,c_0,c_s,0)  &\defeq c_0, \\
+    \ite(C,c_0,c_s,\suc(n)) &\defeq c_s(\ite(C,c_0,c_s,n)),
+\end{align*}
+derive a function having the type of the recursor $\rec{\nat}$.
+Show that the defining equations of the recursor hold propositionally for this function, using the induction principle for $\nat$.
+\end{ex}
+
+\begin{ex}\label{ex:sum-via-bool}
+\index{type!coproduct}%
+Show that if we define $A + B \defeq \sm{x:\bool} \rec{\bool}(\UU,A,B,x)$, then we can give a definition of $\ind{A+B}$ for which the definitional equalities stated in \cref{sec:coproduct-types} hold.
+\end{ex}
+
+\begin{ex}\label{ex:prod-via-bool}
+\index{type!product}%
+Show that if we define $A \times B \defeq \prd{x:\bool}\rec{\bool}(\UU,A,B,x)$, then we can give a definition of  $\ind{A\times B}$ for which the definitional equalities stated in \cref{sec:finite-product-types} hold propositionally (i.e.\ using equality types).
+\emph{(This requires the function extensionality axiom, which is introduced in \cref{sec:compute-pi}.)}
+\end{ex}
+
+\begin{ex}\label{ex:pm-to-ml}
+Give an alternative derivation of $\indidb{A}$ from $\indid{A}$ which avoids the use of universes.
+\emph{(This is easiest using concepts from later chapters.)}
+\end{ex}
+
+\begin{ex}\label{ex:nat-semiring}
+\index{multiplication!of natural numbers}%
+Define multiplication and exponentiation using $\rec{\nat}$.
+Verify that $(\nat,+,0,\times,1)$ is a semiring\index{semiring} using only $\ind{\nat}$.
+You will probably also need to use symmetry and transitivity of equality, \cref{lem:opp,lem:concat}.
+\end{ex}
+
+\begin{ex}\label{ex:fin}
+\index{finite!sets, family of}%
+Define the type family $\Fin : \nat \to \UU$ mentioned at the end of \cref{sec:universes}, and the dependent function $\fmax : \prd{n:\nat} \Fin(n+1)$ mentioned in \cref{sec:pi-types}.
+\end{ex}
+
+\begin{ex}\label{ex:ackermann}
+\indexdef{function!Ackermann}%
+\indexdef{Ackermann function}%
+Show that the Ackermann function $\ack : \nat \to \nat \to \nat$ is definable using only $\rec{\nat}$ satisfying the following equations:
+\begin{align*}
+    \ack(0,n) &\jdeq \suc(n), \\
+    \ack(\suc(m),0) &\jdeq \ack(m,1), \\
+    \ack(\suc(m),\suc(n)) &\jdeq \ack(m,\ack(\suc(m),n)).
+\end{align*}
+\end{ex}
+
+\begin{ex}\label{ex:neg-ldn}
+Show that for any type $A$, we have $\neg\neg\neg A \to \neg A$.
+\end{ex}
+
+\begin{ex}\label{ex:tautologies}
+Using the propositions as types interpretation, derive the following tautologies.
+\begin{enumerate}
+    \item If $A$, then (if $B$ then $A$).
+    \item If $A$, then not (not $A$).
+    \item If (not $A$ or not $B$), then not ($A$ and $B$).
+\end{enumerate}
+\end{ex}
+
+\begin{ex}\label{ex:not-not-lem}
+Using propositions-as-types, derive the double negation of the principle of excluded middle, i.e.\ prove \emph{not (not ($P$ or not $P$))}.
+\end{ex}
+
+\begin{ex}\label{ex:without-K}
+Why do the induction principles for identity types not allow us to construct a function $f: \prd{x:A}{p:\id{x}{x}} (\id{p}{\refl{x}})$ with the defining equation
+\[ f(x,\refl{x}) \defeq \refl{\refl{x}} \quad ?\]
+\end{ex}
+
+\begin{ex}\label{ex:subtFromPathInd}
+Show that indiscernibility of identicals follows from path induction.
+\end{ex}
+
+\begin{ex}\label{ex:add-nat-commutative}
+Show that addition of natural numbers is commutative: $\prd{i,j:\nat} (i+j=j+i)$.
+\end{ex}

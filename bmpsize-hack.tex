@@ -2,7 +2,8 @@
 \RequirePackage{ifpdf}
 \makeatletter
 % Fix \includegraphics for dvi mode, but only if not making a pdf
-\ifpdf
+% xelatex not supports ifpdf
+\iftrue
   \expandafter\@gobble
 \else
   \expandafter\@firstofone

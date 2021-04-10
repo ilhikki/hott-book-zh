@@ -1,5 +1,6 @@
 .svn
 .idea
+*.xdv
 *.pyc
 *.aux
 *.aux.bak

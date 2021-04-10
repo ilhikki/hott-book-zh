@@ -1,0 +1,45 @@
+\index{类型!依赖函数|(defstyle}%
+\index{函数!依赖|(defstyle}%
+\indexsee{依赖!函数}{函数, 依赖}%
+\indexsee{类型!Pi-@$\Pi$-}{类型, 依赖函数}%
+\indexsee{Pi-type@$\Pi$-type}{类型, 依赖函数}%
+在类型论中, 我们经常使用一种更通用的函数, 它被称为\define{$\Pi$-type}或者\define{依赖函数类型}. $\Pi$-type 的元素是一个函数, 它被称为\define{依赖函数}, 它的达到域的类型可以根据定义域所接受的元素而变化. 之所以使用 ``$\Pi$-type'' 这个名字, 是因为这个类型也可以被视为给定类型的笛卡尔积. 
+
+给定一个类型 $A:\UU$ 和一个族 $B:A \to \UU$, 我们可以构造这个依赖函数的类型 $\prd{x:A}B(x) : \UU$. 这里有一些其它的符号来表达这个类型, 比如 \[ \tprd{x:A} B(x) \qquad \dprd{x:A}B(x) \qquad \lprd{x:A} B(x). \]
+如果 $B$ 是一个常量族, 那么这个依赖乘积类型是普通的函数类型: \[\tprd{x:A} B \jdeq (A \to B).\]
+实际上, 所有 $\Pi$-types 的构造是普通函数类型的构造的扩展. 
+
+\indexdef{定义!对于函数,直接的}%
+我们可以通过显式的定义来引入依赖函数: $\prd{x:A}B(x)$, 这里的 $f$ 是我需要定义的依赖函数, 我们需要表达式$\Phi : B(x)$ 这个表达式可以包含变量 $x:A$, \index{变量}%
+然后写为 \[ f(x) \defeq \Phi \qquad \mbox{for $x:A$}.\]
+或者, 我们可以使用 \define{$\lambda$-abstraction} \index{lambda abstraction@$\lambda$-abstraction|defstyle}%%
+\begin{equation}
+\label{eq:lambda-abstraction}
+\lamu{x:A} \Phi \ :\ \prd{x:A} B(x).
+\end{equation}
+\indexdef{应用!之于函数类型}%
+\indexdef{函数!依赖!应用}%
+与非依赖函数中一样, 我们可以\define{应用}一个依赖函数 $f : \prd{x:A}B(x)$ 到参数 $a:A$ 来获得元素 $f(a):B(a)$. 等同性也和普通的函数一样, 例如我们有计算规则\index{计算规则!对于依赖函数类型}%
+给定 $a:A$ 我们有 $f(a) \jdeq \Phi'$ 和 $(\lamu{x:A} \Phi)(a) \jdeq \Phi'$, 这里的 $\Phi' $ 是通过替换 $\Phi$ 中所有 $x$ 为 $a$ 的结果(和往常一样避免变量捕获). 类似的, 对于任何 $f:\prd{x:A} B(x)$ 我们有唯一性原理 $f\jdeq (\lam{x} f(x))$ . \index{唯一性!原理!对于依赖函数类型}%
+
+举个例子, 回想 \cref{sec:universes}, 有一个类型族 $\Fin:\nat\to\UU$ , 它的值是标准有限集, 它的元素是 $0_n,1_n,\dots,(n-1)_n : \Fin(n)$. 然后有一个依赖函数 $\fmax : \prd{n:\nat} \Fin(n+1)$ 它返回每个非空有限集的``最大的''元素, $\fmax(n) \defeq n_{n+1}$. \index{有限!集合, 族的}%
+和 $\Fin$ 本身一样, 我们还不能定义 $\fmax$, 但是我们马上就可以了; 参见 \cref{ex:fin}. 
+
+现在我们可以定义依赖函数类型的另一个重要的方面是, 给定的域的\define{多态性}.\indexdef{函数!多态性}%
+\indexdef{多态函数}%
+ 多态函数是一个这样的函数, 它根据其中一个参数得到一个类型, 然后把这个类型作用于它的元素(或者其它类型可以通过这个类型来构造). \symlabel{idfunc}%
+\indexdef{函数!态恒}%
+\indexdef{态恒!函数}%
+举个例子, 多态恒等函数 $\idfunc : \prd{A:\UU} A \to A$, 我们通过 $\idfunc{} \defeq \lam{A:\type}{x:A} x$ 来定义它. (类似于 $\lambda$-抽象, 如果不显界定, $\Pi$ 的自然的作用域\index{作用域}包括了表达式的剩余部分; 因此 $\idfunc : \prd{A:\UU} A \to A$ 意味着 $\idfunc : \prd{A:\UU} (A \to A)$. 这个在数学上是特殊的习惯, 在类型论中却是常见的.)
+
+我们有时把一些依赖函数的参数用下标表示. 例如, 我们可以通过 $\idfunc[A](x) \defeq x$ 来等效定义多态恒等函数. 此外, 如果一个参数可以从上下文中推断, 我们可以完全忽略它. 例如, 如果 $a:A$, 那么 $\idfunc(a)$ 这样的写法是明确的, 因为 $\idfunc$ 必须表示为 $\idfunc[A]$ 才能适用于 $a$. 
+
+另外一个不那么简单的例子是多态函数``交换''运算, 它交换一个(柯里化后的)函数的参数的顺序：\[ \mathsf{swap} : \prd{A:\UU}{B:\UU}{C:\UU} (A\to B\to C) \to (B\to A \to C). \]
+我们可以这样定义它 \[ \mathsf{swap}(A,B,C,g) \defeq \lam{b}{a} g(a)(b). \]
+我们也可以等效把参数的类型写为下标： \[ \mathsf{swap}_{A,B,C}(g)(b,a) \defeq g(a,b). \]
+
+注意我们为普通函数所做的那样, 我们使用柯里化来定义有一些参数的依赖函数 (比如说 $\mathsf{swap}$). 然而, 在有依赖的情况下, 定义域的第二个类型可能会依赖于第一个第一个元素, 而到达域可能会依赖所有的. 也就是, 给定 $A:\UU$ 和类型族 $B : A \to \UU$ 和 $C : \prd{x:A}B(x) \to \UU$, 我们可以构造出两个参数的函数 $\prd{x:A}{y : B(x)} C(x,y)$. 当 $B$ 是静态的而且和 $A$ 相同的情况下, 我们可以合并符号然后写为 $\prd{x,y:A}$; 例如, $\mathsf{swap}$ 的类型也可以写为 \[ \mathsf{swap} : \prd{A,B,C:\UU} (A\to B\to C) \to (B\to A \to C). \]
+最后, 给定 $f:\prd{x:A}{y : B(x)} C(x,y)$ 和参数 $a:A$ 和 $b:B(a)$, 我们有 $f(a)(b) : C(a,b)$, 也就是之前的 $f(a,b) : C(a,b)$. 
+
+\index{类型!依赖函数|)}%
+\index{函数!依赖|)}%

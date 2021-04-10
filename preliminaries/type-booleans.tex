@@ -1,0 +1,59 @@
+\indexsee{布尔!类型}{布尔类型}%
+\index{类型!布尔|(defstyle}%
+布尔类型 $\bool:\UU$ 有两个居留元素  $\bfalse,\btrue : \bool$. 显然我们可以用余积\index{类型!陪积}和单元\index{类型!单元}类型$\unit + \unit$来构造这个类型. % this one results in a warning message just because it's on the same page as the previous entry 
+
+% for {type!coproduct}, so it's not our fault
+%
+ 不过, 因为它被频繁的使用, 我们在这里给出显示的规则. 的确, 我们观察到, 我们可以用另一种方式, 从 $\Sigma$-types 和 $\bool$ 派生出二元余积. 
+
+\index{递归原理!布尔类型的}
+为了派生函数 $f : \bool \to C$ 我们需要 $c_0,c_1 : C$ 并且添加定义等同 \begin{align*}
+f(\bfalse) &\defeq c_0, \\
+f(\btrue) &\defeq c_1.
+\end{align*}
+递归子相当于很函数式编程中的 if-then-else 结构: \symlabel{defn:recursor-bool}%
+\[ \rec{\bool} : \prd{C:\UU} C \to C \to \bool \to C \]
+和定义等式 \begin{align*}
+\rec{\bool}(C,c_0,c_1,\bfalse) &\defeq c_0, \\
+\rec{\bool}(C,c_0,c_1,\btrue) &\defeq c_1.
+\end{align*}
+
+\index{归纳原理!布尔类型的}
+给定 $C : \bool \to \UU$, 为了派生一个依赖函数  $f : \prd{x:\bool}C(x)$,  我们需要 $c_0:C(\bfalse)$ 和 $c_1 : C(\btrue)$, 在这中情况下我们可以定义等式 \begin{align*}
+f(\bfalse) &\defeq c_0, \\
+f(\btrue) &\defeq c_1.
+\end{align*}
+我们把上面的内容包装成归纳原理 \symlabel{defn:induction-bool}%
+\[ \ind{\bool} : \dprd{C:\bool \to \UU} C(\bfalse) \to C(\btrue)
+\to \tprd{x:\bool} C(x) \]
+和定义等式 \begin{align*}
+\ind{\bool}(C,c_0,c_1,\bfalse) &\defeq c_0, \\
+\ind{\bool}(C,c_0,c_1,\btrue) &\defeq c_1.
+\end{align*}
+
+举个例子, 使用归纳原理我们可以演绎,  所有 $\bool$ 的元素必须是 $\btrue$ 或者 $\bfalse$. 和以前一样, 为了陈述它我们需要使用还没有引入的等同类型, 不过我们只需要使用所有东西等于它自己这个事实, 即 $\refl{x}:x=x$ . 因此, 构造一个元素, 它的类型是 \begin{equation}\label{thm:allbool-trueorfalse}
+\prd{x:\bool}(x=\bfalse)+(x=\btrue),
+\end{equation}
+例如一个函数接收参数 $x:\bool$ 返回 $x=\bfalse$ 或 $x=\btrue$. 我们可以使用 \bool 的归纳原理, 其中 $C(x) \defeq (x=\bfalse)+(x=\btrue)$; 两个输入为 $\inl(\refl{\bfalse}) : C(\bfalse)$ 和 $\inr(\refl{\btrue}):C(\btrue)$. 换句话说, \eqref{thm:allbool-trueorfalse} 元素是 \[ \ind{\bool}\big(\lam{x}(x=\bfalse)+(x=\btrue),\, \inl(\refl{\bfalse}),\, \inr(\refl{\btrue})\big). \]
+
+我们还记得 $\Sigma$-types 可以被当作不交和,  而余积可以被视为二元的不交并. 我们自然期望二元不交并 $A+B$ 以只有两个元素的类型 \bool 来构造. 为此需们需要一个类型族 $P:\bool\to\type$ 就像 $P(\bfalse)\jdeq A$ and $P(\btrue)\jdeq B$. 的确, 我们可以从 $\bool$ 的递归原理严格得出这个类型族. \index{类型!族}%
+(在通过归纳和递归定义\emph{类型族}的方法里, 使用了宇宙类型 $\UU$ 是它自己的类型这个事实, 这是类型论的一个微妙而重要表现.) 因此, 我们有定义 \index{类型!陪积}%
+\[ A + B \defeq \sm{x:\bool} \rec{\bool}(\UU,A,B,x) \]
+其中 \begin{align*}
+\inl(a) &\defeq \tup{\bfalse}{a}, \\
+\inr(b) &\defeq \tup{\btrue}{b}.
+\end{align*}
+我们把它留做习题: 从这个定义, 派生陪积类型的归纳原理. (参见 \cref{ex:sum-via-bool,sec:appetizer-univalence}.) 
+
+我们可以应用同样的主意到乘积和 $\Pi$-types: 我们可以有定义 \[ A \times B \defeq \prd{x:\bool}\rec{\bool}(\UU,A,B,x). \]
+可以用归纳来构造对子 \bool: \[ \tup{a}{b} \defeq \ind{\bool}(\rec{\bool}(\UU,A,B),a,b) \]
+投影是一个可以直接应用的函数 \begin{align*}
+\fst(p) &\defeq p(\bfalse), \\
+\snd(p) &\defeq p(\btrue).
+\end{align*}
+用这种方式从二元乘积的归纳原理派生的定义稍微有一点复杂, 而且需要函数的外延性, 我们会在 \cref{sec:compute-pi} 引入它. 此外, 我们也在不再和以往一样, 在这里给出定义等同; 参见 \cref{ex:prod-via-bool}. 当一个类型编码成另一个类型时, 会出现这个循环问题; 我们会在 \cref{sec:htpy-inductive} 返回它.  
+
+我们有时会把$\bool$ 的元素 $\bfalse$ 和 $\btrue$  分别称为 ``false'' 和 ``true''. 不过, 注意和经典的\index{数学!经典的}数学不一样, 我们不适用 $\bool$ 的元素当作真值\index{值!真}%
+或者命题. (作为替代我们让命题等同于类型; 参见 \cref{sec:pat}.) 特别的, 类型 $A \to \bool$ 不是 $A$ 的幂集\index{幂集}; 只代表$A$ 的子集的``可判定性'' (参见 \cref{cha:logic}). \index{可判定性!子集}%
+
+\index{类型!布尔类型的|)}%

@@ -1,84 +1,57 @@
-Given $A,B:\UU$, we introduce their \define{coproduct} type $A+B:\UU$.
-\indexsee{coproduct}{type, coproduct}%
-\index{type!coproduct|(defstyle}%
-\indexsee{disjoint!sum}{type, coproduct}%
-\indexsee{disjoint!union}{type, coproduct}%
-\indexsee{sum!disjoint}{type, coproduct}%
-\indexsee{union!disjoint}{type, coproduct}%
-This corresponds to the \emph{disjoint union} in set theory, and we may also use that name for it.
-In type theory, as was the case with functions and products, the coproduct must be a fundamental construction, since there is no previously given notion of ``union of types''.
-We also introduce a
-nullary version: the \define{empty type $\emptyt:\UU$}.
-\indexsee{nullary!coproduct}{type, empty}%
-\indexsee{empty type}{type, empty}%
-\index{type!empty|(defstyle}%
+给定 $A,B:\UU$, 我们引入\define{陪积}类型 $A+B:\UU$. \indexsee{陪积}{类型, 陪积}%
+\index{类型!陪积|(defstyle}%
+\indexsee{不交!和}{类型, 陪积}%
+\indexsee{不交!并}{类型, 陪积}%
+\indexsee{并!不交}{类型, 陪积}%
+\indexsee{并!不交}{类型, 陪积}%
+它相当于集合论中的\emph{不交并}, 有时我们会使用这个名字. 和函数与乘积一样, 余积必须是类型论中的基础结构, 因为之前没有给出 ``类型的并'' 的概念. 我们同样也引入零元的情况: \define{空类型 $\emptyt:\UU$}. \indexsee{无效!陪积}{类型, 空}%
+\indexsee{空类型}{类型, 空}%
+\index{类型!空|(defstyle}%
 
-There are two ways to construct elements of $A+B$, either as $\inl(a) : A+B$ for $a:A$, or as
-$\inr(b):A+B$ for $b:B$.
-(The names $\inl$ and $\inr$ are short for ``left injection'' and ``right injection''.)
-There are no ways to construct elements of the empty type. 
+有两种方法来构造 $A+B$ 的元素, 一种是 $\inl(a) : A+B$ 其中 $a:A$, 另一种是 $\inr(b):A+B$ 其中 $b:B$. ($\inl$ 和 $\inr$ 是``left injection'' 和 ``right injection'' 的简写.) 空类型无法构造元素.  
 
-\index{recursion principle!for coproduct}
-To construct a non-dependent function $f : A+B \to C$, we need 
-functions $g_0 : A \to C$ and $g_1 : B \to C$. Then $f$ is defined
-via the defining equations
-\begin{align*}
-  f(\inl(a)) &\defeq g_0(a), \\
-  f(\inr(b)) &\defeq g_1(b).
+\index{递归原理!陪积的}
+为了构造非依赖函数 $f : A+B \to C$, 我们需要函数 $g_0 : A \to C$ 和 $g_1 : B \to C$. 那么 $f$ 可以被定义为 \begin{align*}
+f(\inl(a)) &\defeq g_0(a), \\
+f(\inr(b)) &\defeq g_1(b).
 \end{align*}
-That is, the function $f$ is defined by \define{case analysis}.
-\indexdef{case analysis}%
-As before, we can derive the recursor:
-\symlabel{defn:recursor-plus}%
+即, 函数 $f$ 是通过\define{分类分析}定义的. \indexdef{分类分析}%
+和以前一样, 我们可以派生递归子: \symlabel{defn:recursor-plus}%
 \[ \rec{A+B} : \dprd{C:\UU}(A \to C) \to (B\to C) \to A+B \to C\]
-with the defining equations
-\begin{align*}
+和定义等式 \begin{align*}
 \rec{A+B}(C,g_0,g_1,\inl(a)) &\defeq g_0(a), \\
 \rec{A+B}(C,g_0,g_1,\inr(b)) &\defeq g_1(b).
 \end{align*}
 
-\index{recursion principle!for empty type}
-We can always construct a function $f : \emptyt \to C$ without
-having to give any defining equations, because there are no elements of \emptyt on which to define $f$.
-Thus, the recursor for $\emptyt$ is
-\symlabel{defn:recursor-emptyt}%
+\index{递归原理!空类型的}
+我们总是可以构造一个函数 $f : \emptyt \to C$ 不需要给定任何定义等式, 因为 \emptyt 类型没有任何元素 $f$. 因此, $\emptyt$ 的递归子是 \symlabel{defn:recursor-emptyt}%
 \[\rec{\emptyt} : \tprd{C:\UU} \emptyt \to C,\]
-which constructs the canonical function from the empty type to any other type.
-Logically, it corresponds to the principle \textit{ex falso quodlibet}.
-\index{ex falso quodlibet@\textit{ex falso quodlibet}}
+即从空类型可以构造出其它任何类型. 逻辑上, 它相当于爆炸原理(principle \textit{ex falso quodlibet}). \index{ex falso quodlibet@\textit{ex falso quodlibet}}
 
-\index{induction principle!for coproduct}
-To construct a dependent function $f:\prd{x:A+B}C(x)$ out of a coproduct, we assume as given the family 
-$C: (A + B) \to \UU$, and 
-require 
-\begin{align*}
-  g_0 &: \prd{a:A} C(\inl(a)), \\
-  g_1 &: \prd{b:B} C(\inr(b)).
+\index{归纳原理!陪积的}
+为了构造一个定义域类型为陪积的依赖函数 $f:\prd{x:A+B}C(x)$, 我们假设 给定族  $C: (A + B) \to \UU$, 然后需要  \begin{align*}
+g_0 &: \prd{a:A} C(\inl(a)), \\
+g_1 &: \prd{b:B} C(\inr(b)).
 \end{align*}
-This yields $f$ with the defining equations:\index{computation rule!for coproduct type}
-\begin{align*}
-  f(\inl(a)) &\defeq g_0(a), \\
-  f(\inr(b)) &\defeq g_1(b).
+然后 $f$ 通过这个定义等式:\index{计算规则!陪积类型} \begin{align*}
+f(\inl(a)) &\defeq g_0(a), \\
+f(\inr(b)) &\defeq g_1(b).
 \end{align*}
-We package this scheme into the induction principle for coproducts:
-\symlabel{defn:induction-plus}%
+我们用这个方案包装余积的归纳定理: \symlabel{defn:induction-plus}%
 \begin{narrowmultline*}
-  \ind{A+B} :
-  \dprd{C: (A + B) \to \UU}
-  \Parens{\tprd{a:A} C(\inl(a))} \to \narrowbreak
-  \Parens{\tprd{b:B} C(\inr(b))} \to \tprd{x:A+B}C(x). 
+\ind{A+B} :
+\dprd{C: (A + B) \to \UU}
+\Parens{\tprd{a:A} C(\inl(a))} \to \narrowbreak
+\Parens{\tprd{b:B} C(\inr(b))} \to \tprd{x:A+B}C(x). 
 \end{narrowmultline*}
-As before, the recursor arises in the case that the family $C$ is
-constant. 
+和以前一样, 递归子是族 $C$ 是常量的特殊情况.  
 
-\index{induction principle!for empty type}
-The induction principle for the empty type
-\symlabel{defn:induction-emptyt}%
+\index{归纳原理!空类型的}
+空类型的归纳原理是 \symlabel{defn:induction-emptyt}%
 \[ \ind{\emptyt} : \prd{C:\emptyt \to \UU}{z:\emptyt} C(z) \]
-gives us a way to define a trivial dependent function out of the
-empty type. % In the presence of $\eta$-equality it is derivable
-% from the recursor.
+让我们可以定义一个定义域类型是空类型的依赖函数.  % In the presence of $\eta$-equality it is derivable% from the recursor.
+
 % ex
 
-\index{type!coproduct|)}%
-\index{type!empty|)}%
+\index{类型!陪积|)}%
+\index{类型!空|)}%

@@ -1,0 +1,92 @@
+\indexsee{类型!自然数的}{自然数}%
+\index{自然数|(defstyle}%
+\indexsee{数!自然}{自然数}%
+迄今为止, 我们有通过抽象符号构造新类型的规则, 不过我们也需要一些使用类型来做使用数学, 比如说数的类型. 最基础的类型就是类型自然数的类型 $\nat : \UU$; 只要有自然数我们就可以构造整数, 有理数, 实数, 等等 (参见\cref{cha:real-numbers}). 
+
+$\nat$ 的元素的构造使用, $0 : \nat$\indexdef{零}, 和后继\indexdef{后继}符号 $\suc : \nat \to \nat$. 在写自然数时, 我们接受十进制的符号 $1 \defeq \suc(0)$, $2 \defeq \suc(1)$, $3 \defeq \suc(2)$, \dots. 
+
+自然数的必要性是, 我们可以用递归子定义函数和用归纳来做证明 --- 现在 ``递归'' 和 ``归纳''这两个词有了令人熟悉的含义. \index{递归原理!自然数的}%
+为了通过递归构造一个定义域为自然数的非依赖函数 $f : \nat \to C$, 只要提供一个起点 $c_0 : C$ 和 ``下一步'' 函数 $c_s : \nat \to C \to C$. 这个定义等同让 $f$ 是增加的\index{计算规则!for 自然数} \begin{align*}
+f(0) &\defeq c_0, \\
+f(\suc(n)) &\defeq c_s(n,f(n)).
+\end{align*}
+我们称之为,  $f$ 是通过\define{原始递归}定义的. \indexdef{原始!递归}%
+\indexdef{递归!原始}%
+
+例如, 我们来看如何在自然数上定义函数, 这个函数返回参数的倍数. 其中我们有 $C\defeq \nat$. 我们首先需要提供一个值 $\dbl(0)$, 很简单:即 $c_0 \defeq 0$. 然后, 为了计算一个自然数 $n$ 的 $\dbl(\suc(n))$ 的值 ,我们首先计算 $\dbl(n)$ 的值, 然后使用两次后继操作符. 它又被重复\index{recurrence}被 $c_s(n,y) \defeq \suc(\suc(y))$ 所捕获. 注意 $c_s$ 的第二个参数 $y$ 代表\emph{递归调用}\index{递归调用} $\dbl(n)$ 的结果. 
+
+通过这个原始递归来定义 $\dbl:\nat\to\nat$, 我们得到这个定义等式: \begin{align*}
+\dbl(0) &\defeq 0\\
+\dbl(\suc(n)) &\defeq \suc(\suc(\dbl(n))).
+\end{align*}
+这的确有精确的可计算行为: 例如, 我们有  \begin{align*}
+\dbl(2) &\jdeq \dbl(\suc(\suc(0)))\\
+&\jdeq c_s(\suc(0), \dbl(\suc(0))) \\
+&\jdeq \suc(\suc(\dbl(\suc(0)))) \\
+&\jdeq \suc(\suc(c_s(0,\dbl(0)))) \\
+&\jdeq \suc(\suc(\suc(\suc(\dbl(0))))) \\
+&\jdeq \suc(\suc(\suc(\suc(c_0)))) \\
+&\jdeq \suc(\suc(\suc(\suc(0))))\\
+&\jdeq 4.
+\end{align*}
+我们也可以通过原始递归定义多元函数, 通过柯里化并且允许 $C$ 是一个函数类型. \indexdef{加法!自然数的}
+例如, 我们定义加法 $\add : \nat \to \nat \to \nat$ 其中 $C \defeq \nat \to \nat$ 和 ``起点'' 与 ``下一步'' 数据为: \begin{align*}
+c_0 &: \nat \to \nat \\
+c_0 (n) &\defeq n \\
+c_s &: \nat \to (\nat \to \nat) \to (\nat \to \nat) \\
+c_s(m,g)(n) &\defeq \suc(g(n)).
+\end{align*}
+因此我们得到 $\add : \nat \to \nat \to \nat$ 这个令人满意的定义等同 \begin{align*}
+\add(0,n) &\jdeq n \\
+\add(\suc(m),n) &\jdeq \suc(\add(m,n)). 
+\end{align*}
+和以前一样, 我们把 $m+n$ 写作 $\add(m,n)$. 我们邀请读者来校验 $2+2\jdeq 4$. % ex: define multiplication and exponentiation.
+
+
+和以前一样, 我们可以用递归递归子包装这个原理: \[\rec{\nat} : \dprd{C:\UU} C \to (\nat \to C \to C) \to \nat \to C \]
+和定义等同 \symlabel{defn:recursor-nat}%
+\begin{align*}
+\rec{\nat}(C,c_0,c_s,0) &\defeq c_0, \\
+\rec{\nat}(C,c_0,c_s,\suc(n)) &\defeq c_s(n,\rec{\nat}(C,c_0,c_s,n)).
+\end{align*}
+%ex derive rec from it
+使用 $\rec{\nat}$ 我们可以表示 $\dbl$ 和 $\add$ 如下: \begin{align}
+\dbl &\defeq \rec\nat\big(\nat,\, 0,\, \lamu{n:\nat}{y:\nat} \suc(\suc(y))\big) \label{eq:dbl-as-rec}\\
+\add &\defeq \rec{\nat}\big(\nat \to \nat,\, \lamu{n:\nat} n,\, \lamu{n:\nat}{g:\nat \to \nat}{m :\nat} \suc(g(m))\big).
+\end{align}
+当然, 所有只用原始递归原理就可以定义的函数都是\emph{可计算的}. (高阶函数类型的出现 --- 即, 其它函数作为参数的函数 --- 意味我们可以定义比原始递归能力更多的东西; 参见例如~\cref{ex:ackermann}.) 这是合适的构造性的数学; \index{数学!构造性的}%
+在 \cref{sec:intuitionism,sec:axiom-choice} 我们将看见如何扩展类型论以至于我们可以定义普通的数学函数. 
+
+\index{归纳原理!自然数的}
+现在我们把同样的方法作为其它类型, 一般化原始递归为依赖函数得到一个\emph{归纳原理}. 因此, 假设给定一个族 $C : \nat \to \UU$, 一个元素 $c_0 : C(0)$, 和一个函数 $c_s : \prd{n:\nat} C(n) \to C(\suc(n))$; 我们就可以构造 $f : \prd{n:\nat} C(n)$ 和定义等同:\index{计算规则!for 自然数} \begin{align*}
+f(0) &\defeq c_0, \\
+f(\suc(n)) &\defeq c_s(n,f(n)).
+\end{align*}
+我们也可以把它包装到单例函数中 \symlabel{defn:induction-nat}%
+\[\ind{\nat} : \dprd{C:\nat\to \UU} C(0) \to \Parens{\tprd{n : \nat} C(n) \to C(\suc(n))} \to \tprd{n : \nat} C(n) \]
+和定义等式 \begin{align*}
+\ind{\nat}(C,c_0,c_s,0) &\defeq c_0, \\
+\ind{\nat}(C,c_0,c_s,\suc(n)) &\defeq c_s(n,\ind{\nat}(C,c_0,c_s,n)).
+\end{align*}
+在这里, 我们最终看到, 通过归纳进行证明的经典概念的联系. 回顾在类型论中, 我们用类型表示命题, 而且通过提供对应类型的居留元来证明命题. 特别的, 一个自然数的\emph{性质} 是通过类型族 $P:\nat\to\type$ 来表现的. 从这点来看, 上面的归纳原理认为, 如果我们可以证明 $P(0)$, 而且所有的 $n$ 我们可以证明若 $P(n)$ 则 $P(\suc(n))$, 那么我们有$P(n)$ 对于所有 $n$. 也就是说, 这就是自然数的归纳证明法. 
+
+\index{结合律!加法的!自然数的}
+举个例子, 我们如何证明 $+$ 的结合率. (我们实际上不会以这种方法写出证明, 不过它是一个好的例子, 对于方便理解在类型论中的归纳的表现形式.) 为了派生 \[\assoc : \prd{i,j,k:\nat} \id{i + (j + k)}{(i + j) + k}, \]
+足以提供 \[ \assoc_0 : \prd{j,k:\nat} \id{0 + (j + k)}{(0+ j) + k} \]
+和 \begin{narrowmultline*}
+\assoc_s : \prd{i:\nat} \left(\prd{j,k:\nat} \id{i + (j + k)}{(i + j) + k}\right)
+\narrowbreak
+\to \prd{j,k:\nat} \id{\suc(i) + (j + k)}{(\suc(i) + j) + k}.
+\end{narrowmultline*}
+为了派生 $\assoc_0$, 回顾 $0+n \jdeq n$, 和 $0 + (j + k) \jdeq j+k \jdeq (0+ j) + k$. 我们只需要令 \[ \assoc_0(j,k) \defeq \refl{j+k}. \]
+对于 $\assoc_s$, 回顾 $+$ 的定义, 给定 $\suc(m)+n \jdeq \suc(m+n)$, 因此  \begin{align*}
+\suc(i) + (j + k) &\jdeq \suc(i+(j+k)) \qquad\text{和}\\
+(\suc(i)+j)+k &\jdeq \suc((i+j)+k).
+\end{align*}
+因此, 返回的 $\assoc_s$ 的类型等价于 $\id{\suc(i+(j+k))}{\suc((i+j)+k)}$. 但是它的输入(``归纳猜想'') \index{猜想!归纳}%
+\index{归纳!猜想}%
+是 $\id{i+(j+k)}{(i+j)+k}$, 所以这里只需调用相同的自然数的后继也相同这个事实. (我们会在 \cref{lem:map} 证明这个明显的事实, 通过使用等同类型的归纳原理.) 我们调用这个后来的事实 $\apfunc{\suc} :  (\id[\nat]{m}{n}) \to (\id[\nat]{\suc(m)}{\suc(n)})$, 所以我们可以定义 \[\assoc_s(i,h,j,k) \defeq \apfunc{\suc}( %\prd{m,n:\nat}%n+(j+k),(n+j)+k,
+h(j,k)). \]
+把它们一起作为参数调用 $\ind{\nat}$, 我们的得到结合律的一个证明. 
+
+\index{自然数|)}%
