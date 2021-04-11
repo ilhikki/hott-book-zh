@@ -1,0 +1,134 @@
+\index{type!dependent function|(}%
+\index{type!function|(}%
+\index{homotopy|(}%
+Given a type $A$ and a type family $B : A \to \type$, consider the dependent function type $\prd{x:A}B(x)$.
+We expect the type $f=g$ of paths from $f$ to $g$ in $\prd{x:A} B(x)$ to be equivalent to
+the type of pointwise paths:\index{pointwise!equality of functions}
+\begin{equation}
+  \eqvspaced{(\id{f}{g})}{\Parens{\prd{x:A} (\id[B(x)]{f(x)}{g(x)})}}.\label{eq:path-forall}
+\end{equation}
+From a traditional perspective, this would say that two functions which are equal at each point are equal as functions.
+\index{continuity of functions in type theory@``continuity'' of functions in type theory}%
+From a topological perspective, it would say that a path in a function space is the same as a continuous homotopy.
+\index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
+And from a categorical perspective, it would say that an isomorphism in a functor category is a natural family of isomorphisms.
+
+Unlike the case in the previous sections, however, the basic type theory presented in \cref{cha:typetheory} is insufficient to prove~\eqref{eq:path-forall}.
+All we can say is that there is a certain function
+\begin{equation}\label{eq:happly}
+  \happly : (\id{f}{g}) \to \prd{x:A} (\id[B(x)]{f(x)}{g(x)})
+\end{equation}
+which is easily defined by path induction.
+For the moment, therefore, we will assume:
+
+\begin{axiom}[Function extensionality]\label{axiom:funext}
+  \indexsee{axiom!function extensionality}{function extensionality}%
+  \indexdef{function extensionality}%
+  For any $A$, $B$, $f$, and $g$, the function~\eqref{eq:happly} is an equivalence.
+\end{axiom}
+
+We will see in later chapters that this axiom follows both from univalence (see \cref{sec:compute-universe,sec:univalence-implies-funext}) and from an interval type (see \cref{sec:interval} and \cref{ex:funext-from-interval}).
+
+In particular, \cref{axiom:funext} implies that~\eqref{eq:happly} has a quasi-inverse
+\[
+\funext : \Parens{\prd{x:A} (\id{f(x)}{g(x)})} \to {(\id{f}{g})}.
+\]
+This function is also referred to as ``function extensionality''.
+As we did with $\pairpath$ in \cref{sec:compute-cartprod}, we can regard $\funext$ as an \emph{introduction rule} for the type $\id f g$.
+From this point of view, $\happly$ is the \emph{elimination rule}, while the homotopies witnessing $\funext$ as quasi-inverse to $\happly$ become a propositional computation rule\index{computation rule!propositional!for identities between functions}
+\[
+\id{\happly({\funext{(h)}},x)}{h(x)} \qquad\text{for }h:\prd{x:A} (\id{f(x)}{g(x)})
+\]
+and a propositional uniqueness principle\index{uniqueness!principle!for identities between functions}:
+\[
+\id{p}{\funext (x \mapsto \happly(p,{x}))} \qquad\text{for } p: \id f g.
+\]
+
+We can also compute the identity, inverses, and composition in $\Pi$-types; they are simply given by pointwise operations:\index{pointwise!operations on functions}.
+\begin{align*}
+\refl{f} &= \funext(x \mapsto \refl{f(x)}) \\
+\opp{\alpha} &= \funext (x \mapsto \opp{\happly (\alpha,x)})  \\
+{\alpha} \ct \beta &= \funext (x \mapsto {\happly({\alpha},x) \ct \happly({\beta},x)}).
+\end{align*}
+The first of these equalities follows from the definition of $\happly$, while the second and third are easy path inductions.
+
+Since the non-dependent function type $A\to B$ is a special case of the dependent function type $\prd{x:A} B(x)$ when $B$ is independent of $x$, everything we have said above applies in non-dependent cases as well.
+\index{transport!in function types}%
+The rules for transport, however, are somewhat simpler in the non-dependent case.
+Given a type $X$, a path $p:\id[X]{x_1}{x_2}$, type families $A,B:X\to \type$, and a function $f : A(x_1) \to B(x_1)$,  we have
+\begin{align}\label{eq:transport-arrow}
+  \transfib{A\to B}{p}{f} &=
+  \Big(x \mapsto \transfib{B}{p}{f(\transfib{A}{\opp p}{x})}\Big)
+\end{align}
+where $A\to B$ denotes abusively the type family $X\to \type$ defined by
+\[(A\to B)(x) \defeq (A(x)\to B(x)).\]
+In other words, when we transport a function $f:A(x_1)\to B(x_1)$ along a path $p:x_1=x_2$, we obtain the function $A(x_2)\to B(x_2)$ which transports its argument backwards along $p$ (in the type family $A$), applies $f$, and then transports the result forwards along $p$ (in the type family $B$).
+This can be proven easily by path induction.
+
+\index{transport!in dependent function types}%
+Transporting dependent functions is similar, but more complicated.
+Suppose given $X$ and $p$ as before, type families $A:X\to \type$ and $B:\prd{x:X} (A(x)\to\type)$, and also a dependent function $f : \prd{a:A(x_1)} B(x_1,a)$.
+Then for $a:A(x_2)$, we have
+\begin{narrowmultline*}
+  \transfib{\Pi_A(B)}{p}{f}(a) = \narrowbreak
+  \Transfib{\widehat{B}}{\opp{(\pairpath(\opp{p},\refl{ \trans{\opp p}{a} }))}}{f(\transfib{A}{\opp p}{a})}
+\end{narrowmultline*}
+where $\Pi_A(B)$ and $\widehat{B}$ denote respectively the type families
+\begin{equation}\label{eq:transport-arrow-families}
+\begin{array}{rclcl}
+\Pi_A(B) &\defeq& \big(x\mapsto \prd{a:A(x)} B(x,a) \big) &:& X\to \type\\
+\widehat{B} &\defeq& \big(w \mapsto B(\proj1w,\proj2w) \big) &:& \big(\sm{x:X} A(x)\big) \to \type.
+\end{array}
+\end{equation}
+If these formulas look a bit intimidating, don't worry about the details.
+The basic idea is just the same as for the non-dependent function type: we transport the argument backwards, apply the function, and then transport the result forwards again.
+
+Now recall that for a general type family $P:X\to\type$, in \cref{sec:functors} we defined the type of \emph{dependent paths} over $p:\id[X]xy$ from $u:P(x)$ to $v:P(y)$ to be $\id[P(y)]{\trans{p}{u}}{v}$.
+When $P$ is a family of function types, there is an equivalent way to represent this which is often more convenient.
+\index{path!dependent!in function types}
+
+\begin{lem}\label{thm:dpath-arrow}
+  Given type families $A,B:X\to\type$ and $p:\id[X]xy$, and also $f:A(x)\to B(x)$ and $g:A(y)\to B(y)$, we have an equivalence
+  \[ \eqvspaced{ \big(\trans{p}{f} = {g}\big) } { \prd{a:A(x)}  (\trans{p}{f(a)} = g(\trans{p}{a})) }. \]
+  Moreover, if $q:\trans{p}{f} = {g}$ corresponds under this equivalence to $\widehat q$, then for $a:A(x)$, the path
+  \[ \happly(q,\trans p a) : (\trans p f)(\trans p a) = g(\trans p a)\]
+  is equal to the concatenated path $i\ct j\ct k$, where
+  \begin{itemize}
+  \item $i:(\trans p f)(\trans p a) = \trans p {f (\trans {\opp p}{\trans p a})}$ comes from~\eqref{eq:transport-arrow},
+  \item $j:\trans p {f (\trans {\opp p}{\trans p a})} = \trans p {f(a)}$ comes from \cref{thm:transport-concat,thm:omg}, and
+  \item $k:\trans p {f(a)}= g(\trans p a)$ is $\widehat{q}(a)$.
+  \end{itemize}
+\end{lem}
+\begin{proof}
+  By path induction, we may assume $p$ is reflexivity, in which case the desired equivalence reduces to function extensionality.
+  The second statement then follows by the computation rule for function extensionality.
+\end{proof}
+
+In general, it happens quite frequently that we want to consider a concatenation of paths each of which arises from some previously proven lemmas or hypothesized objects, and it can be rather tedious to describe this by giving a name to each path in the concatenation as we did in the second statement above.
+Thus, we adopt a convention of writing such concatenations in the familiar mathematical style of ``chains of equalities with reasons'', and allow ourselves to omit reasons that the reader can easily fill in.
+For instance, the path $i\ct j\ct k$ from \cref{thm:dpath-arrow} would be written like this:
+  \begin{align*}
+    (\trans p f)(\trans p a)
+    &= \trans p {f (\trans {\opp p}{\trans p a})}
+    \tag{by~\eqref{eq:transport-arrow}}\\
+    &= \trans p {f(a)}\\
+    &= g(\trans p a).
+    \tag{by $\widehat{q}$}
+  \end{align*}
+In ordinary mathematics, such a chain of equalities would be merely proving that two things are equal.
+We are enhancing this by using it to describe a \emph{particular} path between them.
+
+As usual, there is a version of \cref{thm:dpath-arrow} for dependent functions that is similar, but more complicated.
+\index{path!dependent!in dependent function types}
+
+\begin{lem}\label{thm:dpath-forall}
+  Given type families $A:X\to\type$ and $B:\prd{x:X} A(x)\to\type$ and $p:\id[X]xy$, and also $f:\prd{a:A(x)} B(x,a)$ and $g:\prd{a:A(y)} B(y,a)$, we have an equivalence
+  \[ \eqvspaced{ \big(\trans{p}{f} = {g}\big) } { \Parens{\prd{a:A(x)}  \transfib{\widehat{B}}{\pairpath(p,\refl{\trans pa})}{f(a)} = g(\trans{p}{a}) } } \]
+  with $\widehat{B}$ as in~\eqref{eq:transport-arrow-families}.
+\end{lem}
+
+We leave it to the reader to prove this and to formulate a suitable computation rule.
+
+\index{homotopy|)}%
+\index{type!dependent function|)}%
+\index{type!function|)}%

@@ -1,0 +1,60 @@
+\index{function|(}%
+\index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
+Now we wish to establish that functions $f:A\to B$ behave functorially on paths.
+In traditional type theory, this is equivalently the statement that functions respect equality.
+\index{continuity of functions in type theory@``continuity'' of functions in type theory}%
+Topologically, this corresponds to saying that every function is ``continuous'', i.e.\ preserves paths.
+
+\begin{lem}\label{lem:map}
+  Suppose that $f:A\to B$ is a function.
+  Then for any $x,y:A$ there is an operation
+  \begin{equation*}
+    \apfunc f : (\id[A] x y) \to (\id[B] {f(x)} {f(y)}).
+  \end{equation*}
+  Moreover, for each $x:A$ we have $\apfunc{f}(\refl{x})\jdeq \refl{f(x)}$.
+  \indexdef{application!of function to a path}%
+  \indexdef{path!application of a function to}%
+  \indexdef{function!application to a path of}%
+  \indexdef{action!of a function on a path}%
+\end{lem}
+
+The notation $\apfunc f$ can be read either as the \underline{ap}plication of $f$ to a path, or as the \underline{a}ction on \underline{p}aths of $f$.
+
+\begin{proof}[First proof]
+  Let $D:\prd{x,y:A} (x=y) \to \type$ be the type family defined by
+  \[D(x,y,p)\defeq (f(x)= f(y)).\]
+  Then we have
+  \begin{equation*}
+    d\defeq\lam{x} \refl{f(x)}:\prd{x:A} D(x,x,\refl{x}).
+  \end{equation*}
+  By path induction, we obtain $\apfunc f : \prd{x,y:A} (x=y) \to (f(x)=f(y))$.
+  The computation rule implies $\apfunc f({\refl{x}})\jdeq\refl{f(x)}$ for each $x:A$.
+\end{proof}
+
+\begin{proof}[Second proof]
+  To define $\apfunc{f}(p)$ for all $p:x=y$, it suffices, by induction, to assume
+  $p$ is $\refl{x}$.
+  In this case, we may define $\apfunc f(p) \defeq \refl{f(x)}:f(x)= f(x)$.
+\end{proof}
+
+We will often write $\apfunc f (p)$ as simply $\ap f p$.
+This is strictly speaking ambiguous, but generally no confusion arises.
+It matches the common convention in category theory of using the same symbol for the application of a functor to objects and to morphisms.
+
+We note that $\apfunc{}$ behaves functorially, in all the ways that one might expect.
+
+\begin{lem}\label{lem:ap-functor}
+  For functions $f:A\to B$ and $g:B\to C$ and paths $p:\id[A]xy$ and $q:\id[A]yz$, we have:
+  \begin{enumerate}
+  \item $\apfunc f(p\ct q) = \apfunc f(p) \ct \apfunc f(q)$.\label{item:apfunctor-ct}
+  \item $\apfunc f(\opp p) = \opp{\apfunc f (p)}$.\label{item:apfunctor-opp}
+  \item $\apfunc g (\apfunc f(p)) = \apfunc{g\circ f} (p)$.\label{item:apfunctor-compose}
+  \item $\apfunc {\idfunc[A]} (p) = p$.
+  \end{enumerate}
+\end{lem}
+\begin{proof}
+  Left to the reader.
+\end{proof}
+\index{function|)}%
+
+As was the case for the equalities in \cref{thm:omg}, those in \cref{lem:ap-functor} are themselves paths, which satisfy their own coherence laws (which can be proved in the same way), and so on.

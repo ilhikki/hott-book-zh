@@ -1,0 +1,99 @@
+\index{type!universe|(}%
+\index{equivalence|(}%
+Given two types $A$ and $B$, we may consider them as elements of some universe type \type, and thereby form the identity type $\id[\type]AB$.
+As mentioned in the introduction, \emph{univalence} is the identification of $\id[\type]AB$ with the type $(\eqv AB)$ of equivalences from $A$ to $B$, which we described in \cref{sec:basics-equivalences}.
+We perform this identification by way of the following canonical function.
+
+\begin{lem}\label{thm:idtoeqv}
+  For types $A,B:\type$, there is a certain function,
+  \begin{equation}\label{eq:uidtoeqv}
+    \idtoeqv : (\id[\type]AB) \to (\eqv A B),
+  \end{equation}
+  defined in the proof.
+\end{lem}
+\begin{proof}
+  We could construct this directly by induction on equality, but the following description is more convenient.
+  \index{identity!function}%
+  \index{function!identity}%
+  Note that the identity function $\idfunc[\type]:\type\to\type$ may be regarded as a type family indexed by the universe \type; it assigns to each type $X:\type$ the type $X$ itself.
+  (When regarded as a fibration, its total space is the type $\sm{A:\type}A$ of ``pointed types''; see also \cref{sec:object-classification}.)
+  Thus, given a path $p:A =_\type B$, we have a transport\index{transport} function $\transf{p}:A \to B$.
+  We claim that $\transf{p}$ is an equivalence.
+  But by induction, it suffices to assume that $p$ is $\refl A$, in which case $\transf{p} \jdeq \idfunc[A]$, which is an equivalence by \cref{eg:idequiv}.
+  Thus, we can define $\idtoeqv(p)$ to be $\transf{p}$ (together with the above proof that it is an equivalence).
+\end{proof}
+
+We would like to say that \idtoeqv is an equivalence.
+However, as with $\happly$ for function types, the type theory described in \cref{cha:typetheory} is insufficient to guarantee this.
+Thus, as we did for function extensionality, we formulate this property as an axiom: Voevodsky's \emph{univalence axiom}.
+
+\begin{axiom}[Univalence]\label{axiom:univalence}
+  \indexdef{univalence axiom}%
+  \indexsee{axiom!univalence}{univalence axiom}%
+  For any $A,B:\type$, the function~\eqref{eq:uidtoeqv} is an equivalence.
+\end{axiom}
+
+In particular, therefore, we have
+  \[
+\eqv{(\id[\type]{A}{B})}{(\eqv A B)}.
+\]
+
+Technically, the univalence axiom is a statement about a particular universe type $\UU$.
+If a universe $\UU$ satisfies this axiom, we say that it is \define{univalent}.
+\indexdef{type!universe!univalent}%
+\indexdef{univalent universe}%
+Except when otherwise noted (e.g.\ in \cref{sec:univalence-implies-funext}) we will assume that \emph{all} universes are univalent.
+
+\begin{rmk}
+  It is important for the univalence axiom that we defined $\eqv AB$ using a ``good'' version of $\isequiv$ as described in \cref{sec:basics-equivalences}, rather than (say) as $\sm{f:A\to B} \qinv(f)$.
+  See \cref{ex:qinv-univalence}.
+\end{rmk}
+
+In particular, univalence means that \emph{equivalent types may be identified}.
+As we did in previous sections, it is useful to break this equivalence into:
+%
+\symlabel{ua}
+\begin{itemize}
+\item An introduction rule for {(\id[\type]{A}{B})}, denoted $\ua$ for ``univalence axiom'':
+  \[
+  \ua : ({\eqv A B}) \to (\id[\type]{A}{B}).
+  \]
+\item The elimination rule, which is $\idtoeqv$,
+  \[
+  \idtoeqv \jdeq \transfibf{X \mapsto X} : (\id[\type]{A}{B}) \to (\eqv A B).
+  \]
+\item The propositional computation rule\index{computation rule!propositional!for univalence},
+  \[
+  \transfib{X \mapsto X}{\ua(f)}{x} = f(x).
+  \]
+\item The propositional uniqueness principle: \index{uniqueness!principle, propositional!for univalence}
+  for any $p : \id A B$,
+  \[
+  \id{p}{\ua(\transfibf{X \mapsto X}(p))}.
+  \]
+\end{itemize}
+%
+We can also identify the reflexivity, concatenation, and inverses of equalities in the universe with the corresponding operations on equivalences:
+\begin{align*}
+  \refl{A} &= \ua(\idfunc[A]) \\
+  \ua(f) \ct \ua(g) &= \ua(g\circ f) \\
+  \opp{\ua(f)} &= \ua(f^{-1}).
+\end{align*}
+The first of these follows because $\idfunc[A] = \idtoeqv(\refl{A})$ by definition of \idtoeqv, and \ua is the inverse of \idtoeqv.
+For the second, if we define $p \defeq \ua(f)$ and $q\defeq \ua(g)$, then we have
+\[ \ua(g\circ f) = \ua(\idtoeqv(q) \circ \idtoeqv(p)) = \ua(\idtoeqv(p\ct q)) = p\ct q\]
+using \cref{thm:transport-concat} and the definition of $\idtoeqv$.
+The third is similar.
+
+The following observation, which is a special case of \cref{thm:transport-compose}, is often useful when applying the univalence axiom.
+
+\begin{lem}\label{thm:transport-is-ap}
+  For any type family $B:A\to\type$ and $x,y:A$ with a path $p:x=y$ and $u:B(x)$, we have
+  \begin{align*}
+    \transfib{B}{p}{u} &= \transfib{X\mapsto X}{\apfunc{B}(p)}{u}\\
+    &= \idtoeqv(\apfunc{B}(p))(u).
+  \end{align*}
+\end{lem}
+
+\index{equivalence|)}%
+\index{type!universe|)}%

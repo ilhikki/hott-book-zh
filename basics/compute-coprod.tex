@@ -1,0 +1,135 @@
+\index{type!coproduct|(}%
+\index{encode-decode method|(}%
+So far, most of the type formers we have considered have been what are called \emph{negative}.
+\index{type!negative}\index{negative!type}%
+\index{polarity}%
+Intuitively, this means that their elements are determined by their behavior under the elimination rules: a (dependent) pair is determined by its projections, and a (dependent) function is determined by its values.
+The identity types of negative types can almost always be characterized straightforwardly, along with all of their higher structure, as we have done in \crefrange{sec:compute-cartprod}{sec:compute-pi}.
+The universe is not exactly a negative type, but its identity types behave similarly: we have a straightforward characterization (univalence) and a description of the higher structure.
+Identity types themselves, of course, are a special case.
+
+We now consider our first example of a \emph{positive} type former.
+\index{type!positive}\index{positive!type}%
+Again informally, a positive type is one which is ``presented'' by certain constructors, with the universal property of a presentation\index{presentation!of a positive type by its constructors} being expressed by its elimination rule.
+(Categorically speaking, a positive type has a ``mapping out'' universal property, while a negative type has a ``mapping in'' universal property.)
+Because computing with presentations is, in general, an uncomputable problem, for positive types we cannot always expect a straightforward characterization of the identity type.
+However, in many particular cases, a characterization or partial characterization does exist, and can be obtained by the general method that we introduce with this example.
+
+(Technically, our chosen presentation of cartesian products and $\Sigma$-types is also positive.
+However, because these types also admit a negative presentation which differs only slightly, their identity types have a direct characterization that does not require the method to be described here.)
+
+Consider the coproduct type $A+B$, which is ``presented'' by the injections $\inl:A\to A+B$ and $\inr:B\to A+B$.
+Intuitively, we expect that $A+B$ contains exact copies of $A$ and $B$ disjointly, so that we should have
+\begin{align}
+  {(\inl(a_1)=\inl(a_2))}&\eqvsym {(a_1=a_2)} \label{eq:inlinj}\\
+  {(\inr(b_1)=\inr(b_2))}&\eqvsym {(b_1=b_2)}\\
+  {(\inl(a)= \inr(b))} &\eqvsym {\emptyt}. \label{eq:inlrdj}
+\end{align}
+We prove this as follows.
+Fix an element $a_0:A$; we will characterize the type family
+\begin{equation}
+  (x\mapsto (\inl(a_0)=x)) : A+B \to \type.\label{eq:sumcodefam}
+\end{equation}
+A similar argument would characterize the analogous family $x\mapsto (x = \inr(b_0))$ for any $b_0:B$.
+Together, these characterizations imply~\eqref{eq:inlinj}--\eqref{eq:inlrdj}.
+
+In order to characterize~\eqref{eq:sumcodefam}, we will define a type family $\code:A+B\to\type$ and show that $\prd{x:A+B} (\eqv{(\inl(a_0)=x)}{\code(x)})$.
+Since we want to conclude~\eqref{eq:inlinj} from this, we should have $\code(\inl(a)) = (a_0=a)$, and since we also want to conclude~\eqref{eq:inlrdj}, we should have $\code (\inr(b)) = \emptyt$.
+The essential insight is that we can use the recursion principle of $A+B$ to \emph{define} $\code:A+B\to\type$ by these two equations:
+\begin{align*}
+  \code(\inl(a)) &\defeq (a_0=a),\\
+  \code(\inr(b)) &\defeq \emptyt.
+\end{align*}
+This is a very simple example of a proof technique that is used quite a
+bit when doing homotopy theory in homotopy type theory; see
+e.g.\ \cref{sec:pi1-s1-intro,sec:general-encode-decode}.
+%
+We can now show:
+
+\begin{thm}\label{thm:path-coprod}
+  For all $x:A+B$ we have $\eqv{(\inl(a_0)=x)}{\code(x)}$.
+\end{thm}
+\begin{proof}
+  The key to the following proof is that we do it for all points $x$ together, enabling us to use the elimination principle for the coproduct.
+  We first define a function
+  \[ \encode : \prd{x:A+B}{p:\inl(a_0)=x} \code(x) \]
+  by transporting reflexivity along $p$:
+  \[ \encode(x,p) \defeq \transfib{\code}{p}{\refl{a_0}}. \]
+  Note that $\refl{a_0} : \code(\inl(a_0))$, since $\code(\inl(a_0))\jdeq (a_0=a_0)$ by definition of \code.
+  Next, we define a function
+  \[ \decode : \prd{x:A+B}{c:\code(x)} (\inl(a_0)=x). \]
+  To define $\decode(x,c)$, we may first use the elimination principle of $A+B$ to divide into cases based on whether $x$ is of the form $\inl(a)$ or the form $\inr(b)$.
+
+  In the first case, where $x\jdeq \inl(a)$, then $\code(x)\jdeq (a_0=a)$, so that $c$ is an identification between $a_0$ and $a$.
+  Thus, $\apfunc{\inl}(c):(\inl(a_0)=\inl(a))$ so we can define this to be $\decode(\inl(a),c)$.
+
+  In the second case, where $x\jdeq \inr(b)$, then $\code(x)\jdeq \emptyt$, so that $c$ inhabits the empty type.
+  Thus, the elimination rule of $\emptyt$ yields a value for $\decode(\inr(b),c)$.
+
+  This completes the definition of \decode; we now show that $\encode(x,{\blank})$ and $\decode(x,{\blank})$ are quasi-inverses for all $x$.
+  On the one hand, suppose given $x:A+B$ and $p:\inl(a_0)=x$; we want to show
+  \narrowequation{
+    \decode(x,\encode(x,p)) = p.
+  }
+  But now by (based) path induction, it suffices to consider $x\jdeq\inl(a_0)$ and $p\jdeq \refl{\inl(a_0)}$:
+  \begin{align*}
+    \decode(x,\encode(x,p))
+    &\jdeq \decode(\inl(a_0),\encode(\inl(a_0),\refl{\inl(a_0)}))\\
+    &\jdeq \decode(\inl(a_0),\transfib{\code}{\refl{\inl(a_0)}}{\refl{a_0}})\\
+    &\jdeq \decode(\inl(a_0),\refl{a_0})\\
+    &\jdeq \apfunc{\inl}(\refl{a_0})\\
+    &\jdeq \refl{\inl(a_0)}\\
+    &\jdeq p.
+  \end{align*}
+  On the other hand, let $x:A+B$ and $c:\code(x)$; we want to show $\encode(x,\decode(x,c))=c$.
+  We may again divide into cases based on $x$.
+  If $x\jdeq\inl(a)$, then $c:a_0=a$ and $\decode(x,c)\jdeq \apfunc{\inl}(c)$, so that
+  \begin{align}
+    \encode(x,\decode(x,c))
+    &\jdeq \transfib{\code}{\apfunc{\inl}(c)}{\refl{a_0}}
+    \notag\\
+    &= \transfib{a\mapsto (a_0=a)}{c}{\refl{a_0}}
+    \tag{by \cref{thm:transport-compose}}\\
+    &= \refl{a_0} \ct c
+    \tag{by \cref{cor:transport-path-prepost}}\\
+    &= c. \notag
+  \end{align}
+  Finally, if $x\jdeq \inr(b)$, then $c:\emptyt$, so we may conclude anything we wish.
+\end{proof}
+
+\noindent
+Of course, there is a corresponding theorem if we fix $b_0:B$ instead of $a_0:A$.
+
+In particular, \cref{thm:path-coprod} implies that for any $a : A$ and $b : B$ there are functions
+%
+\[ \encode(\inl(a), {\blank}) : (\inl(a_0)=\inl(a)) \to (a_0=a)\]
+%
+and
+%
+\[ \encode(\inr(b), {\blank}) : (\inl(a_0)=\inr(b)) \to \emptyt. \]
+%
+The second of these states
+``$\inl(a_0)$ is not equal to $\inr(b)$'', i.e.\ the images of \inl and \inr are disjoint. The traditional reading of the first one, where identity types are viewed as propositions, is just injectivity of $\inl$.  The
+full homotopical statement of \cref{thm:path-coprod} gives more information: the types $\inl(a_0)=\inl(a)$ and
+$a_0=a$ are actually equivalent, as are $\inr(b_0)=\inr(b)$ and $b_0=b$.
+
+\begin{rmk}\label{rmk:true-neq-false}
+In particular, since the two-element type $\bool$ is equivalent to $\unit+\unit$, we have $\bfalse\neq\btrue$.
+\end{rmk}
+
+This proof illustrates a general method for describing path spaces, which we will use often.  To characterize a path space, the first step is to define a comparison fibration ``$\code$'' that provides a more explicit description of the paths.  There are several different methods for proving that such a comparison fibration is equivalent to the paths (we show a few different proofs of the same result in \cref{sec:pi1-s1-intro}).  The one we have used here is called the \define{encode-decode method}:
+\indexdef{encode-decode method}
+the key idea is to define $\decode$ generally for all instances of the fibration (i.e.\ as a function $\prd{x:A+B} \code(x) \to (\inl(a_0)=x)$), so that path induction can be used to analyze $\decode(x,\encode(x,p))$.
+
+\index{transport!in coproduct types}%
+As usual, we can also characterize the action of transport in coproduct types.
+Given a type~$X$, a path $p:\id[X]{x_1}{x_2}$, and type families $A,B:X\to\type$, we have
+\begin{align*}
+  \transfib{A+B}{p}{\inl(a)} &= \inl (\transfib{A}{p}{a}),\\
+  \transfib{A+B}{p}{\inr(b)} &= \inr (\transfib{B}{p}{b}),
+\end{align*}
+where as usual, $A+B$ in the superscript denotes abusively the type family $x\mapsto A(x)+B(x)$.
+The proof is an easy path induction.
+
+\index{encode-decode method|)}%
+\index{type!coproduct|)}%
