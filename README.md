@@ -1,7 +1,7 @@
 同伦类型论：数学的一价语义基础
 =
 本书是 [The HoTT Book](https://github.com/HoTT/book) 的非官方翻译。
-目前的进度是第一章。
+当前进度是第一章。
 
 ## License
 This work is licensed under the
@@ -16,8 +16,7 @@ latexmk -xelatex  -interaction=batchmode  hott-online.tex
 ```
 注意项目使用 `xelatex` 支持中文，但只做了必要的兼容。所以 `makefile` 无法直接使用，不再兼容 LaTex 的 `ifpdf` 命令。
 
-### 直接下载 releases
-根据翻译进度，会定时编译到 [releases](releases) 。
+### 直接下载 Releases
 
 ## 其它
 本项目使用的翻译辅助工具是 [OmegaT](https://github.com/omegat-org/omegat) 。
