@@ -207,7 +207,7 @@ D(x,y,p)\defeq (\opp{\opp{p}}= p).
 \begin{equation*}
 d\defeq\lam{x} \refl{\refl{x}}:\prd{x:A} D(x,x,\refl{x}).
 \end{equation*}
-仙子路径归纳给定一个元素 $\indid{A}(D,d,x,y,p):\opp{\opp{p}}= p$ for each $p:x= y$.
+现在路径归纳对每个 $p:x= y$ 给定一个元素 $\indid{A}(D,d,x,y,p):\opp{\opp{p}}= p$.
 
 \mentalpause
 
@@ -222,7 +222,7 @@ D_1(x,y,p)\defeq\prd{z,w:A}{q:y= z}{r:z= w} \big(p\ct (q\ct r)= (p\ct q)\ct r\bi
 \begin{equation*}
 \prd{z,w:A}{q:x= z}{r:z= w} \big(\refl{x}\ct(q\ct r)= (\refl{x}\ct q)\ct r\big).
 \end{equation*}
-为了狗总此类型的元素, 令 $D_2:\prd{x,z:A} (x=z) \to \type$ 为类型族
+为了构造此类型的元素, 令 $D_2:\prd{x,z:A} (x=z) \to \type$ 为类型族
 \begin{equation*}
 D_2 (x,z,q) \defeq \prd{w:A}{r:z=w} \big(\refl{x}\ct(q\ct r)= (\refl{x}\ct q)\ct r\big).
 \end{equation*}
@@ -230,7 +230,7 @@ D_2 (x,z,q) \defeq \prd{w:A}{r:z=w} \big(\refl{x}\ct(q\ct r)= (\refl{x}\ct q)\ct
 \begin{equation*}
 \prd{w:A}{r:x=w} \big(\refl{x}\ct(\refl{x}\ct r)= (\refl{x}\ct \refl{x})\ct r\big).
 \end{equation*}
-To 构造 an 元素 of \emph{this} 类型, let $D_3:\prd{x,w:A} (x=w) \to \type$ be the 类型 族
+为了构造\emph{这个}类型的元素, 令 $D_3:\prd{x,w:A} (x=w) \to \type$ 为类型族
 \begin{equation*}
 D_3(x,w,r) \defeq \big(\refl{x}\ct(\refl{x}\ct r)= (\refl{x}\ct \refl{x})\ct r\big).
 \end{equation*}
@@ -263,19 +263,19 @@ p\ct (q\ct r)
 同样, 可以通过回纳证明任意两个特定的证明之间的等同性, 简化问题所有的路径到自反性, 然后就观察到两个证明都简化自己为自反.
 \end{rmk}
 
-In view of \cref{thm:omg}\ref{item:omg4}, we will often write $p\ct q\ct r$ for $(p\ct q)\ct r$, and similarly $p\ct q\ct r \ct s$ for $((p\ct q)\ct r)\ct s$ and so on. We choose left-associativity for definiteness, but it makes no real difference. We generally trust the reader to insert instances of \cref{thm:omg}\ref{item:omg4} to reassociate such expressions as necessary. 
+因为\cref{thm:omg}\ref{item:omg4}, 我们经常经用 $p\ct q\ct r$ 表示 $(p\ct q)\ct r$, 以及用 $p\ct q\ct r \ct s$ 表示 $((p\ct q)\ct r)\ct s$ 等等. 我们选择做结合作为定义, 但是并没有更本的区别. 我们相信读者可以添加\cref{thm:omg}\ref{item:omg4} 的实例, 根据需要关联这样表达式. 
 
-We are still not really done with the higher groupoid structure: the paths~\ref{item:omg1}--\ref{item:omg4} must also satisfy their own higher coherence\index{coherence} laws, which are themselves higher paths, \index{associativity!of path concatenation!coherence of}%
+我们还没有真正的在高阶广群结构上做: 路径~\ref{item:omg1}--\ref{item:omg4} 还必须满足其高阶一致性\index{一致性}法则, 他们本身就是高阶路径, \index{结合律!路径串联的!的一致性}%
 \index{globular operad}%
 \index{operad}%
 \index{groupoid!higher}%
-and so on ``all the way up to infinity'' (this can be made precise using e.g.\ the notion of a globular operad). However, for most purposes it is unnecessary to make the whole infinite-dimensional structure explicit. One of the nice things about homotopy type theory is that all of this structure can be \emph{proven} starting from only the inductive property of identity types, so we can make explicit as much or as little of it as we need. 
+以及等等``一直到无穷大'' (这种用法更精确, 例如 globular operad 的概念). 不过, 大部分情况没有必要显式形成整个无限维度. 同伦类型论的一个优点是所有这样的结构只需从恒等类型的归纳性质即可\emph{证明}, 所以显式的多少可以根据需要来. 
 
-In particular, in this book we will not need any of the complicated combinatorics involved in making precise notions such as ``coherent structure at all higher levels''. In addition to ordinary paths, we will use paths of paths (i.e.\ elements of a type $p =_{x=_A y} q$), which as remarked previously we call \emph{2-paths}\index{path!2-} or \emph{2-dimensional paths}, and perhaps occasionally paths of paths of paths (i.e.\ elements of a type $r = _{p =_{x=_A y} q} s$), which we call \emph{3-paths}\index{path!3-} or \emph{3-dimensional paths}. It is possible to define a general notion of \emph{$n$-dimensional path} \indexdef{path!n-@$n$-}%
+特别的, 这本书内我们不需要涉及复杂的组合数学来提出精确的概念, ``所有高阶等级的一致结构''. 除普通路径外, 我们还会使用路径的路径 (即类型 $p =_{x=_A y} q$ 的元素), 也就是之前的\emph{2-paths}\index{path!2-}或者\emph{二维路径}, 和路径的路径的路径 (即元素类型的 $r = _{p =_{x=_A y} q} s$), 我们称其为 \emph{3-paths}\index{path!3-}或者\emph{三维路径}. 也可以定义一般化的\emph{$n$维路径}概念\indexdef{路径!n-@$n$-}%
 \indexsee{n-path@$n$-path}{path, $n$-}%
 \indexsee{n-dimensional path@$n$-dimensional path}{path, $n$-}%
 \indexsee{path!n-dimensional@$n$-dimensional}{path, $n$-}%
-(see \cref{ex:npaths}), but we will not need it. 
+(参见\cref{ex:npaths}), 不过我们不需要它. 
 
 We will, however, use one particularly important and simple case of higher paths, which is when the start and end points are the same. In set theory, the proposition $a=a$ is entirely uninteresting, but in homotopy theory, paths from a point to itself are called \emph{loops}\index{loop} and carry lots of interesting higher structure. Thus, given a type $A$ with a point $a:A$, we define its \define{loop space} \index{loop space}%
 $\Omega(A,a)$ to be the type $\id[A]{a}{a}$. We may sometimes write simply $\Omega A$ if the point $a$ is understood from context. 
