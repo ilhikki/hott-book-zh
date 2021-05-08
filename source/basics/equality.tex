@@ -277,28 +277,28 @@ p\ct (q\ct r)
 \indexsee{path!n-dimensional@$n$-dimensional}{path, $n$-}%
 (参见\cref{ex:npaths}), 不过我们不需要它. 
 
-We will, however, use one particularly important and simple case of higher paths, which is when the start and end points are the same. In set theory, the proposition $a=a$ is entirely uninteresting, but in homotopy theory, paths from a point to itself are called \emph{loops}\index{loop} and carry lots of interesting higher structure. Thus, given a type $A$ with a point $a:A$, we define its \define{loop space} \index{loop space}%
-$\Omega(A,a)$ to be the type $\id[A]{a}{a}$. We may sometimes write simply $\Omega A$ if the point $a$ is understood from context. 
+不过, 我们使用高阶路径的一种特别重要的简单情况, 也就是当起点和终点相同时. 在集合论中, 命题 $a=a$ 完全没有意义, 不过在同伦论, 从一个点到它自己的路径被称为\emph{环圈}\index{环圈}, 而它带来了很多有趣的高阶结构. 因此, 给定一个类型 $A$ 和一个点 $a:A$, 我们定义它的\define{环圈空间} \index{环圈空间}%
+$\Omega(A,a)$ 为类型 $\id[A]{a}{a}$. 有时简写为 $\Omega A$ 如果点 $a$ 在上下文中是明确的. 
 
-Since any two elements of $\Omega A$ are paths with the same start and end points, they can be concatenated; thus we have an operation $\Omega A\times \Omega A\to \Omega A$. More generally, the higher groupoid structure of $A$ gives $\Omega A$ the analogous structure of a ``higher group''. 
+因为任意两个 $\Omega A$ 的元素都是具有相同起点和终点的路径, 可以被串联; 因此我们有操作 $\Omega A\times \Omega A\to \Omega A$. 推而广之, $A$ 的高阶广群结构给了 $\Omega A$ 类似的一个``高阶群''结构. 
 
-It can also be useful to consider the loop space\index{loop space!iterated}\index{iterated loop space} \emph{of} the loop space of $A$, which is the space of 2-dimensional loops on the identity loop at $a$. This is written $\Omega^2(A,a)$ and represented in type theory by the type $\id[({\id[A]{a}{a}})]{\refl{a}}{\refl{a}}$. While $\Omega^2(A,a)$, as a loop space, is again a ``higher group'', it now also has some additional structure resulting from the fact that its elements are 2-dimensional loops between 1-dimensional loops. 
+$A$ 的环圈空间\emph{的}环圈空间\index{环圈空间!迭代的}\index{迭代的环圈空间}也是有用的, 它就是 $a$ 的恒等环圈上, 二维环圈的空间. 写做 $\Omega^2(A,a)$ 和表示在类型论中的类型 $\id[({\id[A]{a}{a}})]{\refl{a}}{\refl{a}}$. $\Omega^2(A,a)$ 作为一个环圈空间是一个``高阶群'', 而它还有一些额外的结构, 因为它的元素是一维环圈之间的二维的环圈. 
 
 \begin{thm}[Eckmann--Hilton]\label{thm:EckmannHilton}
-The composition operation on the second loop space
+第二个环圈空间上的复合运算符
 %
 \begin{equation*}
 \Omega^2(A)\times \Omega^2(A)\to \Omega^2(A)
 \end{equation*}
-is commutative: $\alpha\ct\beta = \beta\ct\alpha$, for any $\alpha, \beta:\Omega^2(A)$.
-\index{Eckmann--Hilton argument}%
+对于 $\alpha, \beta:\Omega^2(A)$, 满足交换律: $\alpha\ct\beta = \beta\ct\alpha$.
+\index{Eckmann–Hilton argument}%
 \end{thm}
 
 \begin{proof}
-First, observe that the composition of $1$-loops $\Omega A\times \Omega A\to \Omega A$ induces an operation \[
+首先, 观察到 $1$-loops 的复合 $\Omega A\times \Omega A\to \Omega A$ 得到一个运算符 \[
 \star : \Omega^2(A)\times \Omega^2(A)\to \Omega^2(A)
 \]
-as follows: consider elements $a, b, c : A$ and 1- and 2-paths, %
+如下: 考虑到元素 $a, b, c : A$ 以及一维二维路径, %
 
 \begin{align*}
 p &: a = b, &r &: b = c \\
@@ -306,7 +306,7 @@ q &: a = b, &s &: b = c \\
 \alpha &: p = q, &\beta &: r = s
 \end{align*}
 %
-as depicted in the following diagram (with paths drawn as arrows). % Changed this to xymatrix in the name of having uniform source code,
+如下图所示(其中箭头代表路径). % Changed this to xymatrix in the name of having uniform source code,
 
 % maybe the original using xy looked better (I think it was too big).
 % It is commented out below in case you want to reinstate it.
@@ -319,75 +319,75 @@ as depicted in the following diagram (with paths drawn as arrows). % Changed thi
 {c}
 }
 \]
-Composing the upper and lower 1-paths, respectively, we get two paths $p\ct r,\ q\ct s : a = c$, and there is then a ``horizontal composition'' %
+分别复合上方和下方的一维路径, 我们得到两个路径 $p\ct r,\ q\ct s : a = c$, 它们都是``水平复合'' %
 
 \begin{equation*}
 \alpha\hct\beta : p\ct r = q\ct s
 \end{equation*}
 %
-between them, defined as follows. First, we define $\alpha \rightwhisker r : p\ct r = q\ct r$ by path induction on $r$, so that \[ \alpha \rightwhisker \refl{b} \jdeq \opp{\mathsf{ru}_p} \ct \alpha \ct \mathsf{ru}_q \]
-where $\mathsf{ru}_p : p = p \ct \refl{b}$ is the right unit law from \cref{thm:omg}\ref{item:omg1}. We could similarly define $\rightwhisker$ by induction on $\alpha$, or on all paths in sight, resulting in different judgmental equalities, but for present purposes the definition by induction on $r$ will make things simpler. Similarly, we define $q\leftwhisker \beta : q\ct r = q\ct s$ by induction on $q$, so that \[ \refl{b} \leftwhisker \beta \jdeq \opp{\mathsf{lu}_r} \ct \beta \ct \mathsf{lu}_s \]
-where $\mathsf{lu}_r$ denotes the left unit law. The operations $\leftwhisker$ and $\rightwhisker$ are called \define{whiskering}\indexdef{whiskering}. Next, since $\alpha \rightwhisker r$ and $q\leftwhisker \beta$ are composable 2-paths, we can define the \define{horizontal composition} \indexdef{horizontal composition!of paths}%
-\indexdef{composition!of paths!horizontal}%
-by: \[
+它们之间, 有如下定义. 首先, 通过路径归纳在 $r$ 上定义 $\alpha \rightwhisker r : p\ct r = q\ct r$, 有 \[ \alpha \rightwhisker \refl{b} \jdeq \opp{\mathsf{ru}_p} \ct \alpha \ct \mathsf{ru}_q \]
+其中 $\mathsf{ru}_p : p = p \ct \refl{b}$ 是 \cref{thm:omg}\ref{item:omg1} 中的右单元法则. 类似地可以通过 $\alpha$ 上的归纳定义 $\rightwhisker$, 和其它的所有路径, 得到不同的判断等同, 不过在 $r$ 上归纳定义更简单. 类似的, 通过归纳 $q$ 定义 $q\leftwhisker \beta : q\ct r = q\ct s$, 于是 \[ \refl{b} \leftwhisker \beta \jdeq \opp{\mathsf{lu}_r} \ct \beta \ct \mathsf{lu}_s \]
+其中 $\mathsf{lu}_r$ 表示做单元法则. 操作符 $\leftwhisker$ 和 $\rightwhisker$ 被称为\define{触须}\indexdef{触须}. 然后, 因为 $\alpha \rightwhisker r$ 和 $q\leftwhisker \beta$ 是二维路径, 我们可以定义\define{水平复合} \indexdef{水平复合!路径的}%
+\indexdef{复合!路径的!水平的}%
+通过: \[
 \alpha\hct\beta\ \defeq\ (\alpha\rightwhisker r) \ct (q\leftwhisker \beta).
 \]
-Now suppose that $a \jdeq b \jdeq c$, so that all the 1-paths $p$, $q$, $r$, and $s$ are elements of $\Omega(A,a)$, and assume moreover that $p\jdeq q \jdeq r \jdeq s\jdeq \refl{a}$, so that $\alpha:\refl{a} = \refl{a}$ and $\beta:\refl{a} = \refl{a}$ are composable in both orders. In that case, we have \begin{align*}
+现在令 $a \jdeq b \jdeq c$, 于是所有一维路径 $p$, $q$, $r$, 和 $s$ 都是元素 $\Omega(A,a)$, 此外假设 $p\jdeq q \jdeq r \jdeq s\jdeq \refl{a}$, 于是 $\alpha:\refl{a} = \refl{a}$ 和 $\beta:\refl{a} = \refl{a}$ 都能以相同方式复合. 这种情况, 我们有 \begin{align*}
 \alpha\hct\beta
 &\jdeq (\alpha\rightwhisker\refl{a}) \ct (\refl{a}\leftwhisker \beta)\\
 &= \opp{\mathsf{ru}_{\refl{a}}} \ct \alpha \ct \mathsf{ru}_{\refl{a}} \ct \opp{\mathsf{lu}_{\refl a}} \ct \beta \ct \mathsf{lu}_{\refl{a}}\\
 &\jdeq \opp{\refl{\refl{a}}} \ct \alpha \ct \refl{\refl{a}} \ct \opp{\refl{\refl a}} \ct \beta \ct \refl{\refl{a}}\\
 &= \alpha \ct \beta.
 \end{align*}
-(Recall that $\mathsf{ru}_{\refl{a}} \jdeq \mathsf{lu}_{\refl{a}} \jdeq \refl{\refl{a}}$, by the computation rule for path induction.) On the other hand, we can define another horizontal composition analogously by \[
+(回顾 $\mathsf{ru}_{\refl{a}} \jdeq \mathsf{lu}_{\refl{a}} \jdeq \refl{\refl{a}}$, 通过路径归纳的计算规则.) 一方面, 我们类似地定义另一复合, 通过 \[
 \alpha\hct'\beta\ \defeq\ (p\leftwhisker \beta)\ct (\alpha\rightwhisker s)
 \]
-and we similarly learn that \[
+我们类似地了解到 \[
 \alpha\hct'\beta = \beta\ct\alpha.
 \]
-\index{interchange law}%
-But, in general, the two ways of defining horizontal composition agree, $\alpha\hct\beta = \alpha\hct'\beta$, as we can see by induction on $\alpha$ and $\beta$ and then on the two remaining 1-paths, to reduce everything to reflexivity. Thus we have \[\alpha \ct \beta = \alpha\hct\beta = \alpha\hct'\beta = \beta\ct\alpha.
+\index{交换法}%
+但是, 普通的, 这两种定义水平复合满足了, $\alpha\hct\beta = \alpha\hct'\beta$, 可以看见通过在 $\alpha$ 和 $\beta$ 上归纳从而在剩下两个一维路径上, 缩小到自反. 因此 我们有 \[\alpha \ct \beta = \alpha\hct\beta = \alpha\hct'\beta = \beta\ct\alpha.
 \qedhere
 \]
 \end{proof}
 
-The foregoing fact, which is known as the \emph{Eckmann--Hilton argument}, comes from classical homotopy theory, and indeed it is used in \cref{cha:homotopy} below to show that the higher homotopy groups of a type are always abelian\index{group!abelian} groups. The whiskering and horizontal composition operations defined in the proof are also a general part of the $\infty$-groupoid structure of types. They satisfy their own laws (up to higher homotopy), such as \[ \alpha \rightwhisker (p\ct q) = (\alpha \rightwhisker p) \rightwhisker q \]
-and so on. From now on, we trust the reader to apply path induction whenever needed to define further operations of this sort and verify their properties. 
+上述的事实, 被称为 \emph{Eckmann–Hilton 观点}, 来自于经典的同伦理论, 而且的确在后面的\cref{cha:homotopy}中使用它来表明高阶同伦群的类型始终为阿贝尔\index{群!阿贝尔}群. 触须和水平复合操作定义, 同样也是 $\infty$-groupoid 结构类型的的一部分. 它们满足自身的法则(直到高阶同伦), 比如 \[ \alpha \rightwhisker (p\ct q) = (\alpha \rightwhisker p) \rightwhisker q \]
+和等等. 从现在开始, 我们相信读者可以在需要时应用路径归纳来定义进一步的操作并校验其属性. 
 
-As this example suggests, the algebra of higher path types is much more intricate than just the groupoid-like structure at each level; the levels interact to give many further operations and laws, as in the study of iterated loop spaces in homotopy theory. Indeed, as in classical homotopy theory, we can make the following general definitions: 
+这个例子表明了, 高阶路径类型代数比每个等级上的群结构更加复杂; 每个等级的相互作用产生了进一步的操作和法则, 例如在同伦论中环圈空间迭代的研究中. 的确, 在经典的同伦理论, 我们可以做下面的通用的定义: 
 
 \begin{defn} \label{def:pointedtype}
-A \define{pointed type}
-\indexsee{pointed!type}{type, pointed}%
-\indexdef{type!pointed}%
-$(A,a)$ is a type $A:\type$ together with a point $a:A$, called its \define{basepoint}.
-\indexdef{basepoint}%
-We write $\pointed{\type} \defeq \sm{A:\type} A$ for the type of pointed types in the universe $\type$.
+一个\define{点类型}
+\indexsee{点!类型}{类型, 点}%
+\indexdef{类型!点}%
+$(A,a)$ 是一个类型 $A:\type$, 伴随一个点 $a:A$, 被称为\define{单位元}.
+\indexdef{单位元}%
+我们写作 $\pointed{\type} \defeq \sm{A:\type} A$ 表示为宇宙 $\type$ 中的点类型.
 \end{defn}
 
 \begin{defn} \label{def:loopspace}
-Given a pointed type $(A,a)$, we define the \define{loop space}
-\indexdef{loop space}%
-of $(A,a)$ to be the following pointed type:
+给定一个点类型 $(A,a)$, 我们定义 $(A,a)$ 的\define{环圈空间}
+\indexdef{环圈空间}%
+为下面的点类型:
 \[\Omega(A,a)\defeq ((\id[A]aa),\refl a).\]
-An element of it will be called a \define{loop}\indexdef{loop} at $a$.
-For $n:\N$, the \define{$n$-fold iterated loop space} $\Omega^{n}(A,a)$
-\indexdef{loop space!iterated}%
-\indexsee{loop space!n-fold@$n$-fold}{loop space, iterated}%
-of a pointed type $(A,a)$ is defined recursively by:
+它的一个元素被称为一个 $a$ 上的\define{环圈}\indexdef{环圈}.
+对于 $n:\N$, 点类型 $(A,a)$ 的 \define{$n$-fold 迭代环圈空间} $\Omega^{n}(A,a)$
+\indexdef{环圈空间!迭代}%
+\indexsee{环圈空间!n-fold@$n$-fold}{环圈空间, 迭代}%
+是通过递归来定义:
 \begin{align*}
 \Omega^0(A,a)&\defeq(A,a)\\
 \Omega^{n+1}(A,a)&\defeq\Omega^n(\Omega(A,a)).
 \end{align*}
-An element of it will be called an \define{$n$-loop}
-\indexdef{loop!n-@$n$-}%
-\indexsee{n-loop@$n$-loop}{loop, $n$-}%
-or an \define{$n$-dimensional loop}
-\indexsee{loop!n-dimensional@$n$-dimensional}{loop, $n$-}%
-\indexsee{n-dimensional loop@$n$-dimensional loop}{loop, $n$-}%
-at $a$.
+它的元素被称为 $a$ 上的\define{$n$-环圈}
+\indexdef{环圈!n-@$n$-}%
+\indexsee{n-loop@$n$-环圈}{环圈, $n$-}%
+或者\define{$n$ 维环圈}.
+\indexsee{环圈!n 维@$n$ 维}{环圈, $n$ }%
+\indexsee{n 维环圈@$n$ 维环圈}{环圈, $n$}%
+
 \end{defn}
 
-We will return to iterated loop spaces in \cref{cha:hlevels,cha:hits,cha:homotopy}. \index{.infinity-groupoid@$\infty$-groupoid!structure of a type|)}%
-\index{type!identity|)}
-\index{path|)}%
+我们会在\cref{cha:hlevels,cha:hits,cha:homotopy}返回到迭代环圈空间. \index{.infinity-groupoid@$\infty$-groupoid!结构的类型|)}%
+\index{类型!恒等|)}
+\index{路径|)}%
