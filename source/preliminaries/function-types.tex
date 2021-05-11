@@ -1,47 +1,114 @@
-\index{类型!函数|(defstyle} \indexsee{函数类型}{类型, 函数} 给定类型 $A$ 和 $B$, 我们可以构造类型 $A \to B$, 这就是\define{函数} \index{函数|(defstyle} \indexsee{映射}{函数} \indexsee{映射}{函数},它的定义域是 $A$ 而到达域是 $B$. 我们有时也把函数称为\define{映射}. \index{定义域!函数}\index{到达域, 函数}\index{函数!定义域}\index{函数!到达域}\index{函数的关系}和集合论不同, 函数没有被定义成函数关系, 而它们是类型论中的原始概念. 我们用能对函数所做的事情来解释函数: 如何构造函数, 和它们的的平等性.
+\index{类型!函数|(defstyle} \indexsee{函数类型}{类型, 函数} 给定类型 $A$ 和 $B$, 可以构造也就是是\define{函数}的类型 $A \to B$, \index{函数|(defstyle}\indexsee{映射}{函数}\indexsee{映射}{函数}, 它的定义域是 $A$ 而到达域是 $B$.
+函数有时也被称为\define{映射}.\index{定义域!函数}\index{到达域, 函数}\index{函数!定义域}\index{函数!到达域}\index{函数的关系}
+和集合论不同, 函数没有被定义成泛函关系, 而是类型论中的原始概念.
+我们通过规定能对函数所做的事情来解释函数类型, 例如: 如何构造函数, 和函数的的平等性.
 
 %%%%%%%%%%
-给定函数$f : A \to B$ 和一个定义域的元素 $a : A$, 我们可以\define{应用}\indexdef{应用!函数} \indexdef{函数!应用} \indexsee{赋值}{应用, 函数}这个函数得到到达域 $B$ 上的一个元素, 这个元素写做 $f(a)$, 又被称为 $f$ 在 $a$ 上的\define{值}. \indexdef{值!函数} 在类型论中通常省略圆括号\index{圆括号},  比如将 $f(a)$ 简化为 $f\,a$, 我们有时也这样. 
+给定函数 $f : A \to B$ 和一个定义域的元素 $a : A$, 可以\define{应用}\indexdef{应用!函数}\indexdef{函数!应用}\indexsee{赋值}{应用, 函数}这个函数得到到达域 $B$ 中的一个元素, 这个元素记作 $f(a)$, 又被称之为 $f$ 在 $a$ 上的\define{值}.\indexdef{值!函数}
+在类型论中通常省略圆括号\index{圆括号}, 比如将 $f(a)$ 简化为 $f\,a$, 我们有时也这样.
 
 %%%
-但是我们怎么构造 $A \to B$ 的元素? 有两个等同的方法: 直接定义和 $\lambda$-abstraction. 通过定义引入函数 \indexdef{定义!函数, 直接}就是通过给定名称来定义函数 --- 比如说 $f$ --- 然后定义 $f : A \to B$, 需要通过给出一个等式 \begin{equation} \label{eq:expldef} f(x) \defeq \Phi\end{equation} 这里的 $x$ 是一个变量 \index{变量} 而 $\Phi$ 是一个可能会用到 $x$ 的表达式. 为了校验合法性, 我们需要验证 $x:A$ 和 $\Phi : B$. 
+但是如何构造 $A \to B$ 的元素? 有两个等同的方法: 一个是直接定义, 一个是使用 $\lambda$-抽象.
+通过定义引入函数\indexdef{定义!函数, 直接}就是通过给定名称---比如说 $f$ ---然后通过给出一个等式 \begin{equation} \label{eq:expldef} f(x) \defeq \Phi\end{equation} 来定义函数 $f : A \to B$, 其中 $x$ 是一个变量 \index{变量} 而 $\Phi$ 是一个可能用到 $x$ 的表达式. 为了确保它是有效的, 需要检查当 $x:A$ 时, 有 $\Phi : B$, .
 
 %%
-现在我们可以计算 $f(a)$, 通过替换 $\Phi$ 中的变量 $x$ 为 $a$. 例如, 有一个函数 $f : \nat \to \nat$, 它根据 $f(x) \defeq x+x$ 来定义. (如何定义 $\nat$ 和 $+$ 的方法参见 \cref{sec:inductive-types}.) 然后 $f(2)$ 和 $2+2$ 是判断等同的. 
+现在可以通过将 $\Phi$ 中的变量 $x$ 替换为 $a$ 来计算 $f(a)$.
+例如, 如果到根据 $f(x) \defeq x+x$ 定义的函数 $f : \nat \to \nat$.(如何定义 $\nat$ 和 $+$ 的方法参见 \cref{sec:inductive-types}.)
+那么 $f(2)$ 和 $2+2$ 是判断等同的.
 
-如果我们不想给函数取一个名字, 我们可以使用 \define{$\lambda$-abstraction}. \index{lambda abstraction@$\lambda$-abstraction|defstyle} \indexsee{函数!lambda abstraction@$\lambda$-abstraction}{$\lambda$-abstraction} \indexsee{abstraction!lambda-@$\lambda$-}{$\lambda$-abstraction}给定一个表达式 $\Phi$, 它的类型是 $B$,  它可以使用 $x:A$, 如上所述, 我们将 $\lam{x:A} \Phi$ 表示为和 \eqref{eq:expldef} 等同的函数定义~. 因此, 我们有\[ (\lamt{x:A}\Phi) : A \to B. \] 在上面的例子, 我们有类型判断 \[ (\lam{x:\nat}x+x) : \nat \to \nat. \]另一个例子, 根据任意两个类型 $A$ 与 $B$ 和任意的一个元素 $y:B$, 我们可以构造一个\define{常量函数} \indexdef{常量!函数} \indexdef{函数!常量} $(\lam{x:A} y): A\to B$. 
+如果我们不想给函数取一个名字, 我们可以使用 \define{$\lambda$-抽象}.
+\index{lambda abstraction@$\lambda$-abstraction|defstyle}%
+\indexsee{函数!lambda abstraction@$\lambda$-abstraction}{$\lambda$-abstraction}%
+\indexsee{abstraction!lambda-@$\lambda$-}{$\lambda$-abstraction}%
+给定一个可以使用 $x:A$ 的表达式 $\Phi$, 它的类型是 $B$, 如上所述, $\lam{x:A} \Phi$ 用来表示\eqref{eq:expldef}定义的一样的函数.
+因此, 有
+\[ (\lamt{x:A}\Phi) : A \to B. \]
+对于上一段中的例子, 有类型判断
+\[ (\lam{x:\nat}x+x) : \nat \to \nat. \]
+另一个例子, 任意两个类型 $A$ 与 $B$ 和任意的一个元素 $y:B$, 可以构造\define{常量函数}\indexdef{常量!函数}\indexdef{函数!常量}
+\[ (\lam{x:A} y): A\to B. \]
 
 %%%%%
-我们经常忽略 $\lambda$-abstraction 中 $x$ 的类型,  写做 $\lam{x}\Phi$, 因为类型 $x:A$ 可以从从判断 $\lam x \Phi$ 的类型为 $A\to B$ 推断出它的类型. 按照惯例, 变量绑定 ``$\lam{x}$'' 的``作用域'' \indexdef{变量!作用域的} \indexdef{作用域}是表达式的剩余部分, 除非用圆括号界定\index{圆括号}. 因此, 例如, $\lam{x} x+x$ 应该被解析成 $\lam{x} (x+x)$, 而不是 $(\lam{x}x)+x$ (这个例子中, 这样做会导致语法错误).
+$\lambda$-抽象中 $x$ 的类型经常被忽略, 并写作 $\lam{x}\Phi$, 因为以从判断 $\lam x \Phi$ 的类型为 $A\to B$ 推断出类型 $x:A$.
+按照惯例, 变量绑定 ``$\lam{x}$'' 的``作用域'' \indexdef{变量!作用域的} \indexdef{作用域}是表达式的剩余部分, 除非用圆括号界定\index{圆括号}.
+因此, 例如, $\lam{x} x+x$ 应该被解析成 $\lam{x} (x+x)$, 而不是 $(\lam{x}x)+x$ (这个例子中, 会导致语法错误).
 
 %%
-另一个等价的符号是\symlabel{mapsto} \[ (x \mapsto \Phi) : A \to B. \] \symlabel{blank}我们有时也使用占位符(blank)``$\blank$''来代替表达式$\Phi$中的变量,  来表达隐式的 $\lambda$-abstraction. 例如, $g(x,\blank)$ 是 $\lam{y} g(x,y)$ 的另一种写法. 
+另一个等价的符号是\symlabel{mapsto}
+\[ (x \mapsto \Phi) : A \to B. \]
+\symlabel{blank}有时也使用空白``$\blank$''代替表达式$\Phi$中的变量, 来表达隐式的 $\lambda$-抽象.
+例如, $g(x,\blank)$ 是 $\lam{y} g(x,y)$ 的另一种写法.
 
 %%
-现在 $\lambda$-abstraction 是一个函数, 所以我们可以应用这个函数到参数 $a:A$. 然后我们得到以下 \define{计算规则}\indexdef{计算规则!函数类型}\footnote{这种等同性的用法通常被称为 \define{$\beta$-conversion} \indexsee{beta-conversion@$\beta $-conversion}{$\beta$-reduction} \indexsee{conversion!beta@$\beta $-}{$\beta$-reduction} or \define{$\beta$-reduction}. \index{beta-reduction@$\beta $-reduction|footstyle} \indexsee{reduction!beta@$\beta $-}{$\beta$-reduction} }, 是一个定义等同: \[(\lamu{x:A}\Phi)(a) \jdeq \Phi'\] 这里的 $\Phi'$ 是表达式 $\Phi$ 中所有的 $x$ 被替换称 $a$ 的结果. 继续上面的例子, 我们有 
-
-%%%%%%
-\[ (\lamu{x:\nat}x+x)(2) \jdeq 2+2. \] 
-
-%
-注意, 对于任何函数 $f:A\to B$, 我们可以构造 lambda abstraction 函数 $\lam{x} f(x)$. 因为这是通过``这个把到函数 $f$ 应用于参数''所定义的, 我们认为它和 $f$ 是定义等同的: \footnote{这种等同性的用法通常被称为 \define{$\eta$-conversion} \indexsee{eta-conversion@$\eta $-conversion}{$\eta$-expansion} \indexsee{conversion!eta@$\eta $-}{$\eta$-expansion} or \define{$\eta$-expansion. \index{eta-expansion@$\eta $-expansion|footstyle} \indexsee{expansion, eta-@expansion, $\eta $-}{$\eta$-expansion} }} \[ f \jdeq (\lam{x} f(x)). \] 这个等同关系就是\define{函数类型的唯一性原则}\indexdef{唯一性!原则!函数函数类型}, 因为它表示 $f$ 的值是唯一确定的. 
+现在每个 $\lambda$-抽象都是一个函数, 然后可以将它应用到参数 $a:A$.
+然后得到以下\define{计算规则}\indexdef{计算规则!函数类型}%
+\footnote{这种等同性的用法通常被称为 \define{$\beta$-conversion} \indexsee{beta-conversion@$\beta $-conversion}{$\beta$-reduction} \indexsee{conversion!beta@$\beta $-}{$\beta$-reduction} 或 \define{$\beta$-reduction}. \index{beta-reduction@$\beta $-reduction|footstyle} \indexsee{reduction!beta@$\beta $-}{$\beta$-reduction} },
+是一个定义等式: \[(\lamu{x:A}\Phi)(a) \jdeq \Phi'\] 这里的 $\Phi'$ 是表达式 $\Phi$ 中所有的 $x$ 被替换称 $a$ 的结果.
+继续上面的例子, 有
+\[ (\lamu{x:\nat}x+x)(2) \jdeq 2+2. \]
+注意, 对于任何函数 $f:A\to B$, 都可以构造 $\lambda$-抽象函数 $\lam{x} f(x)$.
+因为这是通过``改函数把 $f$ 应用于参数''所定义的, 我们认为它和 $f$ 是定义等同的:
+\footnote{这种等同性的用法通常被称为 \define{$\eta$-conversion} \indexsee{eta-conversion@$\eta $-conversion}{$\eta$-expansion} \indexsee{conversion!eta@$\eta $-}{$\eta$-expansion} 或 \define{$\eta$-expansion. \index{eta-expansion@$\eta $-expansion|footstyle}%
+\indexsee{expansion, eta-@expansion, $\eta $-}{$\eta$-expansion} }}%
+\[ f \jdeq (\lam{x} f(x)). \]
+这个等式就是\define{函数类型的唯一性原则}\indexdef{唯一性!原则!函数类型的}, 因为它表示 $f$ 的值是唯一确定的.
 
 %%%%
-通过显性参数来定义函数可以通过使用 $\lambda$-abstraction 简化,  例如这样来定义 $f: A\to B$, 根据: \[ f(x) \defeq \Phi \] 作为 \[ f \defeq \lamu{x:A}\Phi.\] 
+通过显性参数来定义函数可以被 $\lambda$-抽象简化, 例如 $f: A\to B$ 的定义: \[ f(x) \defeq \Phi \] 即 \[ f \defeq \lamu{x:A}\Phi.\]
 
-当进行涉及变量计算时, 我们必须小心翼翼地把变量替换成包含变量的表达式, 因为我们要保持表达式的绑定结构. 所谓\emph{绑定结构}\indexdef{绑定结构} 就是指在引入变量的地方和使用变量的地方之间, 由一些绑定符号产生的无形的关系, 这些关系符号有 $\lambda$, $\Pi$ 和 $\Sigma$ (很快我们就能看到). 例如, 考虑 $f : \nat \to (\nat \to \nat)$ 定义为 \[ f(x) \defeq \lamu{y:\nat} x + y. \] 若我们假设 $y : \nat$, 那么 $f(y)$ 是什么? 直接把$f(x)$的定义的表达式``$\lam{y}x+y$'' 中的所有$x$替换为$y$是错误的, 这样得到的是 $\lamu{y:\nat} y + y$, 错误的原因是变量$y$被 \define{捕获}了. \indexdef{捕获, 变量} \indexdef{变量!捕获} 之前, 被替代\index{替换} 的表达式$y$ 是我们的假设, 但替换之后代表 $\lambda$-abstraction 的参数.  直接的替代会破坏绑定结构, 会令我们执行语义上不正确的计算. 
+在涉及变量计算, 把变量替换成包含变量的表达式时, 必须小心, 因为要保持表达式的绑定结构.
+所谓\emph{绑定结构}\indexdef{绑定结构}是一种无形的连接, 它由变量引入和使用之间的绑定符号产生, 例如 $\lambda$, $\Pi$ 和 $\Sigma$ (很快我们就能看到).
+例如, 考虑 $f : \nat \to (\nat \to \nat)$ 被定义为
+\[ f(x) \defeq \lamu{y:\nat} x + y. \]
+若假设 $y : \nat$, 那么 $f(y)$ 是什么?
+天真地直接把 $f(x)$ 的定义的表达式 ``$\lam{y}x+y$'' 中的所有 $x$ 替换为 $y$ 是错误的, 这样得到的是 $\lamu{y:\nat} y + y$, 因为这意味 $y$ 被\define{捕获}了.
+\indexdef{捕获, 变量}%
+\indexdef{变量!捕获}%
+之前, 代替者\index{代替者} $y$ 是我们的假设, 但现在代表 $\lambda$-抽象的参数.
+因此直接的替代会破坏绑定结构, 会执行语义不健全的计算.
 
 %%
-在这个例子中, $f(y)$到底 \emph{是} $f(y)$ 什么?注意这个绑定(或者``虚拟'')变量\indexdef{变量!绑定} \indexdef{变量!虚拟} \indexsee{绑定变量}{变量, 绑定} \indexsee{虚拟变量}{变量, 绑定}, 比如表达式 $\lamu{y:\nat} x + y$ 中的 $y$ 仅具有局部意义,  可以在保持绑定结构的情况下用其它的任何变量替代. 实际上, $\lamu{y:\nat} x + y$ 判断等同于\footnote{这种等同性的用法通常被称为 \define{$\alpha$-conversion. \indexfoot{alpha-conversion@$\alpha $-conversion}\indexsee{conversion!alpha@$\alpha$-}{$\alpha$-conversion} }} $\lamu{z:\nat} x + z$. 因此, $f(y)$ 判断等同于 $\lamu{z:\nat} y + z$, 这就是答案. (可以使用任何与$y$不同的变量代替$z$, 获得相同的结果)
+在这个例子中, $f(y)$ 到底\emph{是}什么?
+注意这个绑定(或者``虚拟'')变量
+\indexdef{变量!绑定}%
+\indexdef{变量!虚拟}%
+\indexsee{绑定变量}{变量, 绑定}%
+\indexsee{虚拟变量}{变量, 绑定}%
+比如表达式 $\lamu{y:\nat} x + y$ 中的 $y$ 仅具有局部意义, 可以在保持绑定结构的情况下用其它的任何变量替代.
+实际上, $\lamu{y:\nat} x + y$ 判断等同于\footnote{这种等同性的用法通常被称为 \define{$\alpha$-conversion. \indexfoot{alpha-conversion@$\alpha $-conversion}\indexsee{conversion!alpha@$\alpha$-}{$\alpha$-conversion} }} $\lamu{z:\nat} x + z$.
+因此, $f(y)$ 判断等同于 $\lamu{z:\nat} y + z$, 这就是答案. (可以使用任何与 $y$ 不同的变量代替 $z$, 获得同样的结果)
 
 %%%%
-当然, 这对所有数学家都非常熟悉: 和实际应用中一样, 如果 $f(x) \defeq \int_1^2 \frac{dt}{x-t}$, 那么 $f(t)$不是 $\int_1^2 \frac{dt}{t-t}$ 而是 $\int_1^2 \frac{ds}{t-s}$. $\lambda$-abstraction 和在积分中绑定变量的方法是完全相同的. 
+当然, 所有数学家都非常熟悉它:
+和实际应用中一样, 如果 $f(x) \defeq \int_1^2 \frac{dt}{x-t}$, 那么 $f(t)$不是 $\int_1^2 \frac{dt}{t-t}$ 而是 $\int_1^2 \frac{ds}{t-s}$.
+$\lambda$-抽象 和在积分中绑定变量的方法是完全相同的.
 
-我们已经看到如何以一个变量定义函数. 以后会介绍一种使用笛卡尔积的方法来通过多个变量来定义函数的方法;一个接收两个参数$A$和$B$返回结果$C$的函数, 它的类型是$f : A \times B \to C$. 不过, 这里有另一种方法来避免乘积类型, 它被称为 \define{柯里化} \indexdef{柯里化} \indexdef{函数!柯里化} (由数学家 Haskell Curry 发明). \index{程序} 
+现在已经看到如何以一个变量定义函数.
+以后会介绍一种使用笛卡尔积的方法来通过多个变量来定义函数的方法;
+一个接收两个参数 $A$ 和 $B$ 返回结果 $C$ 的函数, 它的类型是$f : A \times B \to C$.
+不过, 这里有另一种方法来避免乘积类型, 即\define{柯里化}%
+\indexdef{柯里化}%
+\indexdef{函数!柯里化}%
+(由数学家 Haskell Curry 发明).
+\index{程序}%
 
 %%%
-柯里化把有两个输入 $a:A$ 和 $b:B$ 的函数表示为一个函数, 这个函数接收 \emph{一个}输入 $a:A$ 返回\emph{另一个函数}, 返回的函数接收第二个输入, 并返回结果. 也就是说, 我们认为二元函数属于迭代函数类型 $f : A \to (B \to C)$. 也可以不带 圆括号\index{圆括号}, 写做 $f : A \to B \to C$,  我们约定它是默认是右关联\index{结合性!函数类型}的. 给定 $a : A$ 和 $b : B$, 我们可以应用 $f$ 于 $a$, 然后应用返回的结果于 $b$, 得到 $f(a)(b) : C$. 为了避免大量的括号, 即使不是乘积类型, 我们也允许把$f(a)(b)$写作$f(a,b)$. 当完全省略函数的参数周围的括号时, 我们把 $(f\,a)\,b$ 写为 $f\,a\,b$  , 现在默认是左关联的, 以便正确的应用参数. 
+柯里化就是把有 $a:A$ 和 $b:B$ 两个输入的函数表示为一个函数, 这个函数接收\emph{一个}输入 $a:A$ 返回\emph{另一个函数}, 返回的函数接收第二个输入, 并返回结果.
+也就是说, 二元函数被认为是迭代的函数类型 $f : A \to (B \to C)$.
+也可以不带圆括号\index{圆括号}, 记作 $f : A \to B \to C$, 默认是右结合\index{结合性!函数类型}的.
+给定 $a : A$ 和 $b : B$, 可以应用 $f$ 于 $a$, 然后应用返回的结果于 $b$, 得到 $f(a)(b) : C$.
+为了避免大量的括号, 即使不是乘积类型, 也允许把 $f(a)(b)$ 写作 $f(a,b)$.
+当完全省略函数的参数周围的括号时, $(f\,a)\,b$ 写为 $f\,a\,b$, 默认是左关联的, 以便正确的应用参数.
 
-我们的带有显式参数也扩展到这种情况: 为了定义一个被命名的函数 $f : A \to B \to C$ 我们可以给出这样的等式\[ f(x,y) \defeq \Phi\] 此处 $\Phi:C$ 而且假设 $x:A$ 和 $y:B$. 使用 $\lambda$-abstraction\index{lambda abstraction@$\lambda$-abstraction} 于这个等式的结果是 \[ f \defeq \lamu{x:A}{y:B} \Phi, \] 我们也可以写为 \[ f \defeq x \mapsto y \mapsto \Phi. \] 我们还可以通过写入多个占位符来隐式抽象多个变量, 例如 \ $g(\blank,\blank)$ 意味着 $\lam{x}{y} g(x,y)$. 在我们刚刚描述的方法上直接扩展, 可以柯里化三个或者更多参数的函数. 
+带有显式参数也扩展到这种情况: 为了定义一个被命名的函数 $f : A \to B \to C$, 可以给出这样的等式
+\[ f(x,y) \defeq \Phi\]
+其中 $\Phi:C$ 并假定 $x:A$ 和 $y:B$.
+在这个等式使用 $\lambda$-抽象\index{lambda 抽象@$\lambda$-抽象}的结果是
+\[ f \defeq \lamu{x:A}{y:B} \Phi, \]
+也可以写为
+\[ f \defeq x \mapsto y \mapsto \Phi. \]
+还可以通过写入多个占位符来隐式抽象多个变量, 例如
+\ $g(\blank,\blank)$ 意味着 $\lam{x}{y} g(x,y)$.
+在刚刚描述的方法上直接扩展, 可以柯里化三个或者更多参数的函数.
 
 \index{类型!函数|)} \index{函数|)} 
