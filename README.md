@@ -17,6 +17,7 @@ latexmk -xelatex  -interaction=batchmode  hott-online.tex
 注意项目使用 `xelatex` 支持中文，但只做了必要的兼容。所以 `makefile` 无法直接使用，不再兼容 LaTex 的 `ifpdf` 命令。
 
 ### 直接下载 Releases
+[Releases](/releases)
 
 ## 其它
 本项目使用的翻译辅助工具是 [OmegaT](https://github.com/omegat-org/omegat) 。
