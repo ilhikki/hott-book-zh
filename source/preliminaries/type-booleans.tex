@@ -6,10 +6,10 @@
 % for {type!coproduct}, so it's not our fault
 %
 不过由于它被频繁地使用, 这里给出显式的规则.
-实际上, 可以观察到, 有从 $\Sigma$-types 和 $\bool$ 得到出二元余积的另一种方式.
+实际可以观察到, 有另一种方式从 $\Sigma$-类型 和 $\bool$ 得到二元余积.
 
 \index{递归原理!布尔类型的}
-为了得到函数 $f : \bool \to C$, 需要 $c_0,c_1 : C$ 并添加定义等同
+为了得到函数 $f : \bool \to C$, 需要 $c_0,c_1 : C$ 并加入定义等同
 \begin{align*}
     f(\bfalse) &\defeq c_0, \\
     f(\btrue) &\defeq c_1.
@@ -24,12 +24,12 @@
 \end{align*}
 
 \index{归纳原理!布尔类型的}
-给定 $C : \bool \to \UU$, 为了得到一个依赖函数 $f : \prd{x:\bool}C(x)$, 需要 $c_0:C(\bfalse)$ 和 $c_1 : C(\btrue)$, 在这中情况下可以给出定义等式
+给定 $C : \bool \to \UU$, 为了得到一个依赖函数 $f : \prd{x:\bool}C(x)$, 需要 $c_0:C(\bfalse)$ 和 $c_1 : C(\btrue)$, 于是可以给出定义等式
 \begin{align*}
     f(\bfalse) &\defeq c_0, \\
     f(\btrue) &\defeq c_1.
 \end{align*}
-把上面的内容封装成归纳原理
+将其封装为归纳原理
 \symlabel{defn:induction-bool}%
 \[ \ind{\bool} : \dprd{C:\bool \to \UU}  C(\bfalse) \to C(\btrue)
 \to \tprd{x:\bool} C(x) \]
@@ -40,14 +40,14 @@
 \end{align*}
 
 举个例子, 使用归纳原理可以演绎出, 所有 $\bool$ 的元素必须是 $\btrue$ 或者 $\bfalse$.
-和以前一样, 为了陈述它, 需要使用还没有被引入的等同类型, 只需要使用所有东西等于它自己这个事实, 即 $\refl{x}:x=x$.
-因此, 构造一个元素, 它的类型是
+和以前一样, 为了陈述它, 需要使用还没有被引入的等同类型, 使用所有东西等于它自己这个事实, 即 $\refl{x}:x=x$.
+也就是, 构造一个元素, 它的类型是
 \begin{equation}
     \label{thm:allbool-trueorfalse}
     \prd{x:\bool}(x=\bfalse)+(x=\btrue),
 \end{equation}
 即一个函数接收参数 $x:\bool$ 返回 $x=\bfalse$ 或 $x=\btrue$.
-可以使用 \bool 的归纳原理, 其中 $C(x) \defeq (x=\bfalse)+(x=\btrue)$;
+使用 \bool 的归纳原理, 其中 $C(x) \defeq (x=\bfalse)+(x=\btrue)$;
 两个输入为 $\inl(\refl{\bfalse}) : C(\bfalse)$ 和 $\inr(\refl{\btrue}):C(\btrue)$.
 换句话说,\eqref{thm:allbool-trueorfalse} 元素是
 \[ \ind{\bool}\big(\lam{x}(x=\bfalse)+(x=\btrue),\, \inl(\refl{\bfalse}),\, \inr(\refl{\btrue})\big). \]
@@ -58,19 +58,20 @@
 实际上, 可以从 $\bool$ 的递归原理严格得出这个类型族.
 \index{类型!族}%
 (在通过归纳和递归定义\emph{类型族}的方法里, 使用了宇宙类型 $\UU$ 是它自己的类型这个事实, 这是类型论一个微妙而重要的地方.)
-因此, 有定义
+于是, 有定义
 \index{类型!余积}%
 \[ A + B \defeq \sm{x:\bool} \rec{\bool}(\UU,A,B,x) \]
-其中 \begin{align*}
-       \inl(a) &\defeq \tup{\bfalse}{a}, \\
-       \inr(b) &\defeq \tup{\btrue}{b}.
+与
+\begin{align*}
+    \inl(a) &\defeq \tup{\bfalse}{a}, \\
+    \inr(b) &\defeq \tup{\btrue}{b}.
 \end{align*}
 习题: 从这个定义, 派生余积类型的归纳原理.
 (参见 \cref{ex:sum-via-bool,sec:appetizer-univalence}.)
 
 同样的想法可以应用到乘积和 $\Pi$-类型: 可以定义
 \[ A \times B \defeq \prd{x:\bool}\rec{\bool}(\UU,A,B,x). \]
-可以对 \bool 做归纳来构造对子:
+对 \bool 做归纳来构造对子:
 \[ \tup{a}{b} \defeq \ind{\bool}(\rec{\bool}(\UU,A,B),a,b) \]
 于是投影是直接的应用
 \begin{align*}
@@ -81,10 +82,10 @@
 此外, 也在不再和以往一样, 在这里给出定义等同;
 参见 \cref{ex:prod-via-bool}.
 当一个类型编码成另一个类型时, 会出现这个循环的问题;
-会在 \cref{sec:htpy-inductive} 回到这个问题.
+会在 \cref{sec:htpy-inductive} 返回这个问题.
 
 偶尔会把 $\bool$ 的元素 $\bfalse$ 和 $\btrue$ 分别称为 ``false'' 和 ``true''.
-注意和经典的\index{数学!经典的}数学不一样, 不使用 $\bool$ 的元素当作真值
+注意和经典的\index{数学!经典的}数学不一样, 不使用 $\bool$ 的元素当作真值%
 \index{值!真}%
 或者命题.
 (作为替代让命题等同于类型;
