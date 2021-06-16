@@ -1,80 +1,154 @@
-\index{类型!依赖对子|(defstyle}%
-\indexsee{类型!依赖和}{类型, 依赖对子}%
-\indexsee{类型!Sigma-@$\Sigma$-}{类型, 依赖对子}%
-\indexsee{Sigma-type@$\Sigma$-type}{类型, 依赖 对子}%
-\indexsee{和!依赖}{类型, 依赖对子}%
+\index{类型!依值对子|(defstyle}%
+\indexsee{类型!依值和}{类型, 依值对子}%
+\indexsee{类型!Sigma-@$\Sigma$-}{类型, 依值对子}%
+\indexsee{Sigma-type@$\Sigma$-type}{类型, 依值对子}%
+\indexsee{和!依值}{类型, 依值对子}%
 
-就像我们通用化函数类型 (\cref{sec:function-types}) 为依赖函数类型 (\cref{sec:pi-types}), 乘积类型 (\cref{sec:finite-product-types}) 也可以被通用化, 令第对子的二个类型可以依赖对子的第一个类型. 这被称为\define{依赖对子类型}, 或者\define{$\Sigma$-类型}, 因为在集合论中, 它相当于给定类型的一个不交和. 
+类似于将函数类型 (\cref{sec:function-types}) 泛化为依值函数类型 (\cref{sec:pi-types}), 乘积类型 (\cref{sec:finite-product-types}) 也可以被泛化, 来让对子的第二个类型, 依赖第一个类型.
+这被称为\define{依值对子类型}, 或者\define{$\Sigma$-类型}, 因为在集合论中, 它相当于给定类型的不交和.
 
-给定一个类型 $A:\UU$ 和一个族 $B : A \to \UU$, 依赖对子类型可以写做 $\sm{x:A} B(x) : \UU$. 或者是  \[ \tsm{x:A} B(x) \hspace{2cm} \dsm{x:A}B(x) \hspace{2cm} \lsm{x:A} B(x). \]
-于 $\lambda$-abstractions 和$\Pi$ 一样, $\Sigma$ 如果没有显式界定作用域\index{作用域}, 那么它的作用域包括了表达式的剩余部分, 例如 $\sm{x:A} B(x) \to C$ 相当于 $\sm{x:A} (B(x) \to C)$.
+给定类型 $A:\UU$ 和族 $B : A \to \UU$, 依值对子类型可以写做 $\sm{x:A} B(x) : \UU$.
+或者
+\[
+    \tsm{x:A} B(x) \hspace{2cm} \dsm{x:A}B(x) \hspace{2cm} \lsm{x:A} B(x).
+\]
+与 $\lambda$-抽象和 $\Pi$ 一样, 如果没有显式界定 $\Sigma$ 的作用域\index{作用域}, 那么它的作用域包括了表达式的剩余部分, 例如 $\sm{x:A} B(x) \to C$ 相当于 $\sm{x:A} (B(x) \to C)$.
 
 \symlabel{defn:dependent-pair}%
-\indexdef{对子!依赖}%
-构造依赖对子类型的元素的方法也是通过对子: 给定 $a:A$ 和 $b:B(a)$ 有 $\tup{a}{b} : \sm{x:A} B(x)$ . 如果 $B$ 是常量, 那么依赖对子类型就是有序的笛卡尔积类型: \[ \Parens{\sm{x:A} B} \jdeq (A \times B).\]
-所有 $\Sigma$-types 可以当作用依赖函数替换为非依赖函数的乘积类型. 
+\indexdef{对子!依值}%
+构造依值对子类型的元素也是通过对子构造的: 给定 $a:A$ 和 $b:B(a)$ 有 $\tup{a}{b} : \sm{x:A} B(x)$.
+如果 $B$ 是常量, 那么依值对子类型就是有序的笛卡尔积类型:
+\[
+    \Parens{\sm{x:A} B} \jdeq (A \times B).
+\]
+所有 $\Sigma$-类型可以当作是乘积类型中, 直接用依值函数代替非依值函数的结果.
 
-例如, 递归原理\index{递归原理!依赖对子类型的}%
-认为如果要定义非依赖函数 $\Sigma$-type $f : (\sm{x:A} B(x)) \to C$, 我们只要给定函数  $g : \prd{x:A} B(x) \to C$, 然后我们就可以定义 $f$, 通过这个定义等式 \[ f(\tup{a}{b}) \defeq g(a)(b). \]
-\indexdef{投影!依赖对子类型的}%
-例如, 我们可以派生 $\Sigma$-type 的第一投影: \symlabel{defn:dependent-proj1}%
+例如, 递归原理\index{递归原理!依值对子类型的}%
+表示, 为了定义一个以 $\Sigma$-类型为参数的函数 $f : (\sm{x:A} B(x)) \to C$, 只要给定函数  $g : \prd{x:A} B(x) \to C$, 然后就可以通过这个定义等式
+\[
+    f(\tup{a}{b}) \defeq g(a)(b)
+\]
+定义 $f$.
+\indexdef{投影!依值对子类型的}%
+例如, 可以派生 $\Sigma$-类型的第一投影:
+\symlabel{defn:dependent-proj1}%
 \begin{equation*}
-\fst : \Parens{\sm{x : A}B(x)} \to A
+    \fst : \Parens{\sm{x : A}B(x)} \to A
 \end{equation*}
-通过这个定义等式 \begin{equation*}
-\fst(\tup{a}{b}) \defeq a.
+通过这个定义等式
+\begin{equation*}
+    \fst(\tup{a}{b}) \defeq a.
 \end{equation*}
-不过, 因为 \narrowequation{
-(a,b):\sm{x:A} B(x)
-} 的第二个组成的类型是 $B(a)$, 第二投影必须是\emph{依赖}函数, 它的类型涉及第一投影 函数: \symlabel{defn:dependent-proj2}%
-\[ \snd : \prd{p:\sm{x : A}B(x)}B(\fst(p)). \]
-因此我们需要$\Sigma$-types的\emph{归纳}原理\index{归纳原理!依赖对子类型的}%
- (``依赖消除器''). 即为了构造一个定义域为 $\Sigma$-type, 达到域是一个族的依赖函数 $C : (\sm{x:A} B(x)) \to \UU$, 我们需要一个函数 \[ g : \prd{a:A}{b:B(a)} C(\tup{a}{b}). \]
-然后可以派生一个函数  \[ f : \prd{p : \sm{x:A}B(x)} C(p) \]
-和定义等式\index{计算规则!依赖对子类型的} \[ f(\tup{a}{b}) \defeq g(a)(b).\]
-把这个函数应用到 $C(p)\defeq B(\fst(p))$, 我们可以定义 \narrowequation{
-\snd : \prd{p:\sm{x : A}B(x)}B(\fst(p))
-} 和明显的等式 \[ \snd(\tup{a}{b}) \defeq b. \]
-为了说服我们自己它是正确的, 我们注意 $B (\fst(\tup{a}{b})) \jdeq B(a)$, 对 $\fst$ 使用定义等式 , 结果确实是 $b : B(a)$. 
+不过, 因为
+\narrowequation{
+    (a,b):\sm{x:A} B(x)
+}
+的第二个组成的类型是 $B(a)$, 第二投影必须是\emph{依值}函数, 它的类型含有第一投影函数:
+\symlabel{defn:dependent-proj2}%
+\[
+    \snd : \prd{p:\sm{x : A}B(x)}B(\fst(p)).
+\]
+因此需要 $\Sigma$-类型\emph{归纳}原理\index{归纳原理!依值对子类型的}(``依值消去子'')
+即为了构造一个接收 $\Sigma$-类型, 返回一个族的依值函数 $C : (\sm{x:A} B(x)) \to \UU$, 需要一个函数
+\[
+    g : \prd{a:A}{b:B(a)} C(\tup{a}{b}).
+\]
+然后派生一个函数
+\[
+    f : \prd{p : \sm{x:A}B(x)} C(p)
+\]
+和定义等式\index{计算规则!依值对子类型的}
+\[
+    f(\tup{a}{b}) \defeq g(a)(b).
+\]
+把这个函数应用到 $C(p)\defeq B(\fst(p))$, 可以定义
+\narrowequation{\snd : \prd{p:\sm{x : A}B(x)}B(\fst(p))}
+以这个明显的等式
+\[
+    \snd(\tup{a}{b}) \defeq b.
+\]
+注意 $B (\fst(\tup{a}{b})) \jdeq B(a)$, 对 $\fst$ 使用定义等式 , 结果确实是 $b : B(a)$, 说明它是正确的.
 
-我们可以包装 $\Sigma$ 的递归和归纳原理, 它的递归子: \symlabel{defn:recursor-sm}%
-\[ \rec{\sm{x:A}B(x)} : \dprd{C:\UU}\Parens{\tprd{x:A} B(x) \to C} \to
-\Parens{\tsm{x:A}B(x)} \to C \]
-和这个定义等式 \[ \rec{\sm{x:A}B(x)}(C,g,\tup{a}{b}) \defeq g(a)(b) \]
+可以包装 $\Sigma$ 的递归和归纳原理到它的递归子:
+\symlabel{defn:recursor-sm}%
+\[
+    \rec{\sm{x:A}B(x)} : \dprd{C:\UU}\Parens{\tprd{x:A} B(x) \to C} \to
+    \Parens{\tsm{x:A}B(x)} \to C
+\]
+与定义等式
+\[
+    \rec{\sm{x:A}B(x)}(C,g,\tup{a}{b}) \defeq g(a)(b)
+\]
 和归纳符号: \symlabel{defn:induction-sm}%
 \begin{narrowmultline*}
-\ind{\sm{x:A}B(x)} : \narrowbreak
-\dprd{C:(\sm{x:A} B(x)) \to \UU}
-\Parens{\tprd{a:A}{b:B(a)} C(\tup{a}{b})}
-\to \dprd{p : \sm{x:A}B(x)} C(p)
+    \ind{\sm{x:A}B(x)} : \narrowbreak
+    \dprd{C:(\sm{x:A} B(x)) \to \UU}
+    \Parens{\tprd{a:A}{b:B(a)} C(\tup{a}{b})}
+    \to \dprd{p : \sm{x:A}B(x)} C(p)
 \end{narrowmultline*}
-与定义等式  \[ \ind{\sm{x:A}B(x)}(C,g,\tup{a}{b}) \defeq g(a)(b). \]
-和之前一样, 递归子是归纳子在 $C$ 为常量的特殊情况. 
-
-进一步的例子, 考虑到下面的原理, 当 $A$ 和 $B$ 是类型, 而 $R:A\to B\to \UU$: \[ \ac : \Parens{\tprd{x:A} \tsm{y :B} R(x,y)} \to
-\Parens{\tsm{f:A\to B} \tprd{x:A} R(x,f(x))}.
+与定义等式
+\[
+    \ind{\sm{x:A}B(x)}(C,g,\tup{a}{b}) \defeq g(a)(b).
 \]
-我们可以把 $R$ 看成 ``证明相关关系'' \index{数学!证明相关}%
-($A$ 和 $B$ 之间的), 而 $R(a,b)$ 一个类型, 这个类型是 $a:A$ 和 $b:B$ 的相关性的见证. 然后 $\ac$ 直观地说明了如果我们有一个依赖函数 $g$ 把所有的 $a:A$ 映射为依赖对子 $(b,r)$ ($b:B$ 且 $r:R(a,b)$), 那么我们有一个函数 $f:A\to B$ 和一个依赖函数, 把$a:A$ 映射为 $R(a,f(a))$. 我们的直觉告诉我们, 我们只需要把 $g$ 的值, 分别表示它们的组成. 的确, 只要使用投影, 我们就能定义: \[ \ac(g) \defeq \Parens{\lamu{x:A} \fst(g(x)),\, \lamu{x:A} \snd(g(x))}. \]
-为了校验它是一个类型良好性, 注意如果 $g:\prd{x:A} \sm{y :B} R(x,y)$, 我们有 \begin{align*}
-\lamu{x:A} \fst(g(x)) &: A \to B, \\
-\lamu{x:A} \snd(g(x)) &: \tprd{x:A} R(x,\fst(g(x))).
+和之前一样, 递归子是归纳子在 $C$ 为常量的特殊情况.
+
+进一步的例子, 考虑到下面的原理, 其中 $A$ 和 $B$ 是类型, 而 $R:A\to B\to \UU$:
+\[
+    \ac : \Parens{\tprd{x:A} \tsm{y :B} R(x,y)} \to
+    \Parens{\tsm{f:A\to B} \tprd{x:A} R(x,f(x))}.
+\]
+可以把 $R$ 看成 ``证明''$A$ 和 $B$ 之间的``相关关系'' \index{数学!证明相关}, 而 $R(a,b)$ 一个类型, 它的元素是 $a:A$ 和 $b:B$ 的相关性的见证.
+然后 $\ac$ 直观地说明了如果有一个依值函数 $g$ 把所有的 $a:A$ 映射为依值对子 $(b,r)$, 而且 $b:B$ 且 $r:R(a,b)$, 那么有一个函数 $f:A\to B$ 和一个依值函数, 把$a:A$ 映射为 $R(a,f(a))$.
+直觉上, 只需把 $g$ 的值, 分别表示它们的组成.
+的确, 只要使用投影, 就能定义:
+\[
+    \ac(g) \defeq \Parens{\lamu{x:A} \fst(g(x)),\, \lamu{x:A} \snd(g(x))}.
+\]
+为了校验它是良型的, 注意如果 $g:\prd{x:A} \sm{y :B} R(x,y)$, 则有
+\begin{align*}
+    \lamu{x:A} \fst(g(x)) &: A \to B, \\
+    \lamu{x:A} \snd(g(x)) &: \tprd{x:A} R(x,\fst(g(x))).
 \end{align*}
-此外, 类型族 $\lamu{f:A\to B} \tprd{x:A} R(x,f(x))$ 是 \ac 的达到域的组成, 类型 $\prd{x:A} R(x,\fst(g(x)))$ 是应用这个类型族到 $\lamu{x:A} \fst(g(x))$ 的结果: \[ \tprd{x:A} R(x,\fst(g(x))) \jdeq
-\Parens{\lamu{f:A\to B} \tprd{x:A} R(x,f(x))}\big(\lamu{x:A} \fst(g(x))\big). \]
-因此, 得到所需的 \[ \Parens{\lamu{x:A} \fst(g(x)),\, \lamu{x:A} \snd(g(x))} : \tsm{f:A\to B} \tprd{x:A} R(x,f(x)) .\]
- 
+此外, 类型族 $\lamu{f:A\to B} \tprd{x:A} R(x,f(x))$ 是 \ac 的达到域的成分, 类型 $\prd{x:A} R(x,\fst(g(x)))$ 是应用这个类型族到 $\lamu{x:A} \fst(g(x))$ 的结果:
+\[
+    \tprd{x:A} R(x,\fst(g(x))) \jdeq
+    \Parens{\lamu{f:A\to B} \tprd{x:A} R(x,f(x))}\big(\lamu{x:A} \fst(g(x))\big).
+\]
+因此, 可以得到所需的
+\[
+    \Parens{\lamu{x:A} \fst(g(x)),\, \lamu{x:A} \snd(g(x))} : \tsm{f:A\to B} \tprd{x:A} R(x,f(x)).
+\]
 
-如果我们把 $\Pi$ 当作 ``对于所有'' 而把 $\Sigma$ 当作 ``存在'', 那么函数 $\ac$ 的类型表示: \emph{若对于所有 $x:A$ 存在 $y:B$ 满足 $R(x,y)$, 那么存在一个函数 $f : A \to B$ 满足对于所有 $x:A$ 我们有 $R(x,f(x))$}.
-因为这听起来像是选择公理的一个版本, 函数 \ac 被传统地称为\define{类型论的选择公理}, 而就像我们刚才看见的, 它可以直接从类型论的规则中证明, 而不是作为公理. \index{公理!选择的!类型论的}%
-不过, 注意实际没有选择被涉及, 因为我们早已假设选择已经被给定: 我们只需要把它分解成两个函数: 一个代表选择而另一个代表正确性. 在 \cref{sec:axiom-choice} 我们会给出另一个更接近平常的 ``选择公理'' 的阐述. 
 
-依赖对子类型经常被使用于定义数学结构的类型, 并用于包含一些依赖数据的片段. 举个简单的例子, 为了把\define{原群}\indexdef{原群}定义成一个类型, 这个类型 $A$ 伴随一个二元运算符 $m:A\to A\to A$. 短语``伴随''\index{伴随}的含义是 (和同义的 ``具有''\index{具有})的意思是``原群''是一个 \emph{对子} $(A,m)$, 它包含了类型 $A:\UU$和一个操作符 $m:A\to A\to A$. 因为对子的第二个元件 $m$ 的类型 $A\to A\to A$ 依赖于第一个元件 $A$, 所以这样的对子属于依赖对子类型. 因此, 定义``原群是一个类型 $A$ 伴随一个二元操作符 $m:A\to A\to A$'' 应该被当作 \emph{原群的类型}是 \[ \mathsf{Magma} \defeq \sm{A:\UU} (A\to A\to A). \]
-给定一个原群, 我们通过第一投影 $\proj1$抽出基础类型 (它的``载体''\index{载体}), 通过第二投影 $\proj2$ 抽出它的运算符 . 当然, 为了构建超过两个数据的类型, 我们需要对子类型的迭代, 可能只需要部分的迭代. 例如具有单位元的原群(具有一个单位元 $e:A$ 的原群 $(A,m)$) 的类型是 \[ \mathsf{PointedMagma} \defeq \sm{A:\UU} (A\to A\to A) \times A. \]
-我们通常也像把公理推广到这样的结构上, 例如把单位元的原群变为一个幺半群或是一个群. 这通过使用 $\Sigma$-types 来实现; 参见 \cref{sec:pat}. 
+如果把 $\Pi$ 当作 ``对于所有'' 而把 $\Sigma$ 当作 ``存在'', 那么函数 $\ac$ 的类型表示: \emph{若对于所有 $x:A$ 存在 $y:B$ 满足 $R(x,y)$, 那么存在一个函数 $f : A \to B$ 满足对于所有 $x:A$ 有 $R(x,f(x))$}.
+这听起来像是选择公理的一个版本, 函数 \ac 被传统地称为\define{类型论的选择公理}, 而就像刚才看见的, 它可以直接从类型论的规则中证明, 而不是作为公理.
+\index{公理!选择的!类型论的}%
+不过, 注意实际没有包含选择, 因为早已选择已经被假定: 只需要把它分解成两个函数: 一个代表选择而另一个代表正确性.
+在 \cref{sec:axiom-choice} 会给出另一个更接近于使用习惯的 ``选择公理'' 的形式.
 
-在本书的剩余部分, 我们有时会使用这样直接的定义, 但是最终我们还是相信读者可以把它从自然语言翻译成 $\Sigma$-types. 我们通常也会遵循通常的数学惯例，即对此类结构及其载体使用相同的写法 (相当于在符号中隐含适当的投影函数): 也就是说我们要讨论一个原群, $A$ 和它的操作符 $m:A\to A\to A$. 
+经常使用依值对子类型定义一些数学结构的类型, 其结构通常由一些相关的片段组成.
+举个简单的例子, 把\define{原群}\indexdef{原群}定义成一个类型, 这个类型 $A$ 伴随一个二元运算符 $m:A\to A\to A$.
+短语``伴随''\index{伴随}的含义是 (和同义的 ``具有''\index{具有})的意思是``原群''是一个 \emph{对子} $(A,m)$, 它包含了类型 $A:\UU$和一个操作符 $m:A\to A\to A$.
+因为对子的第二个部分 $m$ 的类型 $A\to A\to A$ 依赖于第一个部分 $A$, 所以这样的对子属于依值对子类型.
+因此, 定义``原群是一个类型 $A$ 伴随一个二元操作符 $m:A\to A\to A$'' 应该被当作 \emph{原群的类型}是
+\[
+    \mathsf{Magma} \defeq \sm{A:\UU} (A\to A\to A).
+\]
+给定一个原群, 通过第一投影 $\proj1$ 抽取基础类型 (它的``载体''\index{载体}), 通过第二投影 $\proj2$ 抽取它的运算符.
+当然, 为了构建超过两个数据的类型, 需要迭代的对子类型, 可能只需要部分依赖.
+例如具有单位元的原群 (具有一个单位元 $e:A$ 的原群 $(A,m)$) 的类型是
+\[
+    \mathsf{PointedMagma} \defeq \sm{A:\UU} (A\to A\to A) \times A.
+\]
+通常也像把公理推广到这样的结构上, 例如把单位元的原群变为一个幺半群或是一个群.
+可以通过使用 $\Sigma$-types 来实现;
+参见 \cref{sec:pat}.
 
-注意 $\mathsf{PointedMagma}$ 的标准元素, 是用 $(A,(m,e))$ 中构造的, 这论的 $A:\UU$, $m:A\to A\to A$, 而 $e:A$. 因为这样的 $\Sigma$-types 出现的频率很高, 我们使用有序三元, 四元和更多元对子, 来表示在右表嵌套的两元(可能有依赖关系的)对子. 也就是说, $(x,y,z) \defeq (x,(y,z))$, $(x,y,z,w)\defeq (x,(y,(z,w)))$, 等等. 
+在本书的剩余部分, 有时会使用这样直接的定义, 但相信读者可以把它从自然语言翻译成 $\Sigma$-类型.
+通常也会遵循通常的数学惯例，即对此类结构及其载体使用相同的写法 (相当于在符号中隐含适当的投影函数): 比如讨论一个原群, $A$ 和它的操作符 $m:A\to A\to A$.
 
-\index{类型!依赖对子|)}%
+注意 $\mathsf{PointedMagma}$ 的标准元素, 是用 $(A,(m,e))$ 中构造的, 这论的 $A:\UU$, $m:A\to A\to A$, 而 $e:A$.
+因为 $\Sigma$-类型出现频率很高, 使用有序三元对, 四元对和多元对, 来表示于右边嵌套的两元(依值)对子.
+也就是说, $(x,y,z) \defeq (x,(y,z))$, $(x,y,z,w)\defeq (x,(y,(z,w)))$, 等等.
+
+\index{类型!依值对子|)}%
