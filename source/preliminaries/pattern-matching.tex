@@ -1,37 +1,59 @@
 \index{模式匹配|(defstyle}%
 \indexsee{匹配}{模式匹配}%
 \index{定义!通过模式匹配|(}%
-迄今为止, 自然数在类型上又引入了微妙的加法. 在陪积的情况下, 例如, 我们可以定义一个函数 $f:A+B\to C$ 使用递归子: \[ f \defeq \rec{A+B}(C, g_0, g_1) \]
-或者给出定义等同: \begin{align*}
-f(\inl(a)) &\defeq g_0(a)\\
-f(\inr(b)) &\defeq g_1(b).
+自然数比之前介绍的类型更微妙.
+例如余积, 为了定义函数 $f:A+B\to C$, 可以通过使用递归子: \[ f \defeq \rec{A+B}(C, g_0, g_1) \]
+或者给出定义等式:
+\begin{align*}
+    f(\inl(a)) &\defeq g_0(a)\\
+    f(\inr(b)) &\defeq g_1(b).
 \end{align*}
-为了把前面的表达式 $f$ 变为后者, 我们只需使用递归子的计算规则. 反过来, 给定任何定义等同 \begin{align*}
-f(\inl(a)) &\defeq \Phi_0\\
-f(\inr(b)) &\defeq \Phi_1
+为了把前面的表达式 $f$ 变为后者, 只需使用递归子的计算规则.
+反过来, 给定任何定义等式
+\begin{align*}
+    f(\inl(a)) &\defeq \Phi_0\\
+    f(\inr(b)) &\defeq \Phi_1
 \end{align*}
-其中 $\Phi_0$ 和 $\Phi_1$ 这两个表达式, 可以分别包含变量\index{变量}%
-$a$ 和 $b$ , 为了表示这些递归子项的定义等同, 可以使用 $\lambda$-abstraction\index{lambda abstraction@$\lambda$-abstraction}: \[ f\defeq \rec{A+B}(C, \lam{a} \Phi_0, \lam{b} \Phi_1).\]
-例如自然数的``定义等式'', $\dbl$: \begin{align}
-\dbl(0) &\defeq 0 \label{eq:dbl0}\\
-\dbl(\suc(n)) &\defeq \suc(\suc(\dbl(n)))\label{eq:dblsuc}
+其中表达式 $\Phi_0$ 和 $\Phi_1$ 可以分别包含变量\index{变量} $a$ 和 $b$, 可以在递归子的项中使用 $\lambda$-抽象\index{lambda abstraction@$\lambda$-abstraction}:
+\[
+    f\defeq \rec{A+B}(C, \lam{a} \Phi_0, \lam{b} \Phi_1).
+\]
+等价地表示这些等式.
+在自然数中, 比如 $\dbl$ 的 ``定义等式'':
+\begin{align}
+    \dbl(0) &\defeq 0 \label{eq:dbl0}\\
+    \dbl(\suc(n)) &\defeq \suc(\suc(\dbl(n)))\label{eq:dblsuc}
 \end{align}
-在等式右边包含\emph{函数 $\dbl$ 本身} . 不过, 我们更喜欢给出这样的等式作为 \dbl 的定义, 而不是~\eqref{eq:dbl-as-rec}, 因为这样更加方便和可读. 这这方法可以被理解成, 把表达式 \eqref{eq:dblsuc} 右手边的 ``$\dbl(n)$'' 看作递归调用的结果, 而在定义的构造 $\dbl\defeq \rec{\nat}(\nat,c_0,c_s)$ 中, 它代表的是第二个实参 $c_s$. 
+等式右边包含\emph{函数 $\dbl$ 本身}.
+不过, 我们更乐意给出这样的等式作为 \dbl, 而不是~\eqref{eq:dbl-as-rec}, 因为这样更加方便和可读.
+这种方法可以看作, 把表达式\eqref{eq:dblsuc} 右边的 ``$\dbl(n)$'' 当作递归调用的结果, 在定义的构造 $\dbl\defeq \rec{\nat}(\nat,c_0,c_s)$ 中, 它代表的是第二个实参 $c_s$.
 
-更一般的, 如果我们又一个函数 $f:\nat\to C$ 的``定义'' 例如 \begin{align*}
-f(0) &\defeq \Phi_0\\
-f(\suc(n)) &\defeq \Phi_s
+推而广之, 如果有一个函数 $f:\nat\to C$ 的``定义'' 例如
+\begin{align*}
+    f(0) &\defeq \Phi_0\\
+    f(\suc(n)) &\defeq \Phi_s
 \end{align*}
-其中 $\Phi_0$ 是一个表达式, 类型为$C$, 而 $\Phi_s$ 是一个表达式, 类型为 $C$, 并可以包含变量 $n$ 和符号``$f(n)$'', 我们可以把它翻译为定义 \[ f \defeq \rec{\nat}(C,\,\Phi_0,\,\lam{n}{r} \Phi_s') \]
-其中 $\Phi_s'$ 是由 $\Phi_s$ 替换所有的 ``$f(n)$'' 为新变量 $r$ 而得到的. 
+其中 $\Phi_0$ 是一个表达式, 类型为$C$, 而 $\Phi_s$ 是一个表达式, 类型为 $C$, 并可以包含变量 $n$ 和符号``$f(n)$'', 可以把它转换为定义
+\[
+    f \defeq \rec{\nat}(C,\,\Phi_0,\,\lam{n}{r} \Phi_s')
+\]
+其中 $\Phi_s'$ 是由 $\Phi_s$ 替换所有的 ``$f(n)$'' 为新变量 $r$ 而得到的.
 
-这种通过递归定义函数(或者更通用的, 通过归纳定义依赖函数) 的风格如此方便, 所以我们很愿意接受它. 它被称为\define{模式匹配}. 当然, 这非常类似于一个程序员定义递归函数, 并且字面上的存在递归调用自己. 不过, 和程序员不同, 我们受限于这种递归调用: 必须用递归原理表示, 函数 $f$ 只能作为复合符号 ``$f(n)$'' 的一部分出现在  $f(\suc(n))$ 的函数体中. 否则, 我们可以写出无意义的函数, 例如 \begin{align*}
-f(0)&\defeq 0\\
-f(\suc(n)) &\defeq f(\suc(\suc(n))).
+这种通过递归定义函数(或者更通用的, 通过归纳定义依值函数) 的风格如此方便, 所以我们很乐意接受它.
+它被称为\define{模式匹配}.
+当然, 它类似于程序员定义递归函数, 字面上地在函数体中递归调用自己.
+不过, 和程序员不同, 我们受限于这种递归调用: 必须能够用递归原理表示, 函数 $f$ 只能作为复合符号 ``$f(n)$'' 的一部分出现在  $f(\suc(n))$ 的函数体中.
+否则, 可以写出无意义的函数, 例如
+\begin{align*}
+    f(0)&\defeq 0\\
+    f(\suc(n)) &\defeq f(\suc(\suc(n))).
 \end{align*}
-如果程序员写出了这样的函数, 只要在任何位置调用它自己, 就会出现死循环而不会返回任何值. 不过在数学中, 值得注意\emph{函数}这个名字, 每一个输入必须返回唯一的值, 所以这是不可接收的. 
+如果程序员写出了这样的函数, 只要在任何位置调用它自己, 就会出现死循环而不会返回任何值.
+而在数学中, 值得注意\emph{函数}这个名字, 每一个输入必须返回唯一的值, 所以这是无法接受的.
 
-在\cref{cha:induction,cha:hits,cha:real-numbers} 中, 我们引用更复杂的归纳类型的时候这一点更为重要. 无论何时引入一个新的归纳定义, 我们总是从派生归纳原理开始. 只有当我们引入一个适当的``模式匹配''时, 才能简化归纳原理. 
+这一点在\cref{cha:induction,cha:hits,cha:real-numbers} 中引用更复杂的归纳类型的时更加重要.
+每当引入一个新归纳定义, 都应该从派生归纳原理开始.
+只有能简化归纳原理, 才是合理的``模式匹配''.
 
 \index{模式匹配|)}%
 \index{定义!通过模式匹配|)}%
