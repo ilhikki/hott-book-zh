@@ -39,11 +39,11 @@
         (例如, 每个函数类型有一个消去器, 即函数的应用)
 
         \item
-        一个\define{计算规则}\indexdef{计算规则}\footnote{也被称为 \define{$\beta$-reduction}\index{beta-reduction@$\beta $-reduction|footstyle}}, 它表示了消去器如何作用于一个构造器.
+        一个\define{计算规则}\indexdef{计算规则}\footnote{也被称为 \define{$\beta$-化简}\index{beta-化简@$\beta $-化简|footstyle}}, 它表示了消去器如何作用于一个构造器.
         (例如函数, 计算规则表示 $(\lamu{x:A}\Phi)(a)$ 判断相等于把 $\Phi$ 中的 $x$ 替换为 $a$ 的结果.)
 
         \item
-        一个可选的的\define{唯一性原理}\indexdef{唯一性!原理}\footnote{也被称为 \define{$\eta$-expansion}\index{eta-expansion@$\eta $-expansion|footstyle}}, 它表示类型在映射前后的唯一性.
+        一个可选的的\define{唯一性原理}\indexdef{唯一性!原理}\footnote{也被称为 \define{$\eta$-扩展}\index{eta-扩展@$\eta $-扩展|footstyle}}, 它表示类型映射前后的唯一性.
         对于某些类型, 唯一性原理是到这个类型的映射的特征, 表示所有这个类型的元素的唯一性只取决于应用消去器到这个元素的结果, 而且它可以从应用构造器的结果中重构 --- 从而表示构造函数如何作用于消去器, 与计算规则相对应.
         (例如, 对于函数, 唯一性原理说明任何函数 $f$  判断等于``扩展''函数 $\lamu{x} f(x)$, 而唯一性取决于它自己的值)
         对于其它类型,唯一性原理说明每个定义域为该类型的映射(函数)的唯一性取决于一些值.
