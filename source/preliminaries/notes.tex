@@ -1,86 +1,88 @@
 \sectionNotes
 
-The type theory presented here is a version of Martin-L\"{o}f's intuitionistic type
-theory~\cite{Martin-Lof-1972,Martin-Lof-1973,Martin-Lof-1979,martin-lof:bibliopolis}, which itself is based on and influenced
-by the foundational work of Brouwer \cite{beeson}, Heyting~\cite{heyting1966intuitionism}, Scott~\cite{scott70}, de
-Bruijn~\cite{deBruijn-1973}, Howard~\cite{howard:pat}, Tait~\cite{Tait-1966,Tait-1968}, and Lawvere~\cite{lawvere:adjinfound}\index{Lawvere}.
+这里提到的类型论是 Martin-L\"{o}f 的直觉类型论的一个版本~\cite{Martin-Lof-1972,Martin-Lof-1973,Martin-Lof-1979,martin-lof:bibliopolis},
+直觉类型论基于并受到\cite{beeson}, Heyting~\cite{heyting1966intuitionism}, Scott~\cite{scott70},
+de Bruijn~\cite{deBruijn-1973}, Howard~\cite{howard:pat}, Tait~\cite{Tait-1966,Tait-1968},
+和 Lawvere~\cite{lawvere:adjinfound}\index{Lawvere}的基础工作影响.
 \index{proof!assistant}%
-Three principal variants of Martin-L\"{o}f's type theory underlie the \NuPRL \cite{constable+86nuprl-book}, \Coq~\cite{Coq}, and
-\Agda \cite{norell2007towards} computer implementations of type theory.  The theory given here differs from these formulations in a number
-of respects, some of which are critical to the homotopy interpretation, while others are technical conveniences or involve concepts that
-have not yet been studied in the homotopical setting.
+三个 Martin-L\"{o}f 类型伦的主要变体的计算实现的是 \NuPRL \cite{constable+86nuprl-book}, \Coq~\cite{Coq}, 和 \Agda \cite{norell2007towards} 的基础.
+这里给出的理论和这些形式有一些区别, 其中是同伦解释的关键, 而另一些是技术上的便利设施或者暂时没有纳入同伦场景.
 
-\index{type theory!intensional}%
-\index{type theory!extensional}%
-\index{intensional type theory}%
-\index{extensional!type theory}%
-Most significantly, the type theory described here is derived from the \emph{intensional} version of Martin-L\"{o}f's type
-theory~\cite{Martin-Lof-1973}, rather than the \emph{extensional} version~\cite{Martin-Lof-1979}.  Whereas the extensional theory makes no
-distinction between judgmental and propositional equality, the intensional theory regards judgmental equality as purely definitional, and
-admits a much broader, proof-relevant interpretation of the identity type that is central to the homotopy interpretation.  From the
-homotopical perspective, extensional type theory confines itself to homotopically discrete sets (see \cref{sec:basics-sets}), whereas the
-intensional theory admits types with higher-dimensional structure.  The \NuPRL system~\cite{constable+86nuprl-book} is extensional, whereas
-both \Coq~\cite{Coq} and \Agda~\cite{norell2007towards} are intensional.  Among intensional type theories, there are a number of variants
-that differ in the structure of identity proofs.  The most liberal interpretation, on which we rely here, admits a \emph{proof-relevant}
-interpretation of equality, whereas more restricted variants impose restrictions such as \emph{uniqueness of identity proofs
-    (UIP)}~\cite{Streicher93},
-\indexsee{UIP}{uniqueness of identity proofs}%
-\index{uniqueness!of identity proofs}%
-stating that any two proofs of equality are judgmentally equal, and \emph{Axiom K}~\cite{Streicher93},
-\index{axiom!Streicher's Axiom K}
-stating that
-the only proof of equality is reflexivity (up to judgmental equality).  These additional requirements may be selectively imposed in the \Coq
-and \Agda\ systems.
+\index{类型论!内延的}%
+\index{类型论!外延的}%
+\index{内延的类型论}%
+\index{外延!类型论}%
+显然, 这里给出的类型论是从\emph{内延}版本的 Martin-L\"{o}f 类型论~\cite{Martin-Lof-1973} 派生的, 而不是\emph{外延}版本~\cite{Martin-Lof-1979}.
+而外延的理论中判断和命题等同没有区分, 内延的理论视判断等同为纯的定义性, 并认为同伦解释的核心恒等类型有广泛的, 证明相关的解释.
+从同伦的角度看, 外延类型论将其自己界定为同伦的离散集合 (参见 \cref{sec:basics-sets}), 而内延类型论认为类型带有高维结构.
+\NuPRL 系统~\cite{constable+86nuprl-book} 是外延的, 而 \Coq~\cite{Coq} 和 \Agda~\cite{norell2007towards} 都是内延的.
+在内延类型论中, 有一些变体, 它们恒等证明的结构有区别.
+最开明的理解, 这里依靠的, 允许一个等于的\emph{证明相关}理解,而受限的变体主张例如\emph{恒等证明的唯一性(UIP)}~\cite{Streicher93}的限制,
+\indexsee{UIP}{恒等证明的唯一性}%
+\index{唯一性!恒等证明的}%
+让任何两个等于的证明为命题等同的, 而且\emph{K 公理}~\cite{Streicher93},
+\index{公理!Streicher 的 K 公理}
+认为等于的唯一证明就是自反(想到于判断等同).
+这些额外的条件在 \Coq 和 \Agda\ 系统中是可选的.
 
 %(In the terminology of \cref{cha:hlevels} such a type theory is about $0$-truncated types.)
 
-Another point of variation among intensional theories is the strength of judgmental equality, particularly as regards objects of function type.  Here we include the uniqueness principle\index{uniqueness!principle} ($\eta$-conversion) $f \jdeq \lam{x} f(x)$, as a principle of judgmental equality.  This principle is used, for example, in \cref{sec:univalence-implies-funext}, to show that univalence implies propositional function extensionality.  Uniqueness principles are sometimes considered for other types.
-For instance, the uniqueness principle\index{uniqueness!principle!for product types} for the cartesian product $A\times B$ would be a judgmental version of the propositional equality $\uniq{A\times B}$ which we constructed in \cref{sec:finite-product-types}, saying that $u \jdeq (\proj1(u),\proj2(u))$.
-This and the corresponding version for dependent pairs would be reasonable choices (which we did not make), but we cannot include all such rules, because the corresponding uniqueness principle for identity types would trivialize all the higher homotopical structure.  So we are \emph{forced} to leave it out, and the question then becomes where to draw the line. With regards to inductive types, we discuss these points further in~\cref{sec:htpy-inductive}.
+另一个变体之一的内延理论的观点是判断等同的强度, 尤其是关心函数类型的对象.
+这里包含了唯一性原理\index{唯一性!原理} ($\eta$-变换) $f \jdeq \lam{x} f(x)$, 作为一个判断的等同的原则.
+例如这样使用这个原理, 在\cref{sec:univalence-implies-funext}, 展示了宇价蕴含了命题函数外延性.
+有时在其他类型上考虑唯一性原理.
+例如, 笛卡尔积的 $A\times B$唯一性原理\index{唯一性!原理!乘积类型} 是在 \cref{sec:finite-product-types} 构造的命题等同 $\uniq{A\times B}$ 的一个判断版本, 它说明 $u \jdeq (\proj1(u),\proj2(u))$.
+它和依值类型的对应版本可以被合理选择(我们没有选择), 不过无法包含所有这样的规则, 因为对应的等同类型的唯一性原理会平凡化所有高阶同伦结构.
+所以我们\emph{被强迫}排除它, 然后问题编程了在哪里划清界限.
+关于归纳类型, 将在~\cref{sec:htpy-inductive}进一步讨论.
 
-It is important for our purposes that (propositional) equality of functions is taken to be \emph{extensional} (in a different sense than that used above!).
-This is not a consequence of the rules in this chapter; it will be expressed by \cref{axiom:funext}.
-\index{function extensionality}%
-This decision is significant for our purposes, because it specifies that equality of functions is as expected in mathematics.  Although we include \cref{axiom:funext} as an axiom, it may be derived from the univalence axiom and the uniqueness principle for functions\index{uniqueness!principle!for function types} (see \cref{sec:univalence-implies-funext}), as well as from the existence of an interval type (see \cref{thm:interval-funext}).
+函数的(命题)等同被认为是\emph{外延的}对我们的目标很重要 (与字面上的使用不同!).
+这不是这章得到的规则;
+它会在 \cref{axiom:funext} 中被表达.
+\index{函数外延性}%
+这个决定对我们的目的很重要, 因为它令函数的相等性符合数学中的预期.
+尽管把\cref{axiom:funext}作为公理包含, 它也可以从宇价公理和函数的唯一性原理index{唯一性!原理!函数类型} (参见\cref{sec:univalence-implies-funext}), 也能从间点类型得到 (参见 \cref{thm:interval-funext}).
 
-Regarding inductive types such as products, $\Sigma$-types, coproducts, natural numbers, and so on (see \cref{cha:induction}), there are additional choices regarding the formulation of induction and recursion.
-\index{pattern matching}%
-We have taken \emph{induction principles} as basic and \emph{pattern matching} as derived from them, but one may also do the other; see \cref{cha:rules}.
-Usually in the latter case one allows also \emph{deep} pattern matching; see~\cite{Coquand92Pattern}.
-There are several reasons for our choice.
-One reason is that induction principles are what we obtain naturally in categorical semantics.
-Another is that specifying the allowable kinds of (deep) pattern matching is quite tricky;
-for instance, \Agda's
-\index{proof!assistant!Agda@\textsc{Agda}}%
-pattern matching can prove Axiom K by default,
-\index{axiom!Streicher's Axiom K}%
-although a flag \texttt{--without-K} prevents this~\cite{CDP14}.
-Finally, deep pattern matching is not well-understood for \emph{higher} inductive types (see \cref{cha:hits}).
-Therefore, we will only use pattern matches such as those described in \cref{sec:pattern-matching}, which are directly equivalent to the application of an induction principle.
+关于归纳类型例如乘积, $\Sigma$-类型, 余积, 自然数等等 (参见 \cref{cha:induction}),  关于递归和归纳的形式有额外的选择.
+\index{模式匹配}%
+我们已经把\emph{递归原理}作为基础, 而且\emph{模式匹配}由它派生, 不过其中一个可以派生另一个; 参见\cref{cha:rules}.
+通常后者也允许\emph{深}模式匹配; 参见~\cite{Coquand92Pattern}.
+我们的选择有一些原因.
+原因之一是可以语义明确地自然得到归纳原理.
+另一个原因是指定(深)模式匹配的可行的种类有一些复杂;
+例如 \Agda 的
+\index{证明!助手!Agda@\textsc{Agda}}%
+模式匹配默认可以证明 K 公理,
+\index{公理!Streicher 的 K 公理}%
+尽管标记 \texttt{--without-K} 可以阻止它~\cite{CDP14}.
+最后, 深模式匹配不是良好理解\emph{高阶}归纳类型 (参见 \cref{cha:hits}).
+因此, 我们只像\cref{sec:pattern-matching}讨论的那样用模式匹配, 直接等价于归纳类型的应用.
 
-\index{proof!assistant!Coq@\textsc{Coq}}%
-Unlike the type theory of \Coq, we do not include a primitive type of propositions.  Instead, as discussed in \cref{sec:pat}, we embrace
-the \emph{propositions-as-types (PAT)} principle, identifying propositions with types.
-This was suggested originally by de Bruijn~\cite{deBruijn-1973}, Howard~\cite{howard:pat}, Tait~\cite{Tait-1968}, and Martin-L\"{o}f~\cite{Martin-Lof-1972}.
-(Our decision is explained more fully in \cref{subsec:pat?,subsec:hprops}.)
+\index{证明!助手!Coq@\textsc{Coq}}%
+和 \Coq 的类型伦不一样, 我们没有包含命题的原始类型.
+而是像\cref{sec:pat}讨论的那样, 我们接受\emph{命题即类型 (PAT)}原理, 恒等命题与类型.
+这被 de Bruijn~\cite{deBruijn-1973}, Howard~\cite{howard:pat}, Tait~\cite{Tait-1968}, 和 Martin-L\"{o}f~\cite{Martin-Lof-1972} 所建议.
+(关于我们的决定, 更充分的解释在 \cref{subsec:pat?,subsec:hprops}.)
 
-We do, however, include a full cumulative hierarchy of universes, so that the type formation and equality judgments become instances of the membership and equality judgments for a universe.
-As a convenience, we regard objects of a universe as types, rather than as codes for types; in the terminology of \cite{martin-lof:bibliopolis}, this means we use ``Russell-style universes'' rather than ``Tarski-style universes''.
-\index{type!universe!Tarski-style}%
-\index{type!universe!Russell-style}%
-An alternative would be to use Tarski-style universes, with an explicit coercion\index{coercion, universe-raising} function required to make an element $A:\UU$ of a universe into a type $\mathsf{El}(A)$, and just say that the coercion is omitted when working informally.
+不过我们做的是, 包含宇宙的全累积层次, 所以类型形式和等同命题成为一个宇宙的成员和等同命题的实例.
+为了方便, 视宇宙的对象为类型, 而不是类型的代码;
+在 \cite{martin-lof:bibliopolis} 的术语中, 这意味使用了 ``Russell-style 宇宙'' 而不是 ``Tarski-style 宇宙''.
+\index{类型!宇宙!Tarski-style}%
+\index{类型!宇宙!Russell-style}%
+另一种方法是 Tarski-style 宇宙, 显式约束\index{要求, 宇宙提升}函数需要一个宇宙的元素 $A:\UU$ 返回一个 $\mathsf{El}(A)$ 的类型, 而且这个约束在非形式的情况是可以忽略的.
 
-We also treat the universe hierarchy as cumulative, in that every type in $\UU_i$ is also in $\UU_j$ for each $j\geq i$.
-There are different ways to implement cumulativity formally: the simplest is just to include a rule that if $A:\UU_i$ then $A:\UU_j$.
-However, this has the annoying consequence that for a type family $B:A\to \UU_i$ we cannot conclude $B:A\to\UU_j$, although we can conclude $\lam{a} B(a) : A\to\UU_j$.
-A more sophisticated approach that solves this problem is to introduce a judgmental subtyping relation $<:$ generated by $\UU_i<:\UU_j$, but this makes the type theory more complicated to study.
-Another alternative would be to include an explicit coercion function $\uparrow : \UU_i \to \UU_j$, which could be omitted when working informally.
+我们对待宇宙层级的方法也是累积的, 也就是当 $j\geq i$ 时 $\UU_i$ 中的类型也在 $\UU_j$ 中.
+实现累积形式有不同的方法: 最简单的就是包含一个规则, $A:\UU_i$ 则 $A:\UU_j$.
+不过, 它有这个令人烦恼的后果, 就是对于类型族 $B:A\to \UU_i$ 无法得到 $B:A\to\UU_j$, 尽管可以得到 $\lam{a} B(a) : A\to\UU_j$.
+解决这个问题的一个更复杂的方法是引入一个判断的子类型关系 $<:$ 生成于 $\UU_i<:\UU_j$, 不过这样类型论变得更复杂以至于难以学习.
+另一个选择是包含显示的约束函数 $\uparrow : \UU_i \to \UU_j$, 在非形式的情况是可以忽略.
 
-It is also not necessary that the universes be indexed by natural numbers and linearly ordered.
-For some purposes, it is more appropriate to assume only that every universe is an element of some larger universe, together with a ``directedness'' property that any two universes are jointly contained in some larger one.
-There are many other possible variations, such as including a universe ``$\UU_{\omega}$'' that contains all $\UU_i$ (or even higher ``large cardinal'' type universes), or by internalizing the hierarchy into a type family $\lam{i} \UU_i$.
-The latter is in fact done in \Agda.
+没有必要通过自然数和线性排序为宇宙编号.
+对于一些目的, 只假设每个宇宙是更大宇宙的元素更合适, 伴随一个``有向''特性 that 每两个宇宙是都存在于一些更大的宇宙中.
+有很多其他可能的变体, 例如一个宇宙 ``$\UU_{\omega}$'' 它包含了所有 $\UU_i$ (甚至更高的 ``大基数'' 类型宇宙), 过着通过引入层级到类型族 $\lam{i} \UU_i$.
+在 \Agda 中实际使用了后者.
 
-The path induction principle for identity types was formulated by Martin-L\"{o}f~\cite{Martin-Lof-1972}.
-The based path induction rule in the setting of Martin-L\"of type theory is due to Paulin-Mohring \cite{Moh93}; it can be seen as an intensional generalization of the concept of ``pointwise functionality''\index{pointwise!functionality} for hypothetical judgments from \NuPRL~\cite[Section~8.1]{constable+86nuprl-book}.
-The fact that Martin-L\"of's rule implies Paulin-Mohring's was proved by Streicher using Axiom K (see~\cref{sec:hedberg}), by Altenkirch and Goguen as in \cref{sec:identity-types}, and finally by Hofmann without universes (as in \cref{ex:pm-to-ml}); see~\cite[\S1.3 and Addendum]{Streicher93}.
+Martin-L\"{o}f~\cite{Martin-Lof-1972} 形式化了恒等类型的路径归纳原理.
+Martin-L\"of 类型论设定的基础路径归纳原理来自于 Paulin-Mohring \cite{Moh93};
+它能看作是\NuPRL~\cite[Section~8.1]{constable+86nuprl-book}中假设命题的``逐点函数''\index{逐点!函数的}的概念的内延的推广.
+Martin-L\"of 的规则包含 Paulin-Mohring 的规则, 通过 Streicher 使用 K 公理 (参见~\cref{sec:hedberg})证明, 而 Altenkirch 和 Goguen 的证明在 \cref{sec:identity-types}, 而最终被 Hofmann 证明并没有使用宇宙 (在 \cref{ex:pm-to-ml}); 参见~\cite[\S1.3 and Addendum]{Streicher93}.
