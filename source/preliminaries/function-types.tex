@@ -18,10 +18,13 @@
 
 但是如何构造 $A \to B$ 的元素?
 有两个等价的方法: 直接定义, 或者使用 $\lambda$-抽象.
-通过定义引入函数\indexdef{定义!函数, 直接}就是通过给定名称---比如说 $f$ ---然后给出一个等式 \begin{equation}
-                                                               \label{eq:expldef} f(x) \defeq \Phi
-\end{equation} 来定义函数 $f : A \to B$, 其中 $x$ 是一个变量 \index{变量} 而 $\Phi$ 是一个可能用到 $x$ 的表达式.
-需要检查当 $x:A$ 时, 有 $\Phi : B$ 来确保它是有效的.
+通过定义引入函数\indexdef{定义!函数, 直接}就是通过给定名称, 比如说 $f$, 然后给出一个等式
+\begin{equation}
+    \label{eq:expldef} f(x) \defeq \Phi
+\end{equation}
+来定义函数 $f : A \to B$, 其中 $x$ 是一个变量\index{变量}%
+而 $\Phi$ 是一个可能用到 $x$ 的表达式.
+需要校验当 $x:A$ 时, 是否有 $\Phi : B$ 来确保它的正确性.
 
 现在可以将 $\Phi$ 中的变量 $x$ 替换为 $a$ 来计算 $f(a)$.
 例如, 考虑 $f(x) \defeq x+x$ 所定义的函数 $f : \nat \to \nat$.(如何定义 $\nat$ 和 $+$ 的方法参见 \cref{sec:inductive-types}.)
@@ -50,7 +53,7 @@ $f(2)$ 和 $2+2$ 是判断等同的.
 
 现在 $\lambda$-抽象是一个函数, 所以可以将其应用到参数 $a:A$.
 然后得到如下\define{计算规则}\indexdef{计算规则!函数类型}%
-\footnote{这种等同性的用法通常被称为 \define{$\beta$-conversion} \indexsee{beta-conversion@$\beta $-conversion}{$\beta$-reduction} \indexsee{conversion!beta@$\beta $-}{$\beta$-reduction} 或 \define{$\beta$-reduction}. \index{beta-reduction@$\beta $-reduction|footstyle} \indexsee{reduction!beta@$\beta $-}{$\beta$-reduction} },
+\footnote{这种等同性的用法通常被称为 \define{$\beta$-变换} \indexsee{beta-变换@$\beta $-变换}{$\beta$-化简} \indexsee{变换!beta@$\beta $-}{$\beta$-化简} 或 \define{$\beta$-化简}. \index{beta-化简@$\beta $-化简|footstyle} \indexsee{化简!beta@$\beta $-}{$\beta$-reduction} },
 即一个定义等式:
 \[(\lamu{x:A}\Phi)(a) \jdeq \Phi'\]
 这里的 $\Phi'$ 是表达式 $\Phi$ 中所有的 $x$ 被替换称 $a$ 的结果.
@@ -58,8 +61,8 @@ $f(2)$ 和 $2+2$ 是判断等同的.
 \[ (\lamu{x:\nat}x+x)(2) \jdeq 2+2. \]
 注意, 对于任何函数 $f:A\to B$, 都可以构造 $\lambda$-抽象函数 $\lam{x} f(x)$.
 因为它被定义为``应用 $f$ 到其参数的函数'', 所以认为它和 $f$ 是定义等同的:
-\footnote{这种等同性的用法通常被称为 \define{$\eta$-conversion} \indexsee{eta-conversion@$\eta $-conversion}{$\eta$-expansion} \indexsee{conversion!eta@$\eta $-}{$\eta$-expansion} 或 \define{$\eta$-expansion. \index{eta-expansion@$\eta $-expansion|footstyle}%
-\indexsee{expansion, eta-@expansion, $\eta $-}{$\eta$-expansion} }}%
+\footnote{这种等同性的用法通常被称为 \define{$\eta$-变换} \indexsee{eta-变换@$\eta $-变换}{$\eta$-扩展} \indexsee{变换!eta@$\eta $-}{$\eta$-扩展} 或 \define{$\eta$-扩展. \index{eta-扩展@$\eta $-扩展|footstyle}%
+\indexsee{扩展, eta-@扩展, $\eta $-}{$\eta$-扩展} }}%
 \[ f \jdeq (\lam{x} f(x)). \]
 这个等同关系就是\define{函数类型的唯一性原则}\indexdef{唯一性!原则!函数类型的}, 因为它表示 $f$ 的唯一性取决于它的值.
 
@@ -83,8 +86,11 @@ $f(2)$ 和 $2+2$ 是判断等同的.
 \indexsee{绑定变量}{变量, 绑定}%
 \indexsee{虚拟变量}{变量, 绑定}%
 比如表达式 $\lamu{y:\nat} x + y$ 中的 $y$ 仅具有局部意义, 可以在保持绑定结构的情况下用其它的任何变量替代.
-实际上, $\lamu{y:\nat} x + y$ 判断等同于\footnote{这种等同性的用法通常被称为 \define{$\alpha$-conversion. \indexfoot{alpha-conversion@$\alpha $-conversion}\indexsee{conversion!alpha@$\alpha$-}{$\alpha$-conversion} }} $\lamu{z:\nat} x + z$.
-因此, $f(y)$ 判断等同于 $\lamu{z:\nat} y + z$, 这就是答案. (可以使用任何与 $y$ 不同的变量代替 $z$, 获得同样的结果)
+实际上, $\lamu{y:\nat} x + y$ 判断等同于
+\footnote{这种等同性的用法通常被称为 \define{$\alpha$-变换. \indexfoot{alpha-变换@$\alpha $-变换}\indexsee{变换!alpha@$\alpha$-}{$\alpha$-变换} }}
+$\lamu{z:\nat} x + z$.
+因此, $f(y)$ 判断等同于 $\lamu{z:\nat} y + z$, 这就是答案.
+(可以使用任何与 $y$ 不同的变量代替 $z$, 获得同样的结果)
 
 当然, 所有数学家都应该熟悉它:
 和实际应用中一样, 如果 $f(x) \defeq \int_1^2 \frac{dt}{x-t}$, 那么 $f(t)$不是 $\int_1^2 \frac{dt}{t-t}$ 而是 $\int_1^2 \frac{ds}{t-s}$.
