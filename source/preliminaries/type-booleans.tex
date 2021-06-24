@@ -6,7 +6,7 @@
 % for {type!coproduct}, so it's not our fault
 %
 不过由于它被频繁地使用, 这里给出显式的规则.
-实际可以观察到, 有另一种方式从 $\Sigma$-类型 和 $\bool$ 得到二元余积.
+实际可以观察到, 有另一种方式从 $\Sigma$-类型和 $\bool$ 得到二元余积.
 
 \index{递归原理!布尔类型的}
 为了得到函数 $f : \bool \to C$, 需要 $c_0,c_1 : C$ 并加入定义等同
@@ -52,7 +52,7 @@
 换句话说,\eqref{thm:allbool-trueorfalse} 元素是
 \[ \ind{\bool}\big(\lam{x}(x=\bfalse)+(x=\btrue),\, \inl(\refl{\bfalse}),\, \inr(\refl{\btrue})\big). \]
 
-回忆 $\Sigma$-types 可以被当作不交和, 而余积可以被视为二元的不交并.
+回忆 $\Sigma$-类型可以被当作不交和, 而余积可以被视为二元的不交并.
 自然地希望用具有两个元素的类型 \bool 来构造二元不交并 $A+B$.
 为此需要一个类型族 $P:\bool\to\type$ 比如 $P(\bfalse)\jdeq A$ 和 $P(\btrue)\jdeq B$.
 实际上, 可以从 $\bool$ 的递归原理严格得出这个类型族.
