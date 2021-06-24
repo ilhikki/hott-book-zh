@@ -101,7 +101,7 @@ $\emptyt$ 的居留元被称为逻辑学中\define{矛盾}:
 转换到类型论时, 必须给这些变量取一个名字: $x$ 和 $y$.
 至此,\eqref{eq:tautology2} 的元素的部分定义可以写作 \[ f((x,y)) \defeq\; \Box\;:A+B\to\emptyt \]
 其中类型 $A+B\to\emptyt$ 的``空洞'' $\Box$ 表明还需被完成的部分.
-(也可以通过使用递归子代替模式匹配, 等效写出 $f \defeq \rec{(A\to\emptyt)\times (B\to\emptyt)}(A+B\to\emptyt,\lam{x}{y} \Box)$.)
+(也可以通过使用递归子代替模式匹配, 等价地写出 $f \defeq \rec{(A\to\emptyt)\times (B\to\emptyt)}(A+B\to\emptyt,\lam{x}{y} \Box)$.)
 第二句短语``并假设 $A$ 或 $B$; 可以派生矛盾'', 意味通过函数定义来填充这个空洞, 于是引入另一个未命名的猜想 $z:A+B$, 得到证明: \[ f((x,y))(z) \defeq \;\Box\; :\emptyt. \]
 ``有两种情况'', 表示了情况区分, 使用余积 $A+B$ 的递归原理.
 如果使用递归子, 就是  \[ f((x,y))(z) \defeq \rec{A+B}(\emptyt,\lam{a} \Box,\lam{b}\Box,z) \]
@@ -226,7 +226,7 @@ $\emptyt$ 的居留元被称为逻辑学中\define{矛盾}:
 \[
     (n<m) \defeq (n\le m) \times \neg(\id{n}{m}).
 \]
-前者在构造主义数学中更自然, 其实在这种情况下两者是等效的, 因为 $\nat$ 具有 ``可判定的等同'' (参见 \cref{sec:intuitionism,prop:nat-is-set}).
+前者在构造主义数学中更自然, 其实在这种情况下两者是等价的, 因为 $\nat$ 具有 ``可判定的等同'' (参见 \cref{sec:intuitionism,prop:nat-is-set}).
 \index{可判定的!等同}%
 
 还可以这样理解类型 $\sm{x:A} P(x)$.
