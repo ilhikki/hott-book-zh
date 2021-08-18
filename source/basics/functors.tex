@@ -1,55 +1,59 @@
 \index{函数|(}%
 \index{类型论中的函子性函@类型论中的``函子性''}%
 现在我们希望确定函数 $f:A\to B$ 在路径上的行为是函数性的. 在传统的类型论, 这等效于函数遵循等同性. \index{类型论中函数的连续性@``连续性''类型论中函数的连续性}%
-拓扑学上, 这相当于每个函数都是``连续的'', 即保留路径. 
+拓扑学上, 这相当于每个函数都是``连续的'', 即保留路径.
 
-\begin{lem}\label{lem:map}
-有一个函数 $f:A\to B$.
-那么对于任意 $x,y:A$ 都有一个操作
-\begin{equation*}
-\apfunc f : (\id[A] x y) \to (\id[B] {f(x)} {f(y)}).
-\end{equation*}
-此外, 对于所有 $x:A$ 有 $\apfunc{f}(\refl{x})\jdeq \refl{f(x)}$.
-\indexdef{应用!函数到路径的}%
-\indexdef{路径!函数到其的应用}%
-\indexdef{函数!应用到路径的}%
-\indexdef{行为!函数在路径的}%
+\begin{lem}
+    \label{lem:map}
+    有一个函数 $f:A\to B$.
+    那么对于任意 $x,y:A$ 都有一个操作
+    \begin{equation*}
+        \apfunc f : (\id[A] x y) \to (\id[B] {f(x)} {f(y)}).
+    \end{equation*}
+    此外, 对于所有 $x:A$ 有 $\apfunc{f}(\refl{x})\jdeq \refl{f(x)}$.
+    \indexdef{应用!函数到路径的}%
+    \indexdef{路径!函数到其的应用}%
+    \indexdef{函数!应用到路径的}%
+    \indexdef{行为!函数在路径的}%
 \end{lem}
 
-符号 $\apfunc f$ 可以看作是 ``the \underline{ap}plication of $f$ to a path'', 或者是 ``the \underline{a}ction on \underline{p}aths of $f$''. 
+符号 $\apfunc f$ 可以看作是 ``the \underline{ap}plication of $f$ to a path'', 或者是 ``the \underline{a}ction on \underline{p}aths of $f$''.
 
 \begin{proof}[第一个证明]
-令 $D:\prd{x,y:A} (x=y) \to \type$ 为类型族, 定义如下
-\[D(x,y,p)\defeq (f(x)= f(y)).\]
-然后我们有
-\begin{equation*}
-d\defeq\lam{x} \refl{f(x)}:\prd{x:A} D(x,x,\refl{x}).
-\end{equation*}
-通过路径归纳, 我们得到得到 $\apfunc f : \prd{x,y:A} (x=y) \to (f(x)=f(y))$.
-这个计算规则暗示了对于每个 $x:A$ 有 $\apfunc f({\refl{x}})\jdeq\refl{f(x)}$.
+    令 $D:\prd{x,y:A} (x=y) \to \type$ 为类型族, 定义如下
+    \[D(x,y,p)\defeq (f(x)= f(y)).\]
+    然后我们有
+    \begin{equation*}
+        d\defeq\lam{x} \refl{f(x)}:\prd{x:A} D(x,x,\refl{x}).
+    \end{equation*}
+    通过路径归纳, 我们得到得到 $\apfunc f : \prd{x,y:A} (x=y) \to (f(x)=f(y))$.
+    这个计算规则暗示了对于每个 $x:A$ 有 $\apfunc f({\refl{x}})\jdeq\refl{f(x)}$.
 \end{proof}
 
 \begin{proof}[第二个证明]
-对于所有 $p:x=y$, 为了定义 $\apfunc{f}(p)$, 通过归纳假设
-$p$ is $\refl{x}$ 即可.
-这个情况下, 可以定义$\apfunc f(p) \defeq \refl{f(x)}:f(x)= f(x)$.
+    对于所有 $p:x=y$, 为了定义 $\apfunc{f}(p)$, 通过归纳假设
+    $p$ 是 $\refl{x}$ 即可.
+    这个情况下, 可以定义$\apfunc f(p) \defeq \refl{f(x)}:f(x)= f(x)$.
 \end{proof}
 
-$\apfunc f (p)$ 经常被简写为 $\ap f p$. 严格来说, 这是含糊的, 不过通常不会引起困惑. 这符合范畴论中的约定, 为函子到对象和态射的应用, 使用相同的符号. 
+$\apfunc f (p)$ 经常被简写为 $\ap f p$.
+严格来说, 这是含糊的, 不过通常不会引起困惑.
+这符合范畴论中的约定, 为函子到对象和态射的应用, 使用相同的符号.
 
-注意 $\apfunc{}$ 满足所需的函子性. 
+注意 $\apfunc{}$ 满足所需的函子性.
 
-\begin{lem}\label{lem:ap-functor}
-对于函数 $f:A\to B$ 和 $g:B\to C$ 和路径 $p:\id[A]xy$ 和 $q:\id[A]yz$, 我们有:
-\begin{enumerate}
-\item $\apfunc f(p\ct q) = \apfunc f(p) \ct \apfunc f(q)$.\label{item:apfunctor-ct}
-\item $\apfunc f(\opp p) = \opp{\apfunc f (p)}$.\label{item:apfunctor-opp}
-\item $\apfunc g (\apfunc f(p)) = \apfunc{g\circ f} (p)$.\label{item:apfunctor-compose}
-\item $\apfunc {\idfunc[A]} (p) = p$.
-\end{enumerate}
+\begin{lem}
+    \label{lem:ap-functor}
+    对于函数 $f:A\to B$ 和 $g:B\to C$ 和路径 $p:\id[A]xy$ 和 $q:\id[A]yz$, 我们有:
+    \begin{enumerate}
+        \item $\apfunc f(p\ct q) = \apfunc f(p) \ct \apfunc f(q)$.\label{item:apfunctor-ct}
+        \item $\apfunc f(\opp p) = \opp{\apfunc f (p)}$.\label{item:apfunctor-opp}
+        \item $\apfunc g (\apfunc f(p)) = \apfunc{g\circ f} (p)$.\label{item:apfunctor-compose}
+        \item $\apfunc {\idfunc[A]} (p) = p$.
+    \end{enumerate}
 \end{lem}
 \begin{proof}
-留给读者.
+    留给读者.
 \end{proof}
 \index{函数|)}%
 
