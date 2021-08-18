@@ -38,20 +38,20 @@ The defining property of a fibration is that given a path $p:x=y$ in the base sp
 The point $\trans p u$ can be thought of as the other endpoint of this lifted path.
 We can also define the path itself in type theory:
 
-\begin{lem}[Path lifting property]
+\begin{lem}[路径提升性质]
     \label{thm:path-lifting}
-    \indexdef{path!lifting}%
-    \indexdef{lifting!path}%
-    Let $P:A\to\type$ be a type family over $A$ and assume we have $u:P(x)$ for some $x:A$.
-    Then for any $p:x=y$, we have
+    \indexdef{路径!提升}%
+    \indexdef{提升!路径}%
+    令 $P:A\to\type$ 为一个经过 $A$ 的类型族, 并假设对于一些 $x:A$ 有 $u:P(x)$.
+    然后对于任何 $p:x=y$, 有
     \begin{equation*}
         \mathsf{lift}(u,p):(x,u)=(y,\trans{p}{u})
     \end{equation*}
-    in $\sm{x:A}P(x)$, such that $\ap{\proj1}{\mathsf{lift}(u,p)} = p$.
+    在 $\sm{x:A}P(x)$, 于是 $\ap{\proj1}{\mathsf{lift}(u,p)} = p$.
 \end{lem}
 \begin{proof}
-    Left to the reader.
-    We will prove a more general theorem in \cref{sec:compute-sigma}.
+    留给读者.
+    在\cref{sec:compute-sigma}会证明更通用的定理.
 \end{proof}
 
 In classical homotopy theory, a fibration is defined as a map for which there \emph{exist} liftings of paths; while in contrast, we have just shown that in type theory, every type family comes with a \emph{specified} ``path-lifting function''.
@@ -101,33 +101,33 @@ Thus, any path from $u:P(x)$ to $v:P(y)$ lying over $p$ should factor through $\
 Thus, up to equivalence, it makes sense to define ``a path from $u$ to $v$ lying over $p:x=y$'' to mean a path $\trans p u = v$ in $P(y)$.
 And, indeed, we can show that dependent functions produce such paths.
 
-\begin{lem}[Dependent map]
+\begin{lem}[依值映射]
     \label{lem:mapdep}
-    \indexdef{application!of dependent function to a path}%
-    \indexdef{path!application of a dependent function to}%
-    \indexdef{function!dependent!application to a path of}%
-    \indexdef{action!of a dependent function on a path}%
-    Suppose $f:\prd{x: A} P(x)$; then we have a map
+    \indexdef{应用!依值函数到一个路径}%
+    \indexdef{路径!依值函数的应用}%
+    \indexdef{函数!依值!应用到路径}%
+    \indexdef{动作!路径的依值函数的}%
+    提供 $f:\prd{x: A} P(x)$; 然后有一个映射
     \[\apdfunc f : \prd{p:x=y}\big(\id[P(y)]{\trans p{f(x)}}{f(y)}\big).\]
 \end{lem}
 
-\begin{proof}[First proof]
-    Let $D:\prd{x,y:A} (\id{x}{y}) \to \type$ be the type family defined by
+\begin{proof}[第一个证明]
+    令 $D:\prd{x,y:A} (\id{x}{y}) \to \type$ 为一个如下定义的类型族
     \begin{equation*}
         D(x,y,p)\defeq \trans p {f(x)}= f(y).
     \end{equation*}
-    Then $D(x,x,\refl{x})$ is $\trans{(\refl{x})}{f(x)}= f(x)$.
-    But since $\trans{(\refl{x})}{f(x)}\jdeq f(x)$, we get that $D(x,x,\refl{x})\jdeq (f(x)= f(x))$.
-    Thus, we find the function
+    然后 $D(x,x,\refl{x})$ 是 $\trans{(\refl{x})}{f(x)}= f(x)$.
+    但是因为 $\trans{(\refl{x})}{f(x)}\jdeq f(x)$, 得到 $D(x,x,\refl{x})\jdeq (f(x)= f(x))$.
+    因此, 有这个饿函数
     \begin{equation*}
         d\defeq\lam{x} \refl{f(x)}:\prd{x:A} D(x,x,\refl{x})
     \end{equation*}
-    and now path induction gives us $\apdfunc f(p):\trans p{f(x)}= f(y)$ for each $p:x= y$.
+    现在路径归纳给出对于每个 $p:x= y$ 有 $\apdfunc f(p):\trans p{f(x)}= f(y)$ .
 \end{proof}
 
-\begin{proof}[Second proof]
-    By induction, it suffices to assume $p$ is $\refl x$.
-    But in this case, the desired equation is $\trans{(\refl{x})}{f(x)}= f(x)$, which holds judgmentally.
+\begin{proof}[第二个证明]
+    通过归纳, 可以假设 $p$ 是 $\refl x$.
+    这个情况下, 所需的等式 $\trans{(\refl{x})}{f(x)}= f(x)$ 命题上成立.
 \end{proof}
 
 We will refer generally to paths which ``lie over other paths'' in this sense as \emph{dependent paths}.
@@ -136,81 +136,80 @@ We will refer generally to paths which ``lie over other paths'' in this sense as
 They will play an increasingly important role starting in \cref{cha:hits}.
 In \cref{sec:computational} we will see that for a few particular kinds of type families, there are equivalent ways to represent the notion of dependent paths that are sometimes more convenient.
 
-Now recall from \cref{sec:pi-types} that a non-dependently typed function $f:A\to B$ is just the special case of a dependently typed function $f:\prd{x:A} P(x)$ when $P$ is a constant type family, $P(x) \defeq B$.
-In this case, $\apdfunc{f}$ and $\apfunc{f}$ are closely related, because of the following lemma:
+现在回顾\cref{sec:pi-types}, 非依值类型函数 $f:A\to B$ 是依值函数 $f:\prd{x:A} P(x)$ 在 $P$ 是静态类型族 $P(x) \defeq B$ 的特殊情况.
+这种情况下, $\apdfunc{f}$ 和 $\apfunc{f}$ 是密切相关的, 因为如下定理:
 
 \begin{lem}
     \label{thm:trans-trivial}
-    If $P:A\to\type$ is defined by $P(x) \defeq B$ for a fixed $B:\type$, then for any $x,y:A$ and $p:x=y$ and $b:B$ we have a path
+    如果 $P:A\to\type$ 定义为 $P(x) \defeq B$ 对于固定的 $B:\type$, 那么对于任何 $x,y:A$ 和 $p:x=y$ 和 $b:B$ 有路径
     \[ \transconst Bpb : \transfib P p b = b. \]
 \end{lem}
-\begin{proof}[First proof]
-    Fix a $b:B$, and let $D:\prd{x,y:A} (\id{x}{y}) \to \type$ be the type family defined by
+\begin{proof}[第一个证明]
+    固定 $b:B$, 然后令 $D:\prd{x,y:A} (\id{x}{y}) \to \type$ 为一个类型族, 定义为
     \[ D(x,y,p) \defeq (\transfib P p b = b). \]
-    Then $D(x,x,\refl x)$ is $(\transfib P{\refl{x}}{b} = b)$, which is judgmentally equal to $(b=b)$ by the computation rule for transporting.
-    Thus, we have the function
+    然后 $D(x,x,\refl x)$ is $(\transfib P{\refl{x}}{b} = b)$, 通过运输的计算规则与 $(b=b)$ 判断等同.
+    因此, 有这个函数
     \[ d \defeq \lam{x} \refl{b} : \prd{x:A} D(x,x,\refl x). \]
-    Now path induction gives us an element of
+    现在路径归纳可以给出所需的元素
     \narrowequation{
-        \prd{x,y:A}{p:x=y}(\transfib P p b = b),}
-    as desired.
+        \prd{x,y:A}{p:x=y}(\transfib P p b = b).}
 \end{proof}
-\begin{proof}[Second proof]
-    By induction, it suffices to assume $y$ is $x$ and $p$ is $\refl x$.
-    But $\transfib P {\refl x} b \jdeq b$, so in this case what we have to prove is $b=b$, and we have $\refl{b}$ for this.
+\begin{proof}[第二个证明]
+    通过归纳, 可以假设 $y$ 是 $x$ 而且 $p$ 是 $\refl x$.
+    但是 $\transfib P {\refl x} b \jdeq b$, 所以这种情况下必须证明 $b=b$, 为此可以使用 $\refl{b}$.
 \end{proof}
 
-Thus, for any $x,y:A$ and $p:x=y$ and $f:A\to B$, by concatenating with $\transconst Bp{f(x)}$ and its inverse, respectively, we obtain functions
+因此, 对于任何 $x,y:A$ 和 $p:x=y$ 和 $f:A\to B$, 通过分别连接 $\transconst Bp{f(x)}$ 和它的反转, 得到函数
 \begin{align}
     \big(f(x) = f(y)\big) &\to \big(\trans{p}{f(x)} = f(y)\big)\label{eq:ap-to-apd}
-    \qquad\text{and} \\
+    \qquad\text{和} \\
     \big(\trans{p}{f(x)} = f(y)\big) &\to \big(f(x) = f(y)\big).\label{eq:apd-to-ap}
 \end{align}
-In fact, these functions are inverse equivalences (in the sense to be introduced in \cref{sec:basics-equivalences}), and they relate $\apfunc f (p)$  to $\apdfunc f (p)$.
+事实上, 这些函数反向等价(它的意义会在\cref{sec:basics-equivalences}引入), 并且它们关联了 $\apfunc f (p)$ 和 $\apdfunc f (p)$.
 
 \begin{lem}
     \label{thm:apd-const}
-    For $f:A\to B$ and $p:\id[A]xy$, we have
+    对于 $f:A\to B$ 和 $p:\id[A]xy$, 有
     \[ \apdfunc f(p) = \transconst B p{f(x)} \ct \apfunc f (p). \]
 \end{lem}
-\begin{proof}[First proof]
-    Let $D:\prd{x,y:A} (\id xy) \to \type$ be the type family defined by
+\begin{proof}[第一个证明]
+    令 $D:\prd{x,y:A} (\id xy) \to \type$ 为类型族, 定义为
     \[ D(x,y,p) \defeq \big(\apdfunc f (p) = \transconst Bp{f(x)} \ct \apfunc f (p)\big). \]
-    Thus, we have
+    因此有
     \[D(x,x,\refl x) \jdeq \big(\apdfunc f (\refl x) = \transconst B{\refl x}{f(x)} \ct \apfunc f ({\refl x})\big).\]
-    But by definition, all three paths appearing in this type are $\refl{f(x)}$, so we have
+    通过定义, 这个类型中出现的三个路径都是 $\refl{f(x)}$, 所以有
     \[ \refl{\refl{f(x)}} : D(x,x,\refl x). \]
-    Thus, path induction gives us an element of $\prd{x,y:A}{p:x=y} D(x,y,p)$, which is what we wanted.
+    于是, 路径归纳给出所需的元素 $\prd{x,y:A}{p:x=y} D(x,y,p)$.
 \end{proof}
-\begin{proof}[Second proof]
-    By induction, it suffices to assume $y$ is $x$ and $p$ is $\refl x$.
-    In this case, what we have to prove is $\refl{f(x)} = \refl{f(x)} \ct \refl{f(x)}$, which is true judgmentally.
+\begin{proof}[第二个证明]
+    通过归纳, 足以假定 $y$ 是 $x$ 而且 $p$ 是 $\refl x$.
+    这个情况下, 需要证明的是 $\refl{f(x)} = \refl{f(x)} \ct \refl{f(x)}$, 判断上为真.
 \end{proof}
 
-Because the types of $\apdfunc{f}$ and $\apfunc{f}$ are different, it is often clearer to use different notations for them.
+因为 $\apdfunc{f}$ 和 $\apfunc{f}$ 的类型不同, 使用不同的符号会更清晰.
 % We may sometimes use a notation $\apd f p$ for $\apdfunc{f}(p)$, which is similar to the notation $\ap f p$ for $\apfunc{f}(p)$.
 
-\index{function!dependent|)}%
+\index{函数!依值|)}%
 
-At this point, we hope the reader is starting to get a feel for proofs by induction on identity types.
-From now on we stop giving both styles of proofs, allowing ourselves to use whatever is most clear and convenient (and often the second, more concise one).
-Here are a few other useful lemmas about transport; we leave it to the reader to give the proofs (in either style).
+至此, 希望读者开始找到一些通过恒等类型的归纳做证明的感觉.
+从现在开始不再给出两种风格的证明, 而是使用更清晰和使用的 (大部分情况是更简明的第二种).
+这里有一些实用的运输定理; 留给读者做证明 (用两种风格).
 
 \begin{lem}
     \label{thm:transport-concat}
-    Given $P:A\to\type$ with $p:\id[A]xy$ and $q:\id[A]yz$ while $u:P(x)$, we have
+    给定 $P:A\to\type$ 和 $p:\id[A]xy$ 与 $q:\id[A]yz$ 并且 $u:P(x)$, 有
     \[ \trans{q}{\trans{p}{u}} = \trans{(p\ct q)}{u}. \]
 \end{lem}
 
 \begin{lem}
     \label{thm:transport-compose}
-    For a function $f:A\to B$ and a type family $P:B\to\type$, and any $p:\id[A]xy$ and $u:P(f(x))$, we have
+    对于函数 $f:A\to B$ 和类型族 $P:B\to\type$, 和任意 $p:\id[A]xy$ 与 $u:P(f(x))$, 有
     \[ \transfib{P\circ f}{p}{u} = \transfib{P}{\apfunc f(p)}{u}. \]
 \end{lem}
 
 \begin{lem}
     \label{thm:ap-transport}
-    For $P,Q:A\to \type$ and a family of functions $f:\prd{x:A} P(x)\to Q(x)$, and any $p:\id[A]xy$ and $u:P(x)$, we have
+    对于 $P,Q:A\to \type$ 和函数的族 $f:\prd{x:A} P(x)\to Q(x)$, 和任意 $p:\id[A]xy$ 与 $u:P(x)$, 有
     \[ \transfib{Q}{p}{f_x(u)} = f_y(\transfib{P}{p}{u}). \]
 \end{lem}
 
