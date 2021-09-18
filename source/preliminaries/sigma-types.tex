@@ -97,7 +97,7 @@
     \ac : \Parens{\tprd{x:A} \tsm{y :B} R(x,y)} \to
     \Parens{\tsm{f:A\to B} \tprd{x:A} R(x,f(x))}.
 \]
-可以把 $R$ 看成 ``证明''$A$ 和 $B$ 之间的``相关关系'' \index{数学!证明相关}, 而 $R(a,b)$ 一个类型, 它的元素是 $a:A$ 和 $b:B$ 的相关性的见证.
+可以把 $R$ 看成 $A$ 和 $B$ 之间的``proof-relevant relation'' \index{数学!proof-relevant}, 而 $R(a,b)$ 一个类型, 它的元素是 $a:A$ 和 $b:B$ 的 relatedness 的见证.
 然后 $\ac$ 直观地说明了如果有一个依值函数 $g$ 把所有的 $a:A$ 映射为依值对子 $(b,r)$, 而且 $b:B$ 且 $r:R(a,b)$, 那么有一个函数 $f:A\to B$ 和一个依值函数, 把$a:A$ 映射为 $R(a,f(a))$.
 直觉上, 只需把 $g$ 的值, 分别表示它们的组成.
 的确, 只要使用投影, 就能定义:
