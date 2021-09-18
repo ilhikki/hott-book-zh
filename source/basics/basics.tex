@@ -1,205 +1,151 @@
-The central new idea in homotopy type theory is that types can be regarded as
-spaces in homotopy theory, or higher-dimensional groupoids in category
-theory.
+同伦类型论新观点中, 核心的是类型可以看作同伦论中的空间, 或者范畴论中的高维群胚.
 
-\index{classical!homotopy theory|(}
-\index{higher category theory|(}
-We begin with a brief summary of the connection between homotopy theory
-and higher-dimensional category theory.
-In classical homotopy theory, a space $X$ is a set of points equipped
-with a topology,
-\indexsee{space!topological}{topological space}
-\index{topological!space}
-and a path between points $x$ and $y$ is represented by
-a continuous map $p : [0,1] \to X$, where $p(0) = x$ and $p(1) = y$.
-\index{path!topological}
-\index{topological!path}
-This function can be thought of as giving a point in $X$ at each
-``moment in time''.  For many purposes, strict equality of paths
-(meaning, pointwise equal functions) is too fine a notion.  For example,
-one can define operations of path concatenation (if $p$ is a path from
-$x$ to $y$ and $q$ is a path from $y$ to $z$, then the concatenation $p
-\ct q$ is a path from $x$ to $z$) and inverses ($\opp p$ is a path
-from $y$ to $x$).  However, there are natural equations between these
-operations that do not hold for strict equality: for example, the path
-$p \ct \opp p$ (which walks from $x$ to $y$, and then back along the
-same route, as time goes from $0$ to $1$) is not strictly equal to the
-identity path (which stays still at $x$ at all times).
+\index{经典的!同伦理论|(}
+\index{高阶范畴理论|(}
+我们从简要概括同伦论和高维范畴论之间的联系开始.
+在经典同伦论, 空间 $X$ 是点的集合, 这些点具备拓扑结构,
+\indexsee{空间!拓扑的}{拓扑空间}%
+\index{拓扑的!空间}%
+点 $x$ 和点 $y$ 之间的路径代表连续映射 $p : [0,1] \to X$, 其中 $p(0) = x$, $p(1) = y$.
+\index{路径!拓扑的}%
+\index{拓扑的!路径}%
+这个函数可以被想象成, 每个``时刻''给定 $X$ 中一个点.
+出于许多目的, 路径的严格等同 (即逐点相等的函数) 是太完美的概念.
+例如, 可以定义路径串联运算 (若 $p$ 是一个 从 $x$ 到 $y$ 的路径, 而 $q$ 是 从 $y$ 到 $z$ 的路径, 那么串联 $p \ct q$ 是一个从 $x$ 到 $z$ 的路径) 和逆运算 ($\opp p$ 是一个从 $y$ 到 $x$ 的路径).
+然而这些运算之间正常的等式不满足严格的相等性: 例如, 路径 $p \ct \opp p$ (随着时间从 $0$ 到 $1$, 从 $x$ 移动到 $y$, 然后沿着原路返回) 与恒等路径 (每时每刻都是 $x$) 不是严格相等的.
 
-The remedy is to consider a coarser notion of equality of paths called
-\emph{homotopy}.
-\index{homotopy!topological}
-A homotopy between a pair of continuous maps $f :
-X_1 \to X_2$ and $g : X_1\to X_2$ is a continuous map $H : X_1
-\times [0, 1] \to X_2$ satisfying $H(x, 0) = f (x)$ and $H(x, 1) =
-g(x)$.  In the specific case of paths $p$ and $q$ from $x$ to $y$, a homotopy is a
-continuous map $H : [0,1] \times [0,1] \rightarrow X$
-such that $H(s,0) = p(s)$ and $H(s,1) = q(s)$ for all $s\in [0,1]$.
-In this case we require also that $H(0,t) = x$ and $H(1,t)=y$ for all $t\in [0,1]$,
-so that for each $t$ the function $H(\blank,t)$ is again a path from $x$ to $y$;
-a homotopy of this sort is said to be \emph{endpoint-preserving} or \emph{rel endpoints}.
-In simple cases, we can think of the image of the square $[0,1]\times [0,1]$ under $H$ as ``filling the space'' between $p$ and $q$, although for general $X$ this doesn't really make sense; it is better to think of $H$ as a continuous deformation of $p$ into $q$ that doesn't move the endpoints.
-Since $[0,1]\times [0,1]$ is 2-dimensional, we also speak of $H$ as a 2-dimensional \emph{path between paths}.\index{path!2-}
+作为补救措施, \emph{同伦}是一种路径的等同的概念, 它更加松散.
+\index{同伦!拓扑的}
+两个连续映射 $f : X_1 \to X_2$ 和 $g : X_1\to X_2$ 之间的同伦是一个连续映射, 写作 $H : X_1 \times [0, 1] \to X_2$, 它满足 $H(x, 0) = f (x)$ 和 $H(x, 1) = g(x)$.
+当 $p$ 和 $q$ 是两个从 $x$ 到 $y$ 的路径的特殊情况时, 同伦是一个连续映射 $H : [0,1] \times [0,1] \rightarrow X$, 其中, 对于所有 $s\in [0,1]$, 有 $H(s,0) = p(s)$ 和 $H(s,1) = q(s)$.
+这个情况下, 还要求对于所有 $t\in [0,1]$ 有 $H(0,t) = x$ 和 $H(1,t)=y$, 因此对于每个 $t$, 函数 $H(\blank,t)$ 仍是是一个从 $x$ 到 $y$ 的函数;
+这种同伦被称为\emph{端点保留}或者\emph{相对端点}.
+在简单的情况下, $H$ 下的正方形 $[0,1]\times [0,1]$ 的图像可以被视为是 ``填充''  $p$ 和 $q$ 之间的 ``空间'', 尽管对于普通的 $X$ 实际上没有意义;
+把 $H$ 视为从端点固定的 $p$ 到 $q$ 的连续变形更佳.
+由于 $[0,1]\times [0,1]$ 是二维的, $H$ 也被称为\emph{路径之间的}二维\emph{路径}.\index{路径!2-}
 
-For example, because
-$p \ct \opp p$ walks out and back along the same route, you know that
-you can continuously shrink $p \ct \opp p$ down to the identity
-path---it won't, for example, get snagged around a hole in the space.
-Homotopy is an equivalence relation, and operations such as
-concatenation, inverses, etc., respect it.  Moreover, the homotopy
-equivalence classes of loops\index{loop} at some point $x_0$ (where two loops $p$
-and $q$ are equated when there is a \emph{based} homotopy between them,
-which is a homotopy $H$ as above that additionally satisfies $H(0,t) =
-H(1,t) = x_0$ for all $t$) form a group called the \emph{fundamental
-group}.\index{fundamental!group}  This group is an \emph{algebraic invariant} of a space, which
-can be used to investigate whether two spaces are \emph{homotopy
-equivalent} (there are continuous maps back and forth whose composites
-are homotopic to the identity), because equivalent spaces have
-isomorphic fundamental groups.
+例如, 由于 $p \ct \opp p$ 沿着同样的路径来回, 你也许会想连续缩小 $p \ct \opp p$ 到恒等路径 --- 这样是不行的, 例如, 可能会在空间的洞上卡住.
+同伦是一个等价关系, 而且串联, 逆运算这样的运算符都遵守它.
+此外, 群上的一些点 $x_0$ 的环圈 (当环圈 $p$ 和 $q$ 之间有一个\emph{基础}同伦时, 它们相等, 即同伦 $H$, 它额外满足对于所有 $t$ 有 $H(0,t) = H(1,t) = x_0$) 的同伦等价被称为\emph{基本群}.
+\index{基本!群}%
+这个群是空间的\emph{代数不变量}, 可以用来研究两个空间是否\emph{同伦等价} (存在来和回的连续映射, 并与恒等同伦), 因为空间的等价与基本群同构.
 
-Because homotopies are themselves a kind of 2-dimensional path, there is
-a natural notion of 3-dimensional \emph{homotopy between homotopies},\index{path!3-}
-and then \emph{homotopy between homotopies between homotopies}, and so
-on.  This infinite tower of points, paths, homotopies, homotopies between
-homotopies, \ldots, equipped with algebraic operations such as the
-fundamental group, is an instance of an algebraic structure called a
-(weak) \emph{$\infty$-groupoid}.  An $\infty$-groupoid\index{.infinity-groupoid@$\infty$-groupoid} consists of a
-collection of objects, and then a collection of \emph{morphisms}\indexdef{morphism!in an .infinity-groupoid@in an $\infty$-groupoid} between
-objects, and then \emph{morphisms between morphisms}, and so on,
-equipped with some complex algebraic structure; a morphism at level $k$ is called a \define{$k$-morphism}\indexdef{k-morphism@$k$-morphism}.  Morphisms at each level
-have identity, composition, and inverse operations, which are weak in
-the sense that they satisfy the groupoid laws (associativity of
-composition, identity is a unit for composition, inverses cancel) only
-up to morphisms at the next level, and this weakness gives rise to
-further structure. For example, because associativity of composition of
-morphisms $p \ct (q \ct r) = (p \ct q) \ct r$ is itself a
-higher-dimensional morphism, one needs an additional operation relating
-various proofs of associativity: the various ways to reassociate $p \ct
-(q \ct (r \ct s))$ into $((p \ct q) \ct r) \ct s$ give rise to Mac
-Lane's pentagon\index{pentagon, Mac Lane}.  Weakness also creates non-trivial interactions between
-levels.
+因为同伦本身是一种二维路径, 自然存在三维路径\emph{同伦间的同论}的概念,
+\index{路径!3-}%
+然后是\emph{同伦间的同伦间的同伦}, 等等.
+这种无限的层级, 点, 路径, 同伦, 同伦间的同伦, \ldots, 具备代数运算, 如基本群, 是代数结构 (弱) \emph{$\infty$-群胚} 的的一个实例.
+$\infty$-群胚\index{无穷群胚@$\infty$-群胚} 由对象, 对象间的\emph{态射}%
+\indexdef{态射!在一个无穷群胚@在一个 $\infty$-群胚}, \emph{态射间的态射}, 等等组成, 它具有一些复杂的代数结构;
+一个层级 $k$ 的态射被称为一个 \define{$k$-态射}\indexdef{k-态射@$k$-态射}.
+弱的意思是, 每个层级的态射都有恒等, 复合, 和逆运算, 它们只有在提升到下一层级的态射时才满足群胚定律 (复合的结合率, 恒等是复合的单位元, 逆取消), 弱特性产生了进一步的结构.
+例如, 因为态射的复合的交换律 $p \ct (q \ct r) = (p \ct q) \ct r$ 本身就是高维态射, 所以额外需要和各种结合律的证明有关的运算: 各种再结合 $p \ct (q \ct (r \ct s))$ 到 $((p \ct q) \ct r) \ct s$ 的方法产生了麦克兰恩五边形\index{五边形, 麦克兰恩}.
+这个弱的特征还产生了层级之间的非平凡相互作用.
 
-Every topological space $X$ has a \emph{fundamental $\infty$-groupoid}
-\index{.infinity-groupoid@$\infty$-groupoid!fundamental}
-\index{fundamental!.infinity-groupoid@$\infty$-groupoid}
-whose
-$k$-mor\-ph\-isms are the $k$-dimen\-sional paths in $X$.  The weakness of the
-$\infty$-group\-oid corresponds directly to the fact that paths form a
-group only up to homotopy, with the $(k+1)$-paths serving as the
-homotopies between the $k$-paths.  Moreover, the view of a space as an
-$\infty$-groupoid preserves enough aspects of the space to do homotopy theory:
-the fundamental $\infty$-groupoid construction is adjoint\index{adjoint!functor} to the
-geometric\index{geometric realization} realization of an $\infty$-groupoid as a space, and this
-adjunction preserves homotopy theory (this is called the \emph{homotopy
-hypothesis/theorem},
-\index{hypothesis!homotopy}
-\index{homotopy!hypothesis}
-because whether it is a hypothesis or theorem
-depends on how you define $\infty$-groupoid).  For example, you can
-easily define the fundamental group of an $\infty$-groupoid, and if you
-calculate the fundamental group of the fundamental $\infty$-groupoid of
-a space, it will agree with the classical definition of fundamental
-group of that space.  Because of this correspondence, homotopy theory
-and higher-dimensional category theory are intimately related.
+每个拓扑空间 $X$ 有一个\emph{基本$\infty$-群胚},
+\index{.infinity-群胚@$\infty$-群胚!基本}%
+\index{基本!.infinity-群胚@$\infty$-群胚}%
+其 $k$-态射是 $X$ 中的 $k$-维路径.
+$\infty$-群胚 的弱的特性直接相当于群刚好提升到同伦的路径, 其中 $(k+1)$-维路径 充当 $k$-维路径之间的同伦.
+此外, 空间作为 $\infty$-群胚的观点, 充分保持了空间的特征来做同伦论: 基本的 $\infty$-群胚构造伴随\index{伴随!函子} $\infty$-群胚作为空间的几何\index{几何实现}实现, 这个伴随函子保持同伦论
+(这被称为\emph{同伦猜想/定理}, \index{猜想!同伦}
+\index{同伦!猜想}%
+因为它是猜想还是定理依赖于你如何定义 $\infty$-群胚).
+例如, 你可以轻松定义 $\infty$-群胚的基本群, 而且空间的 $\infty$-群胚的基本群, 和经典的空间基本群的定义一致.
+因为这个对应关系, 同伦论和高维范畴论关系紧密.
 
-\index{classical!homotopy theory|)}%
-\index{higher category theory|)}%
+\index{经典的!同伦论|)}%
+\index{高阶范畴论|)}%
 
 \mentalpause
 
-Now, in homotopy type theory each type can be seen to have the structure
-of an $\infty$-groupoid.  Recall that for any type $A$, and any $x,y:A$,
-we have an identity type $\id[A]{x}{y}$, also written $\idtype[A]{x}{y}$
-or just $x=y$.  Logically, we may think of elements of $x=y$ as evidence
-that $x$ and $y$ are equal, or as identifications of $x$ with
-$y$. Furthermore, type theory (unlike, say, first-order logic) allows us
-to consider such elements of $\id[A]{x}{y}$ also as individuals which
-may be the subjects of further propositions.  Therefore, we can
-\emph{iterate} the identity type: we can form the type
-$\id[{(\id[A]{x}{y})}]{p}{q}$ of identifications between
-identifications $p,q$, and the type
-$\id[{(\id[{(\id[A]{x}{y})}]{p}{q})}]{r}{s}$, and so on.  The structure
-of this tower of identity types corresponds precisely to that of the
-continuous paths and (higher) homotopies between them in a space, or an
-$\infty$-groupoid.\index{.infinity-groupoid@$\infty$-groupoid}
+现在, 同伦类型论中每个类型可以被视为具有 $\infty$-群胚的结构.
+回顾对于任何类型 $A$, 和任何 $x,y:A$, 都有恒等类型 $\id[A]{x}{y}$, 也可写作 $\idtype[A]{x}{y}$ 或者 $x=y$.
+逻辑上可以把 $x=y$ 的元素作为 $x$ 和 $y$ 相等的证据, 或者看作 $x$ 与 $y$ 恒等. 此外, 不同于一阶逻辑, 类型论允许 $\id[A]{x}{y}$ 的元素可以作为个体, 构成其他命题.
+因此, 可以\emph{迭代}恒等类型: 构造类型
+$\id[{(\id[A]{x}{y})}]{p}{q}$, 即两个恒等 $p,q$ 之间的恒等, 以及类型 $\id[{(\id[{(\id[A]{x}{y})}]{p}{q})}]{r}{s}$, 等等.
+这种恒等类型的层级结构恰好相当于连续路径和空间之间的 (高阶) 同伦, 或者$\infty$-群胚.\index{.infinity-群胚@$\infty$-群胚}
 
 
-Thus, we will frequently refer to an element $p : \id[A]{x}{y}$ as
-a \define{path}
-\index{path}
-from $x$ to $y$; we call $x$ its \define{start point}
-\indexdef{start point of a path}
-\indexdef{path!start point of}
-and $y$ its \define{end point}.
-\indexdef{end point of a path}
-\indexdef{path!end point of}
-Two paths $p,q : \id[A]{x}{y}$ with the same start and end point are said to be \define{parallel},
-\indexdef{parallel paths}
-\indexdef{path!parallel}
-in which case an element $r : \id[{(\id[A]{x}{y})}]{p}{q}$ can
-be thought of as a homotopy, or a morphism between morphisms;
-we will often refer to it as a \define{2-path}
-\indexdef{path!2-}\indexsee{2-path}{path, 2-}%
-or a \define{2-dimensional path}.
-\index{dimension!of paths}%
-\indexsee{2-dimensional path}{path, 2-}\indexsee{path!2-dimensional}{path, 2-}%
-Similarly, $\id[{(\id[{(\id[A]{x}{y})}]{p}{q})}]{r}{s}$ is the type of
-\define{3-dimensional paths}
-\indexdef{path!3-}\indexsee{3-path}{path, 3-}\indexsee{3-dimensional path}{path, 3-}\indexsee{path!3-dimensional}{path, 3-}%
-between two parallel 2-dimensional paths, and so on.  If the
-type $A$ is ``set-like'', such as \nat, these iterated identity types
-will be uninteresting (see \cref{sec:basics-sets}), but in the
-general case they can model non-trivial homotopy types.
+因此, 通常把元素 $p : \id[A]{x}{y}$ 称为从 $x$ 到 $y$ 的 \define{路径};
+\index{路径}%
+$x$ 为它的\define{起点}%
+\indexdef{路径的起点}%
+\indexdef{路径!的起点}%
+而 $y$ 是它的\define{终点}.
+\indexdef{路径的终点}%
+\indexdef{路径!的终点}%
+相同起点和相同终点的路径 $p,q : \id[A]{x}{y}$ 被称为\define{平行},
+\indexdef{平行路径}%
+\indexdef{路径!平行}%
+这种情况下元素 $r : \id[{(\id[A]{x}{y})}]{p}{q}$ 可以被视为同伦, 或者态射间的态射;
+它经常被称为\define{2-维路径}
+\indexdef{path!2-维}%
+\indexsee{2-维路径}{路径, 2-维}%
+或者\define{二维路径}.
+\index{维!路径的}%
+\indexsee{二维路径}{路径, 2-维}%
+\indexsee{路径!二维的}{路径, 2-维}%
+类似的, $\id[{(\id[{(\id[A]{x}{y})}]{p}{q})}]{r}{s}$ 是二维平行路径之间的\define{3-维路径}类型,
+\indexdef{path!3-}\indexsee{3-path}{path, 3-}\indexsee{3-dimensional 路径}{path, 3-}\indexsee{路径!3-dimensional}{path, 3-}%
+依此类推.
+如果类型 $A$ ``类似于集合'', 比如 \nat, 那么对这些迭代的恒等类型不感兴趣 (参见 \cref{sec:basics-sets}), 不过在普通的情况下这可以构建非平凡同伦类型.
 
 %% (Obviously, the
 %% notation ``$\id[A]{x}{y}$'' has its limitations here.  The style
 %% $\idtype[A]{x}{y}$ is only slightly better in iterations:
 %% $\idtype[{\idtype[{\idtype[A]{x}{y}}]{p}{q}}]{r}{s}$.)
 
-An important difference between homotopy type theory and classical homotopy theory is that homotopy type theory provides a \emph{synthetic}
-\index{synthetic mathematics}%
-\index{geometry, synthetic}%
-\index{Euclid of Alexandria}%
-description of spaces, in the following sense. Synthetic geometry is geometry in the style of Euclid~\cite{Euclid}: one starts from some basic notions (points and lines), constructions (a line connecting any two points), and axioms
-(all right angles are equal), and deduces consequences logically.  This is in contrast with analytic
-\index{analytic mathematics}%
-geometry, where notions such as points and lines are represented concretely using cartesian coordinates in $\R^n$---lines are sets of points---and the basic constructions and axioms are derived from this representation.  While classical homotopy theory is analytic (spaces and paths are made of points), homotopy type theory is synthetic: points, paths, and paths between paths are basic, indivisible, primitive notions.
+同伦类型论和经典同伦论有一个重要区别, 同伦类型论给定了空间的\emph{综合}%
+\index{综合数学}%
+\index{几何, 综合}%
+\index{亚历山卓的欧基里得}%
+描述, 意义如下.
+综合几何是欧几里风格的一种集合~\cite{Euclid}: 它从基本概念(点和线), 构造 (任意两点连接一条线), 和公理 (所有直角相等) 出发, 按逻辑演绎出结论.
+这与解析几何相反,
+\index{分析数学}%
+其中点和线的概念使用 $\R^n$ 的笛卡尔坐标系表示---线是点的集合---而基本构造和公理都由此推导.
+经典的同伦论是分析的(空间和路径由点构成), 同伦类型论是综合的: 点, 路径, 和路径之间的路径是基础的, 不可分的, 原始概念.
 
-Moreover, one of the amazing things about homotopy type theory is that all of the basic constructions and axioms---all of the
-higher groupoid structure---arises automatically from the induction
-principle for identity types.
-Recall from \cref{sec:identity-types} that this says that if
+此外, 同伦类型论令人惊奇的一个地方是, 所有的基础的构造和公理---所有的高阶群胚结构---都自动地从恒等类型的归纳原理衍生出来.
+回顾 \cref{sec:identity-types} 中说的, 如果
 \begin{itemize}
-    \item for every $x,y:A$ and every $p:\id[A]xy$ we have a type $D(x,y,p)$, and
-    \item for every $a:A$ we have an element $d(a):D(a,a,\refl a)$,
+    \item 每个 $x,y:A$ 和每个 $p:\id[A]xy$ 有一个类型 $D(x,y,p)$, 和
+    \item 对于每个 $a:A$ 有一个元素 $d(a):D(a,a,\refl a)$,
 \end{itemize}
-then
+那么
 \begin{itemize}
-    \item there exists an element $\indid{A}(D,d,x,y,p):D(x,y,p)$ for \emph{every} two elements $x,y:A$ and $p:\id[A]xy$, such that $\indid{A}(D,d,a,a,\refl a) \jdeq d(a)$.
+    \item 存在一个元素 $\indid{A}(D,d,x,y,p):D(x,y,p)$ 对于\emph{每}两个元素 $x,y:A$ 和 $p:\id[A]xy$, 于是 $\indid{A}(D,d,a,a,\refl a) \jdeq d(a)$.
 \end{itemize}
-In other words, given dependent functions
+换句话说, 给定依赖函数
 \begin{align*}
-    D & :\prd{x,y:A} (\id{x}{y}) \to \type\\
-    d & :\prd{a:A} D(a,a,\refl{a})
+    D &:\prd{x,y:A} (\id{x}{y}) \to \type\\
+    d &:\prd{a:A} D(a,a,\refl{a})
 \end{align*}
-there is a dependent function
-\[\indid{A}(D,d):\prd{x,y:A}{p:\id{x}{y}} D(x,y,p)\]
-such that
-\begin{equation}\label{eq:Jconv}
-\indid{A}(D,d,a,a,\refl{a})\jdeq d(a)
+有依赖函数
+\[
+    \indid{A}(D,d):\prd{x,y:A}{p:\id{x}{y}} D(x,y,p)
+\]
+对于每个 $a:A$ 满足
+\begin{equation}
+    \label{eq:Jconv}
+    \indid{A}(D,d,a,a,\refl{a})\jdeq d(a).
 \end{equation}
-for every $a:A$.
-Usually, every time we apply this induction rule we will either not care about the specific function being defined, or we will immediately give it a different name.
+通常, 应用归纳规则时, 要么不在乎这个被定义的特殊函数, 要么立即给它取一个不同的名字.
 
-Informally, the induction principle for identity types says that if we want to construct an object (or prove a statement) which depends on an inhabitant $p:\id[A]xy$ of an identity type, then it suffices to perform the construction (or the proof) in the special case when $x$ and $y$ are the same (judgmentally) and $p$ is the reflexivity element $\refl{x}:x=x$ (judgmentally).
-When writing informally, we may express this with a phrase such as ``by induction, it suffices to assume\dots''.
-This reduction to the ``reflexivity case'' is analogous to the reduction to the ``base case'' and ``inductive step'' in an ordinary proof by induction on the natural numbers, and also to the ``left case'' and ``right case'' in a proof by case analysis on a disjoint union or disjunction.\index{induction principle!for identity type}%
+非正式地, 恒等类型的归纳原理说明了, 对于恒等类型的居留元为 $p:\id[A]xy$, 为了构造一个依赖于它的对象(或证明一个陈述), 考虑特殊情况 $x$ 与 $y$ (判断上)相同而 $p$ (判断上)是自反元素 $\refl{x}:x=x$ , 只需在此情况下进行构造(或者证明)即可.
+在非正式的情况下, 可以用短语 ``根据归纳, 可以假设\dots''.
+这种``自反情况'' 的化简, 类似自然数的归纳证明中的, ``基础实例''和``归纳步骤'' 的约减, 以及不交并或析取的分类分析证明中, ``左实例'' 和 ``右实例'' 的化简.
+\index{归纳原理!恒等类型的}%
 
 
-The ``conversion rule''~\eqref{eq:Jconv} is less familiar in the context of proof by induction on natural numbers, but there is an analogous notion in the related concept of definition by recursion.
-If a sequence\index{sequence} $(a_n)_{n\in \mathbb{N}}$ is defined by giving $a_0$ and specifying $a_{n+1}$ in terms of $a_n$, then in fact the $0^{\mathrm{th}}$ term of the resulting sequence \emph{is} the given one, and the given recurrence relation relating $a_{n+1}$ to $a_n$ holds for the resulting sequence.
-(This may seem so obvious as to not be worth saying, but if we view a definition by recursion as an algorithm\index{algorithm} for calculating values of a sequence, then it is precisely the process of executing that algorithm.)
-The rule~\eqref{eq:Jconv} is analogous: it says that if we define an object $f(p)$ for all $p:x=y$ by specifying what the value should be when $p$ is $\refl{x}:x=x$, then the value we specified is in fact the value of $f(\refl{x})$.
+自然数归纳证明的上下文中, ``转换规则''~\eqref{eq:Jconv}令人陌生, 但是在递归定义的相关概念中有类似的概念.
+如果通过给定 $a_0$, 和用 $a_n$ 来指定 $a_{n+1}$ 来定义一个序列\index{序列} $(a_n)_{n\in \mathbb{N}}$, 那么序列的第 $0$ 项就\emph{是}给定的那个, 而序列中的 $a_{n+1}$ 和 $a_n$ 都满足给定的递归关系.
+(这似乎很明显, 不值一提, 不过如果将递归的定义看作计算序列的值的算法\index{算法}, 这正是算法执行的过程.)
+规则~\eqref{eq:Jconv} 类似于: 如果通过 $p:x=y$ 来定义一个对象, 那么当 $p$ 为 $\refl{x}:x=x$ 时, 就是它的值, 即 $f(\refl{x})$.
 
-This induction principle endows each type with the structure of an $\infty$-groupoid\index{.infinity-groupoid@$\infty$-groupoid}, and each function between two types with the structure of an $\infty$-functor\index{.infinity-functor@$\infty$-functor} between two such groupoids.  This is interesting from a mathematical point of view, because it gives a new way to work with
-$\infty$-groupoids.  It is interesting from a type-theoretic point of view, because it reveals new operations that are associated with each type and function.  In the remainder of this chapter, we begin to explore this structure.
+这个归纳原理赋予每个类型$\infty$-群胚\index{.infinity-群胚@$\infty$-群胚}结构, 而两个类型之间的每个函数, 其结构都和两个群胚间的 $\infty$-functor
+\index{.infinity-functor@$\infty$-functor}%
+匹配.
+从数学的角度来看这很有趣, 因为给出了一个处理 $\infty$-群胚的新方法.
+从类型论的角度来看它很有趣, 因为它揭示了它揭示了与每种类型和函数相关的新运算.
+在本章的剩余部分, 从探讨这种结构开始.
