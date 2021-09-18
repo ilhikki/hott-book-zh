@@ -1,469 +1,470 @@
-\index{type!identity|(}%
-\index{path|(}%
-\index{.infinity-groupoid@$\infty$-groupoid!structure of a type|(}%
-We now derive from the induction principle the beginnings of the structure of a higher groupoid.
-We begin with symmetry of equality, which, in topological language, means that ``paths can be reversed''.
+\index{类型!恒等|(}%
+\index{路径|(}%
+\index{.infinity-groupoid@$\infty$-groupoid!类型的结构|(}%
+现在从归纳原理开始派生高阶广群结构. 从平等的对称性开始, 即拓扑学语言的``路径可逆''.
 
-\begin{lem}\label{lem:opp}
-  For every type $A$ and every $x,y:A$ there is a function
-  \begin{equation*}
-    (x= y)\to(y= x)
-  \end{equation*}
-  denoted $p\mapsto \opp{p}$, such that $\opp{\refl{x}}\jdeq\refl{x}$ for each $x:A$.
-  We call $\opp{p}$ the \define{inverse} of $p$.
-  \indexdef{path!inverse}%
-  \indexdef{inverse!of path}%
-  \index{equality!symmetry of}%a
-  \index{symmetry!of equality}%
+\begin{lem}
+    \label{lem:opp}
+    对于每个类型 $A$ 和每个 $x,y:A$ 有一个函数
+    \begin{equation*}
+    (x= y)
+        \to(y= x)
+    \end{equation*}
+    表示为 $p\mapsto \opp{p}$, 于是对于每个 $x:A$ 有 $\opp{\refl{x}}\jdeq\refl{x}$.
+    我们称 $\opp{p}$ 是 $p$ 的 \define{逆}.
+    \indexdef{路径!逆}%
+    \indexdef{逆!路径的}%
+    \index{等同!的对称}%a
+    \index{对称!等同的}%
 \end{lem}
 
-Since this is our first time stating something as a ``Lemma'' or ``Theorem'', let us pause to consider what that means.
-Recall that propositions (statements susceptible to proof) are identified with types, whereas lemmas and theorems (statements that have been proven) are identified with \emph{inhabited} types.
-Thus, the statement of a lemma or theorem should be translated into a type, as in \cref{sec:pat}, and its proof translated into an inhabitant of that type.
-According to the interpretation of the universal quantifier ``for every'', the type corresponding to \cref{lem:opp} is
-\[ \prd{A:\UU}{x,y:A} (x= y)\to(y= x). \]
-The proof of \cref{lem:opp} will consist of constructing an element of this type, i.e.\ deriving the judgment $f:\prd{A:\UU}{x,y:A} (x= y)\to(y= x)$ for some $f$.
-We then introduce the notation $\opp{(\blank)}$ for this element $f$, in which the arguments $A$, $x$, and $y$ are omitted and inferred from context.
-(As remarked in \cref{sec:types-vs-sets}, the secondary statement ``$\opp{\refl{x}}\jdeq\refl{x}$ for each $x:A$'' should be regarded as a separate judgment.)
+因为这是我们第一次使用 ``引理'' 或者 ``定理'', 让我们停下来考虑它的含义. 回顾命题 (可以被证明的陈述) 即类型, 而引理和定理是 (已经被证明的陈述) 即 \emph{被居留的}类型.
+因此, 引理或者定理的陈述应该可以被转换为类型, 就像 \cref{sec:pat}, 而且它把证明转换为该类型的居留元.
+按照通用量词``对于所有''的理解, 与 \cref{lem:opp} 相当的类型是
+\[
+    \prd{A:\UU}{x,y:A} (x= y)\to(y= x).
+\]
+\cref{lem:opp} 的证明包含了这个类型元素的构造, 即对于一些 $f$ 派生判断 $f:\prd{A:\UU}{x,y:A} (x= y)\to(y= x)$.
+然后对于该元素 $f$, 引入符号 $\opp{(\blank)}$, 其中省略了参数 $A$, $x$, 和 $y$ 并从上下文中推论出.
+(就像 \cref{sec:types-vs-sets} 说的, 第二的陈述句 ``$\opp{\refl{x}}\jdeq\refl{x}$ 对于每个 $x:A$'' 应该被当作 一个分开的判断.)
 
-\begin{proof}[First proof]
-  Assume given $A:\UU$, and
-  let $D:\prd{x,y:A}(x= y) \to \type$ be the type family defined by $D(x,y,p)\defeq (y= x)$.
-  In other words, $D$ is a function assigning to any $x,y:A$ and $p:x=y$ a type, namely the type $y=x$.
-  Then we have an element
-  \begin{equation*}
-    d\defeq \lam{x} \refl{x}:\prd{x:A} D(x,x,\refl{x}).
-  \end{equation*}
-  Thus, the induction principle for identity types gives us an element
-  \narrowequation{ \indid{A}(D,d,x,y,p): (y= x)}
-  for each $p:(x= y)$.
-  We can now define the desired function $\opp{(\blank)}$ to be $\lam{p} \indid{A}(D,d,x,y,p)$, i.e.\ we set $\opp{p} \defeq \indid{A}(D,d,x,y,p)$.
-  The conversion rule~\eqref{eq:Jconv} gives $\opp{\refl{x}}\jdeq \refl{x}$, as required.
+\begin{proof}[第一个证明]
+    假设给定 $A:\UU$,
+    令 $D:\prd{x,y:A}(x= y) \to \type$ 为类型族, 并由 $D(x,y,p)\defeq (y= x)$ 定义.
+    换句话说, $D$ 是一个函数, 传入任何 $x,y:A$ 和 $p:x=y$ 返回一个类型 $y=x$.
+    于是有该元素
+    \begin{equation*}
+        d\defeq \lam{x} \refl{x}:\prd{x:A} D(x,x,\refl{x}).
+    \end{equation*}
+    因此, 恒等类型的归纳原理提供了一个元素
+    \narrowequation{ \indid{A}(D,d,x,y,p): (y= x)}
+    并对每个 $p:(x= y)$ 成立.
+    现在可以定义所需函数 $\opp{(\blank)}$ 为 $\lam{p} \indid{A}(D,d,x,y,p)$, 即i令 $\opp{p} \defeq \indid{A}(D,d,x,y,p)$.
+    该转换规则~\eqref{eq:Jconv} 提供了所需的 $\opp{\refl{x}}\jdeq \refl{x}$.
 \end{proof}
 
-We have written out this proof in a very formal style, which may be helpful while the induction rule on identity types is unfamiliar.
-To be even more formal, we could say that \cref{lem:opp} and its proof together consist of the judgment
+我们使用了这种非常形式化的证明风格, 在对恒等类型归纳规则不熟悉时, 非常有帮助.
+甚至更形式化地, \cref{lem:opp} 和其证明都包含于判断
 \begin{narrowmultline*}
-  \lam{A}{x}{y}{p} \indid{A}((\lam{x}{y}{p} (y=x)), (\lam{x} \refl{x}), x, y, p)
-  \narrowbreak : \prd{A:\UU}{x,y:A} (x= y)\to(y= x)
+    \lam{A}{x}{y}{p} \indid{A}((\lam{x}{y}{p} (y=x)), (\lam{x} \refl{x}), x, y, p)
+    \narrowbreak : \prd{A:\UU}{x,y:A} (x= y)\to(y= x)
 \end{narrowmultline*}
-(along with an additional equality judgment).
-However, eventually we prefer to use more natural language, such as in the following equivalent proof.
+(以及额外的等同判断). 不过, 最终我们还是更喜欢更自然的语言, 就像下面的等价的证明.
 
-\begin{proof}[Second proof]
-  We want to construct, for each $x,y:A$ and $p:x=y$, an element $\opp{p}:y=x$.
-  By induction, it suffices to do this in the case when $y$ is $x$ and $p$ is $\refl{x}$.
-  But in this case, the type $x=y$ of $p$ and the type $y=x$ in which we are trying to construct $\opp{p}$ are both simply $x=x$.
-  Thus, in the ``reflexivity case'', we can define $\opp{\refl{x}}$ to be simply $\refl{x}$.
-  The general case then follows by the induction principle, and the conversion rule $\opp{\refl{x}}\jdeq\refl{x}$ is precisely the proof in the reflexivity case that we gave.
+\begin{proof}[第二个证明]
+    我们像构造, 对于每个 $x,y:A$ 和 $p:x=y$, 有元素 $\opp{p}:y=x$.
+    通过归纳, 当 $y$ 是 $x$ 且 $p$ 是 $\refl{x}$ 的情况已经足够.
+    不过在这个情况下, $p$ 的类型 $x=y$ 和类型 $y=x$ 即尝试构造的 $\opp{p}$ 都是简单的 $x=x$.
+    因此, 在 ``自反的情况'', 可以定义 $\opp{\refl{x}}$ 就是简单的 $\refl{x}$.
+    这个通用情况遵循归纳原理, 和转换规则 $\opp{\refl{x}}\jdeq\refl{x}$ 恰好是给出的自反情况的证明.
 \end{proof}
 
-We will write out the next few proofs in both styles, to help the reader become accustomed to the latter one.
-Next we prove the transitivity of equality, or equivalently we ``concatenate paths''.
+接下来会用两种风格来写证明, 来帮助读者喜欢后一种. 接下来证明等同的转递性, 即 ``串联路径''.
 
-\begin{lem}\label{lem:concat}
-  For every type $A$ and every $x,y,z:A$ there is a function
-  \begin{equation*}
-  (x= y) \to   (y= z)\to (x=  z),
-  \end{equation*}
-  written $p \mapsto q \mapsto p\ct q$, such that $\refl{x}\ct \refl{x}\jdeq \refl{x}$ for any $x:A$.
-  We call $p\ct q$ the \define{concatenation} or \define{composite} of $p$ and $q$.
-  \indexdef{path!concatenation}%
-  \indexdef{path!composite}%
-  \indexdef{concatenation of paths}%
-  \indexdef{composition!of paths}%
-  \index{equality!transitivity of}%
-  \index{transitivity!of equality}%
+\begin{lem}
+    \label{lem:concat}
+    对于每个类型 $A$ 和每个类型 $x,y,z:A$ 存在一个函数
+    \begin{equation*}
+    (x= y)
+        \to (y= z)\to (x= z),
+    \end{equation*}
+    写作 $p \mapsto q \mapsto p\ct q$, 于是对于任意 $x:A$ 有 $\refl{x}\ct \refl{x}\jdeq \refl{x}$.
+    $p\ct q$ 被称为\define{串联}或 $p$ 和 $q$ 的\define{复合}.
+    \indexdef{路径!串联}%
+    \indexdef{路径!复合}%
+    \indexdef{路径的串联}%
+    \indexdef{复合!路径的}%
+    \index{等同!的传递性}%
+    \index{传递性!等同的}%
 \end{lem}
 
-Note that we choose to notate path concatenation in the opposite order from function composition: from $p:x=y$ and $q:y=z$ we get $p\ct q : x=z$, whereas from $f:A\to B$ and $g:B\to C$ we get $g\circ f : A\to C$ (see \cref{ex:composition}).
+注意我们选择与函数复合相反的顺序来表示路径串联: 从 $p:x=y$ 和 $q:y=z$ 得到 $p\ct q : x=z$, 而从 $f:A\to B$ 和 $g:B\to C$ 得到 $g\circ f : A\to C$ (参见 \cref{ex:composition}).
 
-\begin{proof}[First proof]
-  The desired function has type $\prd{x,y,z:A} (x= y) \to   (y= z)\to (x=  z)$.
-  We will instead define a function with the equivalent type $\prd{x,y:A} (x= y) \to \prd{z:A} (y= z)\to (x=  z)$, which allows us to apply path induction twice.
-  Let $D:\prd{x,y:A} (x=y) \to \type$ be the type family
-  \begin{equation*}
-    D(x,y,p)\defeq \prd{z:A}{q:y=z} (x=z).
-  \end{equation*}
-  Note that $D(x,x,\refl x) \jdeq \prd{z:A}{q:x=z} (x=z)$.
-  Thus, in order to apply the induction principle for identity types to this $D$, we need a function of type
-  \begin{equation}\label{eq:concatD}
-    \prd{x:A} D(x,x,\refl{x})
-  \end{equation}
-  which is to say, of type
-  \[ \prd{x,z:A}{q:x=z} (x=z). \]
-  Now let $E:\prd{x,z:A}{q:x=z}\type$ be the type family $E(x,z,q)\defeq (x=z)$.
-  Note that $E(x,x,\refl x) \jdeq (x=x)$.
-  Thus, we have the function
-  \begin{equation*}
-    e(x) \defeq \refl{x} : E(x,x,\refl{x}).
-  \end{equation*}
-  By the induction principle for identity types applied to $E$, we obtain a function
-  \begin{equation*}
-    d : \prd{x,z:A}{q:x=z} E(x,z,q).
-  \end{equation*}
-  But $E(x,z,q)\jdeq (x=z)$, so the type of $d$ is~\eqref{eq:concatD}.
-  Thus, we can use this function $d$ and apply the induction principle for identity types to $D$, to obtain our desired function of type
-  \begin{equation*}
-    \prd{x,y:A} (x= y) \to \prd{z:A} (y= z)\to (x=  z)
-  \end{equation*}
-  and hence $\prd{x,y,z:A} (y=z) \to (x=y) \to (x=z)$.
-  The conversion rules for the two induction principles give us $\refl{x}\ct \refl{x}\jdeq \refl{x}$ for any $x:A$.
+\begin{proof}[第一个证明]
+    所需函数类型是 $\prd{x,y,z:A} (x= y) \to (y= z)\to (x= z)$.
+    我们将定义等价的类型 $\prd{x,y:A} (x= y) \to \prd{z:A} (y= z)\to (x= z)$ 来代替, 这允许我们应用两次路径归纳.
+    令 $D:\prd{x,y:A} (x=y) \to \type$ 为类型族
+    \begin{equation*}
+        D(x,y,p)\defeq \prd{z:A}{q:y=z} (x=z).
+    \end{equation*}
+    注意 $D(x,x,\refl x) \jdeq \prd{z:A}{q:x=z} (x=z)$.
+    因此, 为了应用恒等类型的归纳原理到这个 $D$, 需要一个类型函数
+    \begin{equation}
+        \label{eq:concatD}
+        \prd{x:A} D(x,x,\refl{x})
+    \end{equation}
+    也就是说类型
+    \[ \prd{x,z:A}{q:x=z} (x=z). \]
+    现在令 $E:\prd{x,z:A}{q:x=z}\type$ 为类型族 $E(x,z,q)\defeq (x=z)$.
+    注意 $E(x,x,\refl x) \jdeq (x=x)$.
+    因此, 有此函数
+    \begin{equation*}
+        e(x) \defeq \refl{x} : E(x,x,\refl{x}).
+    \end{equation*}
+    通过恒等类型归纳原理应用到 $E$, 得到一个函数
+    \begin{equation*}
+        d : \prd{x,z:A}{q:x=z} E(x,z,q).
+    \end{equation*}
+    但是 $E(x,z,q)\jdeq (x=z)$, 所以 $d$ 的类型是~\eqref{eq:concatD}.
+    因此, 我们可以使用该函数 $d$ 然后应用恒等类型的归纳原理到 $D$, 来得到所需类型的函数
+    \begin{equation*}
+        \prd{x,y:A} (x= y) \to \prd{z:A} (y= z)\to (x= z)
+    \end{equation*}
+    因此 $\prd{x,y,z:A} (y=z) \to (x=y) \to (x=z)$.
+    这两个归纳原则的转换规则给了我们 $\refl{x}\ct \refl{x}\jdeq \refl{x}$ 对于任何 $x:A$.
 \end{proof}
 
-\begin{proof}[Second proof]
-  We want to construct, for every $x,y,z:A$ and every $p:x=y$ and $q:y=z$, an element of $x=z$.
-  By induction on $p$, it suffices to assume that $y$ is $x$ and $p$ is $\refl{x}$.
-  In this case, the type $y=z$ of $q$ is $x=z$.
-  Now by induction on $q$, it suffices to assume also that $z$ is $x$ and $q$ is $\refl{x}$.
-  But in this case, $x=z$ is $x=x$, and we have $\refl{x}:(x=x)$.
+\begin{proof}[第二个证明]
+    对于每个 $x,y,z:A$ 和每个 $p:x=y$ 和 $q:y=z$, an 元素 of $x=z$, 我们想构造.
+    通过在 $p$ 上归纳, 假设 $y$ 为 $x$ 和 $p$ 是 $\refl{x}$ 即可.
+    这个情况下, $q$ 的类型 $y=z$ 是 $x=z$.
+    现在在 $q$ 上归纳, 假设 $z$ 是 $x$ 和 $q$ 是 $\refl{x}$ 即可.
+    但是在这个情况下, $x=z$ 是 $x=x$, 而我们有 $\refl{x}:(x=x)$.
 \end{proof}
 
-The reader may well feel that we have given an overly convoluted proof of this lemma.
-In fact, we could stop after the induction on $p$, since at that point what we want to produce is an equality $x=z$, and we already have such an equality, namely $q$.
-Why do we go on to do another induction on $q$?
+读者可能会觉的我们对这个引理给了过于复杂的证明. 事实上, 在 $p$ 上归纳后就可以停止, 因为需要的就是同等 $x=z$, 我们已经有了这样的等同, 即 $q$.
+为什么还在 $q$ 上的还做了另一个归纳?
 
-The answer is that, as described in the introduction, we are doing \emph{proof-relevant} mathematics.
-\index{mathematics!proof-relevant}%
-When we prove a lemma, we are defining an inhabitant of some type, and it can matter what \emph{specific} element we defined in the course of the proof, not merely the type inhabited by that element (that is, the \emph{statement} of the lemma).
-\cref{lem:concat} has three obvious proofs: we could do induction over $p$, induction over $q$, or induction over both of them.
-If we proved it three different ways, we would have three different elements of the same type.
-It's not hard to show that these three elements are equal (see \cref{ex:basics:concat}), but as they are not \emph{definitionally} equal, there can still be reasons to prefer one over another.
+答案就是, 像导论中描述的一样, 我们在做\emph{证明相关}的数学.
+\index{数学!证明相关}%
+证明一个引理时, 我们在定义元素的一个居留元, 这和证明过程中定义的\emph{特殊}元素有关, 而不仅仅是类型被这个元素居留(即引理的\emph{陈述}).
+\cref{lem:concat} 有三个明显的证明: 可以在 $p$ 上归纳, 在 $q$ 上归纳, 或者一起归纳.
+如果以三种不同的方式来证明, 那么将拥有同一类型的三个不同元素.
+不难证明这三个元素是等同的 (参见 \cref{ex:basics:concat}), 但因为他们不是\emph{定义}等同, 因此可以偏爱其中一个理由.
 
-In the case of \cref{lem:concat}, the difference hinges on the computation rule.
-If we proved the lemma using a single induction over $p$, then we would end up with a computation rule of the form $\refl{y} \ct q \jdeq q$.
-If we proved it with a single induction over $q$, we would have instead $p\ct\refl{y}\jdeq p$, while proving it with a double induction (as we did) gives only $\refl{x}\ct\refl{x} \jdeq \refl{x}$.
+在 \cref{lem:concat} 的情况下, 差异取决于计算规则.
+如果使用在 $p$ 上单次归纳来证明引理, 那么可以得到形式为 $\refl{y} \ct q \jdeq q$ 的计算规则.
+如果在 $q$ 上单次归纳来证明, 可以代替为 $p\ct\refl{y}\jdeq p$, 而归纳两次 (如我们所做的) 仅给出 $\refl{x}\ct\refl{x} \jdeq \refl{x}$.
 
-\index{mathematics!formalized}%
-The asymmetrical computation rules can sometimes be convenient when doing formalized mathematics, as they allow the computer to simplify more things automatically.
-However, in informal mathematics, and arguably even in the formalized case, it can be confusing to have a concatenation operation which behaves asymmetrically and to have to remember which side is the ``special'' one.
-Treating both sides symmetrically makes for more robust proofs; this is why we have given the proof that we did.
-(However, this is admittedly a stylistic choice.)
+\index{数学!形式}%
+在形式数学时, 非对称计算规则有时很方便, 因为它们允许计算机自动简化更多事情.
+不过, 在非形式的数学中, 甚至有争议的不形式的情况, 串联操作有时会令人困惑, 因为它不对称的行为而且必须记住哪变是``特殊''的一侧.
+对称地对待两边有益于更健壮的证明;
+这也是为什么那个证明这样做的原因. (不过, 诚然这是风格上的选择.)
 
-The table below summarizes the ``equality'', ``homotopical'', and ``higher-groupoid" points of view on what we have done so far.
+下面的表格总结了目前所做的``等同'', ``同论'', ``高阶广群"的观点.
 \begin{center}
-  \medskip
-  \begin{tabular}{ccc}
-    \toprule
-    Equality & Homotopy & $\infty$-Groupoid\\
-    \midrule
-    reflexivity\index{equality!reflexivity of} & constant path & identity morphism\\
-    symmetry\index{equality!symmetry of} & inversion of paths & inverse morphism\\
-    transitivity\index{equality!transitivity of} & concatenation of paths & composition of morphisms\\
-    \bottomrule
-  \end{tabular}
-  \medskip
+    \medskip
+    \begin{tabular}{ccc}
+        \toprule
+        等同                 & 同伦   & $\infty$-Groupoid \\
+        \midrule
+        自反\index{等同!的自反}   & 常量路径 & 恒等态射              \\
+        对称性\index{等同!对称性}  & 路径的逆 & 态射的逆              \\
+        传递性\index{等同!的传递性} & 路径串联 & 态射复合              \\
+        \bottomrule
+    \end{tabular}
+    \medskip
 \end{center}
 
-In practice, transitivity is often applied to prove an equality by a chain of intermediate steps.
-We will use the common notation for this such as $a=b=c=d$.
-If the intermediate expressions are long, or we want to specify the witness of each equality, we may write
+实际上, 传递性经常应用于通过一系列中间步骤证明等同. 我们会使用像 $a=b=c=d$ 这样的通用符号.
+如果中间表达式很长, 或者想指定每个等同的见证, 可以写作
 \begin{align*}
-  a &= b & \text{(by $p$)}\\ &= c &\text{(by $q$)} \\ &= d &\text{(by $r$)}.
+    a &= b &\text{(通过 $p$)}\\ &= c &\text{(通过 $q$)} \\ &= d &\text{(通过 $r$)}.
 \end{align*}
-In either case, the notation indicates construction of the element $(p\ct q)\ct r: (a=d)$.
-(We choose left-associativity for concreteness, although in view of \cref{thm:omg}\ref{item:omg4} below it makes little difference.)
-If it should happen that $b$ and $c$, say, are judgmentally equal, then we may write
+在每种情况, 这个符号都表示元素 $(p\ct q)\ct r: (a=d)$ 的构造.
+(它是左结合的, 尽管从 \cref{thm:omg}\ref{item:omg4} 来看区别不大.)
+如果 $b$ 与 $c$ 是判断等同的, 那么可以写作
 \begin{align*}
-  a &= b & \text{(by $p$)}\\ &\jdeq c \\ &= d &\text{(by $r$)}
+    a &= b &\text{(通过 $p$)}\\ &\jdeq c \\ &= d &\text{(通过 $r$)}
 \end{align*}
-to indicate construction of $p\ct r : (a=d)$.
-We also follow common mathematical practice in not requiring the justifications in this notation (``by $p$'' and ``by $r$'') to supply the exact witness needed; instead we allow them to simply mention the most important (or least obvious) ingredient in constructing that witness.
-For instance, if ``Lemma A'' states that for all $x$ and $y$ we have $f(x)=g(y)$, then we may write ``by Lemma A'' as a justification for the step $f(a) = g(b)$, trusting the reader to deduce that we apply Lemma A with $x\defeq a$ and $y\defeq b$.
-We may also omit a justification entirely if we trust the reader to be able to guess it.
+来表示 $p\ct r : (a=d)$ 的构造. 同样遵循普通数学惯例, 不需要显示为符号 (``通过 $p$'' 和 ``通过 $r$'') 显式地提供见证;
+而是允许简单提及最重要的 (或者不明显的) 构造见证的要素.
+例如, 如果``引理 A'' 指出对于所有 $x$ 和 $y$ 我们有 $f(x)=g(y)$, 那么我们可以写 ``通过引理 A'' 作为 $f(a) = g(b)$ 的理由, 相信读者可以演绎应用引理 A 到 $x\defeq a$ 和$y\defeq b$.
+我们也可能会完全忽略理由, 如果我们相信读者有能力猜到它.
 
-Now, because of proof-relevance, we can't stop after proving ``symmetry'' and ``transitivity'' of equality: we need to know that these \emph{operations} on equalities are well-behaved.
-(This issue is invisible in set theory, where symmetry and transitivity are mere \emph{properties} of equality, rather than structure on
-paths.)
-From the homotopy-theoretic point of view, concatenation and inversion are just the ``first level'' of higher groupoid structure --- we also need coherence\index{coherence} laws on these operations, and analogous operations at higher dimensions.
-For instance, we need to know that concatenation is \emph{associative}, and that inversion provides \emph{inverses} with respect to concatenation.
+现在, 因为证明相关的原因, 我们无法在证明等同的``对称性''与``传递性''后就停下来: 我们需要知道等式上的\emph{操作}是表现良好的.
+(在集合论中这个问题是不可见的, 因为对称性和传递性是等同的纯\emph{形式}, 而不是路径上的结构.)
+从同伦论的观点来看, 串联和逆只是高阶广群的``第一级'' --- 我们同样需要这些操作的一致性\index{一致性}定律, 以及在更高维度的类似运算.
+例如, 我们知道串联是\emph{结合}的, 而逆提供了串联的\emph{逆}.
 
-\begin{lem}\label{thm:omg}%[The $\omega$-groupoid structure of types]
-  \index{associativity!of path concatenation}%
-  \index{unit!law for path concatenation}%
-  Suppose $A:\type$, that $x,y,z,w:A$ and that $p:x= y$ and $q:y = z$ and $r:z=w$.
-  We have the following:
-  \begin{enumerate}
-  \item $p= p\ct \refl{y}$ and $p = \refl{x} \ct p$.\label{item:omg1}
-  \item $\opp{p}\ct p=  \refl{y}$ and $p\ct \opp{p}= \refl{x}$.\label{item:omg2}
-  \item $\opp{(\opp{p})}= p$.\label{item:omg3}
-  \item $p\ct (q\ct r)=  (p\ct q)\ct r$.\label{item:omg4}
-  \end{enumerate}
+\begin{lem}
+    \label{thm:omg}%[The $\omega$-groupoid structure of types]
+    \index{结合律!路径串联的}%
+    \index{单元!路径串联法则}%
+    提供 $A:\type$, $x,y,z,w:A$, $p:x= y$, $q:y = z$ 和 $r:z=w$.
+    于是有以下:
+    \begin{enumerate}
+        \item $p= p\ct \refl{y}$ and $p = \refl{x} \ct p$.\label{item:omg1}
+        \item $\opp{p}\ct p= \refl{y}$ and $p\ct \opp{p}= \refl{x}$.\label{item:omg2}
+        \item $\opp{(\opp{p})}= p$.\label{item:omg3}
+        \item $p\ct (q\ct r)= (p\ct q)\ct r$.\label{item:omg4}
+    \end{enumerate}
 \end{lem}
 
-Note, in particular, that \ref{item:omg1}--\ref{item:omg4} are themselves propositional equalities, living in the identity types \emph{of} identity types, such as $p=_{x=y}q$ for $p,q:x=y$.
-Topologically, they are \emph{paths of paths}, i.e.\ homotopies.
-It is a familiar fact in topology that when we concatenate a path $p$ with the reversed path $\opp p$, we don't literally obtain a constant path (which corresponds to the equality $\refl{}$ in type theory) --- instead we have a homotopy, or higher path, from $p\ct\opp p$ to the constant path.
+备注, 特别的, \ref{item:omg1}--\ref{item:omg4} 是命题等同本身, 存在于恒等类型\emph{的}恒等类型中, 就像 $p=_{x=y}q$ 对于 $p,q:x=y$.
+拓扑上, 他们是 \emph{路径的路径}, 即同伦.
+事实上, 当串联路径 $p$ 和被反转的路径 $\opp p$ 时, 不会确实得到一个常量路径 (相当于在类型论中的等同 $\refl{}$) --- 而是同伦, 或者路径, 它从 $p\ct\opp p$ 到常量路径.
 
-\begin{proof}[Proof of~\cref{thm:omg}]
-  All the proofs use the induction principle for equalities.
-  \begin{enumerate}
-  \item \emph{First proof:} let $D:\prd{x,y:A} (x=y) \to \type$ be the type family given by
-    \begin{equation*}
-      D(x,y,p)\defeq (p= p\ct \refl{y}).
-    \end{equation*}
-    Then $D(x,x,\refl{x})$ is $\refl{x}=\refl{x}\ct\refl{x}$.
-    Since $\refl{x}\ct\refl{x}\jdeq\refl{x}$, it follows that $D(x,x,\refl{x})\jdeq (\refl{x}=\refl{x})$.
-    Thus, there is a function
-    \begin{equation*}
-      d\defeq\lam{x} \refl{\refl{x}}:\prd{x:A} D(x,x,\refl{x}).
-    \end{equation*}
-    Now the induction principle for identity types gives an element $\indid{A}(D,d,x,y,p):(p= p\ct\refl{y})$ for each $p:x= y$.
-    The other equality is proven similarly.
+\begin{proof}[\cref{thm:omg} 的证明]
+    所有的证明使用等同的归纳原则.
+    \begin{enumerate}
+        \item \emph{第一个证明:} 令 $D:\prd{x,y:A} (x=y) \to \type$ 为类型族, 并以此给定
+        \begin{equation*}
+            D(x,y,p)\defeq (p= p\ct \refl{y}).
+        \end{equation*}
+        然后 $D(x,x,\refl{x})$ 是 $\refl{x}=\refl{x}\ct\refl{x}$.
+        因为 $\refl{x}\ct\refl{x}\jdeq\refl{x}$, 所以 $D(x,x,\refl{x})\jdeq (\refl{x}=\refl{x})$.
+        因此, 有函数
+        \begin{equation*}
+            d\defeq\lam{x} \refl{\refl{x}}:\prd{x:A} D(x,x,\refl{x}).
+        \end{equation*}
+        现在恒等类型的归纳原理对于每个 $p:x= y$ 给出一个元素 $\indid{A}(D,d,x,y,p):(p= p\ct\refl{y})$.
+        另一个等式同样被证明了.
+        \mentalpause
 
-    \mentalpause
+        \noindent
+        \emph{第二个:} 通过对 $p$ 归纳, 足以假定 $y$ 是 $x$ 和 $p$ 是 $\refl x$.
+        在这种情况下, 有 $\refl{x}\ct\refl{x}\jdeq\refl{x}$.
+        \item \emph{第一个证明:} 令 $D:\prd{x,y:A} (x=y) \to \type$ 为类型族, 并以此给定
+        \begin{equation*}
+            D(x,y,p)\defeq (\opp{p}\ct p= \refl{y}).
+        \end{equation*}
+        然后 $D(x,x,\refl{x})$ 是 $\opp{\refl{x}}\ct\refl{x}=\refl{x}$.
+        因为 $\opp{\refl{x}}\jdeq\refl{x}$ 和 $\refl{x}\ct\refl{x}\jdeq\refl{x}$, 得到 $D(x,x,\refl{x})\jdeq (\refl{x}=\refl{x})$.
+        因此发现这个函数
+        \begin{equation*}
+            d\defeq\lam{x} \refl{\refl{x}}:\prd{x:A} D(x,x,\refl{x}).
+        \end{equation*}
+        现在路径归纳对于任何 $p:x= y$ in $A$ 给定一个元素 $\indid{A}(D,d,x,y,p):\opp{p}\ct p=\refl{y}$.
+        另一个等同也类似.
 
-    \noindent
-    \emph{Second proof:} by induction on $p$, it suffices to assume that $y$ is $x$ and that $p$ is $\refl x$.
-    But in this case, we have $\refl{x}\ct\refl{x}\jdeq\refl{x}$.
-  \item \emph{First proof:} let $D:\prd{x,y:A} (x=y) \to \type$ be the type family given by
-    \begin{equation*}
-      D(x,y,p)\defeq (\opp{p}\ct p=  \refl{y}).
-    \end{equation*}
-    Then $D(x,x,\refl{x})$ is $\opp{\refl{x}}\ct\refl{x}=\refl{x}$.
-    Since $\opp{\refl{x}}\jdeq\refl{x}$ and $\refl{x}\ct\refl{x}\jdeq\refl{x}$, we get that $D(x,x,\refl{x})\jdeq (\refl{x}=\refl{x})$.
-    Hence we find the function
-    \begin{equation*}
-      d\defeq\lam{x} \refl{\refl{x}}:\prd{x:A} D(x,x,\refl{x}).
-    \end{equation*}
-    Now path induction gives an element $\indid{A}(D,d,x,y,p):\opp{p}\ct p=\refl{y}$ for each $p:x= y$ in $A$.
-    The other equality is similar.
+        \mentalpause
 
-    \mentalpause
+        \noindent \emph{第二个证明:} 通过归纳, 足以假定 $p$ 是 $\refl x$.
+        在这种情况下, 有 $\opp{p} \ct p \jdeq \opp{\refl x} \ct \refl x \jdeq \refl x$.
 
-    \noindent \emph{Second proof:} by induction, it suffices to assume $p$ is $\refl x$.
-    But in this case, we have $\opp{p} \ct p \jdeq \opp{\refl x} \ct \refl x \jdeq \refl x$.
+        \item \emph{第一个证明:} 令 $D:\prd{x,y:A} (x=y) \to \type$ 为类型族, 并以此给定
+        \begin{equation*}
+            D(x,y,p)\defeq (\opp{\opp{p}}= p).
+        \end{equation*}
+        然后 $D(x,x,\refl{x})$ 是这个类型 $(\opp{\opp{\refl x}}=\refl{x})$.
+        不过因为 $\opp{\refl{x}}\jdeq \refl{x}$ for each $x:A$, 有 $\opp{\opp{\refl{x}}}\jdeq \opp{\refl{x}} \jdeq\refl{x}$, 因此 $D(x,x,\refl{x})\jdeq(\refl{x}=\refl{x})$.
+        因此发现这个函数
+        \begin{equation*}
+            d\defeq\lam{x} \refl{\refl{x}}:\prd{x:A} D(x,x,\refl{x}).
+        \end{equation*}
+        现在路径归纳对每个 $p:x= y$ 给定一个元素 $\indid{A}(D,d,x,y,p):\opp{\opp{p}}= p$.
 
-  \item \emph{First proof:} let $D:\prd{x,y:A} (x=y) \to \type$ be the type family given by
-    \begin{equation*}
-      D(x,y,p)\defeq (\opp{\opp{p}}= p).
-    \end{equation*}
-    Then $D(x,x,\refl{x})$ is the type $(\opp{\opp{\refl x}}=\refl{x})$.
-    But since $\opp{\refl{x}}\jdeq \refl{x}$ for each $x:A$, we have $\opp{\opp{\refl{x}}}\jdeq \opp{\refl{x}} \jdeq\refl{x}$, and thus $D(x,x,\refl{x})\jdeq(\refl{x}=\refl{x})$.
-    Hence we find the function
-    \begin{equation*}
-      d\defeq\lam{x} \refl{\refl{x}}:\prd{x:A} D(x,x,\refl{x}).
-    \end{equation*}
-    Now path induction gives an element $\indid{A}(D,d,x,y,p):\opp{\opp{p}}= p$ for each $p:x= y$.
+        \mentalpause
 
-    \mentalpause
+        \noindent \emph{第二个证明:} 通过归纳, 足以假定 $p$ 是 $\refl x$.
+        在这种情况下, 有 $\opp{\opp{p}}\jdeq \opp{\opp{\refl x}} \jdeq \refl x$.
 
-    \noindent \emph{Second proof:} by induction, it suffices to assume $p$ is $\refl x$.
-    But in this case, we have $\opp{\opp{p}}\jdeq \opp{\opp{\refl x}} \jdeq \refl x$.
+        \item \emph{第一个证明:} 令 $D_1:\prd{x,y:A} (x=y) \to \type$ 为类型族, 并以此给定
+        \begin{equation*}
+            D_1(x,y,p)\defeq\prd{z,w:A}{q:y= z}{r:z= w} \big(p\ct (q\ct r)= (p\ct q)\ct r\big).
+        \end{equation*}
+        然后 $D_1(x,x,\refl{x})$ 就是
+        \begin{equation*}
+            \prd{z,w:A}{q:x= z}{r:z= w} \big(\refl{x}\ct(q\ct r)= (\refl{x}\ct q)\ct r\big).
+        \end{equation*}
+        为了构造此类型的元素, 令 $D_2:\prd{x,z:A} (x=z) \to \type$ 为类型族
+        \begin{equation*}
+            D_2 (x,z,q) \defeq \prd{w:A}{r:z=w} \big(\refl{x}\ct(q\ct r)= (\refl{x}\ct q)\ct r\big).
+        \end{equation*}
+        然后 $D_2(x,x,\refl{x})$ 是
+        \begin{equation*}
+            \prd{w:A}{r:x=w} \big(\refl{x}\ct(\refl{x}\ct r)= (\refl{x}\ct \refl{x})\ct r\big).
+        \end{equation*}
+        为了构造\emph{这个}类型的元素, 令 $D_3:\prd{x,w:A} (x=w) \to \type$ 为类型族
+        \begin{equation*}
+            D_3(x,w,r) \defeq \big(\refl{x}\ct(\refl{x}\ct r)= (\refl{x}\ct \refl{x})\ct r\big).
+        \end{equation*}
+        然后 $D_3(x,x,\refl{x})$ 就是
+        \begin{equation*}
+            \big(\refl{x}\ct(\refl{x}\ct \refl{x})= (\refl{x}\ct \refl{x})\ct \refl{x}\big)
+        \end{equation*}
+        它与类型 $(\refl{x} = \refl{x})$ 定义等同, 因此被 $\refl{\refl{x}}$ 所居留.
+        应用三次路径归纳规则, 得到全部所需类型一个元素.
 
-  \item \emph{First proof:} let $D_1:\prd{x,y:A} (x=y) \to \type$ be the type family given by
-    \begin{equation*}
-      D_1(x,y,p)\defeq\prd{z,w:A}{q:y= z}{r:z= w} \big(p\ct (q\ct r)=  (p\ct q)\ct r\big).
-    \end{equation*}
-    Then $D_1(x,x,\refl{x})$ is
-    \begin{equation*}
-      \prd{z,w:A}{q:x= z}{r:z= w} \big(\refl{x}\ct(q\ct r)= (\refl{x}\ct q)\ct r\big).
-    \end{equation*}
-    To construct an element of this type, let $D_2:\prd{x,z:A} (x=z) \to \type$ be the type family
-    \begin{equation*}
-      D_2 (x,z,q) \defeq \prd{w:A}{r:z=w} \big(\refl{x}\ct(q\ct r)= (\refl{x}\ct q)\ct r\big).
-    \end{equation*}
-    Then $D_2(x,x,\refl{x})$ is
-    \begin{equation*}
-      \prd{w:A}{r:x=w} \big(\refl{x}\ct(\refl{x}\ct r)= (\refl{x}\ct \refl{x})\ct r\big).
-    \end{equation*}
-    To construct an element of \emph{this} type, let $D_3:\prd{x,w:A} (x=w) \to \type$ be the type family
-    \begin{equation*}
-      D_3(x,w,r) \defeq \big(\refl{x}\ct(\refl{x}\ct r)= (\refl{x}\ct \refl{x})\ct r\big).
-    \end{equation*}
-    Then $D_3(x,x,\refl{x})$ is
-    \begin{equation*}
-      \big(\refl{x}\ct(\refl{x}\ct \refl{x})= (\refl{x}\ct \refl{x})\ct \refl{x}\big)
-    \end{equation*}
-    which is definitionally equal to the type $(\refl{x} = \refl{x})$, and is therefore inhabited by $\refl{\refl{x}}$.
-    Applying the path induction rule three times, therefore, we obtain an element of the overall desired type.
+        \mentalpause
 
-    \mentalpause
-
-    \noindent \emph{Second proof:} by induction, it suffices to assume $p$, $q$, and $r$ are all $\refl x$.
-    But in this case, we have
-    \begin{align*}
-      p\ct (q\ct r)
-      &\jdeq \refl{x}\ct(\refl{x}\ct \refl{x})\\
-      &\jdeq \refl{x}\\
-      &\jdeq (\refl{x}\ct \refl x)\ct \refl x\\
-      &\jdeq (p\ct q)\ct r.
-    \end{align*}
-    Thus, we have $\refl{\refl{x}}$ inhabiting this type. \qedhere
-  \end{enumerate}
+        \noindent \emph{第二个证明:} 通过归纳, 足够假设 $p$, $q$, 和 $r$ 都是 $\refl x$.
+        在这中情况下, 有
+        \begin{align*}
+            p\ct (q\ct r)
+            &\jdeq \refl{x}\ct(\refl{x}\ct \refl{x})\\
+            &\jdeq \refl{x}\\
+            &\jdeq (\refl{x}\ct \refl x)\ct \refl x\\
+            &\jdeq (p\ct q)\ct r.
+        \end{align*}
+        因此, 我们有 $\refl{\refl{x}}$ 居留于这个类型. \qedhere
+    \end{enumerate}
 \end{proof}
 
 \begin{rmk}
-  There are other ways to define these higher paths.
-  For instance, in \cref{thm:omg}\ref{item:omg4} we might do induction only over one or two paths rather than all three.
-  Each possibility will produce a \emph{definitionally} different proof, but they will all be equal to each other.
-  Such an equality between any two particular proofs can, again, be proven by induction, reducing all the paths in question to reflexivities and then observing that both proofs reduce themselves to reflexivities.
+    有另外一种定义这种高阶路径的方法.
+    例如, 在 \cref{thm:omg}\ref{item:omg4} 可以只在一个或者两个路径上归纳归纳路径, 而不是所有三个.
+    每种都可以缠身\emph{定义}不同的证明, 但是它们彼此相等.
+    同样, 可以通过回纳证明任意两个特定的证明之间的等同性, 简化问题所有的路径到自反性, 然后就观察到两个证明都简化自己为自反.
 \end{rmk}
 
-In view of \cref{thm:omg}\ref{item:omg4}, we will often write $p\ct q\ct r$ for $(p\ct q)\ct r$, and similarly $p\ct q\ct r \ct s$ for $((p\ct q)\ct r)\ct s$ and so on.
-We choose left-associativity for definiteness, but it makes no real difference.
-We generally trust the reader to insert instances of \cref{thm:omg}\ref{item:omg4} to reassociate such expressions as necessary.
+因为\cref{thm:omg}\ref{item:omg4}, 我们经常经用 $p\ct q\ct r$ 表示 $(p\ct q)\ct r$, 以及用 $p\ct q\ct r \ct s$ 表示 $((p\ct q)\ct r)\ct s$ 等等.
+我们选择做结合作为定义, 但是并没有更本的区别.
+我们相信读者可以添加\cref{thm:omg}\ref{item:omg4} 的实例, 根据需要关联这样表达式.
 
-We are still not really done with the higher groupoid structure: the paths~\ref{item:omg1}--\ref{item:omg4} must also satisfy their own higher coherence\index{coherence} laws, which are themselves higher paths,
-\index{associativity!of path concatenation!coherence of}%
+我们还没有真正的在高阶广群结构上做: 路径~\ref{item:omg1}--\ref{item:omg4} 还必须满足其高阶一致性\index{一致性}法则, 他们本身就是高阶路径, \index{结合律!路径串联的!的一致性}%
 \index{globular operad}%
 \index{operad}%
 \index{groupoid!higher}%
-and so on ``all the way up to infinity'' (this can be made precise using e.g.\ the notion of a globular operad).
-However, for most purposes it is unnecessary to make the whole infinite-dimensional structure explicit.
-One of the nice things about homotopy type theory is that all of this structure can be \emph{proven} starting from only the inductive property of identity types, so we can make explicit as much or as little of it as we need.
+以及等等``一直到无穷大'' (这种用法更精确, 例如 globular operad 的概念).
+不过, 大部分情况没有必要显式形成整个无限维度.
+同伦类型论的一个优点是所有这样的结构只需从恒等类型的归纳性质即可\emph{证明}, 所以显式的多少可以根据需要来.
 
-In particular, in this book we will not need any of the complicated combinatorics involved in making precise notions such as ``coherent structure at all higher levels''.
-In addition to ordinary paths, we will use paths of paths (i.e.\ elements of a type $p =_{x=_A y} q$), which as remarked previously we call \emph{2-paths}\index{path!2-} or \emph{2-dimensional paths}, and perhaps occasionally paths of paths of paths (i.e.\ elements of a type $r = _{p =_{x=_A y} q} s$), which we call \emph{3-paths}\index{path!3-} or \emph{3-dimensional paths}.
-It is possible to define a general notion of \emph{$n$-dimensional path}
-\indexdef{path!n-@$n$-}%
+特别的, 这本书内我们不需要涉及复杂的组合数学来提出精确的概念, ``所有高阶等级的一致结构''.
+除普通路径外, 我们还会使用路径的路径 (即类型 $p =_{x=_A y} q$ 的元素), 也就是之前的\emph{2-paths}\index{path!2-}或者\emph{二维路径}, 和路径的路径的路径 (即元素类型的 $r = _{p =_{x=_A y} q} s$), 我们称其为 \emph{3-paths}\index{path!3-}或者\emph{三维路径}.
+也可以定义一般化的\emph{$n$维路径}概念\indexdef{路径!n-@$n$-}%
 \indexsee{n-path@$n$-path}{path, $n$-}%
 \indexsee{n-dimensional path@$n$-dimensional path}{path, $n$-}%
 \indexsee{path!n-dimensional@$n$-dimensional}{path, $n$-}%
-(see \cref{ex:npaths}), but we will not need it.
+(参见\cref{ex:npaths}), 不过我们不需要它.
 
-We will, however, use one particularly important and simple case of higher paths, which is when the start and end points are the same.
-In set theory, the proposition $a=a$ is entirely uninteresting, but in homotopy theory, paths from a point to itself are called \emph{loops}\index{loop} and carry lots of interesting higher structure.
-Thus, given a type $A$ with a point $a:A$, we define its \define{loop space}
-\index{loop space}%
-$\Omega(A,a)$ to be the type $\id[A]{a}{a}$.
-We may sometimes write simply $\Omega A$ if the point $a$ is understood from context.
+不过, 我们使用高阶路径的一种特别重要的简单情况, 也就是当起点和终点相同时.
+在集合论中, 命题 $a=a$ 完全没有意义, 不过在同伦论, 从一个点到它自己的路径被称为\emph{环圈}\index{环圈}, 而它带来了很多有趣的高阶结构.
+因此, 给定一个类型 $A$ 和一个点 $a:A$, 我们定义它的\define{环圈空间} \index{环圈空间}%
+$\Omega(A,a)$ 为类型 $\id[A]{a}{a}$. 有时简写为 $\Omega A$ 如果点 $a$ 在上下文中是明确的.
 
-Since any two elements of $\Omega A$ are paths with the same start and end points, they can be concatenated;
-thus we have an operation $\Omega A\times \Omega A\to \Omega A$.
-More generally, the higher groupoid structure of $A$ gives $\Omega A$ the analogous structure of a ``higher group''.
+因为任意两个 $\Omega A$ 的元素都是具有相同起点和终点的路径, 可以被串联;
+因此我们有操作 $\Omega A\times \Omega A\to \Omega A$. 推而广之, $A$ 的高阶广群结构给了 $\Omega A$ 类似的一个``高阶群''结构.
 
-It can also be useful to consider the loop space\index{loop space!iterated}\index{iterated loop space} \emph{of} the loop space of $A$, which is the space of 2-dimensional loops on the identity loop at $a$.
-This is written $\Omega^2(A,a)$ and represented in type theory by the type $\id[({\id[A]{a}{a}})]{\refl{a}}{\refl{a}}$.
-While $\Omega^2(A,a)$, as a loop space, is again a ``higher group'', it now also has some additional structure resulting from the fact that its elements are 2-dimensional loops between 1-dimensional loops.
+$A$ 的环圈空间\emph{的}环圈空间\index{环圈空间!迭代的}\index{迭代的环圈空间}也是有用的, 它就是 $a$ 的恒等环圈上, 二维环圈的空间.
+写做 $\Omega^2(A,a)$ 和表示在类型论中的类型 $\id[({\id[A]{a}{a}})]{\refl{a}}{\refl{a}}$.
+$\Omega^2(A,a)$ 作为一个环圈空间是一个``高阶群'', 而它还有一些额外的结构, 因为它的元素是一维环圈之间的二维的环圈.
 
-\begin{thm}[Eckmann--Hilton]\label{thm:EckmannHilton}
-  The composition operation on the second loop space
-  %
-  \begin{equation*}
-    \Omega^2(A)\times \Omega^2(A)\to \Omega^2(A)
-  \end{equation*}
-  is commutative: $\alpha\ct\beta = \beta\ct\alpha$, for any $\alpha, \beta:\Omega^2(A)$.
-  \index{Eckmann--Hilton argument}%
+\begin{thm}[Eckmann--Hilton]
+    \label{thm:EckmannHilton}
+    第二个环圈空间上的复合运算符
+%
+    \begin{equation*}
+        \Omega^2(A)\times \Omega^2(A)\to \Omega^2(A)
+    \end{equation*}
+    对于 $\alpha, \beta:\Omega^2(A)$, 满足交换律: $\alpha\ct\beta = \beta\ct\alpha$.
+    \index{Eckmann–Hilton argument}%
 \end{thm}
 
 \begin{proof}
-First, observe that the composition of $1$-loops $\Omega A\times \Omega A\to \Omega A$ induces an operation
-\[
-\star : \Omega^2(A)\times \Omega^2(A)\to \Omega^2(A)
-\]
-as follows: consider elements $a, b, c : A$ and 1- and 2-paths,
+    首先, 观察到 $1$-loops 的复合 $\Omega A\times \Omega A\to \Omega A$ 得到一个运算符
+    \[
+        \star : \Omega^2(A)\times \Omega^2(A)\to \Omega^2(A)
+    \]
+    如下: 考虑到元素 $a, b, c : A$ 以及一维二维路径, %
+
+    \begin{align*}
+        p &: a = b, &r &: b = c \\
+        q &: a = b, &s &: b = c \\
+        \alpha &: p = q, &\beta &: r = s
+    \end{align*}
 %
-\begin{align*}
-  p &: a = b,       &       r &: b = c \\
-  q &: a = b,       &       s &: b = c \\
-  \alpha &: p = q,  &   \beta &: r = s
-\end{align*}
-%
-as depicted in the following diagram (with paths drawn as arrows).
-% Changed this to xymatrix in the name of having uniform source code,
+    如下图所示(其中箭头代表路径). % Changed this to xymatrix in the name of having uniform source code,
+
 % maybe the original using xy looked better (I think it was too big).
 % It is commented out below in case you want to reinstate it.
-\[
- \xymatrix@+5em{
-   {a} \rtwocell<10>^p_q{\alpha}
-   &
-   {b} \rtwocell<10>^r_s{\beta}
-   &
-   {c}
- }
-\]
-Composing the upper and lower 1-paths, respectively, we get two paths $p\ct r,\ q\ct s : a = c$, and there is then a ``horizontal composition''
+    \[
+        \xymatrix@+5em{
+                {a} \rtwocell<10>^p_q{\alpha}
+            &
+                {b} \rtwocell<10>^r_s{\beta}
+            &
+                {c}
+        }
+    \]
+    分别复合上方和下方的一维路径, 我们得到两个路径 $p\ct r,\ q\ct s : a = c$, 它们都是``水平复合'' %
+
+    \begin{equation*}
+        \alpha\hct\beta : p\ct r = q\ct s
+    \end{equation*}
 %
-\begin{equation*}
-  \alpha\hct\beta : p\ct r = q\ct s
-\end{equation*}
-%
-between them, defined as follows.
-First, we define $\alpha \rightwhisker r : p\ct r = q\ct r$ by path induction on $r$, so that
-\[ \alpha \rightwhisker \refl{b} \jdeq \opp{\mathsf{ru}_p} \ct \alpha \ct \mathsf{ru}_q \]
-where $\mathsf{ru}_p : p = p \ct \refl{b}$ is the right unit law from \cref{thm:omg}\ref{item:omg1}.
-We could similarly define $\rightwhisker$ by induction on $\alpha$, or on all paths in sight, resulting in different judgmental equalities, but for present purposes the definition by induction on $r$ will make things simpler.
-Similarly, we define $q\leftwhisker \beta : q\ct r = q\ct s$ by induction on $q$, so that
-\[ \refl{b} \leftwhisker \beta \jdeq \opp{\mathsf{lu}_r} \ct \beta \ct \mathsf{lu}_s \]
-where $\mathsf{lu}_r$ denotes the left unit law.
-The operations $\leftwhisker$ and $\rightwhisker$ are called \define{whiskering}\indexdef{whiskering}.
-Next, since $\alpha \rightwhisker r$ and $q\leftwhisker \beta$ are composable 2-paths, we can define the \define{horizontal composition}
-\indexdef{horizontal composition!of paths}%
-\indexdef{composition!of paths!horizontal}%
-by:
-\[
-\alpha\hct\beta\ \defeq\ (\alpha\rightwhisker r) \ct (q\leftwhisker \beta).
-\]
-Now suppose that $a \jdeq  b \jdeq  c$, so that all the 1-paths $p$, $q$, $r$, and $s$ are elements of $\Omega(A,a)$, and assume moreover that $p\jdeq q \jdeq r \jdeq s\jdeq \refl{a}$, so that $\alpha:\refl{a} = \refl{a}$ and $\beta:\refl{a} = \refl{a}$ are composable in both orders.
-In that case, we have
-\begin{align*}
-  \alpha\hct\beta
-  &\jdeq (\alpha\rightwhisker\refl{a}) \ct (\refl{a}\leftwhisker \beta)\\
-  &= \opp{\mathsf{ru}_{\refl{a}}} \ct \alpha \ct \mathsf{ru}_{\refl{a}} \ct \opp{\mathsf{lu}_{\refl a}} \ct \beta \ct \mathsf{lu}_{\refl{a}}\\
-  &\jdeq \opp{\refl{\refl{a}}} \ct \alpha \ct \refl{\refl{a}} \ct \opp{\refl{\refl a}} \ct \beta \ct \refl{\refl{a}}\\
-  &= \alpha \ct \beta.
-\end{align*}
-(Recall that $\mathsf{ru}_{\refl{a}} \jdeq \mathsf{lu}_{\refl{a}} \jdeq \refl{\refl{a}}$, by the computation rule for path induction.)
-On the other hand, we can define another horizontal composition analogously by
-\[
-\alpha\hct'\beta\ \defeq\ (p\leftwhisker \beta)\ct (\alpha\rightwhisker s)
-\]
-and we similarly learn that
-\[
-\alpha\hct'\beta = \beta\ct\alpha.
-\]
-\index{interchange law}%
-But, in general, the two ways of defining horizontal composition agree, $\alpha\hct\beta = \alpha\hct'\beta$, as we can see by induction on $\alpha$ and $\beta$ and then on the two remaining 1-paths, to reduce everything to reflexivity.
-Thus we have
-\[\alpha \ct \beta = \alpha\hct\beta = \alpha\hct'\beta = \beta\ct\alpha.
-\qedhere
-\]
+    它们之间, 有如下定义. 首先, 通过路径归纳在 $r$ 上定义 $\alpha \rightwhisker r : p\ct r = q\ct r$, 有
+    \[
+        \alpha \rightwhisker \refl{b} \jdeq \opp{\mathsf{ru}_p} \ct \alpha \ct \mathsf{ru}_q
+    \]
+    其中 $\mathsf{ru}_p : p = p \ct \refl{b}$ 是 \cref{thm:omg}\ref{item:omg1} 中的右单元法则.
+    类似地可以通过 $\alpha$ 上的归纳定义 $\rightwhisker$, 和其它的所有路径, 得到不同的判断等同, 不过在 $r$ 上归纳定义更简单.
+    类似的, 通过归纳 $q$ 定义 $q\leftwhisker \beta : q\ct r = q\ct s$, 于是
+    \[ \refl{b} \leftwhisker \beta \jdeq \opp{\mathsf{lu}_r} \ct \beta \ct \mathsf{lu}_s \]
+    其中 $\mathsf{lu}_r$ 表示做单元法则.
+    操作符 $\leftwhisker$ 和 $\rightwhisker$ 被称为\define{触须}\indexdef{触须}.
+    然后, 因为 $\alpha \rightwhisker r$ 和 $q\leftwhisker \beta$ 是二维路径, 我们可以定义\define{水平复合} \indexdef{水平复合!路径的}%
+    \indexdef{复合!路径的!水平的}%
+    通过:
+    \[
+        \alpha\hct\beta\ \defeq\ (\alpha\rightwhisker r) \ct (q\leftwhisker \beta).
+    \]
+    现在令 $a \jdeq b \jdeq c$, 于是所有一维路径 $p$, $q$, $r$, 和 $s$ 都是元素 $\Omega(A,a)$, 此外假设 $p\jdeq q \jdeq r \jdeq s\jdeq \refl{a}$, 于是 $\alpha:\refl{a} = \refl{a}$ 和 $\beta:\refl{a} = \refl{a}$ 都能以相同方式复合.
+    这种情况, 我们有
+    \begin{align*}
+        \alpha\hct\beta
+        &\jdeq (\alpha\rightwhisker\refl{a}) \ct (\refl{a}\leftwhisker \beta)\\
+        &= \opp{\mathsf{ru}_{\refl{a}}} \ct \alpha \ct \mathsf{ru}_{\refl{a}} \ct \opp{\mathsf{lu}_{\refl a}} \ct \beta \ct \mathsf{lu}_{\refl{a}}\\
+        &\jdeq \opp{\refl{\refl{a}}} \ct \alpha \ct \refl{\refl{a}} \ct \opp{\refl{\refl a}} \ct \beta \ct \refl{\refl{a}}\\
+        &= \alpha \ct \beta.
+    \end{align*}
+    (回顾 $\mathsf{ru}_{\refl{a}} \jdeq \mathsf{lu}_{\refl{a}} \jdeq \refl{\refl{a}}$, 通过路径归纳的计算规则.)
+    一方面, 我们类似地定义另一复合, 通过
+    \[
+        \alpha\hct'\beta\ \defeq\ (p\leftwhisker \beta)\ct (\alpha\rightwhisker s)
+    \]
+    我们类似地了解到
+    \[
+        \alpha\hct'\beta = \beta\ct\alpha.
+    \]
+    \index{交换法}%
+    但是, 普通的, 这两种定义水平复合满足了, $\alpha\hct\beta = \alpha\hct'\beta$, 可以看见通过在 $\alpha$ 和 $\beta$ 上归纳从而在剩下两个一维路径上, 缩小到自反.
+    因此 我们有
+    \[\alpha \ct \beta = \alpha\hct\beta = \alpha\hct'\beta = \beta\ct\alpha.
+    \qedhere
+    \]
 \end{proof}
 
-The foregoing fact, which is known as the \emph{Eckmann--Hilton argument}, comes from classical homotopy theory, and indeed it is used in \cref{cha:homotopy} below to show that the higher homotopy groups of a type are always abelian\index{group!abelian} groups.
-The whiskering and horizontal composition operations defined in the proof are also a general part of the $\infty$-groupoid structure of types.
-They satisfy their own laws (up to higher homotopy), such as
-\[ \alpha \rightwhisker (p\ct q) = (\alpha \rightwhisker p) \rightwhisker q \]
-and so on.
-From now on, we trust the reader to apply path induction whenever needed to define further operations of this sort and verify their properties.
+上述的事实, 被称为 \emph{Eckmann–Hilton 观点}, 来自于经典的同伦理论, 而且的确在后面的\cref{cha:homotopy}中使用它来表明高阶同伦群的类型始终为阿贝尔\index{群!阿贝尔}群.
+触须和水平复合操作定义, 同样也是 $\infty$-groupoid 结构类型的的一部分.
+它们满足自身的法则(直到高阶同伦), 比如
+\[
+    \alpha \rightwhisker (p\ct q) = (\alpha \rightwhisker p) \rightwhisker q
+\]
+和等等.
+从现在开始, 我们相信读者可以在需要时应用路径归纳来定义进一步的操作并校验其属性.
 
-As this example suggests, the algebra of higher path types is much more intricate than just the groupoid-like structure at each level; the levels interact to give many further operations and laws, as in the study of iterated loop spaces in homotopy theory.
-Indeed, as in classical homotopy theory, we can make the following general definitions:
+这个例子表明了, 高阶路径类型代数比每个等级上的群结构更加复杂;
+每个等级的相互作用产生了进一步的操作和法则, 例如在同伦论中环圈空间迭代的研究中.
+的确, 在经典的同伦理论, 我们可以做下面的通用的定义:
 
-\begin{defn} \label{def:pointedtype}
-  A \define{pointed type}
-  \indexsee{pointed!type}{type, pointed}%
-  \indexdef{type!pointed}%
-  $(A,a)$ is a type $A:\type$ together with a point $a:A$, called its \define{basepoint}.
-  \indexdef{basepoint}%
-  We write $\pointed{\type} \defeq \sm{A:\type} A$ for the type of pointed types in the universe $\type$.
+\begin{defn}
+    \label{def:pointedtype}
+    一个\define{点类型}
+    \indexsee{点!类型}{类型, 点}%
+    \indexdef{类型!点}%
+    $(A,a)$ 是一个类型 $A:\type$, 伴随一个点 $a:A$, 被称为\define{单位元}.
+    \indexdef{单位元}%
+    我们写作 $\pointed{\type} \defeq \sm{A:\type} A$ 表示为宇宙 $\type$ 中的点类型.
 \end{defn}
 
-\begin{defn} \label{def:loopspace}
-  Given a pointed type $(A,a)$, we define the \define{loop space}
-  \indexdef{loop space}%
-  of $(A,a)$ to be the following pointed type:
-  \[\Omega(A,a)\defeq ((\id[A]aa),\refl a).\]
-  An element of it will be called a \define{loop}\indexdef{loop} at $a$.
-  For $n:\N$, the \define{$n$-fold iterated loop space} $\Omega^{n}(A,a)$
-  \indexdef{loop space!iterated}%
-  \indexsee{loop space!n-fold@$n$-fold}{loop space, iterated}%
-  of a pointed type $(A,a)$ is defined recursively by:
-  \begin{align*}
-    \Omega^0(A,a)&\defeq(A,a)\\
-    \Omega^{n+1}(A,a)&\defeq\Omega^n(\Omega(A,a)).
-  \end{align*}
-  An element of it will be called an \define{$n$-loop}
-  \indexdef{loop!n-@$n$-}%
-  \indexsee{n-loop@$n$-loop}{loop, $n$-}%
-  or an \define{$n$-dimensional loop}
-  \indexsee{loop!n-dimensional@$n$-dimensional}{loop, $n$-}%
-  \indexsee{n-dimensional loop@$n$-dimensional loop}{loop, $n$-}%
-  at $a$.
+\begin{defn}
+    \label{def:loopspace}
+    给定一个点类型 $(A,a)$, 我们定义 $(A,a)$ 的\define{环圈空间}
+    \indexdef{环圈空间}%
+    为下面的点类型:
+    \[\Omega(A,a)\defeq ((\id[A]aa),\refl a).\]
+    它的一个元素被称为一个 $a$ 上的\define{环圈}\indexdef{环圈}.
+    对于 $n:\N$, 点类型 $(A,a)$ 的 \define{$n$-fold 迭代环圈空间} $\Omega^{n}(A,a)$
+    \indexdef{环圈空间!迭代}%
+    \indexsee{环圈空间!n-fold@$n$-fold}{环圈空间, 迭代}%
+    是通过递归来定义:
+    \begin{align*}
+        \Omega^0(A,a)&\defeq(A,a)\\
+        \Omega^{n+1}(A,a)&\defeq\Omega^n(\Omega(A,a)).
+    \end{align*}
+    它的元素被称为 $a$ 上的\define{$n$-环圈}
+    \indexdef{环圈!n-@$n$-}%
+    \indexsee{n-loop@$n$-环圈}{环圈, $n$-}%
+    或者\define{$n$ 维环圈}.
+    \indexsee{环圈!n 维@$n$ 维}{环圈, $n$ }%
+    \indexsee{n 维环圈@$n$ 维环圈}{环圈, $n$}%
+
 \end{defn}
 
-We will return to iterated loop spaces in \cref{cha:hlevels,cha:hits,cha:homotopy}.
-\index{.infinity-groupoid@$\infty$-groupoid!structure of a type|)}%
-\index{type!identity|)}
-\index{path|)}%
+我们会在\cref{cha:hlevels,cha:hits,cha:homotopy}返回到迭代环圈空间.
+\index{.infinity-groupoid@$\infty$-groupoid!结构的类型|)}%
+\index{类型!恒等|)}
+\index{路径|)}%

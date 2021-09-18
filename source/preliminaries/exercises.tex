@@ -1,104 +1,120 @@
 \sectionExercises
 
-\begin{ex}\label{ex:composition}
-Given functions $f:A\to B$ and $g:B\to C$, define their \define{composite}
-\indexdef{composition!of functions}%
-\indexdef{function!composition}%
-$g\circ f:A\to C$.
-\index{associativity!of function composition}%
-Show that we have $h \circ (g\circ f) \jdeq (h\circ g)\circ f$.
+\begin{ex}
+    \label{ex:composition}
+    给定函数 $f:A\to B$ 和 $g:B\to C$, 定义它们的\define{组合}
+    \indexdef{组合!函数的}%
+    \indexdef{函数!组合}%
+    $g\circ f:A\to C$.
+    \index{结合律!函数组合的}%
+    展示有 $h \circ (g\circ f) \jdeq (h\circ g)\circ f$.
 \end{ex}
 
-\begin{ex}\label{ex:pr-to-rec}
-Derive the recursion principle for products $\rec{A\times B} $ using only the projections, and verify that the definitional equalities are valid.
-Do the same for $\Sigma$-types.
+\begin{ex}
+    \label{ex:pr-to-rec}
+    只使用投影, 派生乘积 $\rec{A\times B} $ 的递归原理, 并验证定义等式的合法性.
+    对 $\Sigma$-类型也这样做.
 \end{ex}
 
-\begin{ex}\label{ex:pr-to-ind}
-Derive the induction principle for products $\ind{A\times B}$, using only the projections and the propositional uniqueness principle $\uniq{A\times B}$.
-Verify that the definitional equalities are valid.
-Generalize $\uniq{A\times B}$ to $\Sigma$-types, and do the same for $\Sigma$-types.
-\emph{(This requires concepts from \cref{cha:basics}.)}
+\begin{ex}
+    \label{ex:pr-to-ind}
+    为乘积 $\ind{A\times B}$ 派生归纳原理, 只使用投影和命题的唯一性原理 $\uniq{A\times B}$.
+    校验这个定难以等同是正确的.
+    推广 $\uniq{A\times B}$ 到 $\Sigma$-类型, 对 $\Sigma$-类型也这样做.
+    \emph{(这需要 \cref{cha:basics} 中的概念.)}
 \end{ex}
 
-\begin{ex}\label{ex:iterator}
-\index{iterator!for natural numbers}
-Assuming as given only the \emph{iterator} for natural numbers
-\[\ite : \prd{C:\UU} C \to (C \to C) \to \nat \to C \]
-with the defining equations
-\begin{align*}
-    \ite(C,c_0,c_s,0)  &\defeq c_0, \\
-    \ite(C,c_0,c_s,\suc(n)) &\defeq c_s(\ite(C,c_0,c_s,n)),
-\end{align*}
-derive a function having the type of the recursor $\rec{\nat}$.
-Show that the defining equations of the recursor hold propositionally for this function, using the induction principle for $\nat$.
+\begin{ex}
+    \label{ex:iterator}
+    \index{迭代器!自然数的}
+    假设只给定自然数的的\emph{迭代器}
+    \[\ite : \prd{C:\UU} C \to (C \to C) \to \nat \to C \]
+    与定义等同
+    \begin{align*}
+        \ite(C,c_0,c_s,0)  &\defeq c_0, \\
+        \ite(C,c_0,c_s,\suc(n)) &\defeq c_s(\ite(C,c_0,c_s,n)),
+    \end{align*}
+    派生一个函数, 具有 $\rec{\nat}$ 的类型.
+    展示递归子的定义等同令这个函数在命题上成立, 使用 $\nat$ 的归纳原理.
 \end{ex}
 
-\begin{ex}\label{ex:sum-via-bool}
-\index{type!coproduct}%
-Show that if we define $A + B \defeq \sm{x:\bool} \rec{\bool}(\UU,A,B,x)$, then we can give a definition of $\ind{A+B}$ for which the definitional equalities stated in \cref{sec:coproduct-types} hold.
+\begin{ex}
+    \label{ex:sum-via-bool}
+    \index{类型!余积}%
+    展示如果定义了 $A + B \defeq \sm{x:\bool} \rec{\bool}(\UU,A,B,x)$, 那么可以定义 \cref{sec:coproduct-types} 中成立的 $\ind{A+B}$.
 \end{ex}
 
-\begin{ex}\label{ex:prod-via-bool}
-\index{type!product}%
-Show that if we define $A \times B \defeq \prd{x:\bool}\rec{\bool}(\UU,A,B,x)$, then we can give a definition of  $\ind{A\times B}$ for which the definitional equalities stated in \cref{sec:finite-product-types} hold propositionally (i.e.\ using equality types).
-\emph{(This requires the function extensionality axiom, which is introduced in \cref{sec:compute-pi}.)}
+\begin{ex}
+    \label{ex:prod-via-bool}
+    \index{type!product}%
+    展示如果定义了 $A \times B \defeq \prd{x:\bool}\rec{\bool}(\UU,A,B,x)$, 那么可以命题式地定义\cref{sec:finite-product-types}中成立的 $\ind{A\times B}$ (即使用等同类型).
+    \emph{(这需要函数的外延公理, 在 \cref{sec:compute-pi} 中介绍.)}
 \end{ex}
 
-\begin{ex}\label{ex:pm-to-ml}
-Give an alternative derivation of $\indidb{A}$ from $\indid{A}$ which avoids the use of universes.
-\emph{(This is easiest using concepts from later chapters.)}
+\begin{ex}
+    \label{ex:pm-to-ml}
+    从 $\indid{A}$ 派生 $\indidb{A}$, 避免使用宇宙.
+    \emph{(这是使用后面章节中的概念最简单的方法.)}
 \end{ex}
 
-\begin{ex}\label{ex:nat-semiring}
-\index{multiplication!of natural numbers}%
-Define multiplication and exponentiation using $\rec{\nat}$.
-Verify that $(\nat,+,0,\times,1)$ is a semiring\index{semiring} using only $\ind{\nat}$.
-You will probably also need to use symmetry and transitivity of equality, \cref{lem:opp,lem:concat}.
+\begin{ex}
+    \label{ex:nat-semiring}
+    \index{乘法!自然数的}%
+    使用 $\rec{\nat}$ 定义乘法和幂.
+    只使用 $\ind{\nat}$ 验证 $(\nat,+,0,\times,1)$ 是一个半环\index{半环}.
+    也许需要使用等同的对称性和传递性, \cref{lem:opp,lem:concat}.
 \end{ex}
 
-\begin{ex}\label{ex:fin}
-\index{finite!sets, family of}%
-Define the type family $\Fin : \nat \to \UU$ mentioned at the end of \cref{sec:universes}, and the dependent function $\fmax : \prd{n:\nat} \Fin(n+1)$ mentioned in \cref{sec:pi-types}.
+\begin{ex}
+    \label{ex:fin}
+    \index{finite!sets, family of}%
+    定义 \cref{sec:universes} 结尾提及的类型族 $\Fin : \nat \to \UU$, \cref{sec:pi-types} 提及的依赖函数 $\fmax : \prd{n:\nat} \Fin(n+1)$.
 \end{ex}
 
-\begin{ex}\label{ex:ackermann}
-\indexdef{function!Ackermann}%
-\indexdef{Ackermann function}%
-Show that the Ackermann function $\ack : \nat \to \nat \to \nat$ is definable using only $\rec{\nat}$ satisfying the following equations:
-\begin{align*}
-    \ack(0,n) &\jdeq \suc(n), \\
-    \ack(\suc(m),0) &\jdeq \ack(m,1), \\
-    \ack(\suc(m),\suc(n)) &\jdeq \ack(m,\ack(\suc(m),n)).
-\end{align*}
+\begin{ex}
+    \label{ex:ackermann}
+    \indexdef{函数!Ackermann}%
+    \indexdef{Ackermann 函数}%
+    展示可以只使用 $\rec{\nat}$ 可以定义 Ackermann 函数 $\ack : \nat \to \nat \to \nat$ 满足以下等同关系:
+    \begin{align*}
+        \ack(0,n) &\jdeq \suc(n), \\
+        \ack(\suc(m),0) &\jdeq \ack(m,1), \\
+        \ack(\suc(m),\suc(n)) &\jdeq \ack(m,\ack(\suc(m),n)).
+    \end{align*}
 \end{ex}
 
-\begin{ex}\label{ex:neg-ldn}
-Show that for any type $A$, we have $\neg\neg\neg A \to \neg A$.
+\begin{ex}
+    \label{ex:neg-ldn}
+    展示对于任何类型 $A$, 有 $\neg\neg\neg A \to \neg A$.
 \end{ex}
 
-\begin{ex}\label{ex:tautologies}
-Using the propositions as types interpretation, derive the following tautologies.
-\begin{enumerate}
-    \item If $A$, then (if $B$ then $A$).
-    \item If $A$, then not (not $A$).
-    \item If (not $A$ or not $B$), then not ($A$ and $B$).
-\end{enumerate}
+\begin{ex}
+    \label{ex:tautologies}
+    按照命题即类型的理解, 派生以下重言式.
+    \begin{enumerate}
+        \item 如果 $A$, 那么 (如果 $B$ 那么 $A$).
+        \item 如果 $A$, 那么非 (非 $A$).
+        \item 如果 (非 $A$ 或非 $B$), 那么非 ($A$ and $B$).
+    \end{enumerate}
 \end{ex}
 
-\begin{ex}\label{ex:not-not-lem}
-Using propositions-as-types, derive the double negation of the principle of excluded middle, i.e.\ prove \emph{not (not ($P$ or not $P$))}.
+\begin{ex}
+    \label{ex:not-not-lem}
+    使用命题即类型, 派生排中律的双重否定, 即证明\emph{非 (非 ($P$ 或非 $P$))}.
 \end{ex}
 
-\begin{ex}\label{ex:without-K}
-Why do the induction principles for identity types not allow us to construct a function $f: \prd{x:A}{p:\id{x}{x}} (\id{p}{\refl{x}})$ with the defining equation
-\[ f(x,\refl{x}) \defeq \refl{\refl{x}} \quad ?\]
+\begin{ex}
+    \label{ex:without-K}
+    为什么恒等类型的归纳原理不允许构造一个函数 $f: \prd{x:A}{p:\id{x}{x}} (\id{p}{\refl{x}})$ 与定义等同
+    \[ f(x,\refl{x}) \defeq \refl{\refl{x}} \quad ?\]
 \end{ex}
 
-\begin{ex}\label{ex:subtFromPathInd}
-Show that indiscernibility of identicals follows from path induction.
+\begin{ex}
+    \label{ex:subtFromPathInd}
+    从路径归纳展示恒等的不可辨性.
 \end{ex}
 
-\begin{ex}\label{ex:add-nat-commutative}
-Show that addition of natural numbers is commutative: $\prd{i,j:\nat} (i+j=j+i)$.
+\begin{ex}
+    \label{ex:add-nat-commutative}
+    展示自然数加法的交换律: $\prd{i,j:\nat} (i+j=j+i)$.
 \end{ex}

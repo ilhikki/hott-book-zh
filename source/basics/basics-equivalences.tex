@@ -1,36 +1,38 @@
-\index{homotopy|(defstyle}%
+\index{同伦|(defstyle}%
 
-So far, we have seen how the identity type $\id[A]xy$ can be regarded as a type of \emph{identifications}, \emph{paths}, or \emph{equivalences} between two elements $x$ and~$y$ of a type $A$.
-Now we investigate the appropriate notions of ``identification'' or ``sameness'' between \emph{functions} and between \emph{types}.
-In \cref{sec:compute-pi,sec:compute-universe}, we will see that homotopy type theory allows us to identify these with instances of the identity type, but before we can do that we need to understand them in their own right.
+迄今为止, 已经见过了恒等类型 $\id[A]xy$ 可以被视为类型 $A$ 的两个元素 $x$ 与~$y$ 之间的 \emph{恒等}, \emph{路径}, 或者 \emph{等价}.
+现在要研究一个合适的符号, 表示\emph{函数}和\emph{类型}之间的``恒等'' 或者 ``相同''.
+在\cref{sec:compute-pi,sec:compute-universe}可以看到, 同伦类型论允许使用恒等类型的实例来标识它们, 不过在此之前需要清楚它们本身.
 
-Traditionally, we regard two functions as the same if they take equal values on all inputs.
-Under the propositions-as-types interpretation, this suggests that two functions $f$ and $g$ (perhaps dependently typed) should be the same if the type $\prd{x:A} (f(x)=g(x))$ is inhabited.
-Under the homotopical interpretation, this dependent function type consists of \emph{continuous} paths or \emph{functorial} equivalences, and thus may be regarded as the type of \emph{homotopies} or of \emph{natural isomorphisms}.\index{isomorphism!natural}
-We will adopt the topological terminology for this.
+传统上, 两个函数相同就是对于所有输入, 它们得到相同的值.
+按照命题作为类型的理解, 如果类型 $\prd{x:A} (f(x)=g(x))$ 有居留元, 这两个函数 $f$ 和 $g$ (也许是依值类型) 是相同的.
+按照同伦论的理解, 这个依赖函数类型由\emph{连续的}路径或者\emph{函子}等价组成, 因此可以被视为\emph{同伦}的类型或者\emph{自然同构}.\index{同构!自然}
+为此, 我们采用拓扑的术语.
 
-\begin{defn} \label{defn:homotopy}
-  Let $f,g:\prd{x:A} P(x)$ be two sections of a type family $P:A\to\type$.
-  A \define{homotopy}
-  from $f$ to $g$ is a dependent function of type
-  \begin{equation*}
-    (f\htpy g) \defeq \prd{x:A} (f(x)=g(x)).
-  \end{equation*}
+\begin{defn}
+    \label{defn:homotopy}
+    令 $f,g:\prd{x:A} P(x)$ 为类型族 $P:A\to\type$ 的两个截面.
+    从 $f$ 到 $g$ 的\define{同伦}是一个依赖函数, 它的类型为
+    \begin{equation*}
+    (f\htpy g)
+        \defeq \prd{x:A} (f(x)=g(x)).
+    \end{equation*}
 \end{defn}
 
-Note that a homotopy is not the same as an identification $(f=g)$.
-However, in \cref{sec:compute-pi} we will introduce an axiom making homotopies and identifications ``equivalent''.
+注意同伦并不是恒等 $(f=g)$.
+不过, 在\cref{sec:compute-pi}会引入一个公理让同伦和恒等``等价''.
 
-The following proofs are left to the reader.
+下面的证明留给读者.
 
-\begin{lem}\label{lem:homotopy-props}
-  Homotopy is an equivalence relation on each dependent function type $\prd{x:A} P(x)$.
-  That is, we have elements of the types
-  \begin{gather*}
-    \prd{f:\prd{x:A} P(x)} (f\htpy f)\\
-    \prd{f,g:\prd{x:A} P(x)} (f\htpy g) \to (g\htpy f)\\
-    \prd{f,g,h:\prd{x:A} P(x)} (f\htpy g) \to (g\htpy h) \to (f\htpy h).
-  \end{gather*}
+\begin{lem}
+    \label{lem:homotopy-props}
+    在 $\prd{x:A} P(x)$ 的元素上, 同伦是它们各自的等价关系.
+    也就是, 有这些类型的元素
+    \begin{gather*}
+        \prd{f:\prd{x:A} P(x)} (f\htpy f)\\
+        \prd{f,g:\prd{x:A} P(x)} (f\htpy g) \to (g\htpy f)\\
+        \prd{f,g,h:\prd{x:A} P(x)} (f\htpy g) \to (g\htpy h) \to (f\htpy h).
+    \end{gather*}
 \end{lem}
 
 % This is judgmental and is \cref{ex:composition}.
@@ -43,175 +45,176 @@ The following proofs are left to the reader.
 %   \end{enumerate}
 % \end{lem}
 
-\index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-\index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-Just as functions in type theory are automatically ``functors'', homotopies are automatically
-\index{naturality of homotopies@``naturality'' of homotopies}%
-``natural transformations''.
-We will state and prove this only for non-dependent functions $f,g:A\to B$; in \cref{ex:dep-htpy-natural} we ask the reader to generalize it to dependent functions.
+\index{类型论中函数的函子性@类型论中函数的``函子性''}%
+\index{类型论中函数的连续性@类型论中函数的``连续性''}%
+就像在类型伦中, 函数是自然而然的``函子'', 同伦是自然而然的
+\index{同伦的自然性@同伦的``自然性''}%
+``自然变换''.
+这里只对非依赖函数 $f,g:A\to B$ 做了声明和证明; 在\cref{ex:dep-htpy-natural}要求读者推广它们到依值类型.
 
-Recall that for $f:A\to B$ and $p:\id[A]xy$, we may write $\ap f p$ to mean $\apfunc{f} (p)$.
+回顾 $f:A\to B$ 和 $p:\id[A]xy$, 可以把 $\apfunc{f} (p)$ 写作 $\ap f p$.
 
-\begin{lem}\label{lem:htpy-natural}
-  Suppose $H:f\htpy g$ is a homotopy between functions $f,g:A\to B$ and let $p:\id[A]xy$.  Then we have
-  \begin{equation*}
-    H(x)\ct\ap{g}{p}=\ap{f}{p}\ct H(y).
-  \end{equation*}
-  We may also draw this as a commutative diagram:\index{diagram}
-  \begin{align*}
-    \xymatrix{
-      f(x) \ar@{=}[r]^{\ap fp} \ar@{=}[d]_{H(x)} & f(y) \ar@{=}[d]^{H(y)} \\
-      g(x) \ar@{=}[r]_{\ap gp} & g(y)
-    }
-  \end{align*}
+\begin{lem}
+    \label{lem:htpy-natural}
+    令 $H:f\htpy g$ 为函数  $f,g:A\to B$ 之间的一个同伦, 并让 $p:\id[A]xy$. 则有
+    \begin{equation*}
+        H(x)\ct\ap{g}{p}=\ap{f}{p}\ct H(y).
+    \end{equation*}
+    把它画成一个交换律的示意图:\index{示意图}
+    \begin{align*}
+        \xymatrix{
+            f(x) \ar@{=}[r]^{\ap fp} \ar@{=}[d]_{H(x)} & f(y) \ar@{=}[d]^{H(y)} \\
+            g(x) \ar@{=}[r]_{\ap gp} & g(y)
+        }
+    \end{align*}
 \end{lem}
 \begin{proof}
-  By induction, we may assume $p$ is $\refl x$.
-  Since $\apfunc{f}$ and $\apfunc g$ compute on reflexivity, in this case what we must show is
-  \[ H(x) \ct \refl{g(x)} = \refl{f(x)} \ct H(x). \]
-  But this follows since both sides are equal to $H(x)$.
+    通过归纳, 可以假定 $p$ 为 $\refl x$.
+    将代入自反 $\apfunc{f}$ 和 $\apfunc g$ 计算, 得到
+    \[ H(x) \ct \refl{g(x)} = \refl{f(x)} \ct H(x). \]
+    两边都等于 $H(x)$.
 \end{proof}
 
 \begin{cor}\label{cor:hom-fg}
-  Let $H : f \htpy \idfunc[A]$ be a homotopy, with $f : A \to A$. Then for any $x : A$ we have \[ H(f(x)) = \ap f{H(x)}. \]
+  令 $H : f \htpy \idfunc[A]$ 为一个同伦, 其中 $f : A \to A$. 那么对于任何 $x : A$ 有 \[ H(f(x)) = \ap f{H(x)}. \]
   % The above path will be denoted by $\com{H}{f}{x}$.
 \end{cor}
 \noindent
-Here $f(x)$ denotes the ordinary application of $f$ to $x$, while $\ap f{H(x)}$ denotes $\apfunc{f}(H(x))$.
+这里 $f(x)$ 表示一般的代入 $x$ 到 $f$, 而 $\ap f{H(x)}$ 代表 $\apfunc{f}(H(x))$.
 \begin{proof}
-By naturality of $H$, the following diagram of paths commutes:
-\begin{align*}
-\xymatrix@C=3pc{
-ffx \ar@{=}[r]^-{\ap f{Hx}} \ar@{=}[d]_{H(fx)} & fx \ar@{=}[d]^{Hx} \\
-fx \ar@{=}[r]_-{Hx} & x
-}
-\end{align*}
-That is, $\ap f{H x} \ct H x = H(f x) \ct H x$.
-We can now whisker by $\opp{(H x)}$ to cancel $H x$, obtaining
-\[ \ap f{H x}
-= \ap f{H x} \ct H x \ct \opp{(H x)}
-= H(f x) \ct H x \ct \opp{(H x)}
-= H(f x)
-\]
-as desired (with some associativity paths suppressed).
+    根据 $H$ 的自然性, 得到下面这个路径交换示意图:
+    \begin{align*}
+        \xymatrix@C=3pc{
+            ffx \ar@{=}[r]^-{\ap f{Hx}} \ar@{=}[d]_{H(fx)} & fx \ar@{=}[d]^{Hx} \\
+            fx \ar@{=}[r]_-{Hx} & x
+        }
+    \end{align*}
+    也就是, $\ap f{H x} \ct H x = H(f x) \ct H x$.
+    现在 whisker by $\opp{(H x)}$ 来消去 $H x$, 得到所需的
+    \[ \ap f{H x}
+    = \ap f{H x} \ct H x \ct \opp{(H x)}
+    = H(f x) \ct H x \ct \opp{(H x)}
+    = H(f x)
+    \]
+    (其中隐藏了路径的结合律).
 \end{proof}
 
-Of course, like the functoriality of functions (\cref{lem:ap-functor}), the equality in \cref{lem:htpy-natural} is a path which satisfies its own coherence laws, and so on.
+当然, 就像函数的函子性 (\cref{lem:ap-functor}), \cref{lem:htpy-natural}中的等同是一个满足它自己的一致性的路径, 诸如此类.
 
-\index{homotopy|)}%
+\index{同伦|)}%
 
-\index{equivalence|(}%
-Moving on to types, from a traditional perspective one may say that a function $f:A\to B$ is an \emph{isomorphism} if there is a function $g:B\to A$ such that both composites $f\circ g$ and $g\circ f$ are pointwise equal to the identity, i.e.\ such that $f \circ g \htpy \idfunc[B]$ and $g\circ f \htpy \idfunc[A]$.
-\indexsee{homotopy!equivalence}{equivalence}%
-A homotopical perspective suggests that this should be called a \emph{homotopy equivalence}, and from a categorical one, it should be called an \emph{equivalence of (higher) groupoids}.
-However, when doing proof-relevant mathematics,
-\index{mathematics!proof-relevant}%
-the corresponding type
+\index{等价|(}%
+接着讲类型, 按照传统观点, 函数 $f:A\to B$ 是一个\emph{同构}, 则有一个函数 $g:B\to A$, 并满足组合 $f\circ g$ 和 $g\circ f$ 都逐点等于恒等函数, 即 $f \circ g \htpy \idfunc[B]$ 和 $g\circ f \htpy \idfunc[A]$.
+\indexsee{同伦!等价}{等价}%
+按照同伦论的观点, 它可以被称为\emph{同伦等价}, 而在范畴论上, 它可以被称为\emph{ (高阶) 广群的等价}.
+然而, 在 proof-relevant 的数学,
+\index{数学!proof-relevant}%
+相应的类型
 \begin{equation}
   \sm{g:B\to A} \big((f \circ g \htpy \idfunc[B]) \times (g\circ f \htpy \idfunc[A])\big)\label{eq:qinvtype}
 \end{equation}
-is poorly behaved.
-For instance, for a single function $f:A\to B$ there may be multiple unequal inhabitants of~\eqref{eq:qinvtype}.
-(This is closely related to the observation in higher category theory that often one needs to consider \emph{adjoint} equivalences\index{adjoint!equivalence} rather than plain equivalences.)
-For this reason, we give~\eqref{eq:qinvtype} the following historically accurate, but slightly de\-rog\-a\-to\-ry-sounding name instead.
+表现并不好.
+例如, 对于同一个函数 $f:A\to B$, 有一些~\eqref{eq:qinvtype}的居留元, 彼此不同.
+(这和高阶范畴论中观察到的密切相关, 通常要考虑\emph{伴随}等价\index{伴随!等价}而不是简单的等价.)
+因为这个原因, 所以把~\eqref{eq:qinvtype}按照这个历史准确的, 但是带有贬义的名字来代替.
 
 \begin{defn}\label{defn:quasi-inverse}
-  For a function $f:A\to B$, a \define{quasi-inverse}
+  对于一个函数 $f:A\to B$, 它的 \define{quasi-inverse}
   \indexdef{quasi-inverse}%
-  \indexsee{function!quasi-inverse of}{quasi-inverse}%
-  of $f$ is a triple $(g,\alpha,\beta)$ consisting of a function $g:B\to A$ and homotopies
-$\alpha:f\circ g\htpy \idfunc[B]$ and $\beta:g\circ f\htpy \idfunc[A]$.
+  \indexsee{函数的!quasi-inverse}{quasi-inverse}%
+  是一个三元对 $(g,\alpha,\beta)$,由一个函数 $g:B\to A$ , 同伦 $\alpha:f\circ g\htpy \idfunc[B]$ 与 $\beta:g\circ f\htpy \idfunc[A]$ 组成.
 \end{defn}
 
 \symlabel{qinv}
-Thus,~\eqref{eq:qinvtype} is \emph{the type of quasi-inverses of $f$}; we may denote it by $\qinv(f)$.
+因此,~\eqref{eq:qinvtype}是\emph{$f$ 的 quasi-inverses 的类型}; 把它记作 $\qinv(f)$.
 
 \begin{eg}\label{eg:idequiv}
   \index{identity!function}%
   \index{function!identity}%
-  The identity function $\idfunc[A]:A\to A$ has a quasi-inverse given by $\idfunc[A]$ itself, together with homotopies defined by $\alpha(y) \defeq \refl{y}$ and $\beta(x) \defeq \refl{x}$.
+  恒等函数 $\idfunc[A]:A\to A$ 有一个 quasi-inverse, 由 $\idfunc[A]$ 本身给定, 其中的同论被定义为 $\alpha(y) \defeq \refl{y}$ 和 $\beta(x) \defeq \refl{x}$.
 \end{eg}
 
 \begin{eg}\label{eg:concatequiv}
-  For any $p:\id[A]xy$ and $z:A$, the functions
+  对于任何 $p:\id[A]xy$ 和 $z:A$, 函数
   \begin{align*}
-    (p\ct \blank)&:(\id[A]yz) \to (\id[A]xz) \qquad\text{and}\\
+    (p\ct \blank)&:(\id[A]yz) \to (\id[A]xz) \qquad\text{和}\\
     (\blank \ct p)&:(\id[A]zx) \to (\id[A]zy)
   \end{align*}
-  have quasi-inverses given by $(\opp p \ct \blank)$ and $(\blank \ct \opp p)$, respectively; see \cref{ex:equiv-concat}.
+  有 quasi-inverses, 由 $(\opp p \ct \blank)$ 和 $(\blank \ct \opp p)$ 分别给定; 参见 \cref{ex:equiv-concat}.
 \end{eg}
 
 \begin{eg}\label{thm:transportequiv}
-  For any $p:\id[A]xy$ and $P:A\to\type$, the function
+  对于任何 $p:\id[A]xy$ 和 $P:A\to\type$, 函数
   \[\transfib{P}{p}{\blank}:P(x) \to P(y)\]
-  has a quasi-inverse given by $\transfib{P}{\opp p}{\blank}$; this follows from \narrowbreak \cref{thm:transport-concat}.
+  有一个由 $\transfib{P}{\opp p}{\blank}$ 给定的  quasi-inverse ; 可以从 \narrowbreak \cref{thm:transport-concat} 推出.
 \end{eg}
 
 \symlabel{basics-isequiv}\symlabel{basics:iso}
-In general, we will only use the word \emph{isomorphism}
-\index{isomorphism!of sets}
-(and similar words such as \emph{bijection}, and the associated notation $A\cong B$)
-\index{bijection}
-in the special case when the types $A$ and $B$ ``behave like sets'' (see \cref{sec:basics-sets}).
-In this case, the type~\eqref{eq:qinvtype} is unproblematic.
-We will reserve the word \emph{equivalence} for an improved notion $\isequiv (f)$ with the following properties:%
+通常, \emph{同构}
+\index{同构!集合的}
+(和熟悉的词语比如\emph{双射}, 和关联的符号 $A\cong B$)
+\index{双射}
+只用于类型 $A$ 和 $B$ ``像一个集合''的情况 (参见 \cref{sec:basics-sets}).
+这种情况下, 类型~\eqref{eq:qinvtype}没有问题.
+改进符号 $\isequiv (f)$, 作为\emph{等价}, 有以下性质:%
 \begin{enumerate}
-\item For each $f:A\to B$ there is a function $\qinv(f) \to \isequiv (f)$.\label{item:be1}
-\item Similarly, for each $f$ we have $\isequiv (f) \to \qinv(f)$; thus the two are logically equivalent (see \cref{sec:pat}).\label{item:be2}
-\item For any two inhabitants $e_1,e_2:\isequiv(f)$ we have $e_1=e_2$.\label{item:be3}
+    \item 对于每个 $f:A\to B$ 有函数 $\qinv(f) \to \isequiv (f)$.\label{item:be1}
+    \item 类似地, 对于每个 $f$ 有 $\isequiv (f) \to \qinv(f)$; 因此他们两个逻辑上相等(参见 \cref{sec:pat}).\label{item:be2}
+    \item 对于每两个 $e_1,e_2:\isequiv(f)$ 有 $e_1=e_2$.\label{item:be3}
 \end{enumerate}
-In \cref{cha:equivalences} we will see that there are many different definitions of $\isequiv(f)$ which satisfy these three properties, but that all of them are equivalent.
-For now, to convince the reader that such things exist, we mention only the easiest such definition:
+在\cref{cha:equivalences} 会看到 $\isequiv(f)$ 有一些不同的定义满足这三个性质, 而它们都是等价的.
+现在, 为了让读者确定它存在, 只介绍最简单的定义:
 \begin{equation}\label{eq:isequiv-invertible}
   \isequiv(f) \;\defeq\;
   \Parens{\sm{g:B\to A} (f\circ g \htpy \idfunc[B])}
   \times
   \Parens{\sm{h:B\to A} (h\circ f \htpy \idfunc[A])}.
 \end{equation}
-We can show~\ref{item:be1} and~\ref{item:be2} for this definition now.
-A function $\qinv(f) \to \isequiv (f)$ is easy to define by taking $(g,\alpha,\beta)$ to $(g,\alpha,g,\beta)$.
-In the other direction, given $(g,\alpha,h,\beta)$, let $\gamma$ be the composite homotopy
+现在可以这样从这个定义展示~\ref{item:be1}和~\ref{item:be2}.
+函数 $\qinv(f) \to \isequiv (f)$ 很容易通过提取 $(g,\alpha,\beta)$ 为 $(g,\alpha,g,\beta)$ 定义.
+另外一个方向, 给定 $(g,\alpha,h,\beta)$, 令 $\gamma$ 为同伦组合
 \[ g \overset{\beta}{\htpy} h\circ f\circ g \overset{\alpha}{\htpy} h, \]
-meaning that $\gamma(x) \defeq \opp{\beta(g(x))} \ct \ap{h}{\alpha(x)}$.
-Now define $\beta':g\circ f\htpy \idfunc[A]$ by $\beta'(x) \defeq \gamma(f(x)) \ct \beta(x)$.
-Then $(g,\alpha,\beta'):\qinv(f)$.
+即 $\gamma(x) \defeq \opp{\beta(g(x))} \ct \ap{h}{\alpha(x)}$.
+现在定义 $\beta':g\circ f\htpy \idfunc[A]$ 为 $\beta'(x) \defeq \gamma(f(x)) \ct \beta(x)$.
+于是 $(g,\alpha,\beta'):\qinv(f)$.
 
-Property~\ref{item:be3} for this definition is not too hard to prove either, but it requires identifying the identity types of cartesian products and dependent pair types, which we will discuss in \cref{sec:compute-cartprod,sec:compute-sigma}.
-Thus, we postpone it as well; see \cref{sec:biinv}.
-At this point, the main thing to take away is that there is a well-behaved type which we can pronounce as ``$f$ is an equivalence'', and that we can prove $f$ to be an equivalence by exhibiting a quasi-inverse to it.
-In practice, this is the most common way to prove that a function is an equivalence.
+这个定义的性质~\ref{item:be3}, 也不难证明, 不过需要笛卡尔积和依赖对子类型的声明恒等类型, 会在\cref{sec:compute-cartprod,sec:compute-sigma}中讨论.
+因此降其推迟到\cref{sec:biinv}.
+现在最重要的事是有了一个表现良好的类型来表示``$f$ 是一个等价'', 而且可以通过 quasi-inverse 来证明 $f$ 是一个等价.
+实际上, 这是证明一个函数是一个等价的通用的方法.
 
-In accord with the proof-relevant philosophy,
-\index{mathematics!proof-relevant}%
-\emph{an equivalence} from $A$ to $B$ is defined to be a function $f:A\to B$ together with an inhabitant of $\isequiv (f)$, i.e.\ a proof that it is an equivalence.
-We write $(\eqv A B)$ for the type of equivalences from $A$ to $B$, i.e.\ the type
+和 proof-relevant 的哲学一致,
+\index{数学!proof-relevant}%
+从 $A$ 到 $B$ 的\emph{一个等价}定义为一个函数 $f:A\to B$ 与一个 $\isequiv (f)$ 的居留元, 即它们等价的一个证明.
+将从 $A$ 到 $B$ 的等价的类型写作 $(\eqv A B)$, 即
 \begin{equation}\label{eq:eqv}
   (\eqv A B) \defeq \sm{f:A\to B} \isequiv(f).
 \end{equation}
-Property~\ref{item:be3} above will ensure that if two equivalences are equal as functions (that is, the underlying elements of $A\to B$ are equal), then they are also equal as equivalences (see \cref{sec:compute-sigma}).
-Thus, we often abuse notation and blur the distinction between equivalences and their underlying functions.
-For instance, if we have a function $f:A\to B$ and we know that $e:\isequiv(f)$, we may write $f:\eqv A B$, rather than $\tup{f}{e}$.
-Or conversely, if we have an equivalence $g:\eqv A B$, we may write $g(a)$ when given $a:A$, rather than $(\proj1 g)(a)$.
+之前的性质~\ref{item:be3} 确保了两个等价中的函数是相等的(也就是说, $A\to B$ 的元素之间相等), 那么等价也是相等的 (参见 \cref{sec:compute-sigma}).
+因此, 经常滥用这个符号, 并模糊在等价和它的底层函数之间的区别.
+如果有函数 $f:A\to B$ 并知道 $e:\isequiv(f)$, 可以写作 $f:\eqv A B$, 而不是 $\tup{f}{e}$.
+反过来, 如果有一个等价 $g:\eqv A B$, 给定 $a:A$, 可以写作 $g(a)$, 而不是 $(\proj1 g)(a)$.
 
-We conclude by observing:
+通过观察得出:
 
-\begin{lem}\label{thm:equiv-eqrel}
-  Type equivalence is an equivalence relation on \type.
-  More specifically:
-  \begin{enumerate}
-  \item For any $A$, the identity function $\idfunc[A]$ is an equivalence; hence $\eqv A A$.
-  \item For any $f:\eqv A B$, we have an equivalence $f^{-1} : \eqv B A$.
-  \item For any $f:\eqv A B$ and $g:\eqv B C$, we have $g\circ f : \eqv A C$.
-  \end{enumerate}
+\begin{lem}
+    \label{thm:equiv-eqrel}
+    等价的类型是一个 \type 上的等价关系.
+    更准确地说:
+    \begin{enumerate}
+        \item 对于任何 $A$, 恒等函数 $\idfunc[A]$ 是等价; 因此 $\eqv A A$.
+        \item 对于任何 $f:\eqv A B$, 存在等价 $f^{-1} : \eqv B A$.
+        \item 对于任何 $f:\eqv A B$ 和 $g:\eqv B C$, 存在 $g\circ f : \eqv A C$.
+    \end{enumerate}
 \end{lem}
 \begin{proof}
-  The identity function is clearly its own quasi-inverse; hence it is an equivalence.
+  显然恒等函数是它自己的 quasi-inverse; 因此它是一个等价.
 
-  If $f:A\to B$ is an equivalence, then it has a quasi-inverse, say $f^{-1}:B\to A$.
-  Then $f$ is also a quasi-inverse of $f^{-1}$, so $f^{-1}$ is an equivalence $B\to A$.
+  如果 $f:A\to B$ 是等价, 那么它有 quasi-inverse, 叫做 $f^{-1}:B\to A$.
+  然后 $f$ 也是 $f^{-1}$ 的 quasi-inverse, 所以 $f^{-1}$ 是等价 $B\to A$.
 
-  Finally, given $f:\eqv A B$ and $g:\eqv B C$ with quasi-inverses $f^{-1}$ and $g^{-1}$, say, then for any $a:A$ we have $f^{-1} g^{-1} g f a = f^{-1} f a = a$, and for any $c:C$ we have $g f f^{-1} g^{-1} c = g g^{-1} c = c$.
-  Thus $f^{-1} \circ g^{-1}$ is a quasi-inverse to $g\circ f$, hence the latter is an equivalence.
+  最后, 给定 $f:\eqv A B$ 和 $g:\eqv B C$ 与 quasi-inverses $f^{-1}$ 和 $g^{-1}$, 然后对于任何 $a:A$ 有 $f^{-1} g^{-1} g f a = f^{-1} f a = a$, 对于任何 $c:C$ 有 $g f f^{-1} g^{-1} c = g g^{-1} c = c$.
+  然后 $f^{-1} \circ g^{-1}$ 是 $g\circ f$ 的 quasi-inverse, 所以后者是一个等价.
 \end{proof}
 
-\index{equivalence|)}%
+\index{等价|)}%
