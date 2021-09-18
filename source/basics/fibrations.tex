@@ -1,11 +1,14 @@
 \index{类型!族的|(}%
-\index{运输|(defstyle}%
-因为在类型伦中\emph{依赖类型}函数是必须的, 所以也需要依赖类型版本的\cref{lem:map}. 然而这并不简单, 因为如果 $f:\prd{x:A} B(x)$ 和 $p:x=y$, 那么 $f(x):B(x)$ 和 $f(y):B(y)$ 是不同类型的元素, 所以\emph{事实上}, 我们甚至不能询问他们是否相等. 缺少的部分是, $p$ 本身给了一个关联 $B(x)$ 和 $B(y)$ 的方式.
+\index{transport|(defstyle}%
+因为在类型伦中\emph{依值类型}函数是必须的, 所以也需要一个依值类型版的\cref{lem:map}.
+然而这并不容易获得, 因为如果 $f:\prd{x:A} B(x)$ 和 $p:x=y$, 那么 $f(x):B(x)$ 和 $f(y):B(y)$ 是不同类型的元素, \emph{事实上}, 甚至不能询问它们是否相等.
+缺失的成分是, $p$ 本身给了一个关联 $B(x)$ 和 $B(y)$ 的方式.
 
-我们已经在\autoref{sec:identity-types}见过了, 它被称为``恒等的不可区分性''. \index{恒等的不可区分性}%
-现在介绍它的一个不同的名字和符号, 我们从现在开始使用.
+它就是 \autoref{sec:identity-types} 中的``恒等的不可区分性''.
+\index{恒等的不可区分性}%
+现在介绍它的一个不同的名字和符号, 并开始使用.
 
-\begin{lem}[运输]
+\begin{lem}[Transport]
     \label{lem:transport}
     提供 $A$ 上的类型族 $P$ 和 $p:\id[A]xy$.
     则有一个函数 $\transf{p}:P(x)\to P(y)$.
@@ -26,17 +29,19 @@
     在这个情况下, 可以令 $\transf{(\refl x)}:P(x)\to P(x)$ 为恒等函数.
 \end{proof}
 
-有时, 在运输符号上, 有必要把类型族 $P$ 用符号表示. 这种情况下, 可以写作 \[\transfib P p \blank : P(x) \to P(y).\]
+有时, 在 transport 符号上, 有必要把类型族 $P$ 用符号表示. 这种情况下, 可以写作 \[\transfib P p \blank : P(x) \to P(y).\]
 
-回顾 $A$ 上的类型族 $P$ 可以被视作 $A$ 的元素的性质, 当 $x$ 是 $A$ 的元素且 $P(x)$ 有居留元时, 这个性质成立. 然后运输定理表示 $P$ 的平等性, 从在种意义上, 如果 $x$ 等于 $y$, 那么当且仅当 $P(y)$ 成立时 $P(x)$ 成立. 实际上, 以后可以看到如果 $x=y$ 则实际上 $P(x)$ 和 $P(y)$ 是\emph{等价的}.
+回顾 $A$ 上的类型族 $P$ 可以被视作 $A$ 的元素的性质, 当 $x$ 是 $A$ 的元素且 $P(x)$ 有居留元时, 这个性质成立.
+然后 transport 引理表示 $P$ 的平等性, 从在种意义上, 如果 $x$ 等于 $y$, 那么当且仅当 $P(y)$ 成立时 $P(x)$ 成立.
+实际上, 以后可以看到如果 $x=y$ 则实际上 $P(x)$ 和 $P(y)$ 是\emph{等价的}.
 
-Topologically, the transportation lemma can be viewed as a ``path lifting'' operation in a fibration.
-\index{fibration}%
-\indexdef{total!space}%
-We think of a type family $P:A\to \type$ as a \emph{fibration} with base space $A$, with $P(x)$ being the fiber over $x$, and with $\sm{x:A}P(x)$ being the \define{total space} of the fibration, with first projection $\sm{x:A}P(x)\to A$.
-The defining property of a fibration is that given a path $p:x=y$ in the base space $A$ and a point $u:P(x)$ in the fiber over $x$, we may lift the path $p$ to a path in the total space starting at $u$ (and this lifting can be done continuously).
-The point $\trans p u$ can be thought of as the other endpoint of this lifted path.
-We can also define the path itself in type theory:
+拓扑学上, transportation 引理可以被视为纤维化上的``路径提升''操作.
+\index{纤维化}%
+\indexdef{全!空间}%
+类型族 $P:A\to \type$ 被认为是基础空间 $A$ 上的\emph{纤维化}, 其中 $P(x)$ 是 $x$ 上的纤维, $\sm{x:A}P(x)$ 是纤维化的\define{全空间}, 其中第一投影 $\sm{x:A}P(x)\to A$.
+纤维化的定义的性质是给定基础空间 $A$ 的一个路径 $p:x=y$, 和经过 $x$ 的纤维上的一个点 $u:P(x)$, 可以提升路径 $p$ 到全空间, 起点为 $u$ (而这个提升可以是连续完成的).
+点 $\trans p u$ 可以被认为是这个被提升的路径的其他端点.
+在类型论中, 也可以定义这个类型本身:
 
 \begin{lem}[路径提升性质]
     \label{thm:path-lifting}
@@ -54,27 +59,28 @@ We can also define the path itself in type theory:
     在\cref{sec:compute-sigma}会证明更通用的定理.
 \end{proof}
 
-In classical homotopy theory, a fibration is defined as a map for which there \emph{exist} liftings of paths; while in contrast, we have just shown that in type theory, every type family comes with a \emph{specified} ``path-lifting function''.
-This accords with the philosophy of constructive mathematics, according to which we cannot show that something exists except by exhibiting it.
-\index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-It also ensures automatically that the path liftings are chosen ``continuously'', since as we have seen, all functions in type theory are ``continuous''.
+在经典同伦论中, 纤维化被定义为\emph{存在}路径的提升的映射;
+相比之下, 刚刚表明了, 在类型论中, 每个类型族都是一个\emph{指定的}``路径提升函数''.
+这符合构造主义数学的哲学, 只有展示它, 才能说某个事物存在.
+\index{类型伦中函数的连续性@类型伦中函数的``连续性''}%
+它确保了路径提升具备良好的``连续性'', 因为类型伦中所有函数都是``连续的''.
 
 \begin{rmk}
-    Although we may think of a type family $P:A\to \type$ as like a fibration, it is generally not a good idea to say things like ``the fibration $P:A\to\type$'', since this sounds like we are talking about a fibration with base $\type$ and total space $A$.
-    To repeat, when a type family $P:A\to \type$ is regarded as a fibration, the base is $A$ and the total space is $\sm{x:A} P(x)$.
+    尽管类型族 $P:A\to \type$ 被认为是像纤维化一样, 但广泛地说``纤维化 $P:A\to\type$'' 并不是一个好主意, 为这听起来像是在说基于底 $\type$ 和全空间 $A$ 的纤维结构.
+    重复一遍, 当一个类型族 $P:A\to \type$ 被视为一个纤维化时, 它的底是 $A$ 而全空间是 $\sm{x:A} P(x)$.
 
-    We may also occasionally use other topological terminology when speaking about type families.
-    For instance, we may refer to a dependent function $f:\prd{x:A} P(x)$ as a \define{section}
-    \indexdef{section!of a type family}%
-    of the fibration $P$, and we may say that something happens \define{fiberwise}
-    \indexdef{fiberwise}%
-    if it happens for each $P(x)$.
-    For instance, a section $f:\prd{x:A} P(x)$ shows that $P$ is ``fiberwise inhabited''.
+    在讨论类型族时, 偶尔会使用其它拓扑术语.
+    例如, 可能会把依赖函数 $f:\prd{x:A} P(x)$ 称作纤维化 $P$ 的\define{截面}
+    \indexdef{截面!类型族的}%
+    , 并说如果一个事物出现在所有 $P(x)$ 上, 那么说它是以\define{纤维方式}出现的.
+    \indexdef{纤维方式}%
+
+    例如, 一个截面 $f:\prd{x:A} P(x)$ 展示了 $P$ 是 ``纤维方式居留''.
 \end{rmk}
 
-\index{function!dependent|(}
-Now we can prove the dependent version of \cref{lem:map}.
-The topological intuition is that given $f:\prd{x:A} P(x)$ and a path $p:\id[A]xy$, we ought to be able to apply $f$ to $p$ and obtain a path in the total space of $P$ which ``lies over'' $p$, as shown below.
+\index{函数!依赖|(}
+现在可以证明依赖版本的\cref{lem:map}.
+拓扑上的直觉是, 给定 $f:\prd{x:A} P(x)$ 和路径 $p:\id[A]xy$, 可以应用 $f$ 到 $p$ 然后得到一条路径, 它在 $P$ 的全空间上, 并 ``lies over'' $p$, 如下图所示.
 
 \begin{center}
     \begin{tikzpicture}[yscale=.5,xscale=2]
@@ -118,7 +124,7 @@ And, indeed, we can show that dependent functions produce such paths.
     \end{equation*}
     然后 $D(x,x,\refl{x})$ 是 $\trans{(\refl{x})}{f(x)}= f(x)$.
     但是因为 $\trans{(\refl{x})}{f(x)}\jdeq f(x)$, 得到 $D(x,x,\refl{x})\jdeq (f(x)= f(x))$.
-    因此, 有这个饿函数
+    因此, 有这个函数
     \begin{equation*}
         d\defeq\lam{x} \refl{f(x)}:\prd{x:A} D(x,x,\refl{x})
     \end{equation*}
@@ -137,7 +143,7 @@ They will play an increasingly important role starting in \cref{cha:hits}.
 In \cref{sec:computational} we will see that for a few particular kinds of type families, there are equivalent ways to represent the notion of dependent paths that are sometimes more convenient.
 
 现在回顾\cref{sec:pi-types}, 非依值类型函数 $f:A\to B$ 是依值函数 $f:\prd{x:A} P(x)$ 在 $P$ 是静态类型族 $P(x) \defeq B$ 的特殊情况.
-这种情况下, $\apdfunc{f}$ 和 $\apfunc{f}$ 是密切相关的, 因为如下定理:
+这种情况下, $\apdfunc{f}$ 和 $\apfunc{f}$ 是密切相关的, 因为如下引理:
 
 \begin{lem}
     \label{thm:trans-trivial}
@@ -147,7 +153,7 @@ In \cref{sec:computational} we will see that for a few particular kinds of type 
 \begin{proof}[第一个证明]
     固定 $b:B$, 然后令 $D:\prd{x,y:A} (\id{x}{y}) \to \type$ 为一个类型族, 定义为
     \[ D(x,y,p) \defeq (\transfib P p b = b). \]
-    然后 $D(x,x,\refl x)$ is $(\transfib P{\refl{x}}{b} = b)$, 通过运输的计算规则与 $(b=b)$ 判断等同.
+    然后 $D(x,x,\refl x)$ is $(\transfib P{\refl{x}}{b} = b)$, 通过 transporting 的计算规则与 $(b=b)$ 判断等同.
     因此, 有这个函数
     \[ d \defeq \lam{x} \refl{b} : \prd{x:A} D(x,x,\refl x). \]
     现在路径归纳可以给出所需的元素
@@ -193,7 +199,7 @@ In \cref{sec:computational} we will see that for a few particular kinds of type 
 
 至此, 希望读者开始找到一些通过恒等类型的归纳做证明的感觉.
 从现在开始不再给出两种风格的证明, 而是使用更清晰和使用的 (大部分情况是更简明的第二种).
-这里有一些实用的运输定理; 留给读者做证明 (用两种风格).
+这里有一些实用的 transport 引理; 留给读者做证明 (用两种风格).
 
 \begin{lem}
     \label{thm:transport-concat}
@@ -213,5 +219,5 @@ In \cref{sec:computational} we will see that for a few particular kinds of type 
     \[ \transfib{Q}{p}{f_x(u)} = f_y(\transfib{P}{p}{u}). \]
 \end{lem}
 
-\index{type!family of|)}%
+\index{类型!族|)}%
 \index{transport|)}
