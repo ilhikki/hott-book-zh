@@ -1,30 +1,30 @@
 \index{type!unit|(}%
-Trivial cases are sometimes important, so we mention briefly the case of the unit type~\unit.
+有时琐碎的事情也很重要, 所以简单提一下单元类型~\unit.
 
 \begin{thm}\label{thm:path-unit}
-  For any $x,y:\unit$, we have $\eqv{(x=y)}{\unit}$.
+  对于任何 $x,y:\unit$, 有 $\eqv{(x=y)}{\unit}$.
 \end{thm}
 
-It may be tempting to begin this proof by $\unit$-induction on $x$ and $y$, reducing the problem to $\eqv{(\ttt=\ttt)}{\unit}$.
-However, at this point we would be stuck, since we would be unable to perform a path induction on $p:\ttt=\ttt$.
-Thus, we instead work with a general $x$ and $y$ as much as possible, reducing them to $\ttt$ by induction only at the last moment.
+也许可以从 $x$ 和 $y$ 上的 $\unit$-归纳开始证明, 化简问题为 $\eqv{(\ttt=\ttt)}{\unit}$.
+然而, 会卡住在这个点上, 因为无法在 $p:\ttt=\ttt$ 上作路径归纳.
+因此, 反而是尽可能地使用泛用的 $x$ 和 $y$, 最后才用归纳化简它们到 $\ttt$.
 
 \begin{proof}
-  A function $(x=y)\to\unit$ is easy to define by sending everything to \ttt.
-  Conversely, for any $x,y:\unit$ we may assume by induction that $x\jdeq \ttt\jdeq y$.
-  In this case we have $\refl{\ttt}:x=y$, yielding a constant function $\unit\to(x=y)$.
+  函数 $(x=y)\to\unit$ 很容易定义, 对于任何输入都返回 \ttt.
+  反过来, 对于任何 $x,y:\unit$ 可以通过归纳假定 $x\jdeq \ttt\jdeq y$.
+  这种情况下有 $\refl{\ttt}:x=y$, 得到一个常量函数 $\unit\to(x=y)$.
 
-  To show that these are inverses, consider first an element $u:\unit$.
-  We may assume that $u\jdeq\ttt$, but this is also the result of the composite $\unit \to (x=y)\to\unit$.
+  为了展示它们互逆, 首先考虑一个元素 $u:\unit$.
+  可以假定 $u\jdeq\ttt$, 而它也是这个组合 $\unit \to (x=y)\to\unit$ 的结果.
 
-  On the other hand, suppose given $p:x=y$.
-  By path induction, we may assume $x\jdeq y$ and $p$ is $\refl x$.
-  We may then assume that $x$ is \ttt, in which case the composite $(x=y) \to \unit\to(x=y)$ takes $p$ to $\refl x$, i.e.\ to~$p$.
+  另一变, 给定 $p:x=y$.
+  通过路径归纳, 假定 $x\jdeq y$ 和 $p$ 是 $\refl x$.
+  然后假定 $x$ 是 \ttt, 这种情况下, 组合 $(x=y) \to \unit\to(x=y)$ 传入 $p$ 返回 $\refl x$, 即~$p$.
 \end{proof}
 
-In particular, any two elements of $\unit$ are equal.
-We leave it to the reader to formulate this equivalence in terms of introduction, elimination, computation, and uniqueness rules.
-\index{transport!in unit type}%
-The transport lemma for \unit is simply the transport lemma for constant type families (\cref{thm:trans-trivial}).
+特别地, 任何两个 $\unit$ 的元素是相等的.
+留给读者用表达式来形式化它的等价, 构造, 消去, 计算, 和唯一性规则.
+\index{transport!单元类型}%
+\unit 的 transport 引理就是常量类型族的传输引理 (\cref{thm:trans-trivial}).
 
-\index{type!unit|)}%
+\index{类型!单元|)}%
