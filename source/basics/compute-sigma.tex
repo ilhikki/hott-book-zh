@@ -1,6 +1,6 @@
-\index{类型!依赖对子|(}%
+\index{类型!依值对子|(}%
 令 $A$ 为一个类型而 $P:A\to\type$ 为一个类型族.
-回顾 $\Sigma$-类型, 或是依赖对子类型, $\sm{x:A} P(x)$ 是笛卡尔积类型的推广.
+回顾 $\Sigma$-类型, 或是依值对子类型, $\sm{x:A} P(x)$ 是笛卡尔积类型的推广.
 因此期望它的高阶群胚结构也是上一节的推广.
 特殊的, 它的路径应该是路径的对子, 不过要给出这些路径的正确类型, 需要一些思考.
 
@@ -80,7 +80,7 @@
 
 \begin{cor}
     \label{thm:eta-sigma}
-    \index{唯一性!原理, 命题的!依赖对子类型的}%
+    \index{唯一性!原理, 命题的!依值对子类型的}%
     对于 $z:\sm{x:A} P(x)$, 有 $z = (\proj1(z),\proj2(z))$.
 \end{cor}
 \begin{proof}
@@ -92,7 +92,7 @@
 
 注意 \cref{thm:path-lifting} 里定义的提升路径 $p:x=y$, 其中 $u:P(x)$ 于 $\mathsf{lift}(u,p)$. 恒等于这个特殊情况的构造器
 \[\pairpath(p,\refl{\trans p u}):(x,u) = (y,\trans p u).\]
-\index{transport!依赖对子类型中}%
+\index{transport!依值对子类型中}%
 这回出现在 $\Sigma$-类型上 transport 操作的语句中, 同样也是二元笛卡尔积的操作的推广:
 
 \begin{thm}
@@ -121,4 +121,4 @@
 
 留给读者来展示和证明 \cref{thm:ap-prod} 的推广 (参见 \cref{ex:ap-sigma}), 并表征$\Sigma$-类型逐组件的自反, 逆, 和组合 .
 
-\index{类型!依赖对子|)}%
+\index{类型!依值对子|)}%

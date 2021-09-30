@@ -6,13 +6,13 @@
 
 传统上, 两个函数相同就是对于所有输入, 它们得到相同的值.
 按照命题作为类型的理解, 如果类型 $\prd{x:A} (f(x)=g(x))$ 有居留元, 这两个函数 $f$ 和 $g$ (也许是依值类型) 是相同的.
-按照同伦论的理解, 这个依赖函数类型由\emph{连续的}路径或者\emph{函子}等价组成, 因此可以被视为\emph{同伦}的类型或者\emph{自然同构}.\index{同构!自然}
+按照同伦论的理解, 这个依值函数类型由\emph{连续的}路径或者\emph{函子}等价组成, 因此可以被视为\emph{同伦}的类型或者\emph{自然同构}.\index{同构!自然}
 为此, 我们采用拓扑的术语.
 
 \begin{defn}
     \label{defn:homotopy}
     令 $f,g:\prd{x:A} P(x)$ 为类型族 $P:A\to\type$ 的两个截面.
-    从 $f$ 到 $g$ 的\define{同伦}是一个依赖函数, 它的类型为
+    从 $f$ 到 $g$ 的\define{同伦}是一个依值函数, 它的类型为
     \begin{equation*}
     (f\htpy g)
         \defeq \prd{x:A} (f(x)=g(x)).
@@ -50,7 +50,7 @@
 就像在类型伦中, 函数是自然而然的``函子'', 同伦是自然而然的
 \index{同伦的自然性@同伦的``自然性''}%
 ``自然变换''.
-这里只对非依赖函数 $f,g:A\to B$ 做了声明和证明; 在\cref{ex:dep-htpy-natural}要求读者推广它们到依值类型.
+这里只对非依值函数 $f,g:A\to B$ 做了声明和证明; 在\cref{ex:dep-htpy-natural}要求读者推广它们到依值类型.
 
 回顾 $f:A\to B$ 和 $p:\id[A]xy$, 可以把 $\apfunc{f} (p)$ 写作 $\ap f p$.
 
@@ -178,7 +178,7 @@
 现在定义 $\beta':g\circ f\htpy \idfunc[A]$ 为 $\beta'(x) \defeq \gamma(f(x)) \ct \beta(x)$.
 于是 $(g,\alpha,\beta'):\qinv(f)$.
 
-这个定义的性质~\ref{item:be3}, 也不难证明, 不过需要笛卡尔积和依赖对子类型的声明恒等类型, 会在\cref{sec:compute-cartprod,sec:compute-sigma}中讨论.
+这个定义的性质~\ref{item:be3}, 也不难证明, 不过需要笛卡尔积和依值对子类型的声明恒等类型, 会在\cref{sec:compute-cartprod,sec:compute-sigma}中讨论.
 因此降其推迟到\cref{sec:biinv}.
 现在最重要的事是有了一个表现良好的类型来表示``$f$ 是一个等价'', 而且可以通过 quasi-inverse 来证明 $f$ 是一个等价.
 实际上, 这是证明一个函数是一个等价的通用的方法.
