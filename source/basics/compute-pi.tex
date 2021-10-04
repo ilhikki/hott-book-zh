@@ -2,23 +2,23 @@
 \index{类型!函数|(}%
 \index{同伦|(}%
 给定 $A$ 和类型族 $B : A \to \type$, 考虑这个依值函数类型 $\prd{x:A}B(x)$.
-对于 $\prd{x:A} B(x)$ 中从 $f$ 到 $g$ 的路径, 期望它的的类型 $f=g$ 逐点等价于路径:\index{逐点!函数的等同}
+期望 $\prd{x:A} B(x)$ 中从 $f$ 到 $g$ 的路径的类型 $f=g$, 逐点等价于路径:
+\index{逐点!函数的等同}%
 \begin{equation}
   \eqvspaced{(\id{f}{g})}{\Parens{\prd{x:A} (\id[B(x)]{f(x)}{g(x)})}}.\label{eq:path-forall}
 \end{equation}
-按照传统的看法, 这意味每个点都相等的函数, 它们是相等的.
+按照传统的看法, 这意味每个点都相等的函数, 是相等的.
 \index{类型论中函数的连续性@类型论中函数的``连续性''}%
 按照拓扑学的看法, 这意味函数空间的路径和连续同伦是一样的.
 \index{类型论中函数的函子性@类型论中函数的``函子性''}%
-而按照范畴论的看法, 这意味函子范畴中的同构是同构的自然族.
+而按照范畴论的看法, 这意味函子范畴中的同构关系, 是同构关系的自然族.
 
-和上一节的情况不一样, however, 在\cref{cha:typetheory}提出的基本的类型论无法证明~\eqref{eq:path-forall}.
-可以做的是存在一个笛卡尔函数
+不过, 和上一节的情况不一样, 在\cref{cha:typetheory} 中提出的基本的类型论, 无法证明~\eqref{eq:path-forall}.
+只能说路径归纳轻松定义函数
 \begin{equation}
   \label{eq:happly}
-  \happly : (\id{f}{g}) \to \prd{x:A} (\id[B(x)]{f(x)}{g(x)})
+  \happly : (\id{f}{g}) \to \prd{x:A} (\id[B(x)]{f(x)}{g(x)}).
 \end{equation}
-可以用路径归纳轻松定义.
 因此现在假定:
 
 \begin{axiom}[函数外延性]
@@ -36,16 +36,17 @@
 \]
 这个函数也被称为 ``函数外延性''.
 就像在 \cref{sec:compute-cartprod} 中对 $\pairpath$ 做的一样, 可以将 $\funext$ 视为类型 $\id f g$ 的一个\emph{构造规则}.
-这样来看, $\happly$ 是\emph{消去规则}, 而见证 $\funext$ quasi-inverse $\happly$ 的同伦分别是, 一个命题的计算规则\index{计算规则!命题的!函数间的恒等的}
+这样来看, $\happly$ 是\emph{消去规则}, 而见证 $\funext$ quasi-inverse $\happly$ 的同伦分别是: 一个命题的计算规则\index{计算规则!命题的!函数间的恒等的}
 \[
-  \id{\happly({\funext{(h)}},x)}{h(x)} \qquad\text{for }h:\prd{x:A} (\id{f(x)}{g(x)})
+  \id{\happly({\funext{(h)}},x)}{h(x)} \qquad\text{对于 } h:\prd{x:A} (\id{f(x)}{g(x)})
 \]
 和一个命题的唯一性原理\index{唯一性!原理!函数间的恒等的}:
 \[
-  \id{p}{\funext (x \mapsto \happly(p,{x}))} \qquad\text{for } p: \id f g.
+  \id{p}{\funext (x \mapsto \happly(p,{x}))} \qquad\text{对于 } p: \id f g.
 \]
 
-也可以计算 $\Pi$-类型中的, 逆, 和组合; 通过逐点的运算即可:\index{逐点!函数上的运算}.
+通过逐点的运算即可计算 $\Pi$-类型中的, 逆, 和组合:
+\index{逐点!函数上的运算}%
 \begin{align*}
   \refl{f} &= \funext(x \mapsto \refl{f(x)}) \\
   \opp{\alpha} &= \funext (x \mapsto \opp{\happly (\alpha,x)})  \\
@@ -62,7 +63,7 @@
   \transfib{A\to B}{p}{f} &=
   \Big(x \mapsto \transfib{B}{p}{f(\transfib{A}{\opp p}{x})}\Big)
 \end{align}
-其中 $A\to B$ 滥用地表示类型族 $X\to \type$, 其定义为
+其中滥用 $A\to B$ 表示类型族 $X\to \type$, 其定义为
 \[
   (A\to B)(x) \defeq (A(x)\to B(x)).
 \]
@@ -99,7 +100,7 @@ Transporting 依值函数类型也类似, 不过更加复杂.
   等于连接的路径 $i\ct j\ct k$, 其中
   \begin{itemize}
   \item $i:(\trans p f)(\trans p a) = \trans p {f (\trans {\opp p}{\trans p a})}$ 来自~\eqref{eq:transport-arrow},
-  \item $j:\trans p {f (\trans {\opp p}{\trans p a})} = \trans p {f(a)}$ 来自 \cref{thm:transport-concat,thm:omg}, and
+  \item $j:\trans p {f (\trans {\opp p}{\trans p a})} = \trans p {f(a)}$ 来自 \cref{thm:transport-concat,thm:omg}, 以及
   \item $k:\trans p {f(a)}= g(\trans p a)$ 是 $\widehat{q}(a)$.
   \end{itemize}
 \end{lem}
@@ -110,7 +111,7 @@ Transporting 依值函数类型也类似, 不过更加复杂.
 
 通常, 要考虑一些路径的连接, 每条路径都由之前证明的一些公理或假设的对象产生, 像上面第二个语句中那样, 给连接中每个路径取一个名字没有意义.
 因此, 采用一个管理, 用熟悉的数学风格 ``带原因的等式链'', 并允许省略读者可以轻松填补的原因.
-例如, 从\cref{thm:dpath-arrow}中的路径 $i\ct j\ct k$ 可以写作这样:
+例如, \cref{thm:dpath-arrow} 中的路径 $i\ct j\ct k$ 可以写作:
   \begin{align*}
     (\trans p f)(\trans p a)
     &= \trans p {f (\trans {\opp p}{\trans p a})}
