@@ -8,6 +8,9 @@ This work is licensed under the
 [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
 
 ## 获得 PDF
+### 直接下载
+[Releases](https://github.com/ilhikki/hott-book-zh/releases)
+
 ### 编译 .tex 文件
 1. 准备编译环境，参照[原著的 README 文件](README.src.md)。
 1. 使用命令
@@ -19,9 +22,6 @@ latexmk -xelatex  -interaction=batchmode  hott-online.tex
 make hott-online.pdf
 ```
 注意项目使用 `xelatex` 支持中文，但只做了必要的兼容。所以 `makefile` 无法直接使用，不再兼容 LaTex 的 `ifpdf` 命令。
-
-### 直接下载 Releases
-[Releases](https://github.com/ilhikki/hott-book-zh/releases)
 
 ## 其它
 本项目使用的翻译辅助工具是 [OmegaT](https://github.com/omegat-org/omegat) 。
