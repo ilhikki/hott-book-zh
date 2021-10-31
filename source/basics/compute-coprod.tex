@@ -1,106 +1,108 @@
-\index{type!coproduct|(}%
-\index{encode-decode method|(}%
-So far, most of the type formers we have considered have been what are called \emph{negative}.
-\index{type!negative}\index{negative!type}%
-\index{polarity}%
-Intuitively, this means that their elements are determined by their behavior under the elimination rules: a (dependent) pair is determined by its projections, and a (dependent) function is determined by its values.
-The identity types of negative types can almost always be characterized straightforwardly, along with all of their higher structure, as we have done in \crefrange{sec:compute-cartprod}{sec:compute-pi}.
-The universe is not exactly a negative type, but its identity types behave similarly: we have a straightforward characterization (univalence) and a description of the higher structure.
-Identity types themselves, of course, are a special case.
+\index{类型!余积|(}%
+\index{编转码方法|(}%
+迄今为止考虑过的类型的形式, 大部分都是\emph{负}类型.
+\index{类型!负}\index{负!类型}%
+\index{极性}%
+直观地, 这意味这些类型确定于其消去规则上的行为: (依值)对子由其投影确定, 而(依值)函数由其值确定.
+几乎所有负类型, 乃至其高阶结构, 可以被直接定性, 正如\crefrange{sec:compute-cartprod}{sec:compute-pi} 中所做的一样.
+准确的说, 宇宙不是负类型, 不过其恒等类型表现类似: 有这个高阶结构的直接定性 (宇价) 和和描述.
+当然, 恒等类型本身是一种特殊情况.
 
-We now consider our first example of a \emph{positive} type former.
-\index{type!positive}\index{positive!type}%
-Again informally, a positive type is one which is ``presented'' by certain constructors, with the universal property of a presentation\index{presentation!of a positive type by its constructors} being expressed by its elimination rule.
-(Categorically speaking, a positive type has a ``mapping out'' universal property, while a negative type has a ``mapping in'' universal property.)
-Because computing with presentations is, in general, an uncomputable problem, for positive types we cannot always expect a straightforward characterization of the identity type.
-However, in many particular cases, a characterization or partial characterization does exist, and can be obtained by the general method that we introduce with this example.
+现在考虑\emph{正}类型形式的第一个例子.
+\index{类型!正}\index{正!类型}%
+非形式的, 正类型由确定的构造器``体现'', 其泛性质\index{体现!通过正类型构造的} 由其消去规则表达.
+(拓扑上讲, 正类型 ``映射出'' 泛性质, 而负类型 ``映射入'' 泛性质.)
+因为通常是, 体现是不可计算的, 不是所有正类型都能直接表征其恒等类型.
+不过, 很多特殊情况, 表征或者部分的表征是存在的, 可以从这个列子中看到这个通用的方法.
 
-(Technically, our chosen presentation of cartesian products and $\Sigma$-types is also positive.
-However, because these types also admit a negative presentation which differs only slightly, their identity types have a direct characterization that does not require the method to be described here.)
+(技术上, 笛卡尔积和 $\Sigma$-types 同样也是正类型.
+不过, 这些类型可以略有区别的表示为负类型, 它们的恒等类型不必像这样表征.)
 
-Consider the coproduct type $A+B$, which is ``presented'' by the injections $\inl:A\to A+B$ and $\inr:B\to A+B$.
-Intuitively, we expect that $A+B$ contains exact copies of $A$ and $B$ disjointly, so that we should have
+考虑余积类型 $A+B$, 由单射 $\inl:A\to A+B$ 和 $\inr:B\to A+B$ ``体现''.
+直观地, 期望 $A+B$ 存在不交的 $A$ 和 $B$ 的精确复制, 所以有
 \begin{align}
-  {(\inl(a_1)=\inl(a_2))}&\eqvsym {(a_1=a_2)} \label{eq:inlinj}\\
-  {(\inr(b_1)=\inr(b_2))}&\eqvsym {(b_1=b_2)}\\
-  {(\inl(a)= \inr(b))} &\eqvsym {\emptyt}. \label{eq:inlrdj}
+{(\inl(a_1)=\inl(a_2))}
+    &\eqvsym {(a_1=a_2)} \label{eq:inlinj}\\
+    {(\inr(b_1)=\inr(b_2))}&\eqvsym {(b_1=b_2)}\\
+    {(\inl(a)= \inr(b))} &\eqvsym {\emptyt}. \label{eq:inlrdj}
 \end{align}
-We prove this as follows.
-Fix an element $a_0:A$; we will characterize the type family
+证明如下.
+固定元素 $a_0:A$; 表征类型族
 \begin{equation}
-  (x\mapsto (\inl(a_0)=x)) : A+B \to \type.\label{eq:sumcodefam}
+(x\mapsto (\inl(a_0)=x))
+    : A+B \to \type.\label{eq:sumcodefam}
 \end{equation}
-A similar argument would characterize the analogous family $x\mapsto (x = \inr(b_0))$ for any $b_0:B$.
-Together, these characterizations imply~\eqref{eq:inlinj}--\eqref{eq:inlrdj}.
+对于任何 $b_0:B$ 类似的参数可以塑造类似于 $x\mapsto (x = \inr(b_0))$ 的类型族.
+它们一起塑造了~\eqref{eq:inlinj}--\eqref{eq:inlrdj}的实现.
 
-In order to characterize~\eqref{eq:sumcodefam}, we will define a type family $\code:A+B\to\type$ and show that $\prd{x:A+B} (\eqv{(\inl(a_0)=x)}{\code(x)})$.
-Since we want to conclude~\eqref{eq:inlinj} from this, we should have $\code(\inl(a)) = (a_0=a)$, and since we also want to conclude~\eqref{eq:inlrdj}, we should have $\code (\inr(b)) = \emptyt$.
-The essential insight is that we can use the recursion principle of $A+B$ to \emph{define} $\code:A+B\to\type$ by these two equations:
+为了塑造~\eqref{eq:sumcodefam}, 定义类型族 $\code:A+B\to\type$ 并展示 $\prd{x:A+B} (\eqv{(\inl(a_0)=x)}{\code(x)})$.
+为了从它推断~\eqref{eq:inlinj}, 需要 $\code(\inl(a)) = (a_0=a)$, 而为了推断~\eqref{eq:inlrdj}, 需要 $\code (\inr(b)) = \emptyt$.
+其实就是, 可以用 $A+B$ 的递归原则, 通过这两个等式来\emph{定义} $\code:A+B\to\type$:
 \begin{align*}
-  \code(\inl(a)) &\defeq (a_0=a),\\
-  \code(\inr(b)) &\defeq \emptyt.
+    \code(\inl(a)) &\defeq (a_0=a),\\
+    \code(\inr(b)) &\defeq \emptyt.
 \end{align*}
-This is a very simple example of a proof technique that is used quite a
-bit when doing homotopy theory in homotopy type theory; see
-e.g.\ \cref{sec:pi1-s1-intro,sec:general-encode-decode}.
+这是证明技巧的非常简单的例子, 在同伦类型论中做同伦论是经常用到它;
+例如 \cref{sec:pi1-s1-intro,sec:general-encode-decode}.
 %
-We can now show:
+现在可以展示:
 
-\begin{thm}\label{thm:path-coprod}
-  For all $x:A+B$ we have $\eqv{(\inl(a_0)=x)}{\code(x)}$.
+\begin{thm}
+    \label{thm:path-coprod}
+    对于所有 $x:A+B$ 有 $\eqv{(\inl(a_0)=x)}{\code(x)}$.
 \end{thm}
 \begin{proof}
-  The key to the following proof is that we do it for all points $x$ together, enabling us to use the elimination principle for the coproduct.
-  We first define a function
-  \[ \encode : \prd{x:A+B}{p:\inl(a_0)=x} \code(x) \]
-  by transporting reflexivity along $p$:
-  \[ \encode(x,p) \defeq \transfib{\code}{p}{\refl{a_0}}. \]
-  Note that $\refl{a_0} : \code(\inl(a_0))$, since $\code(\inl(a_0))\jdeq (a_0=a_0)$ by definition of \code.
-  Next, we define a function
-  \[ \decode : \prd{x:A+B}{c:\code(x)} (\inl(a_0)=x). \]
-  To define $\decode(x,c)$, we may first use the elimination principle of $A+B$ to divide into cases based on whether $x$ is of the form $\inl(a)$ or the form $\inr(b)$.
+    下面的证明的关键是, 所有的点 $x$ 一起证明, 在余积上使用消去原理.
+    首先定义函数
+    \[ \encode : \prd{x:A+B}{p:\inl(a_0)=x} \code(x) \]
+    通过沿着 $p$ transport 自反:
+    \[ \encode(x,p) \defeq \transfib{\code}{p}{\refl{a_0}}. \]
+    注意 $\refl{a_0} : \code(\inl(a_0))$, 因为 $\code(\inl(a_0))\jdeq (a_0=a_0)$ 由 \code 定义.
+    接下来, 定义函数
+    \[ \decode : \prd{x:A+B}{c:\code(x)} (\inl(a_0)=x). \]
+    为了定义 $\decode(x,c)$, 首先使用 $A+B$ 的消去原理, 从 $x$ 是 $\inl(a)$ 或 $\inr(b)$ 的情况分别得到.
 
-  In the first case, where $x\jdeq \inl(a)$, then $\code(x)\jdeq (a_0=a)$, so that $c$ is an identification between $a_0$ and $a$.
-  Thus, $\apfunc{\inl}(c):(\inl(a_0)=\inl(a))$ so we can define this to be $\decode(\inl(a),c)$.
+    第一种情况, $x\jdeq \inl(a)$, 而 $\code(x)\jdeq (a_0=a)$, 所以 $c$ 是 $a_0$ 和 $a$ 之间的恒等.
+    因此, $\apfunc{\inl}(c):(\inl(a_0)=\inl(a))$ 就是 $\decode(\inl(a),c)$ 的定义.
 
-  In the second case, where $x\jdeq \inr(b)$, then $\code(x)\jdeq \emptyt$, so that $c$ inhabits the empty type.
-  Thus, the elimination rule of $\emptyt$ yields a value for $\decode(\inr(b),c)$.
+    第二种情况, $x\jdeq \inr(b)$, 而 $\code(x)\jdeq \emptyt$, 所以 $c$ 居留于空类型.
+    因此, $\emptyt$ 的消去规则得到 $\decode(\inr(b),c)$ 的值.
 
-  This completes the definition of \decode; we now show that $\encode(x,{\blank})$ and $\decode(x,{\blank})$ are quasi-inverses for all $x$.
-  On the one hand, suppose given $x:A+B$ and $p:\inl(a_0)=x$; we want to show
-  \narrowequation{
-    \decode(x,\encode(x,p)) = p.
-  }
-  But now by (based) path induction, it suffices to consider $x\jdeq\inl(a_0)$ and $p\jdeq \refl{\inl(a_0)}$:
-  \begin{align*}
-    \decode(x,\encode(x,p))
-    &\jdeq \decode(\inl(a_0),\encode(\inl(a_0),\refl{\inl(a_0)}))\\
-    &\jdeq \decode(\inl(a_0),\transfib{\code}{\refl{\inl(a_0)}}{\refl{a_0}})\\
-    &\jdeq \decode(\inl(a_0),\refl{a_0})\\
-    &\jdeq \apfunc{\inl}(\refl{a_0})\\
-    &\jdeq \refl{\inl(a_0)}\\
-    &\jdeq p.
-  \end{align*}
-  On the other hand, let $x:A+B$ and $c:\code(x)$; we want to show $\encode(x,\decode(x,c))=c$.
-  We may again divide into cases based on $x$.
-  If $x\jdeq\inl(a)$, then $c:a_0=a$ and $\decode(x,c)\jdeq \apfunc{\inl}(c)$, so that
-  \begin{align}
-    \encode(x,\decode(x,c))
-    &\jdeq \transfib{\code}{\apfunc{\inl}(c)}{\refl{a_0}}
-    \notag\\
-    &= \transfib{a\mapsto (a_0=a)}{c}{\refl{a_0}}
-    \tag{by \cref{thm:transport-compose}}\\
-    &= \refl{a_0} \ct c
-    \tag{by \cref{cor:transport-path-prepost}}\\
-    &= c. \notag
-  \end{align}
-  Finally, if $x\jdeq \inr(b)$, then $c:\emptyt$, so we may conclude anything we wish.
+    这完成了 \decode 的定义; 现在展示对于所有 $x$, $\encode(x,{\blank})$ 和 $\decode(x,{\blank})$ 是 quasi-inverses.
+    一方面, 给定 $x:A+B$ 和 $p:\inl(a_0)=x$; 要展示
+    \narrowequation{
+        \decode(x,\encode(x,p)) = p.
+    }
+    而现在通过 (基础) 路径归纳, 足以认为 $x\jdeq\inl(a_0)$ 和 $p\jdeq \refl{\inl(a_0)}$:
+    \begin{align*}
+        \decode(x,\encode(x,p))
+        &\jdeq \decode(\inl(a_0),\encode(\inl(a_0),\refl{\inl(a_0)}))\\
+        &\jdeq \decode(\inl(a_0),\transfib{\code}{\refl{\inl(a_0)}}{\refl{a_0}})\\
+        &\jdeq \decode(\inl(a_0),\refl{a_0})\\
+        &\jdeq \apfunc{\inl}(\refl{a_0})\\
+        &\jdeq \refl{\inl(a_0)}\\
+        &\jdeq p.
+    \end{align*}
+    另一方面, 令 $x:A+B$ 和 $c:\code(x)$; 要展示 $\encode(x,\decode(x,c))=c$.
+    再次从基于 $x$ 的情况推出.
+    如果 $x\jdeq\inl(a)$, 那么 $c:a_0=a$ 并且 $\decode(x,c)\jdeq \apfunc{\inl}(c)$, 于是
+    \begin{align}
+        \encode(x,\decode(x,c))
+        &\jdeq \transfib{\code}{\apfunc{\inl}(c)}{\refl{a_0}}
+        \notag\\
+        &= \transfib{a\mapsto (a_0=a)}{c}{\refl{a_0}}
+        \tag{根据 \cref{thm:transport-compose}}\\
+        &= \refl{a_0} \ct c
+        \tag{根据 \cref{cor:transport-path-prepost}}\\
+        &= c. \notag
+    \end{align}
+    最后, 如果 $x\jdeq \inr(b)$, 那么 $c:\emptyt$, 于是得到了所有需要的.
 \end{proof}
 
 \noindent
-Of course, there is a corresponding theorem if we fix $b_0:B$ instead of $a_0:A$.
+当然, 如果固定 $b_0:B$ 而不是 $a_0:A$, 有一个对应的定理.
 
-In particular, \cref{thm:path-coprod} implies that for any $a : A$ and $b : B$ there are functions
+特别地, \cref{thm:path-coprod} 暗示了对于任何 $a : A$ 和 $b : B$ 有函数
 %
 \[ \encode(\inl(a), {\blank}) : (\inl(a_0)=\inl(a)) \to (a_0=a)\]
 %
@@ -108,28 +110,29 @@ and
 %
 \[ \encode(\inr(b), {\blank}) : (\inl(a_0)=\inr(b)) \to \emptyt. \]
 %
-The second of these states
-``$\inl(a_0)$ is not equal to $\inr(b)$'', i.e.\ the images of \inl and \inr are disjoint. The traditional reading of the first one, where identity types are viewed as propositions, is just injectivity of $\inl$.  The
-full homotopical statement of \cref{thm:path-coprod} gives more information: the types $\inl(a_0)=\inl(a)$ and
-$a_0=a$ are actually equivalent, as are $\inr(b_0)=\inr(b)$ and $b_0=b$.
+第二个函数陈述了 ``$\inl(a_0)$ 不等于 $\inr(b)$'', 即 \inl 和 \inr 的图形是不交的.
+第一个函数的传统的解读就是 $\inl$ 的单射性, 其中恒等类型被视为命题.
+\cref{thm:path-coprod} 的完整同伦陈述给出了更多信息: 类型 $\inl(a_0)=\inl(a)$ 和 $a_0=a$ 实际上等价, $\inr(b_0)=\inr(b)$ 和 $b_0=b$ 亦如此.
 
 \begin{rmk}\label{rmk:true-neq-false}
-In particular, since the two-element type $\bool$ is equivalent to $\unit+\unit$, we have $\bfalse\neq\btrue$.
+特殊地, 因此双元类型 $\bool$ 等价于 $\unit+\unit$, 有 $\bfalse\neq\btrue$.
 \end{rmk}
 
-This proof illustrates a general method for describing path spaces, which we will use often.  To characterize a path space, the first step is to define a comparison fibration ``$\code$'' that provides a more explicit description of the paths.  There are several different methods for proving that such a comparison fibration is equivalent to the paths (we show a few different proofs of the same result in \cref{sec:pi1-s1-intro}).  The one we have used here is called the \define{encode-decode method}:
-\indexdef{encode-decode method}
-the key idea is to define $\decode$ generally for all instances of the fibration (i.e.\ as a function $\prd{x:A+B} \code(x) \to (\inl(a_0)=x)$), so that path induction can be used to analyze $\decode(x,\encode(x,p))$.
+这个证明阐述了一个通用方法, 来描述路径空间, 经常被用到. 为了塑造路径空间, 第一步是定义对比纤维化 ``$\code$'', 它提供了这个路径的更明确的描述.
+有一些不同的方法来证明, 对比纤维化等价于这个路径(几个相同结果的不同证明在\cref{sec:pi1-s1-intro}).
+这里使用\define{encode-decode 方法}:
+\indexdef{encode-decode 方法}
+关键在于定义 $\decode$ 并对纤维化的实例通用 (例如函数 $\prd{x:A+B} \code(x) \to (\inl(a_0)=x)$), 于是路径归纳可以用于分析 $\decode(x,\encode(x,p))$.
 
-\index{transport!in coproduct types}%
-As usual, we can also characterize the action of transport in coproduct types.
-Given a type~$X$, a path $p:\id[X]{x_1}{x_2}$, and type families $A,B:X\to\type$, we have
+\index{transport!余积类型中}%
+照常, 也可以塑造余积类型中 transport 的行为.
+给定类型~$X$, 路径 $p:\id[X]{x_1}{x_2}$, 和类型族 $A,B:X\to\type$, 有
 \begin{align*}
   \transfib{A+B}{p}{\inl(a)} &= \inl (\transfib{A}{p}{a}),\\
   \transfib{A+B}{p}{\inr(b)} &= \inr (\transfib{B}{p}{b}),
 \end{align*}
-where as usual, $A+B$ in the superscript denotes abusively the type family $x\mapsto A(x)+B(x)$.
-The proof is an easy path induction.
+照常, 上标 $A+B$ 代表类型族 $x\mapsto A(x)+B(x)$ 的滥用.
+证明是一个简单的路径归纳.
 
-\index{encode-decode method|)}%
-\index{type!coproduct|)}%
+\index{encode-decode 方法|)}%
+\index{类型!余积|)}%
