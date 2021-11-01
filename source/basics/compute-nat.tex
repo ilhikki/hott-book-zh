@@ -1,35 +1,35 @@
-\index{natural numbers|(}%
-\index{encode-decode method|(}%
-We use the encode-decode method to characterize the path space of the natural numbers, which are also a positive type.
-In this case, rather than fixing one endpoint, we characterize the two-sided path space all at once.
-Thus, the codes for identities are a type family
+\index{自然数|(}%
+\index{encode-decode 方法|(}%
+可以使用 encode-decode 方法来塑造自然数的路径空间, 它同样也是正类型.
+这种情况, 不是固定一个端点, 而是一次塑造两端的路径空间.
+因此, 恒等的 codes 是类型族
 \[\code:\N\to\N\to\type,\]
-defined by double recursion over \N as follows:
+由两次 \N 上的递归定义, 如下:
 \begin{align*}
   \code(0,0) &\defeq \unit\\
   \code(\suc(m),0) &\defeq \emptyt\\
   \code(0,\suc(n)) &\defeq \emptyt\\
   \code(\suc(m),\suc(n)) &\defeq \code(m,n).
 \end{align*}
-We also define by recursion a dependent function $r:\prd{n:\N} \code(n,n)$, with
+同样通过递归来定义依赖函数 $r:\prd{n:\N} \code(n,n)$, 其中
 \begin{align*}
   r(0) &\defeq \ttt\\
   r(\suc(n)) &\defeq r(n).
 \end{align*}
 
 \begin{thm}\label{thm:path-nat}
-  For all $m,n:\N$ we have $\eqv{(m=n)}{\code(m,n)}$.
+  对于所有 $m,n:\N$ 有 $\eqv{(m=n)}{\code(m,n)}$.
 \end{thm}
 \begin{proof}
-  We define
+  定义
   \[ \encode : \prd{m,n:\N} (m=n) \to \code(m,n) \]
-  by transporting, $\encode(m,n,p) \defeq \transfib{\code(m,{\blank})}{p}{r(m)}$.
-  And we define
+  通过 transport, $\encode(m,n,p) \defeq \transfib{\code(m,{\blank})}{p}{r(m)}$.
+  并定义
   \[ \decode : \prd{m,n:\N} \code(m,n) \to (m=n) \]
-  by double induction on $m,n$.
-  When $m$ and $n$ are both $0$, we need a function $\unit \to (0=0)$, which we define to send everything to $\refl{0}$.
-  When $m$ is a successor and $n$ is $0$ or vice versa, the domain $\code(m,n)$ is \emptyt, so the eliminator for \emptyt suffices.
-  And when both are successors, we can define $\decode(\suc(m),\suc(n))$ to be the composite
+  通过两次 $m,n$ 上的归纳.
+  当 $m$ 和 $n$ 都是 $0$ 时, 需要函数 $\unit \to (0=0)$, 定义对于所有输入, 返回 $\refl{0}$.
+  当 $m$ 是后继而 $n$ 是 $0$, 定义域 $\code(m,n)$ 为 \emptyt, 所以 \emptyt 的消元子即可, 反之亦然.
+  而都为后继时, 可以定义 $\decode(\suc(m),\suc(n))$ 为组合
   %
   \begin{narrowmultline*}
     \code(\suc(m),\suc(n))\jdeq\code(m,n)
@@ -39,20 +39,20 @@ We also define by recursion a dependent function $r:\prd{n:\N} \code(n,n)$, with
     (\suc(m)=\suc(n)).
   \end{narrowmultline*}
   %
-  Next we show that $\encode(m,n)$ and $\decode(m,n)$ are quasi-inverses for all $m,n$.
+  接下来展示, 对于所有 $m,n$, $\encode(m,n)$ 和 $\decode(m,n)$ 是 quasi-inverses.
 
-  On one hand, if we start with $p:m=n$, then by induction on $p$ it suffices to show
+  一方面, 从 $p:m=n$ 开始, 通过在 $p$ 上归纳得到
   \[\decode(n,n,\encode(n,n,\refl{n}))=\refl{n}.\]
-  But $\encode(n,n,\refl{n}) \jdeq r(n)$, so it suffices to show that $\decode(n,n,r(n)) =\refl{n}$.
-  We can prove this by induction on $n$.
-  If $n\jdeq 0$, then $\decode(0,0,r(0)) =\refl{0}$ by definition of \decode.
-  And in the case of a successor, by the inductive hypothesis we have $\decode(n,n,r(n)) = \refl{n}$, so it suffices to observe that $\apfunc{\suc}(\refl{n}) \jdeq \refl{\suc(n)}$.
+  而 $\encode(n,n,\refl{n}) \jdeq r(n)$, 所以得到 $\decode(n,n,r(n)) =\refl{n}$.
+  通过在 $n$ 上归纳来证明它.
+  如果 $n\jdeq 0$, 那么 $\decode(0,0,r(0)) =\refl{0}$, 通过 \decode 的定义.
+  而为后继的情况, 通过归纳法 $\decode(n,n,r(n)) = \refl{n}$, 可以得到 $\apfunc{\suc}(\refl{n}) \jdeq \refl{\suc(n)}$.
 
-  On the other hand, if we start with $c:\code(m,n)$, then we proceed by double induction on $m$ and $n$.
-  If both are $0$, then $\decode(0,0,c) \jdeq \refl{0}$, while $\encode(0,0,\refl{0})\jdeq r(0) \jdeq \ttt$.
-  Thus, it suffices to recall from \cref{sec:compute-unit} that every inhabitant of $\unit$ is equal to \ttt.
-  If $m$ is $0$ but $n$ is a successor, or vice versa, then $c:\emptyt$, so we are done.
-  And in the case of two successors, we have
+  另一变, 从 $c:\code(m,n)$ 开始, 在 $m$ 和 $n$ 上做两次归纳.
+  如果都是 $0$, 那么 $\decode(0,0,c) \jdeq \refl{0}$, 而 $\encode(0,0,\refl{0})\jdeq r(0) \jdeq \ttt$.
+  因此, 可以从 \cref{sec:compute-unit} 中的所有 $\unit$ 的居留元等于 \ttt 得到.
+  如果 $m$ 是 $0$ 但 $n$ 是后继, 那么 $c:\emptyt$, 于是结束, 反之亦然.
+  当两个都为后继的情况, 通过归纳法有
   \begin{multline*}
     \encode(\suc(m),\suc(n),\decode(\suc(m),\suc(n),c))\\
     \begin{aligned}
@@ -61,29 +61,28 @@ We also define by recursion a dependent function $r:\prd{n:\N} \code(n,n)$, with
     &= \transfib{\code(\suc(m),\suc({\blank}))}{\decode(m,n,c)}{r(\suc(m))}\\
     &= \transfib{\code(m,{\blank})}{\decode(m,n,c)}{r(m)}\\
     &= \encode(m,n,\decode(m,n,c))\\
-    &= c
+    &= c.
   \end{aligned}
   \end{multline*}
-  using the inductive hypothesis.
 \end{proof}
 
-In particular, we have
+特殊地, 有
 \begin{equation}\label{eq:zero-not-succ}
   \encode(\suc(m),0) : (\suc(m)=0) \to \emptyt
 \end{equation}
-which shows that ``$0$ is not the successor of any natural number''.
-We also have the composite
+说明 ``$0$ 不是任何自然数的后继''.
+同样也有复合
 \begin{narrowmultline}\label{eq:suc-injective}
   (\suc(m)=\suc(n))
   \xrightarrow{\encode} \narrowbreak
   \code(\suc(m),\suc(n))
   \jdeq \code(m,n) \xrightarrow{\decode} (m=n)
 \end{narrowmultline}
-which shows that the function $\suc$ is injective.
-\index{successor}%
+展示了函数 $\suc$ 是单射.
+\index{后继}%
 
-We will study more general positive types in \cref{cha:induction,cha:hits}.
-In \cref{cha:homotopy}, we will see that the same technique used here to characterize the identity types of coproducts and \nat can also be used to calculate homotopy groups of spheres.
+在 \cref{cha:induction,cha:hits} 将学习更通用的正类型.
+在 \cref{cha:homotopy} 可以看到, 用于塑造余积和 \nat 的恒等类型的技术, 还可用于计算球体的同伦群.
 
-\index{encode-decode method|)}%
-\index{natural numbers|)}%
+\index{encode-decode 方法|)}%
+\index{自然数)}%
