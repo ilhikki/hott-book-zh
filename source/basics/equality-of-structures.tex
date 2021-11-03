@@ -1,38 +1,30 @@
-We now consider one example to illustrate the interaction between the groupoid structure on a type and the type
-formers.  In the introduction we remarked that one of the
-advantages of univalence is that two isomorphic things are interchangeable,
-in the sense that every property or construction involving one also
-applies to the other.  Common ``abuses of notation''\index{abuse!of notation} become formally
-true.  Univalence itself says that equivalent types are equal, and
-therefore interchangeable, which includes e.g.\  the common practice of identifying isomorphic sets.  Moreover, when we define other
-mathematical objects as sets, or even general types, equipped with structure or properties, we
-can derive the correct notion of equality for them from univalence.  We will illustrate this
-point with a significant example in \cref{cha:category-theory}, where we
-define the basic notions of category theory in such a way that equality
-of categories is equivalence, equality of functors is natural
-isomorphism, etc. See in particular \cref{sec:sip}.
- In this section, we describe a very simple example, coming from algebra.
+现在考虑一个例子, 来介绍类型上的广群结构和类型形成器的相互关系.
+在导论中评论过, 宇价的优势之一是, 两个同构的事物是可交换的, 从某种意义上来说, 涉及到其中之一的性质或者构造, 都适用于另一个.
+通用的 ``符号滥用''\index{滥用!符号的}形式上为真.
+宇价本身说, 等价的类型是相等的, 因此也是可交换的, 例如恒等同构集合的常规实践.
+进一步说, 其它数学对象例如集合, 乃至具有一定结构或者性质的一般类型, 从宇价可以准取推导它们的等同符号.
+\cref{cha:category-theory}中有一个重要的例子来介绍它, 定义了范畴论的基础概念, 其中用到了范畴的等同关系是等价关系, 函子的等同关系是自然同构, 等等.
+细节参见 \cref{sec:sip}.
+本节会描述一个源自代数的非常简单的例子.
 
-For simplicity, we use \emph{semigroups} as our example, where a
-semigroup is a type equipped with an associative ``multiplication''
-operation.  The same ideas apply to other algebraic structures, such as
-monoids, groups, and rings.
-Recall from \cref{sec:sigma-types,sec:pat} that the definition of a kind of mathematical structure should be interpreted as defining the type of such structures as a certain iterated $\Sigma$-type.
-In the case of semigroups this yields the following.
+为简单起见, 使用\emph{半群}作为例子, 半群是一个类型, 与一个满足结合律的 ``乘法'' 运算.
+同样的思路适用于其他代数结构, 比如幺半群, 群, 和环.
+回顾\cref{sec:sigma-types,sec:pat}, 一种数学结构的定义, 应该被理解为该结构作为某个迭代的 $\Sigma$-类型.
+半群的结果如下.
 
 \begin{defn}
-Given a type $A$, the type \semigroupstr{A} of \define{semigroup structures}
-\indexdef{semigroup!structure}%
-\index{structure!semigroup}%
-\index{associativity!of semigroup operation}%
-with carrier\index{carrier} $A$ is defined by
+给定类型 $A$, 以 $A$ 为载子\index{载子}的\define{半群结构}的类型 \semigroupstr{A}
+\indexdef{半群!结构}%
+\index{结构!半群}%
+\index{结合律!半群的运算}%
+被定义为
 \[
 \semigroupstr{A} \defeq \sm{m:A \to A \to A} \prd{x,y,z:A} m(x,m(y,z)) = m(m(x,y),z).
 \]
 %
-A \define{semigroup}
-\indexdef{semigroup}%
-is a type together with such a structure:
+\define{半群}
+\indexdef{半群}%
+是一个类型, 具有这样的结构:
 %
 \[
 \semigroup \defeq \sm{A:\type} \semigroupstr A
@@ -40,8 +32,7 @@ is a type together with such a structure:
 \end{defn}
 
 \noindent
-In the next two sections, we describe two ways in which univalence makes
-it easier to work with such semigroups.
+在接下来两节中, 会介绍宇价让处理此类半群更简单的两种途径.
 
 \subsection{Lifting equivalences}
 
