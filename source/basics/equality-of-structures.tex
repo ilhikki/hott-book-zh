@@ -21,111 +21,92 @@
     \[
         \semigroupstr{A} \defeq \sm{m:A \to A \to A} \prd{x,y,z:A} m(x,m(y,z)) = m(m(x,y),z).
     \]
-%
     \define{半群}
     \indexdef{半群}%
     是一个类型, 具有这样的结构:
-%
     \[
         \semigroup \defeq \sm{A:\type} \semigroupstr A
     \]
 \end{defn}
 
 \noindent
-在接下来两节中, 会介绍宇价让处理此类半群更简单的两种途径.
+在接下来两小节中, 会介绍宇价让处理此类半群更简单的两种方法.
 
-\subsection{Lifting equivalences}
+\subsection{等价关系提升}
 
-\index{lifting!equivalences}%
-When working loosely, one might say that a bijection between sets $A$
-and $B$ ``obviously'' induces an isomorphism between semigroup
-structures on $A$ and semigroup structures on $B$.  With univalence,
-this is indeed obvious, because given an equivalence between types $A$
-and $B$, we can automatically derive a semigroup structure on $B$ from
-one on $A$, and moreover show that this derivation is an equivalence of
-semigroup structures.  The reason is that \semigroupstrsym\ is a family
-of types, and therefore has an action on paths between types given by
-$\mathsf{transport}$:
+\index{提升!等价关系}%
+松散地说, 集合 $A$ 与 $B$ 之间的双射 ``显然'' 引导了一个 $A$ 的半群结构与 $B$ 的半群结构的之间的同构.
+根据宇价, 确实明显, 因为给定类型 $A$ 和 $B$ 之间的等价, 可以从 $A$ 上的半群结构, 自动推导出 $B$ 上的半群结构, 而且这个推导过程是半群结构的等价关系.
+因为 \semigroupstrsym\ 是类型族, 并可以 $\mathsf{transport}$ 类型之间的路径:
 \[
-\transfibf{\semigroupstrsym}{(\ua(e))} : \semigroupstr{A} \to \semigroupstr{B}.
+    \transfibf{\semigroupstrsym}{(\ua(e))} : \semigroupstr{A} \to \semigroupstr{B}.
 \]
-Moreover, this map is an equivalence, because
-$\transfibf{C}(\alpha)$ is always an equivalence with inverse
-$\transfibf{C}{(\opp \alpha)}$, see \cref{thm:transport-concat,thm:omg}.
+并且, 这个映射是一个等价关系, 因为 $\transfibf{C}(\alpha)$ 与逆 $\transfibf{C}{(\opp \alpha)}$ 总是等价的, 参见 \cref{thm:transport-concat,thm:omg}.
 
-While the univalence axiom\index{univalence axiom} ensures that this map exists, we need to use
-facts about $\mathsf{transport}$ proven in the preceding sections to
-calculate what it actually does. Let $(m,a)$ be a semigroup structure on
-$A$, and we investigate the induced semigroup structure on $B$ given by
+尽管\index{宇价公理}确保了这个映射存在, 还是要使用之前的节中的中证明关于 $\mathsf{transport}$ 的事实, 来计算它实际做了什么.
+令 $(m,a)$ 为 $A$ 上的半群结构, 并研究引导的 $B$ 上的半群结构
 \[
-\transfib{\semigroupstrsym}{\ua(e)}{(m,a)}.
+    \transfib{\semigroupstrsym}{\ua(e)}{(m,a)}.
 \]
-First, because
-\semigroupstr{X} is defined to be a $\Sigma$-type, by
-\cref{transport-Sigma},
+首先, 因为 \semigroupstr{X} 被定义为 $\Sigma$-类型, 通过\cref{transport-Sigma},
 \[
-\transfib{\semigroupstrsym}{\ua(e)}{(m,a)} = (m',a')
+    \transfib{\semigroupstrsym}{\ua(e)}{(m,a)} = (m',a')
 \]
-where $m'$ is an induced multiplication operation on $B$
+其中 $m'$ 是 $B$ 上的乘法运算,
 \begin{flalign*}
-& m' : B \to B \to B \\
-& m'(b_1,b_2) \defeq \transfib{X \mapsto (X \to X \to X)}{\ua(e)}{m}(b_1,b_2)
+    & m' : B \to B \to B \\
+    & m'(b_1,b_2) \defeq \transfib{X \mapsto (X \to X \to X)}{\ua(e)}{m}(b_1,b_2)
 \end{flalign*}
-and $a'$ an induced proof that $m'$ is associative.
-We have, again by \cref{transport-Sigma},
-\begin{equation}\label{eq:transport-semigroup-step1}
-  \begin{aligned}
-{}&a' :     \mathsf{Assoc}(B,m')\\
-  &a' \defeq \transfib{(X,m) \mapsto \mathsf{Assoc}(X,m)}{(\pairpath(\ua(e),\refl{m'}))}{a},
-  \end{aligned}
+而 $a'$ 是 $m'$ 符合结合律的证明.
+再次通过 \cref{transport-Sigma},
+\begin{equation}
+    \label{eq:transport-semigroup-step1}
+    \begin{aligned}
+    {}
+        &a' :     \mathsf{Assoc}(B,m')\\
+        &a' \defeq \transfib{(X,m) \mapsto \mathsf{Assoc}(X,m)}{(\pairpath(\ua(e),\refl{m'}))}{a},
+    \end{aligned}
 \end{equation}
-where $\mathsf{Assoc}(X,m)$ is the type $\prd{x,y,z:X} m(x,m(y,z)) = m(m(x,y),z)$.
-By function extensionality, it suffices to investigate the behavior of $m'$ when
-applied to arguments $b_1,b_2 : B$. By applying
-\eqref{eq:transport-arrow} twice, we have that $m'(b_1,b_2)$ is equal to
+其中 $\mathsf{Assoc}(X,m)$ 是类型 $\prd{x,y,z:X} m(x,m(y,z)) = m(m(x,y),z)$.
+根据函数外延性, 足以研究应用参数 $b_1,b_2 : B$ 时, $m'$ 的行为.
+通过应用两次 \eqref{eq:transport-arrow}, 有 $m'(b_1,b_2)$ 等于
 %
 \begin{narrowmultline*}
-  \transfibf{X \mapsto X}\big(
-      \ua(e), \narrowbreak
-      m(\transfib{X \mapsto X}{\opp{\ua(e)}}{b_1},
-        \transfib{X \mapsto X}{\opp{\ua(e)}}{b_2}
-       )
-   \big).
+    \transfibf{X \mapsto X}\big(
+    \ua(e), \narrowbreak
+    m(\transfib{X \mapsto X}{\opp{\ua(e)}}{b_1},
+    \transfib{X \mapsto X}{\opp{\ua(e)}}{b_2}
+    )
+    \big).
 \end{narrowmultline*}
 %
-Then, because $\ua$ is quasi-inverse to $\transfibf{X\mapsto X}$, this is equal to
+然后, 根据 $\ua$ quasi-inverse 于 $\transfibf{X\mapsto X}$, 它等于
 \[
-e(m(\opp{e}(b_1), \opp{e}(b_2))).
+    e(m(\opp{e}(b_1), \opp{e}(b_2))).
 \]
-Thus, given two elements of $B$, the induced multiplication $m'$
-sends them to $A$ using the equivalence $e$, multiplies them in $A$, and
-then brings the result back to $B$ by $e$, just as one would expect.
+因此, 给定两个 $B$ 的元素, 对应的乘法 $m'$ 使用等价关系 $e$, 使它们变成 $A$, 在 $A$ 中想乘, 并通过 $e$ 将结果变成 $B$, 和期待的一样.
 
-Moreover, though we do not show the proof, one can calculate that the
-induced proof that $m'$ is associative (see \eqref{eq:transport-semigroup-step1})
-is equal to a function sending
-$b_1,b_2,b_3 : B$ to a path given by the following steps:
+此外, 尽管没有展示, 但 $m'$ 符合结合律
+(参见 \eqref{eq:transport-semigroup-step1})
+的证明等于一个函数, 这个函数将 $b_1,b_2,b_3 : B$ 变成一个路径, 并由下面的步骤所给定:
 \begin{equation}
-  \label{eq:transport-semigroup-assoc}
-  \begin{aligned}
-    m'(m'(b_1,b_2),b_3)
-    &= e(m(\opp{e}(m'(b_1,b_2)),\opp{e}(b_3))) \\
-    &= e(m(\opp{e}(e(m(\opp{e}(b_1),\opp{e}(b_2)))),\opp{e}(b_3))) \\
-    &= e(m(m(\opp{e}(b_1),\opp{e}(b_2)),\opp{e}(b_3))) \\
-    &= e(m(\opp{e}(b_1),m(\opp{e}(b_2),\opp{e}(b_3)))) \\
-    &= e(m(\opp{e}(b_1),\opp{e}(e(m(\opp{e}(b_2),\opp{e}(b_3)))))) \\
-    &= e(m(\opp{e}(b_1),\opp{e}(m'(b_2,b_3)))) \\
-    &= m'(b_1,m'(b_2,b_3)).
-\end{aligned}
+    \label{eq:transport-semigroup-assoc}
+    \begin{aligned}
+        m'(m'(b_1,b_2),b_3)
+        &= e(m(\opp{e}(m'(b_1,b_2)),\opp{e}(b_3))) \\
+        &= e(m(\opp{e}(e(m(\opp{e}(b_1),\opp{e}(b_2)))),\opp{e}(b_3))) \\
+        &= e(m(m(\opp{e}(b_1),\opp{e}(b_2)),\opp{e}(b_3))) \\
+        &= e(m(\opp{e}(b_1),m(\opp{e}(b_2),\opp{e}(b_3)))) \\
+        &= e(m(\opp{e}(b_1),\opp{e}(e(m(\opp{e}(b_2),\opp{e}(b_3)))))) \\
+        &= e(m(\opp{e}(b_1),\opp{e}(m'(b_2,b_3)))) \\
+        &= m'(b_1,m'(b_2,b_3)).
+    \end{aligned}
 \end{equation}
-These steps use the proof $a$ that $m$ is associative and the inverse
-laws for~$e$.  From an algebra perspective, it may seem strange to
-investigate the identity of a proof that an operation is associative,
-but this makes sense if we think of $A$ and $B$ as general spaces, with
-non-trivial homotopies between paths.  In \cref{cha:logic}, we will
-introduce the notion of a \emph{set}, which is a type with only trivial
-homotopies, and if we consider semigroup structures on sets, then any
-two such associativity proofs are automatically equal.
+在这些步骤中, $a$ 是 $m$ 符合结合律的证明, 并使用了 $e$ 的逆法则.
+从代数的角度, 运算符合交换律的证明, 研究它的恒等看起来很奇怪,
+不过这样看是有意义的, $A$ 和 $B$ 是常规的空间, 和路径之间有意义的同伦关系.
+在 \cref{cha:logic}, 会介绍\emph{集合}的概念, 它是同伦关系不重要的类型,
+而如果考虑集合的半群结构, 那么任何结合律的证明, 都相等.
 
 \subsection{Equality of semigroups}
 \label{sec:equality-semigroups}
