@@ -128,32 +128,21 @@
     \prd{y_1,y_2:B} e(m(\opp{e}(y_1), \opp{e}(y_2))) = m'(y_1,y_2)
 \end{equation}
 而第二个部分展示了, $a'$ 等于 \eqref{eq:transport-semigroup-assoc} 中从 $a$ 构造出的结合律的证明.
-但是通过 cancellation of inverses \eqref{eq:equality-semigroup-mult} is equivalent to
+但是通过取消逆运算, \eqref{eq:equality-semigroup-mult}等于
 \[
-\prd{x_1,x_2:A} e(m(x_1, x_2)) = m'(e(x_1),e(x_2)).
+    \prd{x_1,x_2:A} e(m(x_1, x_2)) = m'(e(x_1),e(x_2)).
 \]
-This says that $e$ commutes with the binary operation, in the sense
-that it takes multiplication in $A$ (i.e.\ $m$) to multiplication in $B$
-(i.e.\ $m'$).  A similar rearrangement is possible for the equation relating
-$a$ and $a'$.  Thus, an equality of semigroups consists exactly of an
-equivalence on the carrier types that commutes with the semigroup
-structure.
+也就是说 $e$ 将 $A$ 中的乘法(例如 $m$) 变成 $B$ 中的乘法(i.e.\ $m'$), 在这个意义上它与二元运算互换.
+关于 $a$ 和 $a'$ 的方程也可以类似地重新排列.
+因此, 半群的等式完全由, 与半群结构互换的载体的等价关系组成.
 
-For general types, the proof of associativity is thought of as part of
-the structure of a semigroup.  However, if we restrict to set-like types
-(again, see \cref{cha:logic}), the
-equation relating $a$ and $a'$ is trivially true.  Moreover, in this
-case, an equivalence between sets is exactly a bijection.  Thus, we have
-arrived at a standard definition of a \emph{semigroup isomorphism}:\index{isomorphism!semigroup} a
-bijection on the carrier sets that preserves the multiplication
-operation.  It is also possible to use the category-theoretic definition
-of isomorphism, by defining a \emph{semigroup homomorphism}\index{homomorphism!semigroup} to be a map
-that preserves the multiplication, and arrive at the conclusion that equality of
-semigroups is the same as two mutually inverse homomorphisms; but we
-will not show the details here; see \cref{sec:sip}.
+对于通用类型, 结合率的证明被认为是半群的结构的一部分.
+然而, 如果限制为类似于集合的类型 (再次参见 \cref{cha:logic}), 关于 $a$ 和 $a'$ 的等式没有价值.
+此外, 在这个例子中, 集合之间的等价关系正好是一个双射.
+因此, 得到\emph{半群同构}:\index{同构!半群}的标准定义, 保持乘法运算的载体集上的双射.
+也可以使用同构的范畴论定义, 通过定义\emph{半群同态}\index{同态!半群}定义为保留乘法的运算, 并得出结论, 半群的等同关系就是两个互逆的同态;
+不过这里不展示细节;
+参见 \cref{sec:sip}.
 
-The conclusion is that, thanks to univalence, semigroups are equal
-precisely when they are isomorphic as algebraic structures. As we will see in \cref{sec:sip}, the
-conclusion applies more generally: in homotopy type theory, all constructions of
-mathematical structures automatically respect isomorphisms, without any
-tedious proofs or abuse of notation.
+感谢宇价, 结论就是, 当半群作为代数结构而同构时, 它们正好相等.
+在\cref{sec:sip} 中, 结论更通用: 在同伦类型论, 数学结构的所有构造天然的同构, 不需要任何的证明技术和符号滥用.
