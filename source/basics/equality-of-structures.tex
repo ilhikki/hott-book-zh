@@ -108,31 +108,27 @@
 在 \cref{cha:logic}, 会介绍\emph{集合}的概念, 它是同伦关系不重要的类型,
 而如果考虑集合的半群结构, 那么任何结合律的证明, 都相等.
 
-\subsection{Equality of semigroups}
+\subsection{半群的等同关系}
 \label{sec:equality-semigroups}
 
-Using the equations for path spaces discussed in the previous sections,
-we can investigate when two semigroups are equal. Given semigroups
-$(A,m,a)$ and $(B,m',a')$, by \cref{thm:path-sigma}, the type of paths
+使用上小节中, 路径空间的等式, 可以研究两个半群何时相等.
+给定半群 $(A,m,a)$ 和 $(B,m',a')$, 根据 \cref{thm:path-sigma}, 路径
 \narrowequation{
-  (A,m,a) =_\semigroup (B,m',a')
+    (A,m,a) =_\semigroup (B,m',a')
 }
-is equal to the type of pairs
+的类型等于对子
 \begin{align*}
-p_1 &: A =_{\type} B \qquad\text{and}\\
-p_2 &: \transfib{\semigroupstrsym}{p_1}{(m,a)} = {(m',a')}.
-\end{align*}
-By univalence, $p_1$ is $\ua(e)$ for some equivalence $e$. By
-\cref{thm:path-sigma}, function extensionality, and the above analysis of
-transport in the type family $\semigroupstrsym$, $p_2$ is equivalent to a pair
-of proofs, the first of which shows that
-\begin{equation*} \label{eq:equality-semigroup-mult}
-\prd{y_1,y_2:B} e(m(\opp{e}(y_1), \opp{e}(y_2))) = m'(y_1,y_2)
-\end{equation*}
-and the second of which shows that $a'$ is equal to the induced
-associativity proof constructed from $a$ in
-\eqref{eq:transport-semigroup-assoc}.  But by cancellation of inverses
-\eqref{eq:equality-semigroup-mult} is equivalent to
+    p_1 &: A =_{\type} B \qquad\text{和}\\
+    p_2 &: \transfib{\semigroupstrsym}{p_1}{(m,a)} = {(m',a')}
+\end{align*}的类型.
+对于等价关系 $e$, 根据宇价, $p_1$ 是 $\ua(e)$.
+根据 \cref{thm:path-sigma}, 函数外延性, 和上面的类型族 $\semigroupstrsym$ 中的 transport 的分析, $p_2$ 等价于证明一个的对子, 对子的第一个部分是
+\begin{equation}
+    \label{eq:equality-semigroup-mult}
+    \prd{y_1,y_2:B} e(m(\opp{e}(y_1), \opp{e}(y_2))) = m'(y_1,y_2)
+\end{equation}
+而第二个部分展示了, $a'$ 等于 \eqref{eq:transport-semigroup-assoc} 中从 $a$ 构造出的结合律的证明.
+但是通过 cancellation of inverses \eqref{eq:equality-semigroup-mult} is equivalent to
 \[
 \prd{x_1,x_2:A} e(m(x_1, x_2)) = m'(e(x_1),e(x_2)).
 \]
