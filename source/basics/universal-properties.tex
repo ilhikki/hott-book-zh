@@ -1,132 +1,131 @@
-\index{universal!property|(}%
-By combining the path computation rules described in the preceding sections, we can show that various type forming operations satisfy the expected universal properties, interpreted in a homotopical way as equivalences.
-For instance, given types $X,A,B$, we have a function
+\index{泛!性质|(}%
+结合上节中的路径计算规则, 各种路径的形成运算满足预期的泛性质, 以同伦的方式, 被解释为等价.
+例如, 给定类型 $X,A,B$, 函数
 \index{type!product}%
 \begin{equation}\label{eq:prod-ump-map}
   (X\to A\times B) \to (X\to A)\times (X\to B)
 \end{equation}
-defined by $f \mapsto (\proj1 \circ f, \proj2\circ f)$.
+定义为 $f \mapsto (\proj1 \circ f, \proj2\circ f)$.
 
 \begin{thm}\label{thm:prod-ump}
-  \index{universal!property!of cartesian product}%
-  \eqref{eq:prod-ump-map} is an equivalence.
+  \index{泛!性质!笛卡尔积的}%
+  \eqref{eq:prod-ump-map}是一个等价关系.
 \end{thm}
 \begin{proof}
-  We define the quasi-inverse by sending $(g,h)$ to $\lam{x}(g(x),h(x))$.
-  (Technically, we have used the induction principle for the cartesian product $(X\to A)\times (X\to B)$, to reduce to the case of a pair.
-  From now on we will often apply this principle without explicit mention.)
+  定义 quasi-inverse 为输入 $(g,h)$ 输出 $\lam{x}(g(x),h(x))$.
+  (技术上, 使用了笛卡尔积 $(X\to A)\times (X\to B)$ 的归纳原理, 来化简为对子.
+  现在开始会经常用到这个原理, 而不显式说明.)
 
-  Now given $f:X\to A\times B$, the round-trip composite yields the function
+  现在给定 $f:X\to A\times B$, 往返的组合产生了这个函数
   \begin{equation}
     \lam{x} (\proj1(f(x)),\proj2(f(x))).\label{eq:prod-ump-rt1}
   \end{equation}
-  By \cref{thm:path-prod}, for any $x:X$ we have $(\proj1(f(x)),\proj2(f(x))) = f(x)$.
-  Thus, by function extensionality, the function~\eqref{eq:prod-ump-rt1} is equal to $f$.
+  根据\cref{thm:path-prod}, 对于任何 $x:X$ 有 $(\proj1(f(x)),\proj2(f(x))) = f(x)$.
+  因此, 根据函数的外延性, 函数~\eqref{eq:prod-ump-rt1}等于 $f$.
 
-  On the other hand, given $(g,h)$, the round-trip composite yields the pair $(\lam{x} g(x),\lam{x} h(x))$.
-  By the uniqueness principle for functions, this is (judgmentally) equal to $(g,h)$.
+  另外一边, 给定 $(g,h)$, 往返的组合产生了这个对子 $(\lam{x} g(x),\lam{x} h(x))$.
+  通过函数的唯一性定理, 它 (判断) 等于 $(g,h)$.
 \end{proof}
 
-In fact, we also have a dependently typed version of this universal property.
-Suppose given a type $X$ and type families $A,B:X\to \type$.
-Then we have a function
+实际上, 还有一个依值类型版本的泛性质.
+给定一个类型 $X$ 和类型族 $A,B:X\to \type$.
+然后有函数
 \begin{equation}\label{eq:prod-umpd-map}
   \Parens{\prd{x:X} (A(x)\times B(x))} \to \Parens{\prd{x:X} A(x)} \times \Parens{\prd{x:X} B(x)}
 \end{equation}
-defined as before by $f \mapsto (\proj1 \circ f, \proj2\circ f)$.
+和之前一样, 定义为 $f \mapsto (\proj1 \circ f, \proj2\circ f)$.
 
 \begin{thm}\label{thm:prod-umpd}
-  \eqref{eq:prod-umpd-map} is an equivalence.
+  \eqref{eq:prod-umpd-map} 是一个等价关系.
 \end{thm}
 \begin{proof}
-  Left to the reader.
+  留给读者.
 \end{proof}
 
-Just as $\Sigma$-types are a generalization of cartesian products, they satisfy a generalized version of this universal property.
-Jumping right to the dependently typed version, suppose we have a type $X$ and type families $A:X\to \type$ and $P:\prd{x:X} A(x)\to\type$.
-Then we have a function
+就像 $\Sigma$-类型是笛卡尔积的推广, 它们满足这个泛性质的推广版本.
+直接到依值类型的版本, 假设有类型 $X$ 和类型族 $A:X\to \type$ 与 $P:\prd{x:X} A(x)\to\type$.
+那么有一个函数
 \index{type!dependent pair}%
 \begin{equation}
   \label{eq:sigma-ump-map}
   \Parens{\prd{x:X}\dsm{a:A(x)} P(x,a)} \to
   \Parens{\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))}.
 \end{equation}
-Note that if we have $P(x,a) \defeq B(x)$ for some $B:X\to\type$, then~\eqref{eq:sigma-ump-map} reduces to~\eqref{eq:prod-umpd-map}.
+注意如果 $P(x,a) \defeq B(x)$ 其中 $B:X\to\type$, 那么~\eqref{eq:sigma-ump-map} 简化为~\eqref{eq:prod-umpd-map}.
 
 \begin{thm}\label{thm:ttac}
-  \index{universal!property!of dependent pair type}%
-  \eqref{eq:sigma-ump-map} is an equivalence.
+  \index{泛!性质!依值对子类型}%
+  \eqref{eq:sigma-ump-map} 是一个等价关系.
 \end{thm}
 \begin{proof}
-  As before, we define a quasi-inverse to send $(g,h)$ to the function $\lam{x} (g(x),h(x))$.
-  Now given $f:\prd{x:X} \sm{a:A(x)} P(x,a)$, the round-trip composite yields the function
+  和之前一样, 定义一个 quasi-inverse, 输入 $(g,h)$ 并输出函数 $\lam{x} (g(x),h(x))$.
+  现在给定 $f:\prd{x:X} \sm{a:A(x)} P(x,a)$, 往返的组合产生了这个函数
   \begin{equation}
     \lam{x} (\proj1(f(x)),\proj2(f(x))).\label{eq:prod-ump-rt2}
   \end{equation}
-  Now for any $x:X$, by \cref{thm:eta-sigma} (the uniqueness principle for $\Sigma$-types) we have
+  现在对于任何 $x:X$, 推论\cref{thm:eta-sigma} ($\Sigma$-类型的唯一性原则) we have
   %
   \begin{equation*}
     (\proj1(f(x)),\proj2(f(x))) = f(x).
   \end{equation*}
   %
-  Thus, by function extensionality,~\eqref{eq:prod-ump-rt2} is equal to $f$.
-  On the other hand, given $(g,h)$, the round-trip composite yields $(\lam {x} g(x),\lam{x} h(x))$, which is judgmentally equal to $(g,h)$ as before.
+  因此, 根据函数外延性,~\eqref{eq:prod-ump-rt2} 等于 $f$.
+  另一边, 给定 $(g,h)$, 往返的组合产生了 $(\lam {x} g(x),\lam{x} h(x))$, 也判断等同于 $(g,h)$.
 \end{proof}
 
-\index{axiom!of choice!type-theoretic}
-This is noteworthy because the propositions-as-types interpretation of~\eqref{eq:sigma-ump-map} is ``the axiom of choice''.
-If we read $\Sigma$ as ``there exists'' and $\Pi$ (sometimes) as ``for all'', we can pronounce:
+\index{公理!选择!类型论的}
+值得注意的是, 因为命题即证明说明~\eqref{eq:sigma-ump-map} 是 ``选择公理''.
+如果将 $\Sigma$ 看作 ``存在'' 而将 $\Pi$ (有时)看作 ``对于所有'', 可以宣布:
 \begin{itemize}
-\item $\prd{x:X} \sm{a:A(x)} P(x,a)$ as ``for all $x:X$ there exists an $a:A(x)$ such that $P(x,a)$'', and
-\item $\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))$ as ``there exists a choice function $g:\prd{x:X} A(x)$ such that for all $x:X$ we have $P(x,g(x))$''.
+  \item $\prd{x:X} \sm{a:A(x)} P(x,a)$ 是 ``对于所有 $x:X$ 存在 $a:A(x)$ 满足 $P(x,a)$'', 而且
+  \item $\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))$ 是 ``存在选择函数 $g:\prd{x:X} A(x)$ 满足对于所有 $x:X$ 有 $P(x,g(x))$''.
 \end{itemize}
-Thus, \cref{thm:ttac} says that not only is the axiom of choice ``true'', its antecedent is actually equivalent to its conclusion.
-(On the other hand, the classical\index{mathematics!classical} mathematician may find that~\eqref{eq:sigma-ump-map} does not carry the usual meaning of the axiom of choice, since we have already specified the values of $g$, and there are no choices left to be made.
-We will return to this point in \cref{sec:axiom-choice}.)
+因此, \cref{thm:ttac}说, 选择公理不仅是``对的'', 它的先行词实际上等同于它的结论.
+(一方面, 古典的\index{数学家!古典的}数学会发现~\eqref{eq:sigma-ump-map}不具有选择公理的常规含义, 因为已经指定了 $g$ 的值, 并没有选择可言.
+会在\cref{sec:axiom-choice}回到这一点.)
 
-The above universal property for pair types is for ``mapping in'', which is familiar from the category-theoretic notion of products.
-However, pair types also have a universal property for ``mapping out'', which may look less familiar.
-In the case of cartesian products, the non-dependent version simply expresses
-the cartesian closure adjunction\index{adjoint!functor}:
+上面对子类型的泛性质针对 ``映射入'', 也就是范畴论中令人熟悉的积的概念.
+然而, 对子类型还有针对 ``映射出'' 的泛性质, 而不那么熟悉.
+笛卡尔积的情况下, 非依值版本简单表示了这个笛卡尔闭伴随\index{伴随!函子}:
 \[ \eqvspaced{\big((A\times B) \to C\big)}{\big(A\to (B\to C)\big)}.\]
-The dependent version of this is formulated for a type family $C:A\times B\to \type$:
+它的依值版本由类型族 $C:A\times B\to \type$ 表示:
 \[ \eqvspaced{\Parens{\prd{w:A\times B} C(w)}}{\Parens{\prd{x:A}{y:B} C(x,y)}}. \]
-Here the right-to-left function is simply the induction principle for $A\times B$, while the left-to-right is evaluation at a pair.
-We leave it to the reader to prove that these are quasi-inverses.
-There is also a version for $\Sigma$-types:
+这里从右到左的函数就是 $A\times B$ 的归纳原理, 而从左到右的是 is evaluation at a pair.
+留给读者证明它们是 quasi-inverses.
+同样有 $\Sigma$-类型的版本:
 \begin{equation}
   \eqvspaced{\Parens{\prd{w:\sm{x:A} B(x)} C(w)}}{\Parens{\prd{x:A}{y:B(x)} C(x,y)}}.\label{eq:sigma-lump}
 \end{equation}
-Again, the right-to-left function is the induction principle.
+同样, 从右到左的函数是归纳原理.
 
-Some other induction principles are also part of universal properties of this sort.
-For instance, path induction is the right-to-left direction of an equivalence as follows:
-\index{type!identity}%
-\index{universal!property!of identity type}%
+一些其他归纳原理也是这种泛性质的一部分.
+例如, 路径归纳是下面这个等价的从右到左:
+\index{类型!恒等}%
+\index{泛!性质!恒等类型的}%
 \begin{equation}
   \label{eq:path-lump}
   \eqvspaced{\Parens{\prd{x:A}{p:a=x} B(x,p)}}{B(a,\refl a)}
 \end{equation}
-for any $a:A$ and type family $B:\prd{x:A} (a=x) \to\type$.
-However, inductive types with recursion, such as the natural numbers, have more complicated universal properties; see \cref{cha:induction}.
+对于任何 $a:A$ 和类型族 $B:\prd{x:A} (a=x) \to\type$.
+不过, 递归的归纳类型, 例如自然数, 有更复杂的泛性质; 参见 \cref{cha:induction}.
 
-\index{type!limit}%
-\index{type!colimit}%
-\index{limit!of types}%
-\index{colimit!of types}%
-Since \cref{thm:prod-ump} expresses the usual universal property of a cartesian product (in an appropriate homotopy-theoretic sense), the categorically inclined reader may well wonder about other limits and colimits of types.
-In \cref{ex:coprod-ump} we ask the reader to show that the coproduct type $A+B$ also has the expected universal property, and the nullary cases of $\unit$ (the terminal object) and $\emptyt$ (the initial object) are easy.
-\index{type!empty}%
-\index{type!unit}%
-\indexsee{initial!type}{type, empty}%
-\indexsee{terminal!type}{type, unit}%
+\index{类型!极限}%
+\index{类型!余极限}%
+\index{极限!类型的}%
+\index{余极限!类型的}%
+因为 \cref{thm:prod-ump} 表示了笛卡尔积的常规泛性质 (在恰当的同伦论的意义上), 范畴倾向的读者可能想知道其它类型的极限和余极限.
+\cref{ex:coprod-ump} 询问读者余积类型 $A+B$ 预期的泛性质, 而 $\unit$ (终对象) 和 $\emptyt$ (始对象) 的零元情况是容易的.
+\index{类型!空}%
+\index{类型!单元}%
+\indexsee{始!类型}{类型, 空}%
+\indexsee{终!类型}{类型, 单元}%
 
-\indexdef{pullback}%
-For pullbacks, the expected explicit construction works: given $f:A\to C$ and $g:B\to C$, we define
+\indexdef{拉回}%
+对于拉回, 预期的显示构造成立: 给定 $f:A\to C$ 和 $g:B\to C$, 定义
 \begin{equation}
   A\times_C B \defeq \sm{a:A}{b:B} (f(a)=g(b)).\label{eq:defn-pullback}
 \end{equation}
-In \cref{ex:pullback} we ask the reader to verify this.
-Some more general homotopy limits can be constructed in a similar way, but for colimits we will need a new ingredient; see \cref{cha:hits}.
+在 \cref{ex:pullback} 请读者来验证它.
+一些更泛用的同伦极限可以被简单的方法狗咋, 不过对于余极限, 需要新成分; 参见\cref{cha:hits}.
 
-\index{universal!property|)}%
+\index{泛!性质|)}%
