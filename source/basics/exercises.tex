@@ -1,125 +1,143 @@
 \sectionExercises
 
-\begin{ex}\label{ex:basics:concat}
-Show that the three obvious proofs of \cref{lem:concat} are pairwise equal.
+\begin{ex}
+    \label{ex:basics:concat}
+    逐对展示\cref{lem:concat}的三个显然的证明相等.
 \end{ex}
 
-\begin{ex}\label{ex:eq-proofs-commute}
-Show that the three equalities of proofs constructed in the previous exercise form a commutative triangle.
-In other words, if the three definitions of concatenation are denoted by $(p \mathbin{\ct_1} q)$, $(p\mathbin{\ct_2} q)$, and $(p\mathbin{\ct_3} q)$, then the concatenated equality
-\[(p\mathbin{\ct_1} q) = (p\mathbin{\ct_2} q) = (p\mathbin{\ct_3} q)\]
-is equal to the equality $(p\mathbin{\ct_1} q) = (p\mathbin{\ct_3} q)$.
+\begin{ex}
+    \label{ex:eq-proofs-commute}
+    展示上一个练习中构建的三个等式构成一个可交换三角形.
+    换句话说, 如果三个串接的定义被记作 $(p \mathbin{\ct_1} q)$, $(p\mathbin{\ct_2} q)$, 和 $(p\mathbin{\ct_3} q)$, 那么串接的等同关系
+    \[(p\mathbin{\ct_1} q) = (p\mathbin{\ct_2} q) = (p\mathbin{\ct_3} q)\]
+    等于等同关系 $(p\mathbin{\ct_1} q) = (p\mathbin{\ct_3} q)$.
 \end{ex}
 
-\begin{ex}\label{ex:fourth-concat}
-Give a fourth, different, proof of \cref{lem:concat}, and prove that it is equal to the others.
+\begin{ex}
+    \label{ex:fourth-concat}
+    给出\cref{lem:concat}的第四个不同的证明, 并证明它等同于其它的.
 \end{ex}
 
-\begin{ex}\label{ex:npaths}
-Define, by induction on $n$, a general notion of \define{$n$-dimensional path}\index{path!n-@$n$-} in a type $A$, simultaneously with the type of boundaries for such paths.
+\begin{ex}
+    \label{ex:npaths}
+    通过在 $n$ 上归纳, 在类型 $A$ 中, 定义一个通用的 \define{$n$-维路径}\index{路径!n-@$n$-} 的概念, 同时定义这种路径的边界类型.
 \end{ex}
 
-\begin{ex}\label{ex:ap-to-apd-equiv-apd-to-ap}
-Prove that the functions~\eqref{eq:ap-to-apd} and~\eqref{eq:apd-to-ap} are inverse equivalences.
+\begin{ex}
+    \label{ex:ap-to-apd-equiv-apd-to-ap}
+    证明函数~\eqref{eq:ap-to-apd} 逆等价于~\eqref{eq:apd-to-ap}.
     % and that they take $\apfunc f(p)$ to $\apdfunc f (p)$ and vice versa. (that was \cref{thm:apd-const})
 \end{ex}
 
-\begin{ex}\label{ex:equiv-concat}
-Prove that if $p:x=y$, then the function $(p\ct \blank):(y=z) \to (x=z)$ is an equivalence.
+\begin{ex}
+    \label{ex:equiv-concat}
+    证明如果 $p:x=y$, 那么函数 $(p\ct \blank):(y=z) \to (x=z)$ 是等价关系.
 \end{ex}
 
-\begin{ex}\label{ex:ap-sigma}
-State and prove a generalization of \cref{thm:ap-prod} from cartesian products to $\Sigma$-types.
+\begin{ex}
+    \label{ex:ap-sigma}
+    陈述并证明, 将\cref{thm:ap-prod} 从笛卡尔积推广到 $\Sigma$-类型.
 \end{ex}
 
-\begin{ex}\label{ex:ap-coprod}
-State and prove an analogue of \cref{thm:ap-prod} for coproducts.
+\begin{ex}
+    \label{ex:ap-coprod}
+    陈述并证明, 对于余积, \cref{thm:ap-prod} 的类似.
 \end{ex}
 
-\begin{ex}\label{ex:coprod-ump}
-\index{universal!property!of coproduct}%
-Prove that coproducts have the expected universal property,
-\[ \eqv{(A+B \to X)}{(A\to X)\times (B\to X)}. \]
-Can you generalize this to an equivalence involving dependent functions?
+\begin{ex}
+    \label{ex:coprod-ump}
+    \index{泛!性质!余积的}%
+    证明余积有期望的泛性质,
+    \[ \eqv{(A+B \to X)}{(A\to X)\times (B\to X)}. \]
+    你能推广它到涉及依值函数的一个等价关系吗?
 \end{ex}
 
-\begin{ex}\label{ex:sigma-assoc}
-Prove that $\Sigma$-types are ``associative'',
-\index{associativity!of Sigma-types@of $\Sigma$-types}%
-in that for any $A:\UU$ and families $B:A\to\UU$ and $C:(\sm{x:A} B(x))\to\UU$, we have
-\[\eqvspaced{\Parens{\sm{x:A}{y:B(x)} C(\pairr{x,y})}}{\Parens{\sm{p:\sm{x:A}B(x)} C(p)}}. \]
+\begin{ex}
+    \label{ex:sigma-assoc}
+    证明 $\Sigma$-类型符合 ``结合律'',
+    \index{结合律!Sigma-类型的@$\Sigma$-类型的}%
+    也就是对于任何 $A:\UU$ 和族 $B:A\to\UU$ 以及 $C:(\sm{x:A} B(x))\to\UU$, 有
+    \[\eqvspaced{\Parens{\sm{x:A}{y:B(x)} C(\pairr{x,y})}}{\Parens{\sm{p:\sm{x:A}B(x)} C(p)}}. \]
 \end{ex}
 
-\begin{ex}\label{ex:pullback}
-A (homotopy) \define{commutative square}
-\indexdef{commutative!square}%
-\begin{equation*}
-    \vcenter{\xymatrix{
-        P\ar[r]^h\ar[d]_k &
-        A\ar[d]^f\\
-        B\ar[r]_g &
-        C
-    }}
-\end{equation*}
-consists of functions $f$, $g$, $h$, and $k$ as shown, together with a path $f \circ h= g \circ k$.
-Note that this is exactly an element of the pullback $(P\to A) \times_{P\to C} (P\to B)$ as defined in~\eqref{eq:defn-pullback}.
-A commutative square is called a (homotopy) \define{pullback square}
-\indexdef{pullback}%
-if for any $X$, the induced map
-\[ (X\to P) \to (X\to A) \times_{(X\to C)} (X\to B) \]
-is an equivalence.
-Prove that the pullback $P \defeq A\times_C B$ defined in~\eqref{eq:defn-pullback} is the corner of a pullback square.
+\begin{ex}
+    \label{ex:pullback}
+    一个 (同伦的) \define{交换方形}
+    \indexdef{交换!方形}%
+    \begin{equation*}
+        \vcenter{\xymatrix{
+            P\ar[r]^h\ar[d]_k &
+            A\ar[d]^f\\
+            B\ar[r]_g &
+            C
+        }}
+    \end{equation*}
+    存在函数 $f$, $g$, $h$, 以及 $k$ 如图所示, 其中路径 $f \circ h= g \circ k$.
+    注意这恰好是是定义在~\eqref{eq:defn-pullback}的拉回 $(P\to A) \times_{P\to C} (P\to B)$ 的一个元素.
+    交换方形被称为 (同伦) \define{拉回方形}
+    \indexdef{拉回}%
+    如果对于任何 $X$, 相关映射
+    \[ (X\to P) \to (X\to A) \times_{(X\to C)} (X\to B) \]
+    是等价关系.
+    证明定义在~\eqref{eq:defn-pullback}中的拉回 $P \defeq A\times_C B$  是拉回方形的一个角.
 \end{ex}
 
-\begin{ex}\label{ex:pullback-pasting}
-Suppose given two commutative squares
-\begin{equation*}
-    \vcenter{\xymatrix{
-        A\ar[r]\ar[d] &
-        C\ar[r]\ar[d] &
-        E\ar[d]\\
-        B\ar[r] &
-        D\ar[r] &
-        F
-    }}
-\end{equation*}
-and suppose that the right-hand square is a pullback square.
-Prove that the left-hand square is a pullback square if and only if the outer rectangle is a pullback square.
+\begin{ex}
+    \label{ex:pullback-pasting}
+    假设给定两个交换方形
+    \begin{equation*}
+        \vcenter{\xymatrix{
+            A\ar[r]\ar[d] &
+            C\ar[r]\ar[d] &
+            E\ar[d]\\
+            B\ar[r] &
+            D\ar[r] &
+            F
+        }}
+    \end{equation*}
+    并假设右边的方形是拉回方形.
+    证明左边的方形是拉回方形, 当且仅当外边的长方形是一个拉回方形.
 \end{ex}
 
-\begin{ex}\label{ex:eqvboolbool}
-Show that $\eqv{(\eqv\bool\bool)}{\bool}$.
+\begin{ex}
+    \label{ex:eqvboolbool}
+    展示 $\eqv{(\eqv\bool\bool)}{\bool}$.
 \end{ex}
 
-\begin{ex}\label{ex:equality-reflection}
-Suppose we add to type theory the \emph{equality reflection rule} which says that if there is an element $p:x=y$, then in fact $x\jdeq y$.
-Prove that for any $p:x=x$ we have $p\jdeq \refl{x}$.
-(This implies that every type is a \emph{set} in the sense to be introduced in \cref{sec:basics-sets}; see \cref{sec:hedberg}.)
+\begin{ex}
+    \label{ex:equality-reflection}
+    假设添加 \emph{等同关系自反规则} 到类型论, 也就是说如果有一元素 $p:x=y$, 那么 $x\jdeq y$.
+    证明对于任何 $p:x=x$ 有 $p\jdeq \refl{x}$.
+    (这暗示了所有类型, 在 \cref{sec:basics-sets} 中介绍的意义中, 都是 \emph{集合}; 参见 \cref{sec:hedberg}.)
 \end{ex}
 
-\begin{ex}\label{ex:strengthen-transport-is-ap}
-Show that \cref{thm:transport-is-ap} can be strengthened to
-\[\transfib{B}{p}{{\blank}} =_{B(x)\to B(y)} \idtoeqv(\apfunc{B}(p))\]
-without using function extensionality.
-(In this and other similar cases, the apparently weaker formulation has been chosen for readability and consistency.)
+\begin{ex}
+    \label{ex:strengthen-transport-is-ap}
+    展示 \cref{thm:transport-is-ap} 可以增强为
+    \[\transfib{B}{p}{{\blank}} =_{B(x)\to B(y)} \idtoeqv(\apfunc{B}(p))\]
+    不需要使用函数外延性.
+    (为了可读性和一致性, 在它和类似的情况之间, 选择了看起来弱的表述方式.)
 \end{ex}
 
-\begin{ex}\label{ex:strong-from-weak-funext}
-Suppose that rather than function extensionality (\cref{axiom:funext}), we suppose only the existence of an element
-\[ \funext : \prd{A:\UU}{B:A\to \UU}{f,g:\prd{x:A} B(x)} (f\htpy g) \to (f=g) \]
-(with no relationship to $\happly$ assumed).
-Prove that in fact, this is sufficient to imply the whole function extensionality axiom (that $\happly$ is an equivalence).
-This is due to Voevodsky; its proof is tricky and may require concepts from later chapters.
+\begin{ex}
+    \label{ex:strong-from-weak-funext}
+    假设没有函数外延性 (\cref{axiom:funext}), 而是只假设存在一个元素
+    \[ \funext : \prd{A:\UU}{B:A\to \UU}{f,g:\prd{x:A} B(x)} (f\htpy g) \to (f=g) \]
+    (假定和 $\happly$ 没有关系).
+    证明实际上, 这意味整个函数外延性公理 (即 $\happly$ 是一个等价关系).
+    这源自 Voevodsky; 它的证明是复杂的而且需要接下来的章中的概念.
 \end{ex}
 
-\begin{ex}\label{ex:equiv-functor-types}\
-\begin{enumerate}
-    \item Show that if $\eqv{A}{A'}$  and $\eqv{B}{B'}$, then $\eqv{(A\times B)}{(A'\times B')}$.
-    \item Give two proofs of this fact, one using univalence and one not using it, and show that the two proofs are equal.
-    \item Formulate and prove analogous results for the other type formers: $\Sigma$, $\to$, $\Pi$, and $+$.
-\end{enumerate}
+\begin{ex}
+    \label{ex:equiv-functor-types}\
+    \begin{enumerate}
+        \item 展示如果 $\eqv{A}{A'}$  而且 $\eqv{B}{B'}$, 那么 $\eqv{(A\times B)}{(A'\times B')}$.
+        \item 给定两个这个事实的证明, 一个使用一价性而另一个不使用, 然后展示这两个证明相等.
+        \item 用公式表示并证明其他类型形成器的类似结果: $\Sigma$, $\to$, $\Pi$, 以及 $+$.
+    \end{enumerate}
 \end{ex}
 
-\begin{ex}\label{ex:dep-htpy-natural}
-State and prove a version of \cref{lem:htpy-natural} for dependent functions.
+\begin{ex}
+    \label{ex:dep-htpy-natural}
+    陈述并证明依值函数版本的 \cref{lem:htpy-natural}.
 \end{ex}
