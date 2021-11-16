@@ -1,70 +1,71 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \sectionNotes
 
-The definition of identity types, with their induction principle, is due to Martin-L\"of \cite{Martin-Lof-1972}.
-\index{intensional type theory}%
-\index{extensional!type theory}%
-\index{type theory!intensional}%
-\index{type theory!extensional}%
-\index{reflection rule}%
-As mentioned in the notes to \cref{cha:typetheory}, our identity types are those that belong to \emph{intensional} type theory, rather than \emph{extensional} type theory.
-In general, a notion of equality is said to be ``intensional'' if it distinguishes objects based on their particular definitions, and ``extensional'' if it does not distinguish between objects that have the same ``extension'' or ``observable behavior''.
-In the terminology of Frege, an intensional equality compares \emph{sense}, while an extensional one compares only \emph{reference}.
-We may also speak of one equality being ``more'' or ``less'' extensional than another, meaning that it takes account of fewer or more intensional aspects of objects, respectively.
+恒等类型的定义, 以及它的归纳原理, 源自 Martin-L\"of \cite{Martin-Lof-1972}.
+\index{内延类型论}%
+\index{外延!类型论}%
+\index{类型论!外延}%
+\index{类型论!内延}%
+\index{反射规则}%
+正如 \cref{cha:typetheory} 的备注所提及的, 我萌的恒等类型术语\emph{内延}类型论难, 而不是\emph{外延}类型论.
+通常, 对于一个等同关系的概念, 如果基于对象的特殊的定义区分对象, 它就是 ``内延性''的, 而如果不区分有相同 ``内延'' 或者 ``可观察行为''的对象, 就是 ``外延性''的.
+在 Frege 的术语中, 内延性的等同关系对比\emph{意义}, 而内延性的只对比\emph{引用}.
+可以说一个等同关系比另外的等同关系有``更多'' 或 ``更少''的外延性, 分别代表它考虑了更少或更多的对象的内延性方面.
 
-\emph{Intensional} type theory is so named because its \emph{judgmental} equality, $x\jdeq y$, is a very intensional equality: it says essentially that $x$ and $y$ ``have the same definition'', after we expand the defining equations of functions.
-By contrast, the propositional equality type $\id xy$ is more extensional, even in the axiom-free intensional type theory of \cref{cha:typetheory}: for instance, we can prove by induction that $n+m=m+n$ for all $m,n:\N$, but we cannot say that $n+m\jdeq m+n$ for all $m,n:\N$, since the \emph{definition} of addition treats its arguments asymmetrically.
-We can make the identity type of intensional type theory even more extensional by adding axioms such as function extensionality (two functions are equal if they have the same behavior on all inputs, regardless of how they are defined) and univalence (which can be regarded as an extensionality property for the universe: two types are equal if they behave the same in all contexts).
-The axioms of function extensionality, and univalence in the special case of mere propositions (``propositional extensionality''), appeared already in the first type theories of Russell and Church.
+\emph{内延性}类型论被这样命名是因为它的\emph{判断}等同, $x\jdeq y$, 是一个非常内延的等同关系: 它本质上是说, 在展开定义的等式后, $x$ 和 $y$ ``有一样的定义''.
+通过对比, 命题的等同关系类型 $\id xy$ 更外延, 即使在\cref{cha:typetheory} 的无公理内延类型论: 例如, 对于所有 $m,n:\N$, 可以通过归纳证明 $n+m=m+n$, 但是不能说对于所有 $m,n:\N$ 有 $n+m\jdeq m+n$, 因为加法的\emph{定义}非对称地处理其参数.
+可以通过添加公理让内延类型论的恒等类型更外延, 例如函数的外延性 (两个函数如果所有输入, 有相同的行为, 它们就是是相等的, 无论它们怎么定义) 和一价性 (可以当作宇宙的外延性质: 如果两个类型在所有语境行为一致, 那么它们相等).
+函数的外延性公理, 和纯命题情况下的一价性 (``命题的外延性''), 已经出现在的 Russell 和 Church 的第一个类型论中.
 
-As mentioned before, \emph{extensional} type theory includes also a ``reflection rule'' saying that if $p:x=y$, then in fact $x\jdeq y$.
-Thus extensional type theory is so named because it does \emph{not} admit any purely \emph{intensional} equality: the reflection rule forces the judgmental equality to coincide with the more extensional identity type.
-Moreover, from the reflection rule one may deduce function extensionality (at least in the presence of a judgmental uniqueness principle for functions).
-However, the reflection rule also implies that all the higher groupoid structure collapses (see \cref{ex:equality-reflection}), and hence is inconsistent with the univalence axiom (see \cref{thm:type-is-not-a-set}).
-Therefore, regarding univalence as an extensionality property, one may say that intensional type theory permits identity types that are ``more extensional'' than extensional type theory does.
+正如之前提及的, \emph{外延}类型论也包含了 ``反射规则'', 如果 $p:x=y$, 那么实际上 $x\jdeq y$.
+因此外延类型论这样命名的原因是, 它\emph{不}允许任何纯粹的\emph{内延性}等价: 反射规则强制判等同关系于恒等类型一致.
+此外, 从反射规则可以推导出函数的外延性 (至少在函数的判断的唯一性原则存在的情况下).
+然而, 反射规则也暗示了所有高阶群胚结构坍塌 (参见 \cref{ex:equality-reflection}), 因此与一价性公理矛盾 (参见 \cref{thm:type-is-not-a-set}).
+于是, 一价性被视为外延性质, 也就是说内延类型论允许恒等类型比外延类型论 ``更外延''.
 
-The proofs of symmetry (inversion) and transitivity (concatenation) for equalities are well-known in type theory.
-The fact that these make each type into a 1-groupoid (up to homotopy) was exploited in~\cite{hs:gpd-typethy} to give the first ``homotopy'' style semantics for type theory.
+类型论中, 等同关系的对称性 (逆) 和传递性 (连接) 的证明是总所周知的.
+在~\cite{hs:gpd-typethy}中, 利用了些让每种类型成为一维群胚 (到同伦) 的事实, 给出了类型论的第一 ``同伦'' 风格语义.
 
-The actual homotopical interpretation, with identity types as path spaces, and type families as fibrations, is due to \cite{AW}, who used the formalism of Quillen model categories.  An interpretation in (strict) $\infty$-groupoids\index{.infinity-groupoid@$\infty$-groupoid} was also given in the thesis \cite{mw:thesis}.
-For a construction of \emph{all} the higher operations and coherences of an $\infty$-groupoid in type theory, see~\cite{pll:wkom-type} and~\cite{bg:type-wkom}.
+同伦的实际理解, 恒等类型作为路径空间, 类型族作为纤维化, 源自 \cite{AW}, 它使用了 Quillen 模型范畴的形式主义.
+(严格) $\infty$-维群胚\index{.infinity-groupoid@$\infty$-groupoid}中的一个理解同样在论文 \cite{mw:thesis} 给定.
+对于\emph{所有}高阶运算和类型论中 $\infty$-维群胚的一致性的构造, 参见~\cite{pll:wkom-type} 和~\cite{bg:type-wkom}.
 
-\index{proof!assistant!Coq@\textsc{Coq}}%
-Operations such as $\transfib{P}{p}{\blank}$ and $\apfunc{f}$, and one good notion of equivalence, were first studied extensively in type theory by Voevodsky, using the proof assistant \Coq.
-Subsequently, many other equivalent definitions of equivalence have been found, which are compared in \cref{cha:equivalences}.
+\index{证明!助手!Coq@\textsc{Coq}}%
+例如 $\transfib{P}{p}{\blank}$ 和 $\apfunc{f}$ 的运算, 以及和很好的等价关系的概念, 在类型论中, 首先是由 Voevodsky 广泛研究, 在证明助手 \Coq 中使用.
+接着找到很多等价关系的等价的定义, 会在 \cref{cha:equivalences} 中比较它们.
 
-The ``computational'' interpretation of identity types, transport, and so on described in \cref{sec:computational} has been emphasized by~\cite{lh:canonicity}.
-They also described a ``1-truncated'' type theory (see \cref{cha:hlevels}) in which these rules are judgmental equalities.
-The possibility of extending this to the full untruncated theory is a subject of current research.
+恒等类型, transport, 等等这些在\cref{sec:computational} 中讨论的``计算科学''的概念, 被~\cite{lh:canonicity} 强调.
+它们还被描述为 ``一维截断'' 类型论 (参见 \cref{cha:hlevels}), 即它们的规则是判断等同的.
+将它们扩展到完整的非截断理论的可能性是目前研究的一个课题.
 
-\index{function extensionality}%
-The naive form of function extensionality which says that ``if two functions are pointwise equal, then they are equal'' is a common axiom in type theory, going all the way back to \cite{PM2}.
-Some stronger forms of function extensionality were considered in~\cite{garner:depprod}.
-The version we have used, which identifies the identity types of function types up to equivalence, was first studied by Voevodsky, who also proved that it is implied by the naive version (and by univalence; see \cref{sec:univalence-implies-funext}).
+\index{函数外延性}%
+朴素地, 函数外延性说 ``如果函数逐点的相等, 那么它们相等'' 是类型论中常见的公理, 可以追溯到 \cite{PM2}.
+在~\cite{garner:depprod}中, 考虑了一些更强的函数外延性的形式.
+我们使用的版本, 让函数类型的恒等类型, 恒等于等价关系, 首先被 Voevodsky 精心安排, 他还证明了这被朴素的版本暗示 (通过一价性; 参见 \cref{sec:univalence-implies-funext}).
 
-\index{univalence axiom}%
-The univalence axiom is also due to Voevodsky.
-It was originally motivated by semantic considerations in the simplicial set model; see~\cite{klv:ssetmodel}.
-A similar axiom motivated by the groupoid model was proposed by Hofmann and Streicher~\cite{hs:gpd-typethy} under the name ``universe extensionality''.
-It used quasi-inverses~\eqref{eq:qinvtype} rather than a good notion of ``equivalence'', and hence is correct (and equivalent to univalence) only for a universe of 1-types (see \cref{defn:1type}).
+\index{一价性公理}%
+一价性公理同样源自于 Voevodsky.
+它最初是为了研究单纯集合模型中语义; 参见~\cite{klv:ssetmodel}.
+一个类似的公理叫做``宇宙外延性'', 由Hofmann and Streicher~\cite{hs:gpd-typethy}提出, 为了研究群胚模型.
+它使用准逆~\eqref{eq:qinvtype}而不是更好的概念 ``等价关系'', 因此仅对于一维类型的宇宙中准确 (并等价于一价性) (参见 \cref{defn:1type}).
 
-In the type theory we are using in this book, function extensionality and univalence have to be assumed as axioms, i.e.\ elements asserted to belong to some type but not constructed according to the rules for that type.
-While serviceable, this has a few drawbacks.
-For instance, type theory is formally better-behaved if we can base it entirely on rules rather than asserting axioms.
-It is also sometimes inconvenient that the theorems of \crefrange{sec:compute-cartprod}{sec:compute-nat} are only propositional equalities (paths) or equivalences, since then we must explicitly mention whenever we pass back and forth across them.
-One direction of current research in homotopy type theory is to describe a type system in which these rules are \emph{judgmental} equalities, solving both of these problems at once.
-So far this has only been done in some simple cases, although preliminary results such as~\cite{lh:canonicity} are promising.
-There are also other potential ways to introduce univalence and function extensionality into a type theory, such as having a sufficiently powerful notion of ``higher quotients'' or ``higher inductive-recursive types''.
+在本书使用的类型论中, 假定函数外延性和一价性为公理, 也就是声明元素属于一些类型, 但是不通过这些类型的规则构造.
+虽然够用, 但是仍有一些缺点.
+例如, 如果能完全基于规则而不是声明公理, 类型论在形式上会更好.
+不方便的是, \crefrange{sec:compute-cartprod}{sec:compute-nat} 中的公理只是命题的等同 (路径) 或者等价关系, 每当在它们之间来回穿过时, 都必须显式提及.
+现在同伦类型论的一个研究方向是, 描述一个类型系统, 它的规则是\emph{判断的}等同, 将这些问题一次解决.
+迄今为止, 这些只在一些简单的情况下做到了, 尽管诸如~\cite{lh:canonicity} 的初步结果是有希望的.
+还有一些其它潜在的途径, 引入一价性和函数外延性到类型论中, 例如有一个足够强大的 ``higher quotients'' 或者 ``higher inductive-recursive types'' 概念.
 
-The simple conclusions in \crefrange{sec:compute-coprod}{sec:compute-nat} such as ``$\inl$ and $\inr$ are injective and disjoint'' are well-known in type theory, and the construction of the function \encode is the usual way to prove them.
-The more refined approach we have described, which characterizes the entire identity type of a positive type (up to equivalence), is a more recent development; see e.g.~\cite{ls:pi1s1}.
+\crefrange{sec:compute-coprod}{sec:compute-nat} 中简单的结论像 ``$\inl$ 和 $\inr$ 单射且不交'' 在类型论中众所周知, 而函数 \encode 的构造是证明它的常规方法.
+描述过的更优雅的方法是, 塑造全部正类型的恒等类型 (称为等价关系), 是最近的发展; 参见例子~\cite{ls:pi1s1}.
 
-\index{axiom!of choice!type-theoretic}%
-The type-theoretic axiom of choice~\eqref{eq:sigma-ump-map} was noticed in William Howard's original paper~\cite{howard:pat} on the propositions-as-types correspondence, and was studied further by Martin-L\"of with the introduction of his dependent type theory.  It is mentioned as a ``distributivity law'' in Bourbaki's set theory \cite{Bourbaki}.\index{Bourbaki}%
+\index{公理!选择!类型论的}%
+类型论的选择~\eqref{eq:sigma-ump-map}公理, 在 William Howard's 的关于命题即类型的对应关系原创论文~\cite{howard:pat} 中被注意到, 并由 Martin-L\"of 随着引入他的依值类型论被进一步研究.
+在 Bourbaki 的集合论 \cite{Bourbaki} 中, 作为``分配性法则'' 被提及.\index{Bourbaki}%
 
-For a more comprehensive (and formalized) discussion of pullbacks and more general homotopy limits in homotopy type theory, see~\cite{AKL13}.
-Limits\index{limit!of types} of diagrams over directed graphs\index{graph} are the easiest general sort of limit to formalize; the problem with diagrams over categories (or more generally $(\infty,1)$-categories)
-\index{.infinity1-category@$(\infty,1)$-category}%
-\indexsee{category!.infinity1-@$(\infty,1)$-}{$(\infty,1)$-category}%
-is that in general, infinitely many coherence conditions are involved in the notion of (homotopy coherent) diagram.\index{diagram}
-Resolving this problem is an important open question\index{open!problem} in homotopy type theory.
+对于同伦类型论中, 更全面 (和形式的) 拉回和通用的同伦极限的讨论, 参见~\cite{AKL13}.
+有向图\index{图}上关系图的极限\index{极限!类型的}是最容易形式化的一种常规极限; 范畴上的关系图 (或者更泛用的 $(\infty,1)$-维范畴) 的问题是
+\index{.infinity1-维范畴@$(\infty,1)$-维范畴}%
+\indexsee{范畴!.infinity1-@$(\infty,1)$-}{$(\infty,1)$-维范畴}%
+一般来说, 在 (同伦一致) 关系图的概念中, 涉及到很多无穷的一致性判断条件.\index{关系图}
+在同伦类型论中, 如何解决这个问题是一个重要的开放性问题\index{开放性!问题}.
