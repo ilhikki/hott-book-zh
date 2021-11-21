@@ -1,190 +1,199 @@
-给定类型 $A,B:\UU$ 构造类型 $A\times B:\UU$, 这个类型被称为\define{笛卡尔积}.
+给定类型 $A,B:\UU$, 我们引入类型 $A\times B:\UU$, 称其为\define{笛卡尔积}.
 \indexsee{笛卡尔积}{类型, 积}%
 \indexsee{类型!笛卡尔积}{类型, 积}%
 \index{类型!积|(defstyle}%
 \indexsee{积!类型的}{类型, 积}%
-还有空乘积类型, 它又被称为\define{单元类型} $\unit : \UU$.
-\indexsee{无效!积}{类型, 单元}%
+并引入零元乘积类型, 称其为\define{单元类型} $\unit : \UU$.
+\indexsee{零元!积}{类型, 单元}%
 \indexsee{单元!类型}{类型, 单元}%
 \index{类型!单元|(defstyle}%
-把 $A\times B$ 的元素写成对子 $\tup{a}{b} : A \times B$, 其中 $a:A$ 而且 $b:B$, 而且类型 $\unit$ 唯一的元素是特殊对象 $\ttt : \unit$.
-\indexdef{对子!有序的}%
-然而, 和集合论不同, 在集合论中, 有序对子是特殊的集合, 它组成了笛卡尔集, 而在类型论中, 有序对子是一个和函数一样的原始概念.
+规定 $A\times B$ 的元素为序对 $\tup{a}{b} : A \times B$, 其中 $a:A$ 和 $b:B$, 而类型 $\unit$ 唯一元素是特殊对象 $\ttt : \unit$.
+\indexdef{序对!有序的}%
+集合论中, 有序对子被定义为特殊的集合, 并汇总为笛卡尔积, 然而, 和集合论不同, 在类型论中, 有序对子是和函数一样的一个原始概念.
 
 \begin{rmk}
     \label{rmk:introducing-new-concepts}
-    类型论中有一种引入新类型的通用模式.
-    在\cref{sec:function-types,sec:pi-types}\footnote{对宇宙的描写是一个意外.}已经见过, 在这里值得强它的调通用形式.
+    类型论中, 有一种引入新类型的通用模式.
+    在\cref{sec:function-types,sec:pi-types}\footnote{全集的描述是例外.}已经见过, 值得在此强调这个通用形式.
     为了指定一个类型, 需要指定:
     \begin{enumerate}
-        \item 如何构造类型, 可以通过\define{形成规则}.
+        \item 如何创建这样的类型, 可以通过\define{形成规则}.
         \indexdef{形成规则}%
         \index{规则!形成}%
-        (例如, 可以构造函数 $A \to B$, 其中 $A$ 是一个类型, 而 $B$ 也是一个类型.
-        可以构造依赖函数类型 $\prd{x:A} B(x)$, 其中的 $A$ 是一个类型, 而 $B(x)$ 是一个类型, 且 $x:A$.)
+        (例如, $A$ 是一个类型, 而 $B$ 也是一个类型时, 可以形成函数类型 $A \to B$.
+        当 $A$ 是一个类型, 且对于 $x:A$, $B(x)$ 是一个类型时, 可以形成依值函数类型 $\prd{x:A} B(x)$.)
 
         \item 如何构造类型的元素.
         这被称为类型的\define{构造器}或者\define{构造规则}.
         \indexdef{构造器}%
         \indexdef{规则!引入}%
         \indexdef{构造规则}%
-        (例如, $\lambda$-抽象是每个函数的构造器.
-        回顾直接定义, 就像 $f(x)\defeq 2x$ 可以等价地被表达为 $\lambda$-抽象 $f\defeq \lam{x} 2x$.)
+        (例如, 函数类型有一个构造器, $\lambda$-抽象.
+        直接回顾定义可以等价地表示为 $\lambda$-抽象, 例如 $f(x)\defeq 2x$ 与 $f\defeq \lam{x} 2x$.)
 
         \item 如何使用这个类型的元素.
-        这被称为\define{消去器}或者\define{消去规则}.
-        \indexsee{规则!消去}{消去器}%
-        \indexsee{消去规则}{消去器}%
-        \indexdef{消去器}%
-        (例如, 每个函数类型有一个消去器, 即函数的应用)
+        这被称为\define{消元器}或\define{消元规则}.
+        \indexsee{规则!消元}{消元器}%
+        \indexsee{消元规则}{消元器}%
+        \indexdef{消元器}%
+        (例如, 函数类型有一个消元器, 即函数的应用)
 
         \item
-        一个\define{计算规则}\indexdef{计算规则}\footnote{也被称为 \define{$\beta$-化简}\index{beta-化简@$\beta $-化简|footstyle}}, 它表示了消去器如何作用于一个构造器.
-        (例如函数, 计算规则表示 $(\lamu{x:A}\Phi)(a)$ 判断相等于把 $\Phi$ 中的 $x$ 替换为 $a$ 的结果.)
+        一个\define{计算规则}\indexdef{计算规则}\footnote{也被称为 \define{$\beta$-化简}\index{beta-化简@$\beta $-化简|footstyle}}, 它表示了消元器在构造器上的行为.
+        (例如函数, 计算规则表示 $(\lamu{x:A}\Phi)(a)$ 判断上等同于把 $\Phi$ 中的 $x$ 替换为 $a$ 的结果.)
 
         \item
         一个可选的的\define{唯一性原理}\indexdef{唯一性!原理}\footnote{也被称为 \define{$\eta$-扩展}\index{eta-扩展@$\eta $-扩展|footstyle}}, 它表示类型映射前后的唯一性.
-        对于某些类型, 唯一性原理是到这个类型的映射的特征, 表示所有这个类型的元素的唯一性只取决于应用消去器到这个元素的结果, 而且它可以从应用构造器的结果中重构 --- 从而表示构造函数如何作用于消去器, 与计算规则相对应.
-        (例如, 对于函数, 唯一性原理说明任何函数 $f$  判断等于``扩展''函数 $\lamu{x} f(x)$, 而唯一性取决于它自己的值)
-        对于其它类型,唯一性原理说明每个定义域为该类型的映射(函数)的唯一性取决于一些值.
+        对于某些类型, 唯一性原理是到这个类型的映射的特征, 表示所有这个类型的元素的唯一性只取决于应用消元器到这个元素的结果, 并可以从应用构造器的结果再次构造 --- 因此表示构造器在消元器上的行为, 与计算规则相对应.
+        (例如, 对于函数, 唯一性原理说明任何函数 $f$ 判断上等同于``展开的''函数 $\lamu{x} f(x)$, 因此唯一性取决于它自己的值)
+        对于其它类型, 唯一性原理说明, 每个来自这个类型的映射(函数), 被某些数据唯一确定.
         (例如\cref{sec:coproduct-types}引入的余积类型, 其唯一性原理在\cref{sec:universal-properties}中提及.)
 
-        当唯一性原理不作为判断等同的规则时, 它通常也可以作为\emph{命题}等同来从其它关于这个类型的规则来证明.
-        这个情况下我们称之为\define{命题唯一性原理}.
+        唯一性原理不作为判断的等同关系的规则时, 通常也可以作为\emph{命题的}等同关系来从其它关于这个类型的规则来证明.
+        这个情况下称之为\define{命题的唯一性原理}.
         \indexdef{唯一性!原理, 命题的}%
         \indexsee{命题的!唯一性原理}{唯一性原理, 命题的}%
-        (在后面的章节我们也偶尔会遇见\emph{命题唯一性原理}.)
+        (后面的章节偶尔也会遇到\emph{命题的唯一性原理}.)
         \indexdef{计算规则!命题的}%
     \end{enumerate}
     规则推理在 \cref{sec:syntax-more-formally} 进行相应的组织和命名;
     参见例子 \cref{sec:more-formal-pi}, 这里实现了每种可能性.
 \end{rmk}
 
-构造对子的方法是明显的: 给定 $a:A$ 和 $b:B$, 可以构造 $(a,b):A\times B$.
+构造序对的方法是明显的: 给定 $a:A$ 和 $b:B$, 可以形成 $(a,b):A\times B$.
 类似的, 构造 $\unit$ 的元素的唯一方法是, $\ttt:\unit$.
-``每个 A × B 的元素是一个对子'', 即乘积的唯一性原理;
-它没有被假定是类型论的规则, 之后会用命题等同来证明它.
+我们希望 ``所有 A × B 的元素是一个序对'', 即乘积的唯一性原理;
+它没有被宣布为类型论的规则, 之后会用命题的等同关系来证明它.
 
-现在, 如何\emph{使用}对子, 即如何根据乘积类型来定义函数?
-首先考虑非依赖函数的定义 $f : A\times B \to C$.
-因为 $A\times B$ 的元素只能是对子, 所以定义函数的方法就是规定函数 $f$ 应用到对子 $\tup{a}{b}$ 的结果.
+现在, 如何\emph{使用}序对, 即, 如何根据乘积类型来定义函数?
+首先考虑非依值函数的定义 $f : A\times B \to C$.
+因为 $A\times B$ 的元素只能是序对, 所以定义函数的方法就是, 规定函数 $f$ 应用到序对 $\tup{a}{b}$ 的结果.
 可以通过提供一个函数 $g : A \to B \to C$, 来规定它的结果.
-因此, 引入一个新的规则(乘积的消去规则), 即对于任何 $g$, 可以定义函数 $f : A\times B \to C$:
+因此, 引入一个新的规则(乘积的消元规则), 即对于任何 $g$, 可以定义函数 $f : A\times B \to C$, 通过:
 \[
     f(\tup{a}{b}) \defeq g(a)(b).
 \]
-这里避免写作 $g(a,b)$, 来强调 $g$ 不是一个定义域是乘积类型的函数.
-(不过, 之后本书会经常使用 $g(a,b)$, 不管定义域是乘积类型的函数还是两个变量柯里化以后的函数.)
+这里避免写作 $g(a,b)$, 来强调 $g$ 不是一个是乘积上的函数.
+(不过, 之后本书会经常使用 $g(a,b)$, 不管对于乘积上的函数还是两个变量柯里化以后的函数.)
 这个定义等式是乘积类型的计算规则\index{计算规则!乘积类型的}.
 
-注意在集合论中, 可以通过所有 $A\times B$ 的元素都是有序对这个事实, 来解释上面的定义 $f$ 的合理性.
-所以通过这种对来定义 $f$ 的方式已经足够了.
-类型论与之相反: 假设 $A\times B$是良好定义的, 就像它的值只能是对子一样, 然后(或者更加缜密, 从下面更加通用的依赖函数的版本)可以\emph{证明} $A\times B$ 的每个元素都是对子.
-从范畴论来看, 可以说我定义了乘积 $A\times B$ 左伴随于 ``指数'' $B\to C$, 正如之前介绍的.
+注意在集合论中, 可以通过所有 $A\times B$ 的元素都是有序对子的事实, 解释上面的定义 $f$ 的合理性.
+于是足以这样定义序对上的 $f$.
+类型论与之相反: 假设 $A\times B$ 是定义良好的, 就像它的值只能是序对一样, 然后(或者更加缜密, 从下面更加通用的依值函数的版本)可以\emph{证明} $A\times B$ 的每个元素都是序对.
+从范畴论的角度来看, 可以说定义乘积 $A\times B$ 左伴随于 ``指数'' $B\to C$, 正如之前介绍的.
 
-例如, 可以派生\define{投影}\indexsee{函数!投影}{投影}%
-\indexsee{组成, 对子的}{投影}%
+作为一个例子, 可以推导\define{投影}%
+\indexsee{函数!投影}{投影}%
+\indexsee{组成, 序对的}{投影}%
 \indexdef{投影!从笛卡尔积类型}%
-函数 \symlabel{defn:proj}%
+函数
+\symlabel{defn:proj}%
 \begin{align*}
     \fst &: A \times B \to A \\
     \snd &: A \times B \to B
 \end{align*}
-和定义等式
+通过定义等式
 \begin{align*}
     \fst(\tup{a}{b}) &\defeq a \\
     \snd(\tup{a}{b}) &\defeq b.
 \end{align*}
 %
 \symlabel{defn:recursor-times}%
-比起每次定义函数时调用这个以函数定义的原理, 一个替代方法是只在宇宙上执行一次, 然后可以在其它情况下应用得到的函数.
+每次定义函数时, 比起调用这个以函数定义的原理, 一个替代方法是只在全集上执行一次, 得到一个函数, 所有其它情况下, 直接应用它.
 即可以定义一个函数类型
 \begin{equation}
     \rec{A\times B} : \prd{C:\UU}(A \to B \to C) \to A \times B \to C
 \end{equation}
-和这个定义等式
+通过定义等式
 \[
     \rec{A\times B}(C,g,\tup{a}{b}) \defeq g(a)(b).
 \]
-然后这样直接根据定义等式来定义函数 $\fst$ 和 $\snd$, 可以这样定义
+接着直接通过定义等式来定义函数, 例如 $\fst$ 和 $\snd$, 可以定义
 \begin{align*}
     \fst &\defeq \rec{A\times B}(A, \lam{a}{b} a)\\
     \snd &\defeq \rec{A\times B}(B, \lam{a}{b} b).
 \end{align*}
-可以把函数 $\rec{A\times B}$ 称为乘积类型的\define{递归子}\indexsee{递归子}{递归原理}.
-``递归子''这个名字有一点不好, 因为此处没有递归.
-这是因为乘积类型是归纳类型的通用框架的简化, 对于自然数这样的类型来说, 递归子确实是递归的.
-也可以讨论笛卡尔积的\define{递归原理}, 意味可以通过给定它的值, 定义函数 $f:A\times B\to C$ 如上所述.
+可以把函数 $\rec{A\times B}$ 称为乘积类型的\define{递归器}\indexsee{递归器}{递归原理}.
+``递归器''这个名字, 在此稍有遗憾, 因为没有递归.
+这是因为乘积类型是归纳类型的通用框架的退化, 对于自然数这样的类型来说, 递归器确实是递归的.
+我们说笛卡尔积的\define{递归原理}, 意味可以通过给定在序对上的的值, 定义函数 $f:A\times B\to C$ 如上所述.
 \index{递归原理!笛卡尔积的}%
 
-它被留作习题: 递归子可以从投影派生, 反之亦然. % Ex: Derive from projections
+它被留作习题: 递归器可以从投影推导, 反之亦然. % Ex: Derive from projections
 
 
 \symlabel{defn:recursor-unit}%
-单元类型也有一个递归子:
+单元类型也有一个递归器:
 \[
     \rec{\unit} : \prd{C:\UU}C \to \unit \to C
 \]
-和这个定义等式
+通过定义等式
 \[
     \rec{\unit}(C,c,\ttt) \defeq c.
 \]
-尽管为了保持类型定义的模式仍然包含了$\unit$, 但在递归子中完全没有被使用, 因为可以忽略 $\unit$ 的参数直接定义这个函数.
+尽管为了保持类型定义的模式仍然包含了$\unit$, 但这个递归器完全没用, 因为可以忽略 $\unit$ 的参数直接定义这个函数.
 
-为了能够在乘积类型上定义\emph{依赖}函数, 必须一般化递归子.
-给定 $C: A \times B \to \UU$, 可以定义函数 $f : \prd{x : A \times B} C(x)$ 通过提供一个函数\narrowequation{g : \prd{x:A}\prd{y:B} C(\tup{x}{y})}和定义等式
+为了能够在乘积类型上定义\emph{依值}函数, 需要推广递归器.
+给定 $C: A \times B \to \UU$, 可以定义函数 $f : \prd{x : A \times B} C(x)$, 通过提供一个函数\narrowequation{g : \prd{x:A}\prd{y:B} C(\tup{x}{y})}和定义等式
 \[
     f(\tup x y) \defeq g(x)(y).
 \]
-例如, 可以这样证明命题的唯一性原理, 也就是说每个 $A\times B$ 的元素, 都有一个对子和它是相等的.
+例如, 可以这样证明命题的唯一性原理, 也就是说每个 $A\times B$ 的元素, 等同于一个序对.
 \index{唯一性!原理, 命题的!乘积类型的}%
-具体地说, 可以构造一个函数
+具体地, 可以构造一个函数
 \[
     \uniq{A\times B} : \prd{x:A \times B} (\id[A\times B]{\tup{\fst {(x)}}{\snd {(x)}}}{x}).
 \]
-这里使用了恒等类型, 会在 \cref{sec:identity-types} 引入它.
-不过, 现在只需要知道, 它有一个自反元素 $\refl{x} : \id[A]{x}{x}$ 对于任何 $x:A$.
+这里使用的恒等类型, 会在 \cref{sec:identity-types} 引入.
+不过, 现在只需要知道, 对于任何 $x:A$, 它有一个自反元素 $\refl{x} : \id[A]{x}{x}$.
 给定它, 可以定义
 \label{uniquenessproduct}
 \[
     \uniq{A\times B}(\tup{a}{b}) \defeq \refl{\tup{a}{b}}.
 \]
-这个构造是有效的, 因为 $x \defeq \tup{a}{b}$ 的情况下, 我们可以使用自反的定义等式, 计算  \[ \tup{\fst(\tup{a}{b})}{\snd{(\tup{a}{b})}} \jdeq \tup{a}{b} .\]
+这个构造有效, 因为 $x \defeq \tup{a}{b}$ 的情况下, 可以计算
+\[
+    \tup{\fst(\tup{a}{b})}{\snd{(\tup{a}{b})}} \jdeq \tup{a}{b}
+\]
+通过使用自反的定义等式.
 因此,
 \[
     \refl{\tup{a}{b}} : \id{\tup{\fst(\tup{a}{b})}{\snd{(\tup{a}{b})}}}{\tup{a}{b}}
 \]
-是良型的, 因为等式两边定义相等.
+是良型的, 因为等同关系的两边定义上等同.
 
-更一般地说, 这种定义依赖函数的方法意味着, 如果要为一个乘积的所有元素证明一个性质, 只需为它的标准元素, 即有序对子证明即可.
+更一般地说, 这种定义依值函数的方法意味, 为了给一个乘积的所有元素证明一个性质, 只需为它的标准元素, 即有序对子证明即可.
 对于自然数这样的归纳类型, 类似的性质可以通过归纳来证明.
-因此在通用情况, 我们像上面一样应用这个原理, 得到乘积类型的\define{归纳}函数: 给定 $A,B : \UU$ 有 \symlabel{defn:induction-times}%
+因此在通用情况, 像上面那样, 在全集上应用这个原理, 得到乘积类型的\define{归纳}函数: 给定 $A,B : \UU$ 有
+\symlabel{defn:induction-times}%
 \[
     \ind{A\times B} : \prd{C:A \times B \to \UU}
     \Parens{\prd{x:A}{y:B} C(\tup{x}{y})} \to \prd{x:A \times B} C(x)
 \]
-和这个定义等式
+通过定义等式
 \[
     \ind{A\times B}(C,g,\tup{a}{b}) \defeq g(a)(b).
 \]
-类似的, 可以说, 定义在对子上的依赖函数, 来自笛卡尔积的\define{归纳原理}\index{归纳原理}%
+类似的, 可以说, 定义在序对上的依值函数, 得自笛卡尔积的\define{归纳原理}.
+\index{归纳原理}%
 \index{归纳原理!积的}%
-很容易发现,递归就是 $C$ 为常量的特殊的归纳.
-归纳描述了乘积类型中元素的使用方法, 归纳也被称为\define{(依赖)消去器}, \indexsee{消去器!归纳类型的!依赖}{归纳原理}%
-递归被称为\define{非依赖消去器}.
-\indexsee{消去器!归纳类型的!非依赖}{递归原理}%
-\indexsee{非依赖消去器}{递归原理}%
-\indexsee{依赖消去器}{归纳原理}%
+很容易发现, 递归就是 $C$ 为常量的特殊的归纳.
+归纳描述了乘积类型中元素的使用方法, 归纳也被称为\define{(依值)消元器},
+\indexsee{消元器!归纳类型的!依值}{归纳原理}%
+递归被称为\define{非依值消元器}.
+\indexsee{消元器!归纳类型的!非依值}{递归原理}%
+\indexsee{非依值消元器}{递归原理}%
+\indexsee{依值消元器}{归纳原理}%
 
 % We can read induction propositionally as saying that a property which
 % is true for all pairs holds for all elements of the product type.
 
-单元类型的归纳比它的递归子更有用:
+单元类型的归纳比它的递归器更有用:
 \symlabel{defn:induction-unit}%
 \[
     \ind{\unit} : \prd{C:\unit \to \UU} C(\ttt) \to \prd{x:\unit}C(x)
 \]
-和定义等式
+通过定义等式
 \[
     \ind{\unit}(C,c,\ttt) \defeq c.
 \]
@@ -194,11 +203,11 @@
 \[
     \uniq{\unit} : \prd{x:\unit} \id{x}{\ttt}
 \]
-通过这个定义等式
+通过使用定义等式
 \[
     \uniq{\unit}(\ttt) \defeq \refl{\ttt}
 \]
-或者使用归纳:
+或者等价地通过使用归纳:
 \[
     \uniq{\unit} \defeq \ind{\unit}(\lamu{x:\unit} \id{x}{\ttt},\refl{\ttt}).
 \]
