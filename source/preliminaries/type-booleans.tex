@@ -1,23 +1,23 @@
 \indexsee{布尔!类型}{布尔类型}%
 \index{类型!布尔|(defstyle}%
 布尔类型 $\bool:\UU$ 有两个居留元素 $\bfalse,\btrue : \bool$.
-显然可以用余积\index{类型!余积}和单元\index{类型!单元}类型$\unit + \unit$来构造这个类型.
+显然可以用余积\index{类型!余积}和单元\index{类型!单元}类型$\unit + \unit$ 来构造这个类型.
 % this one results in a warning message just because it's on the same page as the previous entry
 % for {type!coproduct}, so it's not our fault
 %
-不过由于它被频繁地使用, 这里给出显式的规则.
-实际可以观察到, 有另一种方式从 $\Sigma$-类型和 $\bool$ 得到二元余积.
+不过由于它被频繁使用, 这里给出显式的规则.
+实际可以观察到, 有另一种方式, 可以从 $\Sigma$-类型和 $\bool$ 得到二元余积.
 
 \index{递归原理!布尔类型的}
-为了得到函数 $f : \bool \to C$, 需要 $c_0,c_1 : C$ 并加入定义等同
+为了得到函数 $f : \bool \to C$, 需要 $c_0,c_1 : C$ 并添加定义等式
 \begin{align*}
     f(\bfalse) &\defeq c_0, \\
     f(\btrue) &\defeq c_1.
 \end{align*}
-递归子相当于函数式编程中的 if-then-else 结构:
+递归器相当于函数式编程中的 if-then-else 结构:
 \symlabel{defn:recursor-bool}%
 \[ \rec{\bool} : \prd{C:\UU} C \to C \to \bool \to C \]
-与定义等式
+和定义等式
 \begin{align*}
     \rec{\bool}(C,c_0,c_1,\bfalse) &\defeq c_0, \\
     \rec{\bool}(C,c_0,c_1,\btrue) &\defeq c_1.
@@ -29,30 +29,30 @@
     f(\bfalse) &\defeq c_0, \\
     f(\btrue) &\defeq c_1.
 \end{align*}
-将其封装为归纳原理
+将其打包为归纳原理
 \symlabel{defn:induction-bool}%
 \[ \ind{\bool} : \dprd{C:\bool \to \UU}  C(\bfalse) \to C(\btrue)
 \to \tprd{x:\bool} C(x) \]
-与定义等式
+和定义等式
 \begin{align*}
     \ind{\bool}(C,c_0,c_1,\bfalse) &\defeq c_0, \\
     \ind{\bool}(C,c_0,c_1,\btrue) &\defeq c_1.
 \end{align*}
 
 举个例子, 使用归纳原理可以演绎出, 所有 $\bool$ 的元素必须是 $\btrue$ 或者 $\bfalse$.
-和以前一样, 为了陈述它, 需要使用还没有被引入的等同类型, 使用所有东西等于它自己这个事实, 即 $\refl{x}:x=x$.
+和以前一样, 为了陈述它, 需要使用还没有被引入的等同关系类型, 只需使用所有东西等于它自己这个事实, 即 $\refl{x}:x=x$.
 也就是, 构造一个元素, 它的类型是
 \begin{equation}
     \label{thm:allbool-trueorfalse}
     \prd{x:\bool}(x=\bfalse)+(x=\btrue),
 \end{equation}
-即一个函数接收参数 $x:\bool$ 返回 $x=\bfalse$ 或 $x=\btrue$.
+即一个函数指定每个 $x:\bool$ 等同关系 $x=\bfalse$ 或等同关系 $x=\btrue$.
 使用 \bool 的归纳原理, 其中 $C(x) \defeq (x=\bfalse)+(x=\btrue)$;
 两个输入为 $\inl(\refl{\bfalse}) : C(\bfalse)$ 和 $\inr(\refl{\btrue}):C(\btrue)$.
 换句话说,\eqref{thm:allbool-trueorfalse} 元素是
 \[ \ind{\bool}\big(\lam{x}(x=\bfalse)+(x=\btrue),\, \inl(\refl{\bfalse}),\, \inr(\refl{\btrue})\big). \]
 
-回忆 $\Sigma$-类型可以被当作不交和, 而余积可以被视为二元的不交并.
+回忆 $\Sigma$-类型可以被当作不交并, 而余积可以被视为二元的不交并.
 自然地希望用具有两个元素的类型 \bool 来构造二元不交并 $A+B$.
 为此需要一个类型族 $P:\bool\to\type$ 比如 $P(\bfalse)\jdeq A$ 和 $P(\btrue)\jdeq B$.
 实际上, 可以从 $\bool$ 的递归原理严格得出这个类型族.
@@ -66,29 +66,29 @@
     \inl(a) &\defeq \tup{\bfalse}{a}, \\
     \inr(b) &\defeq \tup{\btrue}{b}.
 \end{align*}
-习题: 从这个定义, 派生余积类型的归纳原理.
+习题: 从这个定义, 推导出余积类型的归纳原理.
 (参见 \cref{ex:sum-via-bool,sec:appetizer-univalence}.)
 
-同样的想法可以应用到乘积和 $\Pi$-类型: 可以定义
+同样的想法可以应用于乘积和 $\Pi$-类型: 可以定义
 \[ A \times B \defeq \prd{x:\bool}\rec{\bool}(\UU,A,B,x). \]
-对 \bool 做归纳来构造对子:
+对 \bool 作归纳来构造对子:
 \[ \tup{a}{b} \defeq \ind{\bool}(\rec{\bool}(\UU,A,B),a,b) \]
-于是投影是直接的应用
+其中直接应用投影
 \begin{align*}
     \fst(p) &\defeq p(\bfalse), \\
     \snd(p) &\defeq p(\btrue).
 \end{align*}
-用归纳原理定义二元乘积的方式稍微有一点复杂, 而且需要会在 \cref{sec:compute-pi} 引入的函数的外延性.
-此外, 也在不再和以往一样, 在这里给出定义等同;
+对于这种方式定义的二元乘积, 要推出其归纳原理比较复杂, 需要使用会在 \cref{sec:compute-pi} 中引入的函数外延性.
+此外, 也在不再和以往一样, 在这里给出定义的等同关系;
 参见 \cref{ex:prod-via-bool}.
-当一个类型编码成另一个类型时, 会出现这个循环的问题;
-会在 \cref{sec:htpy-inductive} 返回这个问题.
+当一个类型编码成另一个类型时, 这是一个反复出现的问题;
+在 \cref{sec:htpy-inductive} 会回到这个问题.
 
 偶尔会把 $\bool$ 的元素 $\bfalse$ 和 $\btrue$ 分别称为 ``false'' 和 ``true''.
 注意和经典的\index{数学!经典的}数学不一样, 不使用 $\bool$ 的元素当作真值%
 \index{值!真}%
 或者命题.
-(作为替代让命题等同于类型;
+(作为替代让命题用类型表示;
 参见 \cref{sec:pat}.)
 特别地, 类型 $A \to \bool$ 不是 $A$ 的幂集\index{幂集}; 只代表$A$ 的子集的``可判定性'' (参见 \cref{cha:logic}).
 \index{可判定性!子集}%
