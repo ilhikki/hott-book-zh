@@ -8,27 +8,26 @@
     f(\inl(a)) &\defeq g_0(a)\\
     f(\inr(b)) &\defeq g_1(b).
 \end{align*}
-为了把前面的表达式 $f$ 变为后者, 只需使用递归子的计算规则.
+为了将 $f$ 的形成器表达式变为后面的, 只需使用递归子的计算规则.
 反过来, 给定任何定义等式
 \begin{align*}
     f(\inl(a)) &\defeq \Phi_0\\
     f(\inr(b)) &\defeq \Phi_1
 \end{align*}
-其中表达式 $\Phi_0$ 和 $\Phi_1$ 可以分别包含变量\index{变量} $a$ 和 $b$, 可以在递归子的项中使用 $\lambda$-抽象\index{lambda abstraction@$\lambda$-abstraction}:
+其中表达式 $\Phi_0$ 和 $\Phi_1$ 可以分别包含变量\index{变量} $a$ 和 $b$, 可以在递归子的项中使用 $\lambda$-抽象\index{lambda abstraction@$\lambda$-abstraction}等价地表示这些等式:
 \[
     f\defeq \rec{A+B}(C, \lam{a} \Phi_0, \lam{b} \Phi_1).
 \]
-等价地表示这些等式.
-在自然数中, 比如 $\dbl$ 的 ``定义等式'':
+自然数的情况下, 比如 $\dbl$ 的 ``定义等式'':
 \begin{align}
     \dbl(0) &\defeq 0 \label{eq:dbl0}\\
     \dbl(\suc(n)) &\defeq \suc(\suc(\dbl(n)))\label{eq:dblsuc}
 \end{align}
 等式右边包含\emph{函数 $\dbl$ 本身}.
-不过, 我们更乐意给出这样的等式作为 \dbl, 而不是~\eqref{eq:dbl-as-rec}, 因为这样更加方便和可读.
+不过, 我们更乐意给出这样的等式作为 \dbl, 而不是~\eqref{eq:dbl-as-rec}, 因为这样更方便和可读.
 这种方法可以看作, 把表达式\eqref{eq:dblsuc} 右边的 ``$\dbl(n)$'' 当作递归调用的结果, 在定义的构造 $\dbl\defeq \rec{\nat}(\nat,c_0,c_s)$ 中, 它代表的是第二个实参 $c_s$.
 
-推而广之, 如果有一个函数 $f:\nat\to C$ 的``定义'' 例如
+推而广之, 如果有一个函数 $f:\nat\to C$ 的``定义'' 如下
 \begin{align*}
     f(0) &\defeq \Phi_0\\
     f(\suc(n)) &\defeq \Phi_s
@@ -42,7 +41,7 @@
 这种通过递归定义函数(或者更通用的, 通过归纳定义依值函数) 的风格如此方便, 所以我们很乐意接受它.
 它被称为\define{模式匹配}.
 当然, 它类似于程序员定义递归函数, 字面上地在函数体中递归调用自己.
-不过, 和程序员不同, 我们受限于这种递归调用: 必须能够用递归原理表示, 函数 $f$ 只能作为复合符号 ``$f(n)$'' 的一部分出现在  $f(\suc(n))$ 的函数体中.
+不过, 和程序员不同, 只允许这种递归调用: 必须能够用递归原理表示, 函数 $f$ 只能作为复合符号 ``$f(n)$'' 的一部分出现在  $f(\suc(n))$ 的函数体中.
 否则, 可以写出无意义的函数, 例如
 \begin{align*}
     f(0)&\defeq 0\\
