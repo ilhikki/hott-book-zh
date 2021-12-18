@@ -187,12 +187,12 @@ $\emptyt$ 的居留元被称为逻辑学中\define{矛盾}:
 \[
     f(p) \defeq \;\Box\; : (\tprd{x:A} P(x)) \times (\tprd{x:A} Q(x)).
 \]
-这里为了产生一个乘积类型的元素, 隐式地使用了对子的构造器, 在例子中就是使用单词``第一步''和``第二步'':
+这里为了产生一个乘积类型的元素, 隐式地使用了序对的构造器, 在例子中就是使用单词``第一步''和``第二步'':
 \[
     f(p) \defeq \Big( \;\Box\; : \tprd{x:A} P(x) \;,\; \Box\; : \tprd{x:A}Q(x) \;\Big).
 \]
 短语 ``假设给定 $x$ 和证明 $P(x)$'' 现在表示为以通常的方式定义\emph{依赖}函数, 即引入它输入的变量 \index{变量}%
-因为它位于对子的构造器中, 通常把它些为 $\lambda$-抽象\index{lambda 抽象@$\lambda$-抽象}:
+因为它位于序对的构造器中, 通常把它些为 $\lambda$-抽象\index{lambda 抽象@$\lambda$-抽象}:
 \[
     f(p) \defeq \Big( \; \lam{x} \;\big(\Box\; : P(x)\big) \;,\; \Box\; : \tprd{x:A}Q(x) \;\Big).
 \]
