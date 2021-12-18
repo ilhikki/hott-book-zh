@@ -7,7 +7,7 @@
 其定义域是 $A$, 到达域是 $B$.
 函数有时也被称为\define{映射}.\index{定义域!函数}\index{到达域, 函数}\index{函数!定义域}\index{函数!到达域}\index{函数的关系}
 和集合论不同, 函数没有被定义成泛函关系, 而是类型论中的原始概念.
-我们通过规定可以对函数所做的事情, 来解释函数类型, 例如: 如何构造函数, 和函数的的平等性.
+我们通过规定可以对函数所做的事情, 来解释函数类型, 例如: 如何构造函数, 和函数的的等同.
 
 给定函数 $f : A \to B$ 和一个定义域的元素 $a : A$, 可以\define{应用}%
 \indexdef{应用!函数}%
@@ -29,7 +29,7 @@
 
 现在可以将 $\Phi$ 中的变量 $x$ 替换为 $a$ 来计算 $f(a)$.
 例如, 思考函数 $f : \nat \to \nat$, 被定义为 $f(x) \defeq x+x$.(如何定义 $\nat$ 和 $+$ 的方法参见 \cref{sec:inductive-types}.)
-然后 $f(2)$ 判断上等同于 $2+2$.
+然后 $f(2)$ 判断地等同于 $2+2$.
 
 如果不想介绍函数的名称, 可以使用\define{$\lambda$-抽象}.
 \index{lambda 抽象@$\lambda$-抽象|defstyle}%
@@ -54,18 +54,18 @@
 
 现在 $\lambda$-抽象是一个函数, 所以可以将其应用于参数 $a:A$.
 然后有如下\define{计算规则}\indexdef{计算规则!函数类型}%
-\footnote{这种等同关系的使用通常被称为 \define{$\beta$-变换} \indexsee{beta-变换@$\beta $-变换}{$\beta$-化简} \indexsee{变换!beta@$\beta $-}{$\beta$-化简} 或 \define{$\beta$-化简}. \index{beta-化简@$\beta $-化简|footstyle} \indexsee{化简!beta@$\beta $-}{$\beta$-化简} },
-即一个定义上的等同关系:
+\footnote{这种等同的使用通常被称为 \define{$\beta$-变换} \indexsee{beta-变换@$\beta $-变换}{$\beta$-化简} \indexsee{变换!beta@$\beta $-}{$\beta$-化简} 或 \define{$\beta$-化简}. \index{beta-化简@$\beta $-化简|footstyle} \indexsee{化简!beta@$\beta $-}{$\beta$-化简} },
+即一个定义等同:
 \[(\lamu{x:A}\Phi)(a) \jdeq \Phi'\]
 这里的 $\Phi'$ 是出现在表达式 $\Phi$ 的所有 $x$ 被替换成 $a$ 的结果.
 继续上面的例子, 有
 \[ (\lamu{x:\nat}x+x)(2) \jdeq 2+2. \]
 注意, 对于任何函数 $f:A\to B$, 都可以构造 $\lambda$-抽象函数 $\lam{x} f(x)$.
-因为它被定义为``应用 $f$ 于其参数的函数'', 所以认为它定义上等同于 $f$:
-\footnote{这种等同关系的使用通常被称为 \define{$\eta$-变换} \indexsee{eta-变换@$\eta $-变换}{$\eta$-扩展} \indexsee{变换!eta@$\eta $-}{$\eta$-扩展} 或 \define{$\eta$-扩展. \index{eta-扩展@$\eta $-扩展|footstyle}%
+因为它被定义为``应用 $f$ 于其参数的函数'', 所以认为它定义地等同于 $f$:
+\footnote{这种等同的使用通常被称为 \define{$\eta$-变换} \indexsee{eta-变换@$\eta $-变换}{$\eta$-扩展} \indexsee{变换!eta@$\eta $-}{$\eta$-扩展} 或 \define{$\eta$-扩展. \index{eta-扩展@$\eta $-扩展|footstyle}%
 \indexsee{扩展, eta-@扩展, $\eta $-}{$\eta$-扩展} }}%
 \[ f \jdeq (\lam{x} f(x)). \]
-这个等同关系就是\define{函数类型的唯一性原则}\indexdef{唯一性!原则!函数类型的}, 因为它表示 $f$ 唯一地被它的值确定.
+这个等同就是\define{函数类型的唯一性原则}\indexdef{唯一性!原则!函数类型的}, 因为它表示 $f$ 唯一地被它的值确定.
 
 通过显性参数来定义函数的方法可以被 $\lambda$-抽象简化, 例如 $f: A\to B$ 的定义: \[ f(x) \defeq \Phi \] 即 \[ f \defeq \lamu{x:A}\Phi.\]
 
@@ -87,10 +87,10 @@
 \indexsee{绑定变量}{变量, 绑定}%
 \indexsee{虚拟变量}{变量, 绑定}%
 例如表达式 $\lamu{y:\nat} x + y$ 中的 $y$, 仅具有局部意义, 并可以在保持绑定结构的情况下用其它的任何变量替代.
-实际上, $\lamu{y:\nat} x + y$ 判断上等同于
-\footnote{这种等同关系的使用通常被称为 \define{$\alpha$-变换. \indexfoot{alpha-变换@$\alpha $-变换}\indexsee{变换!alpha@$\alpha$-}{$\alpha$-变换} }}
+实际上, $\lamu{y:\nat} x + y$ 判断地等同于
+\footnote{这种等同的使用通常被称为 \define{$\alpha$-变换. \indexfoot{alpha-变换@$\alpha $-变换}\indexsee{变换!alpha@$\alpha$-}{$\alpha$-变换} }}
 $\lamu{z:\nat} x + z$.
-因此, $f(y)$ 判断上等同于 $\lamu{z:\nat} y + z$, 这就是答案.
+因此, $f(y)$ 判断地等同于 $\lamu{z:\nat} y + z$, 这就是答案.
 (可以使用任何与 $y$ 不同的变量代替 $z$, 获得同样的结果)
 
 当然, 所有数学家都应该熟悉它:

@@ -6,18 +6,18 @@
 通过命题即类型的概念, 同一类型的两个元素 $a,b:A$ 等相等的\emph{命题}, 必定对应一个\emph{类型}.
 因为这个命题依赖于 $a$ 和 $b$, 所以这个\define{等同类型}或者说是\define{恒等类型}必定是一个类型族, 并依赖两个 $A$ 的复制.
 
-这个类型族写作 $\idtypevar{A}:A\to A\to\type$ (不要和恒等函数 $\idfunc[A]$ 混淆), 于是类型 $\idtype[A]ab$ 是一个命题, 表示了 $a$ 和 $b$ 的等同关系.
+这个类型族写作 $\idtypevar{A}:A\to A\to\type$ (不要和恒等函数 $\idfunc[A]$ 混淆), 于是类型 $\idtype[A]ab$ 是一个命题, 表示了 $a$ 和 $b$ 的等同.
 一旦熟悉了命题即类型, 就可以方便地使用标准的等于符号;
 因此符号``$\id{a}{b}$'' 即\emph{类型} $\idtype[A]ab$, 代表 $a$ 等于 $b$.
 为了清楚起见, 显式地指定类型 $A$, 写作 ``$\id[A]{a}{b}$''.
-如果有一个 $\id[A]{a}{b}$ 的元素, 可以说 $a$ 和 $b$ \define{相等}, 或者是\define{命题上相等}, 后者强调了与\cref{sec:types-vs-sets}中介绍的的判断的等同关系 $a\jdeq b$ 的区别.
-\indexdef{等同关系!命题上的}%
-\indexdef{命题上的!等同关系}%
+如果有一个 $\id[A]{a}{b}$ 的元素, 可以说 $a$ 和 $b$ \define{相等}, 或者是\define{命题地相等}, 后者强调了与\cref{sec:types-vs-sets}中介绍的的判断等同 $a\jdeq b$ 的区别.
+\indexdef{等同!命题}%
+\indexdef{命题!等同}%
 
 和\cref{sec:pat}中命题即类型引入的``或''与``存在''包含更多信息, 而不仅只是事实命题为真一样, $\id{a}{b}$ 也能包含更多的信息.
 的确, 对应同伦论的基础, $\id{a}{b}$ 的见证可以被视为 $a$ 与 $b$ 在空间 $A$的\emph{路径}\indexdef{路径}或者\emph{等价}.
 正如空间的两点不止一条路径, 两个对象的等同也不止有一个见证.
-换句话说, 可以把类型 $\id{a}{b}$ 当作 $a$ 与 $b$ 的\emph{恒等关系}的\indexdef{恒等关系}, 而 $a$ 恒等于 $b$ 的方式可能有很多种.
+换句话说, 可以把类型 $\id{a}{b}$ 当作 $a$ 与 $b$ 的\emph{恒等}的\indexdef{恒等}, 而 $a$ 恒等于 $b$ 的方式可能有很多种.
 在 \cref{cha:basics} 会回到这个解释;
 现在的焦点是恒等类型的基础规则.
 就像本章中被考虑的其他类型, 会引入形成规则, 构造规则, 消元规则, 和计算规则, 形式上它们的行为完全相同.
@@ -61,7 +61,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
 就像 $\rec{\nat}$ 给出了可以到达其它任何类型 $C$ 的特殊映射 $\nat\to C$, 恒等的不可辨性给出了从 $\id[A] x y$ 到某些自反的特殊映射, 到达域是在 $A$ 上的二元关系, 对于一元断言 $C(x)$ 来说, 就是 $C(x) \to C(y)$.
 也可以把普通的递归原理作为公式, 来表示 $C(x,y)$ 更加通用的自反关系.
 不过, 为了充分表征恒等类型, 必须推广递归原理到归纳原理, 不仅考虑 $\id[A] x y$ 的映射, 还要考虑它的类似情况.
-换句话说, 不仅要允许等同替换等同, 还要顾及证据 $p$ 的等同关系的证据.
+换句话说, 不仅要允许等同替换等同, 还要顾及证据 $p$ 的等同的证据.
 
 \subsection{路径归纳}
 
@@ -106,7 +106,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
     \narrowbreak
     \dprd{x,y:A}{p:\id[A]{x}{y}} C(x,y,p)
 \end{narrowmultline*}
-通过等同关系\index{计算规则!恒等类型的} \[ \indid{A}(C,c,x,x,\refl{x}) \defeq c(x). \]
+通过等同\index{计算规则!恒等类型的} \[ \indid{A}(C,c,x,x,\refl{x}) \defeq c(x). \]
 传统地, 函数 $ \indid{A}$ 被称为 $J$.
 \indexsee{J@$J$}{恒等类型的归纳原理}%
 在 \cref{lem:transport} 会展示恒等的不可辨性是路径归纳的一个实例, 而且会给它新的名称和符号.
@@ -143,7 +143,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
     \indidb{A} : \dprd{a:A}{C : \prd{x:A} (\id[A]{a}{x}) \to \UU}
     C(a,\refl{a}) \to \dprd{x:A}{p : \id[A]{a}{x}} C(x,p)
 \end{align*}
-通过这个等同关系 \[ \indidb{A}(a,C,c,a,\refl{a}) \defeq c. \]
+通过这个等同 \[ \indidb{A}(a,C,c,a,\refl{a}) \defeq c. \]
 %\[ g(x)(x,\refl{x}) \defeq d(x) \]
 
 下面会展示路径归纳与基本路径归纳是等价的.
@@ -186,7 +186,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
 \index{归纳原理!恒等类型的|)}%
 \index{推广!类型的, 归纳|)}
 
-\subsection{路径归纳和基本路径归纳的等价关系}
+\subsection{路径归纳和基本路径归纳的等价}
 
 之前引入的两个恒等类型的递归原理是等价的.
 显然路径归纳来自基本路径归纳原理.
@@ -209,7 +209,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
 通过这个定义等式 \[ g(x,\refl{x}) \defeq c'.\]
 现在观察到 $g$ 的到达域等同于 $C(x,y,p)$.
 因此, 代入假设 $x:A$, 推导出函数 \[ f : \prd{x,y:A}{p : \id[A]{x}{y}} C(x,y,p) \]
-通过判断的等同关系 $f(x,x,\refl{x}) \judgeq g(x,\refl{x}) \defeq c' \defeq c(x)$.
+通过判断等同 $f(x,x,\refl{x}) \judgeq g(x,\refl{x}) \defeq c' \defeq c(x)$.
 
 另一种证明这个事实的方法是, $f$ 可以从 $\indidb{A}$ 的一个实例中得到, 所以用 $\indidb{A}$ 的项定义 $\indid{A}$ 即可:
 \[ \indid{A}(C,c,x,y,p) \defeq \indidb{A}(x,C(x),c(x),y,p). \]
@@ -234,7 +234,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
 \[ f : \prd{x,y:A}{p:\id[A]{x}{y}}{C : \prd{z:A} (\id[A]{x}{z}) \to \UU} C(x,\refl{x}) \to C(y,p). \]
 现在给定 $x:A$ 和 $p:\id[A]{a}{x}$, 可以推导出基本路径归纳的结论:
 \[ f(a,x,p,C,c) : C(x,p). \]
-注意还得到了正确的定义上的等同关系.
+注意还得到了正确的定义等同.
 
 另一个证明是,  观察到任何基本路径的递归的使用都是 $\indidb{A}$ 的实例, 然后定义
 \begin{narrowmultline*}
@@ -259,12 +259,12 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
 虽然这是全集定义的一致性, 但也也可以在不使用全集的情况下派生 $\indidb{A}$: 可以证明 $\indid{A}$ 包含 \cref{lem:transport,thm:contr-paths}, 而这两个原则直接表明 $\indidb{A}$.
 细节在 \cref{ex:pm-to-ml}.
 
-使用上述任何一种恒等类型的公式, 来确定等同关系是一种等价关系, 每个函数保持等同关系, 和每个族遵守等同关系.
+使用上述任何一种恒等类型的公式, 来确定等同是一种等价, 每个函数保持等同, 和每个族遵守等同.
 下一章有这些细节, 并在同伦类型论的语境中进行推导和解释.
 
 \begin{rmk}
     \label{rmk:propeq-vs-jdeq}
-    我们强调尽管有一些不熟悉的特征, 命题上的等同关系就是\emph{这个}同伦类型论中数学等同关系.
+    我们强调尽管有一些不熟悉的特征, 命题等同就是同伦类型论中数学的等同.
     这种区别不属于判断等同, 而是类型伦规则的一种原理伦特征.
     例如, \cref{sec:inductive-types} 中自然数加法的结合律, 是\emph{命题的}等同, 而不是一个判断等同.
     交换律也是如此(\cref{ex:add-nat-commutative}).
@@ -281,7 +281,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
 \footnote{我们使用``非等同''%
 来表示 $<$ 和 $\leq$.
 另外, 注意这是恒等类型\emph{命题}的否定.
-当然,否定判断的等同 $\jdeq$ 是没有意义的, 因为判断不是一种逻辑操作.} %
+当然,否定判断等同 $\jdeq$ 是没有意义的, 因为判断不是一种逻辑操作.} %
 
 \begin{equation*}
 (x \neq_A y)
@@ -290,7 +290,7 @@ $\refl{a}$ 被视为点 $a$ 上的常量路径\indexdef{路径!常量}\indexsee{
 若 $x\neq y$, 则说 $x$ \define{不等同于} $y$.
 \indexdef{不等同于}%
 
-和否定一样, 在这里, 不等同关系没有在经典的\index{数学!经典的}数学中那样重要.
+和否定一样, 在这里, 不等同没有在经典的\index{数学!经典的}数学中那样重要.
 例如, 不能通过证明两个东西不是不等同的, 来证明它们相等同: 这需要应用经典的双重否定法则, 参见 \cref{sec:intuitionism}.
 
 有时用正的方式来表示不等同.

@@ -28,14 +28,14 @@
 和以前一样, 可以推导出递归器:
 \symlabel{defn:recursor-plus}%
 \[ \rec{A+B} : \dprd{C:\UU}(A \to C) \to (B\to C) \to A+B \to C\]
-和定义等式
+通过定义等式
 \begin{align*}
     \rec{A+B}(C,g_0,g_1,\inl(a)) &\defeq g_0(a), \\
     \rec{A+B}(C,g_0,g_1,\inr(b)) &\defeq g_1(b).
 \end{align*}
 
 \index{递归原理!空类型的}
-总是可以构造一个函数 $f : \emptyt \to C$ 而不需要给定任何定义等式, 因为 $f$ 的定义上, \emptyt 类型没有任何元素.
+总是可以构造一个函数 $f : \emptyt \to C$ 而不需要给定任何定义等式, 因为 \emptyt 没有任何元素来定义 $f$.
 因此, $\emptyt$ 的递归器是
 \symlabel{defn:recursor-emptyt}%
 \[\rec{\emptyt} : \tprd{C:\UU} \emptyt \to C,\]

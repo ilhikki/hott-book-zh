@@ -17,7 +17,7 @@
 递归器相当于函数式编程中的 if-then-else 结构:
 \symlabel{defn:recursor-bool}%
 \[ \rec{\bool} : \prd{C:\UU} C \to C \to \bool \to C \]
-和定义等式
+通过定义等式
 \begin{align*}
     \rec{\bool}(C,c_0,c_1,\bfalse) &\defeq c_0, \\
     \rec{\bool}(C,c_0,c_1,\btrue) &\defeq c_1.
@@ -33,20 +33,20 @@
 \symlabel{defn:induction-bool}%
 \[ \ind{\bool} : \dprd{C:\bool \to \UU}  C(\bfalse) \to C(\btrue)
 \to \tprd{x:\bool} C(x) \]
-和定义等式
+通过定义等式
 \begin{align*}
     \ind{\bool}(C,c_0,c_1,\bfalse) &\defeq c_0, \\
     \ind{\bool}(C,c_0,c_1,\btrue) &\defeq c_1.
 \end{align*}
 
 举个例子, 使用归纳原理可以演绎出, 所有 $\bool$ 的元素必须是 $\btrue$ 或者 $\bfalse$.
-和以前一样, 为了陈述它, 需要使用还没有被引入的等同关系类型, 只需使用所有东西等于它自己这个事实, 即 $\refl{x}:x=x$.
+和以前一样, 为了陈述它, 需要使用还没有被引入的等同类型, 只需使用所有东西等于它自己这个事实, 即 $\refl{x}:x=x$.
 也就是, 构造一个元素, 它的类型是
 \begin{equation}
     \label{thm:allbool-trueorfalse}
     \prd{x:\bool}(x=\bfalse)+(x=\btrue),
 \end{equation}
-即一个函数指定每个 $x:\bool$ 等同关系 $x=\bfalse$ 或等同关系 $x=\btrue$.
+即一个函数指定每个 $x:\bool$ 等同 $x=\bfalse$ 或等同 $x=\btrue$.
 使用 \bool 的归纳原理, 其中 $C(x) \defeq (x=\bfalse)+(x=\btrue)$;
 两个输入为 $\inl(\refl{\bfalse}) : C(\bfalse)$ 和 $\inr(\refl{\btrue}):C(\btrue)$.
 换句话说,\eqref{thm:allbool-trueorfalse} 元素是
@@ -79,7 +79,7 @@
     \snd(p) &\defeq p(\btrue).
 \end{align*}
 对于这种方式定义的二元乘积, 要推出其归纳原理比较复杂, 需要使用会在 \cref{sec:compute-pi} 中引入的函数外延性.
-此外, 也在不再和以往一样, 在这里给出定义的等同关系;
+此外, 也在不再和以往一样, 在这里给出定义等同;
 参见 \cref{ex:prod-via-bool}.
 当一个类型编码成另一个类型时, 这是一个反复出现的问题;
 在 \cref{sec:htpy-inductive} 会回到这个问题.
