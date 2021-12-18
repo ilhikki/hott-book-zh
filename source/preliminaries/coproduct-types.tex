@@ -1,50 +1,50 @@
-给定 $A,B:\UU$, 引入\define{余积}类型 $A+B:\UU$.
+给定 $A,B:\UU$, 引入它们的\define{余积}类型 $A+B:\UU$.
 \indexsee{余积}{类型, 余积}%
 \index{类型!余积|(defstyle}%
 \indexsee{不交!和}{类型, 余积}%
 \indexsee{不交!并}{类型, 余积}%
 \indexsee{并!不交}{类型, 余积}%
 \indexsee{并!不交}{类型, 余积}%
-它相当于集合论中的\emph{不交并}, 我们有时也使用这个名字.
-和函数与乘积一样, 余积只能类型论中的基础结构, 因为之前没有给出 ``类型的并'' 的概念.
-同样也引入无效的情况: \define{空类型 $\emptyt:\UU$}.
+它相当于集合论中的\emph{不交并}, 有时我们也使用这个名字.
+和函数与乘积一样, 余积必须是类型论中的基础结构, 因为之前没有给出 ``类型的并'' 的概念.
+也引入零元的版本: \define{空类型 $\emptyt:\UU$}.
 \indexsee{无效!余积}{类型, 空}%
 \indexsee{空类型}{类型, 空}%
 \index{类型!空|(defstyle}%
 
-有两种方法来构造 $A+B$ 的元素, $\inl(a) : A+B$ 其中 $a:A$, 或者是 $\inr(b):A+B$ 其中 $b:B$.
+有两种构造 $A+B$ 的元素的方法, $\inl(a) : A+B$ 对于 $a:A$, 以及 $\inr(b):A+B$ 对于 $b:B$.
 ($\inl$ 和 $\inr$ 是``left injection'' 和 ``right injection'' 的缩写.)
 无法构造空类型的元素.
 
 \index{递归原理!余积的}
-为了构造非依赖函数 $f : A+B \to C$, 我们需要函数 $g_0 : A \to C$ 和 $g_1 : B \to C$.
-于是 $f$ 可以被定义为
+为了构造非依值函数 $f : A+B \to C$, 需要函数 $g_0 : A \to C$ 和 $g_1 : B \to C$.
+于是 $f$ 被定义为
 \begin{align*}
     f(\inl(a)) &\defeq g_0(a), \\
     f(\inr(b)) &\defeq g_1(b).
 \end{align*}
-也就是说, 函数 $f$ 被\define{情况分析}定义了.
+也就是说, 函数 $f$ 通过\define{情况分析}定义.
 \indexdef{情况分析}%
-和以前一样, 可以派生递归子:
+和以前一样, 可以推导出递归器:
 \symlabel{defn:recursor-plus}%
 \[ \rec{A+B} : \dprd{C:\UU}(A \to C) \to (B\to C) \to A+B \to C\]
-用这个定义等式
+通过定义等式
 \begin{align*}
     \rec{A+B}(C,g_0,g_1,\inl(a)) &\defeq g_0(a), \\
     \rec{A+B}(C,g_0,g_1,\inr(b)) &\defeq g_1(b).
 \end{align*}
 
 \index{递归原理!空类型的}
-总是可以构造一个函数 $f : \emptyt \to C$ 而不需要给定任何定义等式, 因为 \emptyt 类型没有任何元素 $f$.
-因此, $\emptyt$ 的递归子是
+总是可以构造一个函数 $f : \emptyt \to C$ 而不需要给定任何定义等式, 因为 \emptyt 没有任何元素来定义 $f$.
+因此, $\emptyt$ 的递归器是
 \symlabel{defn:recursor-emptyt}%
 \[\rec{\emptyt} : \tprd{C:\UU} \emptyt \to C,\]
-即从空类型可以构造出其它任何类型.
-逻辑上, 它相当于爆炸原理(principle \textit{ex falso quodlibet}).
-\index{ex falso quodlibet@\textit{ex falso quodlibet}}
+即一个经典的函数, 输入空类型返回任何其它类型.
+逻辑上, 它相当于爆炸原理.
+\index{爆炸原理}%
 
 \index{归纳原理!余积的}
-为了构造一个定义域类型为余积的依赖函数 $f:\prd{x:A+B}C(x)$, 假设给定族 $C: (A + B) \to \UU$, 然后需要
+为了构造一个定义域类型为余积的依值函数 $f:\prd{x:A+B}C(x)$, 假设给定族 $C: (A + B) \to \UU$, 然后需要
 \begin{align*}
     g_0 &: \prd{a:A} C(\inl(a)), \\
     g_1 &: \prd{b:B} C(\inr(b)).
@@ -54,7 +54,7 @@
     f(\inl(a)) &\defeq g_0(a), \\
     f(\inr(b)) &\defeq g_1(b).
 \end{align*}
-把它封装为封装余积的归纳定理:
+把它打包为封装余积的归纳定理:
 \symlabel{defn:induction-plus}%
 \begin{narrowmultline*}
     \ind{A+B} :
@@ -62,13 +62,13 @@
     \Parens{\tprd{a:A} C(\inl(a))} \to \narrowbreak
     \Parens{\tprd{b:B} C(\inr(b))} \to \tprd{x:A+B}C(x).
 \end{narrowmultline*}
-和以前一样, 递归子是族 $C$ 是常量的特殊情况.
+和以前一样, 递归器是族 $C$ 为常量时的特殊情况.
 
 \index{归纳原理!空类型的}
 空类型的归纳原理
 \symlabel{defn:induction-emptyt}%
 \[ \ind{\emptyt} : \prd{C:\emptyt \to \UU}{z:\emptyt} C(z) \]
-可以定义一个不重要的定义域类型是空类型的依赖函数.
+可以定义一个琐屑的定义域类型是空类型的依值函数.
 % In the presence of $\eta$-equality it is derivable
 % from the recursor.
 % ex
