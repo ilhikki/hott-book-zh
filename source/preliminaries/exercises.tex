@@ -12,13 +12,13 @@
 
 \begin{ex}
     \label{ex:pr-to-rec}
-    只使用投影, 派生乘积 $\rec{A\times B} $ 的递归原理, 并验证定义等式的合法性.
+    只使用投影, 推导出乘积 $\rec{A\times B} $ 的递归原理, 并验证定义等式的合法性.
     对 $\Sigma$-类型也这样做.
 \end{ex}
 
 \begin{ex}
     \label{ex:pr-to-ind}
-    为乘积 $\ind{A\times B}$ 派生归纳原理, 只使用投影和命题的唯一性原理 $\uniq{A\times B}$.
+    为乘积 $\ind{A\times B}$ 推导出归纳原理, 只使用投影和命题的唯一性原理 $\uniq{A\times B}$.
     校验这个定难以等同是正确的.
     推广 $\uniq{A\times B}$ 到 $\Sigma$-类型, 对 $\Sigma$-类型也这样做.
     \emph{(这需要 \cref{cha:basics} 中的概念.)}
@@ -34,7 +34,7 @@
         \ite(C,c_0,c_s,0)  &\defeq c_0, \\
         \ite(C,c_0,c_s,\suc(n)) &\defeq c_s(\ite(C,c_0,c_s,n)),
     \end{align*}
-    派生一个函数, 具有 $\rec{\nat}$ 的类型.
+    推导出一个函数, 具有 $\rec{\nat}$ 的类型.
     展示递归子的定义等同令这个函数在命题上成立, 使用 $\nat$ 的归纳原理.
 \end{ex}
 
@@ -53,7 +53,7 @@
 
 \begin{ex}
     \label{ex:pm-to-ml}
-    从 $\indid{A}$ 派生 $\indidb{A}$, 避免使用宇宙.
+    从 $\indid{A}$ 推导出 $\indidb{A}$, 避免使用全集.
     \emph{(这是使用后面章节中的概念最简单的方法.)}
 \end{ex}
 
@@ -68,14 +68,14 @@
 \begin{ex}
     \label{ex:fin}
     \index{finite!sets, family of}%
-    定义 \cref{sec:universes} 结尾提及的类型族 $\Fin : \nat \to \UU$, \cref{sec:pi-types} 提及的依赖函数 $\fmax : \prd{n:\nat} \Fin(n+1)$.
+    定义 \cref{sec:universes} 结尾提及的类型族 $\Fin : \nat \to \UU$, \cref{sec:pi-types} 提及的依值函数 $\fmax : \prd{n:\nat} \Fin(n+1)$.
 \end{ex}
 
 \begin{ex}
     \label{ex:ackermann}
     \indexdef{函数!Ackermann}%
     \indexdef{Ackermann 函数}%
-    展示可以只使用 $\rec{\nat}$ 可以定义 Ackermann 函数 $\ack : \nat \to \nat \to \nat$ 满足以下等同关系:
+    展示可以只使用 $\rec{\nat}$ 可以定义 Ackermann 函数 $\ack : \nat \to \nat \to \nat$ 满足以下等同:
     \begin{align*}
         \ack(0,n) &\jdeq \suc(n), \\
         \ack(\suc(m),0) &\jdeq \ack(m,1), \\
@@ -90,7 +90,7 @@
 
 \begin{ex}
     \label{ex:tautologies}
-    按照命题即类型的理解, 派生以下重言式.
+    按照命题即类型的理解, 推导出以下重言式.
     \begin{enumerate}
         \item 如果 $A$, 那么 (如果 $B$ 那么 $A$).
         \item 如果 $A$, 那么非 (非 $A$).
@@ -100,12 +100,12 @@
 
 \begin{ex}
     \label{ex:not-not-lem}
-    使用命题即类型, 派生排中律的双重否定, 即证明\emph{非 (非 ($P$ 或非 $P$))}.
+    使用命题即类型, 推导出排中律的双重否定, 即证明\emph{非 (非 ($P$ 或非 $P$))}.
 \end{ex}
 
 \begin{ex}
     \label{ex:without-K}
-    为什么恒等类型的归纳原理不允许构造一个函数 $f: \prd{x:A}{p:\id{x}{x}} (\id{p}{\refl{x}})$ 与定义等同
+    为什么恒等类型的归纳原理不允许构造一个函数 $f: \prd{x:A}{p:\id{x}{x}} (\id{p}{\refl{x}})$ 通过定义等式
     \[ f(x,\refl{x}) \defeq \refl{\refl{x}} \quad ?\]
 \end{ex}
 
