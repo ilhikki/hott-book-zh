@@ -6,7 +6,7 @@ de Bruijn~\cite{deBruijn-1973}, Howard~\cite{howard:pat}, Tait~\cite{Tait-1966,T
 和 Lawvere~\cite{lawvere:adjinfound}\index{Lawvere}的基础工作影响.
 \index{proof!assistant}%
 Martin-L\"{o}f 类型伦的主要的三个变体, 是 \NuPRL \cite{constable+86nuprl-book}, \Coq~\cite{Coq}, 和 \Agda \cite{norell2007towards} 的类型论计算机实现的基础.
-这里给出的理论和这些变体有一些区别, 其中是同伦解释的关键, 而另一些是技术上的便利设施或者暂时没有纳入同伦场景.
+这里给出的理论和这些变体有一些区别, 其中一些是同伦解释的关键, 而另一些是技术上的便利设施或者暂时没有纳入同伦场景.
 
 \index{类型论!内延的}%
 \index{类型论!外延的}%
@@ -17,12 +17,12 @@ Martin-L\"{o}f 类型伦的主要的三个变体, 是 \NuPRL \cite{constable+86n
 从同伦的角度看, 外延类型论将其自己界定为同伦的离散集合 (参见 \cref{sec:basics-sets}), 而内延类型论认为类型带有高维结构.
 \NuPRL 系统~\cite{constable+86nuprl-book} 是外延的, 而 \Coq~\cite{Coq} 和 \Agda~\cite{norell2007towards} 都是内延的.
 在内延类型论中, 有一些变体, 与恒等证明的结构有区别.
-最开明的理解, 这里依靠的, 允许一个等于的\emph{证明相关}理解, 而受限的变体主张例如\emph{恒等证明的唯一性(UIP)}~\cite{Streicher93}的限制,
+最不严格理解, 这里依靠的, 允许一个等同的\emph{证明相关}理解, 而受限的变体主张例如\emph{恒等证明的唯一性(UIP)}~\cite{Streicher93}的限制,
 \indexsee{UIP}{恒等证明的唯一性}%
 \index{唯一性!恒等证明的}%
-让任何两个等于的证明为命题等同的, 而且\emph{K 公理}~\cite{Streicher93},
+让任何两个等同的证明为命题等同的, 而且\emph{K 公理}~\cite{Streicher93},
 \index{公理!Streicher 的 K 公理}
-认为等于的唯一证明就是自反(想到于判断等同).
+认为等同的唯一证明就是自反(想到于判断等同).
 这些额外的需求在 \Coq 和 \Agda\ 系统中是可选的.
 
 %(In the terminology of \cref{cha:hlevels} such a type theory is about $0$-truncated types.)
@@ -38,10 +38,10 @@ Martin-L\"{o}f 类型伦的主要的三个变体, 是 \NuPRL \cite{constable+86n
 
 函数的(命题)等同被认为是\emph{外延的}对我们的目标很重要 (与字面上的使用不同!).
 这不是这章得到的规则;
-它会在 \cref{axiom:funext} 中被表达.
+它会在 \cref{axiom:funext} 中体现.
 \index{函数外延性}%
 这个决定对我们的目的很重要, 因为它令函数的相等性符合数学中的预期.
-尽管把\cref{axiom:funext}作为公理包含, 它也可以从宇价公理和函数的唯一性原理\index{唯一性!原理!函数类型} (参见\cref{sec:univalence-implies-funext}), 也能从间点类型得到 (参见 \cref{thm:interval-funext}).
+尽管把\cref{axiom:funext}作为公理引入, 它也可以从宇价公理和函数的唯一性原理\index{唯一性!原理!函数类型} (参见\cref{sec:univalence-implies-funext}), 也能从间点类型得到 (参见 \cref{thm:interval-funext}).
 
 关于归纳类型例如乘积, $\Sigma$-类型, 余积, 自然数等等 (参见 \cref{cha:induction}), 递归和归纳的形式有额外的选择.
 \index{模式匹配}%
@@ -81,7 +81,7 @@ Martin-L\"{o}f 类型伦的主要的三个变体, 是 \NuPRL \cite{constable+86n
 
 没有必要通过自然数和线性排序为全集编号.
 出于一些目的, 只假设每个全集是更大全集的元素更合适, 伴随一个``指向性''性质, 每两个全集是都存在于一些更大的全集中.
-有很多其他可能的变体, 例如一个全集 ``$\UU_{\omega}$'' 它包含了所有 $\UU_i$ (甚至更高的 ``大基数'' 类型全集), 过着通过内化层级为类型族 $\lam{i} \UU_i$.
+有很多其他可能的变体, 例如全集 ``$\UU_{\omega}$'' 包含了所有 $\UU_i$ (甚至更高的 ``大基数'' 类型全集), 过着通过内化层级为类型族 $\lam{i} \UU_i$.
 在 \Agda 中实际使用了后者.
 
 Martin-L\"{o}f~\cite{Martin-Lof-1972} 用公式描述了恒等类型的路径归纳原理.
