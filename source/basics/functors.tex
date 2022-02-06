@@ -1,12 +1,14 @@
 \index{函数|(}%
 \index{类型论中的函子性函@类型论中的``函子性''}%
-现在我们希望确定函数 $f:A\to B$ 在路径上的行为是函数性的. 在传统的类型论, 这等效于函数遵循等同性. \index{类型论中函数的连续性@``连续性''类型论中函数的连续性}%
-拓扑学上, 这相当于每个函数都是``连续的'', 即保留路径.
+现在希望明确函数 $f:A\to B$ 在路径上的具备函子性.
+在传统的类型论, 这等价于函数遵守等同关系.
+\index{类型论中函数的连续性@``连续性''类型论中函数的连续性}%
+拓扑学上, 这相当于说每个函数都是``连续的'', 即保持路径.
 
 \begin{lem}
     \label{lem:map}
-    有一个函数 $f:A\to B$.
-    那么对于任意 $x,y:A$ 都有一个操作
+    设 $f:A\to B$ 是一个函数.
+    那么对于任意 $x,y:A$ 都有一个运算
     \begin{equation*}
         \apfunc f : (\id[A] x y) \to (\id[B] {f(x)} {f(y)}).
     \end{equation*}
@@ -22,29 +24,28 @@
 \begin{proof}[第一个证明]
     令 $D:\prd{x,y:A} (x=y) \to \type$ 为类型族, 定义如下
     \[D(x,y,p)\defeq (f(x)= f(y)).\]
-    然后我们有
+    然后有
     \begin{equation*}
         d\defeq\lam{x} \refl{f(x)}:\prd{x:A} D(x,x,\refl{x}).
     \end{equation*}
-    通过路径归纳, 我们得到得到 $\apfunc f : \prd{x,y:A} (x=y) \to (f(x)=f(y))$.
-    这个计算规则暗示了对于每个 $x:A$ 有 $\apfunc f({\refl{x}})\jdeq\refl{f(x)}$.
+    通过路径归纳, 得到 $\apfunc f : \prd{x,y:A} (x=y) \to (f(x)=f(y))$.
+    这个计算规则意味对于每个 $x:A$ 有 $\apfunc f({\refl{x}})\jdeq\refl{f(x)}$.
 \end{proof}
 
 \begin{proof}[第二个证明]
-    对于所有 $p:x=y$, 为了定义 $\apfunc{f}(p)$, 通过归纳假设
-    $p$ 是 $\refl{x}$ 即可.
-    这个情况下, 可以定义$\apfunc f(p) \defeq \refl{f(x)}:f(x)= f(x)$.
+    对于所有 $p:x=y$, 为了定义 $\apfunc{f}(p)$, 只需通过归纳假设 $p$ 是 $\refl{x}$.
+    这种情况下, 可以定义 $\apfunc f(p) \defeq \refl{f(x)}:f(x)= f(x)$.
 \end{proof}
 
 $\apfunc f (p)$ 经常被简写为 $\ap f p$.
 严格来说, 这是含糊的, 不过通常不会引起困惑.
-这符合范畴论中的约定, 为函子到对象和态射的应用, 使用相同的符号.
+这符合范畴论中的约定, 使用与函子到对象和态射的应用相同的符号.
 
-注意 $\apfunc{}$ 满足所需的函子性.
+注意 $\apfunc{}$ 满足期望的的函子性.
 
 \begin{lem}
     \label{lem:ap-functor}
-    对于函数 $f:A\to B$ 和 $g:B\to C$ 和路径 $p:\id[A]xy$ 和 $q:\id[A]yz$, 我们有:
+    对于函数 $f:A\to B$, $g:B\to C$, 路径 $p:\id[A]xy$ 和 $q:\id[A]yz$, 有:
     \begin{enumerate}
         \item $\apfunc f(p\ct q) = \apfunc f(p) \ct \apfunc f(q)$.\label{item:apfunctor-ct}
         \item $\apfunc f(\opp p) = \opp{\apfunc f (p)}$.\label{item:apfunctor-opp}
@@ -57,4 +58,4 @@ $\apfunc f (p)$ 经常被简写为 $\ap f p$.
 \end{proof}
 \index{函数|)}%
 
-就像 \cref{thm:omg} 中的等同关系一样,  \cref{lem:ap-functor}是它们自己的路径, 满足自己的一致性原则(可以用相同的方式证明), 等等. 
+就像 \cref{thm:omg} 中的等同一样, \cref{lem:ap-functor}是它们自己的路径, 满足自己的一致性等原则(可以用相同的方式证明).
