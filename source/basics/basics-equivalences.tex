@@ -1,13 +1,14 @@
 \index{同伦|(defstyle}%
 
-迄今为止, 已经见过了恒等类型 $\id[A]xy$ 可以被视为类型 $A$ 的两个元素 $x$ 与~$y$ 之间的 \emph{恒等}, \emph{路径}, 或者 \emph{等价}.
+迄今为止, 我们已经看到恒等类型 $\id[A]xy$ 可以视为类型 $A$ 的两个元素 $x$ 与~$y$ 之间的 \emph{恒等}, \emph{路径}, 或者 \emph{等价}.
 现在要研究一个合适的符号, 表示\emph{函数}和\emph{类型}之间的``恒等'' 或者 ``相同''.
-在\cref{sec:compute-pi,sec:compute-universe}可以看到, 同伦类型论允许使用恒等类型的实例来标识它们, 不过在此之前需要清楚它们本身.
+在\cref{sec:compute-pi,sec:compute-universe}可以看到, 同伦类型论允许使用恒等类型的实例来标识它们, 不过在此之前需要先了解它们.
 
-传统上, 两个函数相同就是对于所有输入, 它们得到相同的值.
-按照命题作为类型的理解, 如果类型 $\prd{x:A} (f(x)=g(x))$ 有居留元, 这两个函数 $f$ 和 $g$ (也许是依值类型) 是相同的.
-按照同伦论的理解, 这个依值函数类型由\emph{连续的}路径或者\emph{函子}等价组成, 因此可以被视为\emph{同伦}的类型或者\emph{自然同构}.\index{同构!自然}
-为此, 我们采用拓扑的术语.
+传统地, 如果两个函数对于所有输入, 得到相同的值, 那么它们相同.
+按照命题作为类型的理解, 如果类型 $\prd{x:A} (f(x)=g(x))$ 有居留元, 这两个(也许是依值类型的)函数 $f$ 和 $g$ 是相同的.
+按照同伦论的理解, 这个依值函数类型由\emph{连续的}路径或者\emph{函子性的}等价组成, 因此可以被视为\emph{同伦}或者\emph{自然同构}的类型.
+\index{同构!自然}
+为此, 我们会采用拓扑的术语.
 
 \begin{defn}
     \label{defn:homotopy}
@@ -22,7 +23,7 @@
 注意同伦并不是恒等 $(f=g)$.
 不过, 在\cref{sec:compute-pi}会引入一个公理让同伦和恒等``等价''.
 
-下面的证明留给读者.
+它的证明留给读者.
 
 \begin{lem}
     \label{lem:homotopy-props}
@@ -47,20 +48,22 @@
 
 \index{类型论中函数的函子性@类型论中函数的``函子性''}%
 \index{类型论中函数的连续性@类型论中函数的``连续性''}%
-就像在类型伦中, 函数是自然而然的``函子'', 同伦是自然而然的
+就像在类型伦中的函数, 天生就是``函子'', 同伦天生就是
 \index{同伦的自然性@同伦的``自然性''}%
 ``自然变换''.
-这里只对非依值函数 $f,g:A\to B$ 做了声明和证明; 在\cref{ex:dep-htpy-natural}要求读者推广它们到依值类型.
+这里只对非依值函数 $f,g:A\to B$ 做了声明和证明;
+在\cref{ex:dep-htpy-natural}要求读者推广它们到依值类型.
 
-回顾 $f:A\to B$ 和 $p:\id[A]xy$, 可以把 $\apfunc{f} (p)$ 写作 $\ap f p$.
+就像 $f:A\to B$ 和 $p:\id[A]xy$ 那样, 以后会将 $\apfunc{f} (p)$ 写作 $\ap f p$.
 
 \begin{lem}
     \label{lem:htpy-natural}
-    令 $H:f\htpy g$ 为函数  $f,g:A\to B$ 之间的一个同伦, 并让 $p:\id[A]xy$. 则有
+    令 $H:f\htpy g$ 为函数  $f,g:A\to B$ 之间的一个同伦, 并让 $p:\id[A]xy$.
+    则有
     \begin{equation*}
         H(x)\ct\ap{g}{p}=\ap{f}{p}\ct H(y).
     \end{equation*}
-    把它画成一个交换律的示意图:\index{示意图}
+    把它画成一个交换图:\index{图}
     \begin{align*}
         \xymatrix{
             f(x) \ar@{=}[r]^{\ap fp} \ar@{=}[d]_{H(x)} & f(y) \ar@{=}[d]^{H(y)} \\
@@ -69,84 +72,91 @@
     \end{align*}
 \end{lem}
 \begin{proof}
-    通过归纳, 可以假定 $p$ 为 $\refl x$.
-    将代入自反 $\apfunc{f}$ 和 $\apfunc g$ 计算, 得到
+    通过归纳, 可以假定 $p$ 就是 $\refl x$.
+    将自反代入 $\apfunc{f}$ 和 $\apfunc g$ ,得到
     \[ H(x) \ct \refl{g(x)} = \refl{f(x)} \ct H(x). \]
     两边都等于 $H(x)$.
 \end{proof}
 
-\begin{cor}\label{cor:hom-fg}
-  令 $H : f \htpy \idfunc[A]$ 为一个同伦, 其中 $f : A \to A$. 那么对于任何 $x : A$ 有 \[ H(f(x)) = \ap f{H(x)}. \]
-  % The above path will be denoted by $\com{H}{f}{x}$.
+\begin{cor}
+    \label{cor:hom-fg}
+    假设有同伦 $H : f \htpy \idfunc[A]$, 其中 $f : A \to A$.
+    那么对于任何 $x : A$ 有 \[ H(f(x)) = \ap f{H(x)}. \]
+    % The above path will be denoted by $\com{H}{f}{x}$.
 \end{cor}
 \noindent
-这里 $f(x)$ 表示一般的代入 $x$ 到 $f$, 而 $\ap f{H(x)}$ 代表 $\apfunc{f}(H(x))$.
+其中 $f(x)$ 表示应用 $f$ 到 $x$, 而 $\ap f{H(x)}$ 代表 $\apfunc{f}(H(x))$.
 \begin{proof}
-    根据 $H$ 的自然性, 得到下面这个路径交换示意图:
+    根据 $H$ 的自然性, 得到下面这个路径交换图:
     \begin{align*}
         \xymatrix@C=3pc{
             ffx \ar@{=}[r]^-{\ap f{Hx}} \ar@{=}[d]_{H(fx)} & fx \ar@{=}[d]^{Hx} \\
             fx \ar@{=}[r]_-{Hx} & x
         }
     \end{align*}
-    也就是, $\ap f{H x} \ct H x = H(f x) \ct H x$.
+    也就是说, $\ap f{H x} \ct H x = H(f x) \ct H x$.
     现在 whisker by $\opp{(H x)}$ 来消去 $H x$, 得到所需的
     \[ \ap f{H x}
     = \ap f{H x} \ct H x \ct \opp{(H x)}
     = H(f x) \ct H x \ct \opp{(H x)}
     = H(f x)
     \]
-    (其中隐藏了路径的结合律).
+    (其中省略了路径的结合律).
 \end{proof}
 
-当然, 就像函数的函子性 (\cref{lem:ap-functor}), \cref{lem:htpy-natural}中的等同是一个满足它自己的一致性的路径, 诸如此类.
+当然, 就像函数的函子性 (\cref{lem:ap-functor}), \cref{lem:htpy-natural}中的等同是一个路径, 并满足它自己的一致性法则, 诸如此类.
 
 \index{同伦|)}%
 
 \index{等价|(}%
-接着讲类型, 按照传统观点, 函数 $f:A\to B$ 是一个\emph{同构}, 则有一个函数 $g:B\to A$, 并满足组合 $f\circ g$ 和 $g\circ f$ 都逐点等于恒等函数, 即 $f \circ g \htpy \idfunc[B]$ 和 $g\circ f \htpy \idfunc[A]$.
+接着讲类型, 按照传统观点, 如果说函数 $f:A\to B$ 是一个\emph{同构}, 那么存在函数 $g:B\to A$, 满足组合 $f\circ g$ 和 $g\circ f$ 都逐点等于恒等函数, 即 $f \circ g \htpy \idfunc[B]$ 和 $g\circ f \htpy \idfunc[A]$.
 \indexsee{同伦!等价}{等价}%
-按照同伦论的观点, 它可以被称为\emph{同伦等价}, 而在范畴论上, 它可以被称为\emph{ (高阶) 广群的等价}.
-然而, 在 proof-relevant 的数学,
+按照同伦论的观点, 它可以被称为\emph{同伦等价}, 而在范畴论上, 可以称它为\emph{ (高阶) 广群的等价}.
+然而, proof-relevant 的数学中,
 \index{数学!proof-relevant}%
 相应的类型
 \begin{equation}
-  \sm{g:B\to A} \big((f \circ g \htpy \idfunc[B]) \times (g\circ f \htpy \idfunc[A])\big)\label{eq:qinvtype}
+    \sm{g:B\to A} \big((f \circ g \htpy \idfunc[B]) \times (g\circ f \htpy \idfunc[A])\big)\label{eq:qinvtype}
 \end{equation}
-表现并不好.
-例如, 对于同一个函数 $f:A\to B$, 有一些~\eqref{eq:qinvtype}的居留元, 彼此不同.
-(这和高阶范畴论中观察到的密切相关, 通常要考虑\emph{伴随}等价\index{伴随!等价}而不是简单的等价.)
-因为这个原因, 所以把~\eqref{eq:qinvtype}按照这个历史准确的, 但是带有贬义的名字来代替.
+表现得并不好.
+例如, 对于同一个函数 $f:A\to B$, ~\eqref{eq:qinvtype}有一些彼此不同居留元.
+(这和高阶范畴论的观点密切相关, 通常要考虑\emph{伴随}等价\index{伴随!等价}而不是简单的等价.)
+因为这个原因, 所以按照这个历史上正确的, 但是带有贬义的名字来为~\eqref{eq:qinvtype}命名.
 
-\begin{defn}\label{defn:quasi-inverse}
-  对于一个函数 $f:A\to B$, 它的 \define{quasi-inverse}
-  \indexdef{quasi-inverse}%
-  \indexsee{函数的!quasi-inverse}{quasi-inverse}%
-  是一个三元对 $(g,\alpha,\beta)$,由一个函数 $g:B\to A$ , 同伦 $\alpha:f\circ g\htpy \idfunc[B]$ 与 $\beta:g\circ f\htpy \idfunc[A]$ 组成.
+\begin{defn}
+    \label{defn:quasi-inverse}
+    对于一个函数 $f:A\to B$, 它的 \define{准逆}
+    \indexdef{准逆}%
+    \indexsee{函数的!准逆}{准逆}%
+    是一个三元对 $(g,\alpha,\beta)$, 由函数 $g:B\to A$ , 同伦 $\alpha:f\circ g\htpy \idfunc[B]$ 和 $\beta:g\circ f\htpy \idfunc[A]$ 组成.
 \end{defn}
 
 \symlabel{qinv}
-因此,~\eqref{eq:qinvtype}是\emph{$f$ 的 quasi-inverses 的类型}; 把它记作 $\qinv(f)$.
+因此,~\eqref{eq:qinvtype}是\emph{$f$ 的准逆的类型}; 把它记作 $\qinv(f)$.
 
-\begin{eg}\label{eg:idequiv}
-  \index{identity!function}%
-  \index{function!identity}%
-  恒等函数 $\idfunc[A]:A\to A$ 有一个 quasi-inverse, 由 $\idfunc[A]$ 本身给定, 其中的同论被定义为 $\alpha(y) \defeq \refl{y}$ 和 $\beta(x) \defeq \refl{x}$.
+\begin{eg}
+    \label{eg:idequiv}
+    \index{identity!function}%
+    \index{function!identity}%
+    恒等函数 $\idfunc[A]:A\to A$ 有一个准逆, 由 $\idfunc[A]$ 本身给定, 其中同论被定义为 $\alpha(y) \defeq \refl{y}$ 和 $\beta(x) \defeq \refl{x}$.
 \end{eg}
 
-\begin{eg}\label{eg:concatequiv}
-  对于任何 $p:\id[A]xy$ 和 $z:A$, 函数
-  \begin{align*}
-    (p\ct \blank)&:(\id[A]yz) \to (\id[A]xz) \qquad\text{和}\\
-    (\blank \ct p)&:(\id[A]zx) \to (\id[A]zy)
-  \end{align*}
-  有 quasi-inverses, 由 $(\opp p \ct \blank)$ 和 $(\blank \ct \opp p)$ 分别给定; 参见 \cref{ex:equiv-concat}.
+\begin{eg}
+    \label{eg:concatequiv}
+    对于任何 $p:\id[A]xy$ 和 $z:A$, 函数
+    \begin{align*}
+    (p\ct \blank)
+        &:(\id[A]yz) \to (\id[A]xz) \qquad\text{和}\\
+        (\blank \ct p)&:(\id[A]zx) \to (\id[A]zy)
+    \end{align*}
+    有准逆, 分别由 $(\opp p \ct \blank)$ 和 $(\blank \ct \opp p)$ 给定; 参见 \cref{ex:equiv-concat}.
 \end{eg}
 
-\begin{eg}\label{thm:transportequiv}
-  对于任何 $p:\id[A]xy$ 和 $P:A\to\type$, 函数
-  \[\transfib{P}{p}{\blank}:P(x) \to P(y)\]
-  有一个由 $\transfib{P}{\opp p}{\blank}$ 给定的  quasi-inverse ; 可以从 \narrowbreak \cref{thm:transport-concat} 推出.
+\begin{eg}
+    \label{thm:transportequiv}
+    对于任何 $p:\id[A]xy$ 和 $P:A\to\type$, 函数
+    \[\transfib{P}{p}{\blank}:P(x) \to P(y)\]
+    有一个由 $\transfib{P}{\opp p}{\blank}$ 给定的分别; 可以从 \narrowbreak \cref{thm:transport-concat} 推导.
 \end{eg}
 
 \symlabel{basics-isequiv}\symlabel{basics:iso}
@@ -154,52 +164,54 @@
 \index{同构!集合的}
 (和熟悉的词语比如\emph{双射}, 和关联的符号 $A\cong B$)
 \index{双射}
-只用于类型 $A$ 和 $B$ ``像一个集合''的情况 (参见 \cref{sec:basics-sets}).
+只适用于类型 $A$ 和 $B$ ``像一个集合''的情况 (参见 \cref{sec:basics-sets}).
 这种情况下, 类型~\eqref{eq:qinvtype}没有问题.
-改进符号 $\isequiv (f)$, 作为\emph{等价}, 有以下性质:%
+\emph{等价}这个词保留给改进的符号 $\isequiv (f)$, 它有以下性质:%
 \begin{enumerate}
     \item 对于每个 $f:A\to B$ 有函数 $\qinv(f) \to \isequiv (f)$.\label{item:be1}
     \item 类似地, 对于每个 $f$ 有 $\isequiv (f) \to \qinv(f)$; 因此他们两个逻辑上相等(参见 \cref{sec:pat}).\label{item:be2}
-    \item 对于每两个 $e_1,e_2:\isequiv(f)$ 有 $e_1=e_2$.\label{item:be3}
+    \item 对于任意两个居留元 $e_1,e_2:\isequiv(f)$ 有 $e_1=e_2$.\label{item:be3}
 \end{enumerate}
-在\cref{cha:equivalences} 会看到 $\isequiv(f)$ 有一些不同的定义满足这三个性质, 而它们都是等价的.
-现在, 为了让读者确定它存在, 只介绍最简单的定义:
-\begin{equation}\label{eq:isequiv-invertible}
-  \isequiv(f) \;\defeq\;
-  \Parens{\sm{g:B\to A} (f\circ g \htpy \idfunc[B])}
-  \times
-  \Parens{\sm{h:B\to A} (h\circ f \htpy \idfunc[A])}.
+在\cref{cha:equivalences} 会看到 $\isequiv(f)$ 的一些不同的定义方式, 并满足这三个性质, 而它们之间是等价的.
+现在, 为了说服读者它确实存在, 这里介绍最简单的定义:
+\begin{equation}
+    \label{eq:isequiv-invertible}
+    \isequiv(f) \;\defeq\;
+    \Parens{\sm{g:B\to A} (f\circ g \htpy \idfunc[B])}
+    \times
+    \Parens{\sm{h:B\to A} (h\circ f \htpy \idfunc[A])}.
 \end{equation}
-现在可以这样从这个定义展示~\ref{item:be1}和~\ref{item:be2}.
-函数 $\qinv(f) \to \isequiv (f)$ 很容易通过提取 $(g,\alpha,\beta)$ 为 $(g,\alpha,g,\beta)$ 定义.
-另外一个方向, 给定 $(g,\alpha,h,\beta)$, 令 $\gamma$ 为同伦组合
+现在可以这样展示定义~\ref{item:be1}和~\ref{item:be2}.
+函数 $\qinv(f) \to \isequiv (f)$, 只需定义为从 $(g,\alpha,\beta)$ 到 $(g,\alpha,g,\beta)$.
+另一个方向, 给定 $(g,\alpha,h,\beta)$, 令 $\gamma$ 为组合同伦
 \[ g \overset{\beta}{\htpy} h\circ f\circ g \overset{\alpha}{\htpy} h, \]
-即 $\gamma(x) \defeq \opp{\beta(g(x))} \ct \ap{h}{\alpha(x)}$.
+也就是 $\gamma(x) \defeq \opp{\beta(g(x))} \ct \ap{h}{\alpha(x)}$.
 现在定义 $\beta':g\circ f\htpy \idfunc[A]$ 为 $\beta'(x) \defeq \gamma(f(x)) \ct \beta(x)$.
 于是 $(g,\alpha,\beta'):\qinv(f)$.
 
 这个定义的性质~\ref{item:be3}, 也不难证明, 不过需要笛卡尔积和依值对子类型的声明恒等类型, 会在\cref{sec:compute-cartprod,sec:compute-sigma}中讨论.
-因此降其推迟到\cref{sec:biinv}.
-现在最重要的事是有了一个表现良好的类型来表示``$f$ 是一个等价'', 而且可以通过 quasi-inverse 来证明 $f$ 是一个等价.
-实际上, 这是证明一个函数是一个等价的通用的方法.
+因此将其推迟到\cref{sec:biinv}.
+现在最重要的事是有了一个表现良好的类型来表示``$f$ 是一个等价'', 而且可以通过展示 $f$ 的准逆, 来证明它是一个等价.
+实际上, 这是证明某个函数是一个等价的最常见的方法.
 
 和 proof-relevant 的哲学一致,
 \index{数学!proof-relevant}%
-从 $A$ 到 $B$ 的\emph{一个等价}定义为一个函数 $f:A\to B$ 与一个 $\isequiv (f)$ 的居留元, 即它们等价的一个证明.
-将从 $A$ 到 $B$ 的等价的类型写作 $(\eqv A B)$, 即
-\begin{equation}\label{eq:eqv}
-  (\eqv A B) \defeq \sm{f:A\to B} \isequiv(f).
+从 $A$ 到 $B$ 的\emph{等价}被定义为函数 $f:A\to B$ 和 $\isequiv (f)$ 的居留元, 即它们等价的一个证明.
+将从 $A$ 到 $B$ 的等价的类型写作 $(\eqv A B)$, 即类型
+\begin{equation}
+    \label{eq:eqv}
+    (\eqv A B) \defeq \sm{f:A\to B} \isequiv(f).
 \end{equation}
-之前的性质~\ref{item:be3} 确保了两个等价中的函数是相等的(也就是说, $A\to B$ 的元素之间相等), 那么等价也是相等的 (参见 \cref{sec:compute-sigma}).
-因此, 经常滥用这个符号, 并模糊在等价和它的底层函数之间的区别.
-如果有函数 $f:A\to B$ 并知道 $e:\isequiv(f)$, 可以写作 $f:\eqv A B$, 而不是 $\tup{f}{e}$.
-反过来, 如果有一个等价 $g:\eqv A B$, 给定 $a:A$, 可以写作 $g(a)$, 而不是 $(\proj1 g)(a)$.
+之前的性质~\ref{item:be3} 确保了, 如果两个等价的函数相等(也就是说, 类型为 $A\to B$ 的底层元素相等), 那么等价也是相等的 (参见 \cref{sec:compute-sigma}).
+因此, 经常滥用这个符号, 并模糊在等价和其底层函数之间的区别.
+例如, 如果有函数 $f:A\to B$ 并知道 $e:\isequiv(f)$, 那么会写作 $f:\eqv A B$, 而不是 $\tup{f}{e}$.
+反过来, 如果有一个等价 $g:\eqv A B$, 给定 $a:A$, 那么会写作 $g(a)$, 而不是 $(\proj1 g)(a)$.
 
 通过观察得出:
 
 \begin{lem}
     \label{thm:equiv-eqrel}
-    等价的类型是一个 \type 上的等价关系.
+    等价的类型是 \type 上的一个等价关系.
     更准确地说:
     \begin{enumerate}
         \item 对于任何 $A$, 恒等函数 $\idfunc[A]$ 是等价; 因此 $\eqv A A$.
@@ -208,13 +220,13 @@
     \end{enumerate}
 \end{lem}
 \begin{proof}
-  显然恒等函数是它自己的 quasi-inverse; 因此它是一个等价.
+    显然恒等函数是它自己的准逆; 因此它是一个等价.
 
-  如果 $f:A\to B$ 是等价, 那么它有 quasi-inverse, 叫做 $f^{-1}:B\to A$.
-  然后 $f$ 也是 $f^{-1}$ 的 quasi-inverse, 所以 $f^{-1}$ 是等价 $B\to A$.
+    如果 $f:A\to B$ 是等价, 那么它有准逆, 叫做 $f^{-1}:B\to A$.
+    然后 $f$ 也是 $f^{-1}$ 的准逆, 所以 $f^{-1}$ 就是是等价 $B\to A$.
 
-  最后, 给定 $f:\eqv A B$ 和 $g:\eqv B C$ 与 quasi-inverses $f^{-1}$ 和 $g^{-1}$, 然后对于任何 $a:A$ 有 $f^{-1} g^{-1} g f a = f^{-1} f a = a$, 对于任何 $c:C$ 有 $g f f^{-1} g^{-1} c = g g^{-1} c = c$.
-  然后 $f^{-1} \circ g^{-1}$ 是 $g\circ f$ 的 quasi-inverse, 所以后者是一个等价.
+    最后, 给定 $f:\eqv A B$ 和 $g:\eqv B C$ 与准逆 $f^{-1}$ 和 $g^{-1}$, 然后对于任何 $a:A$ 有 $f^{-1} g^{-1} g f a = f^{-1} f a = a$, 对于任何 $c:C$ 有 $g f f^{-1} g^{-1} c = g g^{-1} c = c$.
+    然后 $f^{-1} \circ g^{-1}$ 是 $g\circ f$ 的准逆, 所以后者是一个等价.
 \end{proof}
 
 \index{等价|)}%
