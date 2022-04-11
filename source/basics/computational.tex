@@ -1,40 +1,40 @@
-在 \cref{cha:typetheory} 中, 介绍了很多途径来构造新类型: 笛卡尔积, 不交并, 依值乘积, 依值和, 等等.
-在 \cref{sec:equality,sec:functors,sec:fibrations} 中, 看见了同伦类型论中\emph{所有}类型的表现如同空间或者高维群胚.
-本章剩余部分的目标是, 弄明白 \cref{cha:typetheory} 中定义的特定类型的高维结构的表现.
+我们在 \cref{cha:typetheory}介绍了很多构造新类型的方式: 笛卡尔积, 不交并, 依值乘积, 依值和, 等等.
+在 \cref{sec:equality,sec:functors,sec:fibrations}, 可以看到同伦类型论中\emph{所有}类型具备空间或者高维群胚的特征.
+本章的目标是搞清楚 \cref{cha:typetheory} 中定义的特定类型的高维结构特征.
 
-事实证明对于很多类型 $A$, 等同类型 $\id[A]xy$ 可以被描述为, 也就是等价于, 每个用于构造 $A$ 的数据组成的表达式.
-例如, 如果 $A$ 是一个笛卡尔积 $B\times C$, 而 $x\jdeq (b,c)$ 和 $y\jdeq(b',c')$, 那么有一个等价
+事实证明, 对于很多类型 $A$, 等同类型 $\id[A]xy$ 可以用构成 $A$ 的数据等价地表征.
+例如, 如果 $A$ 是一个笛卡尔积 $B\times C$, 而 $x\jdeq (b,c)$ 和 $y\jdeq(b',c')$, 那么有等价
 \begin{equation}\label{eq:prodeqv}
   \eqv{\big((b,c)=(b',c')\big)}{\big((b=b')\times (c=c')\big)}.
 \end{equation}
-在更传统 的语言中, 只有在两个有序对子的组成部分都相等时它们相等(而等价~\eqref{eq:prodeqv} 的含义更多).
-恒等类型的高阶结构也可以用这些等价符号表达;
-例如, 连接两个对子间的等同相当于它的组成部分成对连接.
+更传统的语言中, 只有在两个有序对子的组成部分都相等时, 它们才相等(而等价~\eqref{eq:prodeqv} 有更多的含义).
+这些等价关系的式子, 也能表达恒等类型的高阶结构;
+例如, 连接两个对子间的等同相当于它的组成部分逐对地连接.
 
-类似地, 一个类型族 $P:A\to\type$, 被纤维式地使用\cref{cha:typetheory} 中的类型构造规则所构造时, 运算 $\transfib{P}{p}{\blank}$ 可以被描述为, 也就是同伦于, 构造 $P$ 的数据上的对应的算子的表达式.
+类似地, 类型族 $P:A\to\type$, 如果它由 \cref{cha:typetheory} 中的类型形成规则逐纤维地构造, 运算 $\transfib{P}{p}{\blank}$ 可以用进入 $P$ 的数据上对应的运算同伦地表征.
 例如, 如果 $P(x) \jdeq B(x)\times C(x)$, 那么有
 \[\transfib{P}{p}{(b,c)} = \big(\transfib{B}{p}{b},\transfib{C}{p}{c}\big).\]
 
-最后, 类型构造规则也是函子, 如果一个函数 $f$ 由这个函子所构造, 那么运算 $\apfunc f$ 和 $\apdfunc f$ 可以在对应构造 $f$ 的数据的基础上计算.
-例如, 如果 $g:B\to B'$ 和 $h:C\to C'$ 并定义 $f:B\times C \to B'\times C'$ 为 $f(b,c)\defeq (g(b),h(c))$, 然后对等价~\eqref{eq:prodeqv} 取模, 可以表示 $\apfunc f$ 为 ``$(\apfunc g,\apfunc h)$''.
+最后, 类型形成规则也是函子性的, 如果用这些函子构造函数 $f$, 那么可以基于进入 $f$ 的数据, 得到运算 $\apfunc f$ 和 $\apdfunc f$.
+例如, 如果 $g:B\to B'$ 和 $h:C\to C'$ 并将 $f:B\times C \to B'\times C'$ 定义为 $f(b,c)\defeq (g(b),h(c))$, 然后根据等价~\eqref{eq:prodeqv}, 可以将 $\apfunc f$ 表示为 ``$(\apfunc g,\apfunc h)$''.
 
-接下来的一些小节 (\crefrange{sec:compute-cartprod}{sec:compute-nat}) 会专注于陈述和证明这类所有类型基础构造规则的理论, 每个基础类型构造是一个小节.
-目前用的类型理论中有明显缺乏某些东西;
-接下来的章中, 描述恒等类型, transport 等是\emph{判断}\index{判断等同}等同的, 会更方便和直观.
-然而, 在 \cref{cha:typetheory} 提出的理论中, 恒等类型被其归纳原理对于所有类型统一定义, 所以无法 ``重新定义'' 它们, 让它在不同类型下成为不同的东西.
-因此, 本章要讨论的特定类型的特征大多数是, 可能发现和证明的\emph{定理}.
+接下来的小节 (\crefrange{sec:compute-cartprod}{sec:compute-nat}) 会专注于陈述和证明那些基础类型的形成规则, 每个小节对应一个基础类型形成器.
+目前的类型论中, 明显地缺乏某些东西;
+接下来的章节中, 恒等类型, 运输等\emph{判断}\index{判断等同}等同, 可以更方便和直观地描述.
+然而, \cref{cha:typetheory} 提出的理论中, 恒等类型被其归纳原理对于所有类型统一定义, 所以无法 ``重新定义'' 它们, 让它在不同类型下成为不同的东西.
+因此, 本章讨论的哪些特定类型大部分是, 可以发现和证明的\emph{定理}.
 
-实际上, \cref{cha:typetheory}的类型论不足以证明这两个类型的构造: $\Pi$-类型和宇宙.
-因此, 会被迫引入公理到我们的类型论中, 来让这些``定理''为真.
-类型论上, 一个\emph{公理} (比较~\cref{sec:axioms}) 是一个``原子性''元素, 它被声明是特定类型的居留元, 除了这些与它居留类型有关的, 没有任何类型管理它的行为.
-\index{axiom!versus rules}%
+实际上, \cref{cha:typetheory}的类型论不足以证明这两个类型的形成器: $\Pi$-类型和宇宙.
+因此, 我们被迫引入公理到我们的类型论中, 来让这些``定理''为真.
+类型论上, 一个\emph{公理} (比较~\cref{sec:axioms}) 是一个``原子性''元素, 它被声明是特定类型的居留元, 没有任何规则管理它的行为, 除了这些它的居留类型.
+\index{公理!与规则}%
 
 \index{函数外延性}%
 \indexsee{外延性, 函数的}{函数外延性}
 \index{宇宙等价公理}%
-$\Pi$-类型的公理(\cref{sec:compute-pi}) 是类型家所熟悉的: 被称为\emph{函数外延性}, 大致就是若两个函数是同伦的(在 \cref{sec:basics-equivalences} 的意义上), 它们就相等.
-而宇宙的公理 (\cref{sec:compute-universe}), 是 Voevodsky 对同伦类型论的新贡献: 被称为\emph{宇宙等价公理}, 大致就是若两个类型是等价的(\cref{sec:basics-equivalences}), 它们就相等.
-在导论中已经评论了这个公理; 在这本书中它扮演一个重要角色.%
+$\Pi$-类型的公理(\cref{sec:compute-pi}) 是类型论学家熟悉的: \emph{函数外延性}, 粗略地说就是, 若两个函数在 \cref{sec:basics-equivalences} 的意义上是同伦的, 那么它们相等.
+而宇宙的公理 (\cref{sec:compute-universe}), 是 Voevodsky 对同伦类型论的新贡献: 被称为\emph{一价公理}, 粗略地说就是, 若两个类型等价(\cref{sec:basics-equivalences}), 那么它们相等.
+在导论中已经见过这个公理; 这本书中它将扮演一个重要角色.%
 \footnote{我们选择引入这些原则作为公理, 但还有潜在地其它方法, 来指定一个它们成立的类型论.
   参见本章的备注.}
 
