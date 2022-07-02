@@ -1,150 +1,155 @@
 \index{类型!积|(}%
 给定类型 $A$ 和 $B$, 考虑笛卡尔积类型 $A \times B$.
-对于任何元素 $x,y:A\times B$ 和一个路径 $p:\id[A\times B]{x}{y}$, 根据函子性可以提取类型 $\ap{\proj1}p:\id[A]{\proj1(x)}{\proj1(y)}$ 和 $\ap{\proj2}p:\id[B]{\proj2(x)}{\proj2(y)}$.
+对于任何元素 $x,y:A\times B$ 和路径 $p:\id[A\times B]{x}{y}$, 根据函子性可以提取类型 $\ap{\proj1}p:\id[A]{\proj1(x)}{\proj1(y)}$ 和 $\ap{\proj2}p:\id[B]{\proj2(x)}{\proj2(y)}$.
 因此有函数
-\begin{equation}\label{eq:path-prod}
-  (\id[A\times B]{x}{y}) \to (\id[A]{\proj1(x)}{\proj1(y)}) \times (\id[B]{\proj2(x)}{\proj2(y)}).
+\begin{equation}
+    \label{eq:path-prod}
+    (\id[A\times B]{x}{y}) \to (\id[A]{\proj1(x)}{\proj1(y)}) \times (\id[B]{\proj2(x)}{\proj2(y)}).
 \end{equation}
 
-\begin{thm}\label{thm:path-prod}
-  对于任何 $x$ 和 $y$, 函数~\eqref{eq:path-prod} 是一个等价.
+\begin{thm}
+    \label{thm:path-prod}
+    对于任何 $x$ 和 $y$, 函数~\eqref{eq:path-prod} 是一个等价.
 \end{thm}
 
-从逻辑上阅读, 这说明两个对子只有在它的组件各自相等的时候相等.
+从逻辑上阅读, 这说明两个对子相等, 就是它逐组成地相等.
 从范畴论上看, 这说明积群胚中的态射是态射的对子.
 从同伦论上看, 这说明积空间中的路径是路径的对子.
 
 \begin{proof}
-  需要另一个方向的函数:
-  \begin{equation}
-    (\id[A]{\proj1(x)}{\proj1(y)}) \times (\id[B]{\proj2(x)}{\proj2(y)}) \to (\id[A\times B]{x}{y}). \label{eq:path-prod-inverse}
-  \end{equation}
-  根据笛卡尔积的归纳原理, 可以假定 $x$ 和 $y$ 都是对子, 也就是 $x\jdeq (a,b)$ 和 $y\jdeq (a',b')$ 其中 $a,a':A$ 而 $b,b':B$.
-  这种情况下, 想要一个函数
-  \begin{equation*}
-    (\id[A]{a}{a'}) \times (\id[B]{b}{b'}) \to \big(\id[A\times B]{(a,b)}{(a',b')}\big).
-  \end{equation*}
-  现在在它的定义域进行笛卡尔积的归纳, 可以假定 $p:a=a'$ 和 $q:b=b'$.
-  通过两次路径归纳, 可以假定 $a\jdeq a'$ 和 $b\jdeq b'$ 而且 $p$ 和 $q$ 都为自反.
-  而这种个情况下, 有 $(a,b)\jdeq(a',b')$ 所以可以得到输出也是自反.
+    需要另一个方向的函数:
+    \begin{equation}
+    (\id[A]{\proj1(x)}{\proj1(y)})
+        \times (\id[B]{\proj2(x)}{\proj2(y)}) \to (\id[A\times B]{x}{y}). \label{eq:path-prod-inverse}
+    \end{equation}
+    根据笛卡尔积的归纳规则, 可以任务 $x$ 和 $y$ 都是对子, 也就是 $x\jdeq (a,b)$ 和 $y\jdeq (a',b')$ 其中 $a,a':A$ 而 $b,b':B$.
+    这种情况下, 想要的就是函数
+    \begin{equation*}
+    (\id[A]{a}{a'})
+        \times (\id[B]{b}{b'}) \to \big(\id[A\times B]{(a,b)}{(a',b')}\big).
+    \end{equation*}
+    现在, 在它的定义域进行笛卡尔积的归纳, 可以认为 $p:a=a'$ 和 $q:b=b'$.
+    经过两次路径归纳, 可以认为 $a\jdeq a'$ 和 $b\jdeq b'$ 而 $p$ 和 $q$ 都为自反.
+    这种个情况下, 有 $(a,b)\jdeq(a',b')$, 所以可以用自反作为输出.
 
-  剩下的证明是~\eqref{eq:path-prod-inverse} 是 quasi-inverse ~\eqref{eq:path-prod}的.
-  简单连续使用递归, 不过必须按照正确的顺序来.
+    接下来证明~\eqref{eq:path-prod-inverse} 准逆于 ~\eqref{eq:path-prod}.
+    只需简单连续使用递归, 不过必须按照正确的顺序来.
 
-  朝一个方向, 从 $r:\id[A\times B]{x}{y}$ 开始.
-  首先在 $r$ 上进行路径归纳, 得到 $x\jdeq y$ 而且 $r$ 是自反.
-  这种情况下, 因为 $\apfunc{\proj1}$ 和 $\apfunc{\proj2}$ 通过路径归纳定义,~\eqref{eq:path-prod} 代入 $r\jdeq \refl{x}$ 到对子 $(\refl{\proj1x},\refl{\proj2x})$.
-  对 $x$ 归纳, 可以假定 $x\jdeq (a,b)$, 于是它就是 $(\refl a, \refl b)$.
-  因此, 根据定义, ~\eqref{eq:path-prod-inverse} 得到 $\refl{(a,b)}$, 即 (根据目前的假定) $r$.
+    其中一个方向, 从 $r:\id[A\times B]{x}{y}$ 开始.
+    首先在 $r$ 上进行路径归纳, 并认为 $x\jdeq y$ 而且 $r$ 是自反.
+    这种情况下, 因为 $\apfunc{\proj1}$ 和 $\apfunc{\proj2}$ 是通过路径归纳定义的,~\eqref{eq:path-prod} 将 $r\jdeq \refl{x}$ 变为序对 $(\refl{\proj1x},\refl{\proj2x})$.
+    对 $x$ 归纳, 可以假定 $x\jdeq (a,b)$, 于是它就是 $(\refl a, \refl b)$.
+    因此, 根据定义, ~\eqref{eq:path-prod-inverse} 得到 $\refl{(a,b)}$, 即 (根据目前的假定) $r$.
 
-  另一个方向, 从 $s:(\id[A]{\proj1(x)}{\proj1(y)}) \times (\id[B]{\proj2(x)}{\proj2(y)})$ 开始, 首先对 $x$ 和 $y$ 归纳, 假定它们分别是对子 $(a,b)$ 和 $(a',b')$, 然后对 $s:(\id[A]{a}{a'}) \times (\id[B]{b}{b'})$ 归纳来化简为对子 $(p,q)$, 其中 $p:a=a'$ 而 $q:b=b'$.
-  现在对 $p$ 和 $q$ 归纳, 假定它们是 $\refl a$ 和 $\refl b$, 这种情况~\eqref{eq:path-prod-inverse} 得到 $\refl{(a,b)}$ 然后~\eqref{eq:path-prod} 返回 $(\refl a,\refl b)\jdeq (p,q)\jdeq s$.
+    另一个方向, 如果从 $s:(\id[A]{\proj1(x)}{\proj1(y)}) \times (\id[B]{\proj2(x)}{\proj2(y)})$ 开始, 首先对 $x$ 和 $y$ 归纳, 假定它们分别是对子 $(a,b)$ 和 $(a',b')$, 然后对 $s:(\id[A]{a}{a'}) \times (\id[B]{b}{b'})$ 归纳来化简到对子 $(p,q)$, 其中 $p:a=a'$ 而 $q:b=b'$.
+    现在对 $p$ 和 $q$ 归纳, 假定它们是自反 $\refl a$ 和 $\refl b$, 这种情况~\eqref{eq:path-prod-inverse} 得到 $\refl{(a,b)}$ 而~\eqref{eq:path-prod} 返回 $(\refl a,\refl b)\jdeq (p,q)\jdeq s$.
 \end{proof}
 
 特别地, 我们展示了~\eqref{eq:path-prod} 有一个逆~\eqref{eq:path-prod-inverse}, 可以记作
 \symlabel{defn:pairpath}
 \[
-\pairpath : (\id{\proj{1}(x)}{\proj{1}(y)}) \times (\id{\proj{2}(x)}{\proj{2}(y)}) \to (\id x y).
+    \pairpath : (\id{\proj{1}(x)}{\proj{1}(y)}) \times (\id{\proj{2}(x)}{\proj{2}(y)}) \to (\id x y).
 \]
-注意这是特殊情况, 得到了命题上乘积类型的唯一性原理\index{唯一性!原理, 命题!乘积类型的}: $z = (\proj1(z),\proj2(z))$.
+注意这个特殊情况, 得到了乘积类型命题上的唯一性原理\index{唯一性!原理, 命题!乘积类型的}: $z = (\proj1(z),\proj2(z))$.
 
-这样来看可能会有帮助, \pairpath 是 $\id x y$ 的\emph{构造子}或者\emph{构造规则}, 类似于 $A\times B$ 自己的``成对''构造子, 积给定 $a:A$ 和 $b:B$ 构造对子 $(a,b)$.
-从这个角度, ~\eqref{eq:path-prod} 的两个组成部分:
+可以将 \pairpath 看作 $\id x y$ 的\emph{构造器}或者\emph{构造规则}, 类似于 $A\times B$ 自己的``对子''构造器, 即给定 $a:A$ 和 $b:B$ 构造对子 $(a,b)$.
+从这个观点, ~\eqref{eq:path-prod} 的两个组成部分:
 \begin{align*}
-  \projpath{1} &: (\id{x}{y}) \to (\id{\proj{1}(x)}{\proj{1} (y)})\\
-  \projpath{2} &: (\id{x}{y}) \to (\id{\proj{2}(x)}{\proj{2} (y)})
+    \projpath{1} &: (\id{x}{y}) \to (\id{\proj{1}(x)}{\proj{1} (y)})\\
+    \projpath{2} &: (\id{x}{y}) \to (\id{\proj{2}(x)}{\proj{2} (y)})
 \end{align*}
 是\emph{消去}规则.
-类似的, 这两个同伦, ~\eqref{eq:path-prod-inverse} quasi-inverse ~\eqref{eq:path-prod} 的证据中的两个同伦, 分别属于\emph{命题的计算规则}:
-\index{计算规则!命题的!对子间的恒等}%
+类似的, 这两个同伦, 也就是 ~\eqref{eq:path-prod-inverse} 准逆于 ~\eqref{eq:path-prod} 的证据, 分别是\emph{命题上的计算规则}:
+\index{计算规则!命题上的!对子间的恒等}%
 \begin{align*}
-  {\projpath{1}{(\pairpath(p, q)})}
-  &= %_{(\id{\proj{1} x}{\proj{1} y})}
-  {p} \\
-  {\projpath{2}{(\pairpath(p,q)})}
-  &= %_{(\id{\proj{2} x}{\proj{2} y})}
-  {q}
+{\projpath{1}{(\pairpath(p, q)})}
+    &= %_{(\id{\proj{1} x}{\proj{1} y})}
+        {p} \\
+    {\projpath{2}{(\pairpath(p,q)})}
+    &= %_{(\id{\proj{2} x}{\proj{2} y})}
+        {q}
 \end{align*}
-对于 $p:\id{\proj{1} x}{\proj{1} y}$ 和 $q:\id{\proj{2} x}{\proj{2} y}$,
-有一个\emph{命题的唯一性原理}:
-\index{唯一性!原理, 命题的!对于对子之间的恒等}%
+对于 $p:\id{\proj{1} x}{\proj{1} y}$ 和 $q:\id{\proj{2} x}{\proj{2} y}$, 有一个\emph{命题上的唯一性原理}:
+\index{唯一性!原理, 命题上的!对于对子之间的恒等}%
 \[
-\id{r}{\pairpath(\projpath{1} (r), \projpath{2} (r)) }
-\qquad\text{for } r : \id[A \times B] x y.
+    \id{r}{\pairpath(\projpath{1} (r), \projpath{2} (r)) }
+    \qquad\text{for } r : \id[A \times B] x y.
 \]
 
 对于 $A\times B$ 每个组件的路径, 可以表征自反, 逆, 和组合:
 \begin{align*}
-  {\refl{(z : A \times B)}}
-  &= {\pairpath (\refl{\proj{1} z},\refl{\proj{2} z})} \\
-  {\opp{p}}
-  &= {\pairpath \big(\opp{\projpath{1} (p)},\, \opp{\projpath{2} (p)}\big)} \\
-  {{p \ct q}}
-  &= {\pairpath \big({\projpath{1} (p)} \ct {\projpath{1} (q)},\,{\projpath{2} (p)} \ct {\projpath{2} (q)}\big)}.
+{\refl{(z : A \times B)}}
+    &= {\pairpath (\refl{\proj{1} z},\refl{\proj{2} z})} \\
+    {\opp{p}}
+    &= {\pairpath \big(\opp{\projpath{1} (p)},\, \opp{\projpath{2} (p)}\big)} \\
+    {{p \ct q}}
+    &= {\pairpath \big({\projpath{1} (p)} \ct {\projpath{1} (q)},\,{\projpath{2} (p)} \ct {\projpath{2} (q)}\big)}.
 \end{align*}
-或者, 不同地写作:
+或者, 写作:
 \begin{alignat*}{2}
-  \projpath{i}(\refl{(z : A \times B)}) &= \refl{\proj{i} z} &\qquad (i=1,2)\\
-  \pairpath(\opp p, \opp q) &= \opp{\pairpath(p,q)}\\
-  \pairpath(p\ct q, p'\ct q') &= \pairpath(p,p') \ct \pairpath(q,q').
+    \projpath{i}(\refl{(z : A \times B)}) &= \refl{\proj{i} z} &\qquad (i=1,2)\\
+    \pairpath(\opp p, \opp q) &= \opp{\pairpath(p,q)}\\
+    \pairpath(p\ct q, p'\ct q') &= \pairpath(p,p') \ct \pairpath(q,q').
 \end{alignat*}
-这些等式全都可以这样推导出来, 对给定的路径进行路径归纳, 然后返回自反.
-\cref{sec:equality} 中, 高维群胚结构剩余的也同样为真, 尽管这会变得冗长, 要插入足够多的其它 coherence 路径, 来产生一个通过类型检查的等式.
+这些等式全都可以这样推导出来, 通过对给定的路径进行路径归纳, 然后返回自反.
+\cref{sec:equality} 中高维群胚结构的剩余部分也同样符合, 尽管这会变得冗长, 要插入足够多的其它连贯路径, 来得到一个通过类型检查的等式.
 例如, 如果要表示 \cref{thm:omg}\ref{item:omg4} 中路径的逆, 其中使用 $\ctassoc(p,q,r)$ 并用 $\pairct(p,q,p',q')$ 表示上面的最后一个路径, 然后对于任何 $u,v,z,w:A\times B$ 和 $p,q,r,p',q',r'$ 属于合适的类型, 有
 \begin{equation*}
-  \begin{array}{l}
-    \pairct(p\ct q, r, p'\ct q', r') \\
-    \ct\;  (\pairct(p,q,p',q') \rightwhisker \pairpath(r,r')) \\
-    \ct\;  \ctassoc(\pairpath(p,p'),\pairpath(q,q'),\pairpath(r,r'))\\
-    =
-    \begin{array}[t]{l}
-      \apfunc{\pairpath}({\pairpath(\ctassoc(p,q,r),\ctassoc(p',q',r'))})\\
-      \ct\; \pairct(p, q\ct r, p', q'\ct r')\\
-      \ct\; (\pairpath(p,p') \leftwhisker \pairct(q,r,q',r')).
+    \begin{array}{l}
+        \pairct(p\ct q, r, p'\ct q', r')                                    \\
+        \ct\;  (\pairct(p,q,p',q') \rightwhisker \pairpath(r,r'))             \\
+        \ct\;  \ctassoc(\pairpath(p,p'),\pairpath(q,q'),\pairpath(r,r'))      \\
+        =
+        \begin{array}[t]{l}
+            \apfunc{\pairpath}({\pairpath(\ctassoc(p,q,r),\ctassoc(p',q',r'))}) \\
+            \ct\; \pairct(p, q\ct r, p', q'\ct r')                              \\
+            \ct\; (\pairpath(p,p') \leftwhisker \pairct(q,r,q',r')).
+        \end{array}
     \end{array}
-  \end{array}
 \end{equation*}
-幸运的是, 永远不会使用任何这样的高维 coherence.
+幸运的是, 之后将不会使用任何这样的高维连贯.
 
-\index{transport!in product types}%
-现在考虑在类型族逐点的乘积中的 transport.
+\index{运输!乘积类型中}%
+现在考虑在类型族逐点的乘积中的运输.
 给定类型族 $ A, B : Z \to \type$, 滥用地写作 $A\times B:Z\to \type$ 对于定义为 $(A\times B)(z) \defeq A(z) \times B(z)$ 的类型族.
-现在给定 $p : \id[Z]{z}{w}$ 和 $x : A(z) \times B(z)$, 可以 transport $x$ 沿着 $p$ 得到一个 $A(w)\times B(w)$ 元素.
+现在给定 $p : \id[Z]{z}{w}$ 和 $x : A(z) \times B(z)$, 可以沿着 $p$ 运输 $x$ 得到一个 $A(w)\times B(w)$ 元素.
 
-\begin{thm}\label{thm:trans-prod}
-  上述情况下, 有
-  \[
-  \id[A(w) \times B(w)]
-  {\transfib{A\times B}px}
-  {(\transfib{A}{p}{\proj{1}x}, \transfib{B}{p}{\proj{2}x})}.
-  \]
+\begin{thm}
+    \label{thm:trans-prod}
+    上述情况下, 有
+    \[
+        \id[A(w) \times B(w)]
+            {\transfib{A\times B}px}
+            {(\transfib{A}{p}{\proj{1}x}, \transfib{B}{p}{\proj{2}x})}.
+    \]
 \end{thm}
 \begin{proof}
-  根据路径归纳, 可以假定 $p$ 是自反, 其中
-  \begin{align*}
-    \transfib{A\times B}px&\jdeq x\\
-    \transfib{A}{p}{\proj{1}x}&\jdeq \proj1x\\
-    \transfib{B}{p}{\proj{2}x}&\jdeq \proj2x.
-  \end{align*}
-  因此, 还要展示 $x = (\proj1 x, \proj2x)$.
-  而这就是乘积类型命题的唯一性公理, 上面备注过, 来自于 \cref{thm:path-prod}.
+    根据路径归纳, 可以假定 $p$ 是自反, 其中
+    \begin{align*}
+        \transfib{A\times B}px&\jdeq x\\
+        \transfib{A}{p}{\proj{1}x}&\jdeq \proj1x\\
+        \transfib{B}{p}{\proj{2}x}&\jdeq \proj2x.
+    \end{align*}
+    因此, 还要展示 $x = (\proj1 x, \proj2x)$.
+    而这就是乘积类型命题的唯一性公理, 之前备注过, 来自 \cref{thm:path-prod}.
 \end{proof}
 
 最后, 考虑笛卡尔积上的 $\apfunc{}$ 的函子性.
 给定类型 $A,B,A',B'$ 与函数 $g:A\to A'$ 和 $h:B\to B'$;
-然后可以定义一个函数 $f:A\times B\to A'\times B'$ by $f(x) \defeq (g(\proj1x),h(\proj2x))$.
+然后可以定义函数 $f:A\times B\to A'\times B'$ 通过 $f(x) \defeq (g(\proj1x),h(\proj2x))$.
 
-\begin{thm}\label{thm:ap-prod}
-  上述情况下, 给定 $x,y:A\times B$ 和 $p:\proj1x=\proj1y$ 以及 $q:\proj2x=\proj2y$, 有
-  \[ \id[(f(x)=f(y))]{\ap{f}{\pairpath(p,q)}} {\pairpath(\ap{g}{p},\ap{h}{q})}. \]
+\begin{thm}
+    \label{thm:ap-prod}
+    上述情况下, 给定 $x,y:A\times B$ 和 $p:\proj1x=\proj1y$ 以及 $q:\proj2x=\proj2y$, 有
+    \[ \id[(f(x)=f(y))]{\ap{f}{\pairpath(p,q)}} {\pairpath(\ap{g}{p},\ap{h}{q})}. \]
 \end{thm}
 \begin{proof}
-  注意, 首先上面的等式是良类型的.
-  一方面, 因为 $\pairpath(p,q):x=y$ 有 $\ap{f}{\pairpath(p,q)}:f(x)=f(y)$.
-  另一方面, 因为 $\proj1(f(x))\jdeq g(\proj1x)$ 和 $\proj2(f(x))\jdeq h(\proj2x)$, 同样有 $\pairpath(\ap{g}{p},\ap{h}{q}):f(x)=f(y)$.
+    注意, 首先上面的等式是良类型的.
+    一方面, 因为 $\pairpath(p,q):x=y$ 有 $\ap{f}{\pairpath(p,q)}:f(x)=f(y)$.
+    另一方面, 因为 $\proj1(f(x))\jdeq g(\proj1x)$ 和 $\proj2(f(x))\jdeq h(\proj2x)$, 同样有 $\pairpath(\ap{g}{p},\ap{h}{q}):f(x)=f(y)$.
 
-  现在, 通过归纳, 可以假定 $x\jdeq(a,b)$ 和 $y\jdeq(a',b')$, 这种情况下有 $p:a=a'$ 和 $q:b=b'$.
-  因此, 通过路径归纳, 可以假定 $p$ 和 $q$ 是自反的, 这种情况下所需的等式判断地成立.
+    现在, 通过归纳, 可以假定 $x\jdeq(a,b)$ 和 $y\jdeq(a',b')$, 这种情况下有 $p:a=a'$ 和 $q:b=b'$.
+    因此, 通过路径归纳, 可以假定 $p$ 和 $q$ 是自反的, 这种情况下所需的等式判断地成立.
 \end{proof}
 
 \index{类型!乘积|)}%
