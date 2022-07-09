@@ -1,23 +1,23 @@
-\index{类型!依值对子|(}%
+\index{类型!依值序对|(}%
 令 $A$ 为一个类型而 $P:A\to\type$ 为一个类型族.
-回顾 $\Sigma$-类型, 或是依值对子类型, $\sm{x:A} P(x)$ 是笛卡尔积类型的推广.
-因此期望它的高阶群胚结构也是上一节的推广.
-特殊的, 它的路径应该是路径的对子, 不过要给出这些路径的正确类型, 需要一些思考.
+回顾 $\Sigma$-类型, 或是依值序对类型, $\sm{x:A} P(x)$ 是笛卡尔积类型的推广.
+因此我们期望它的高阶群胚结构也是上一节的推广.
+特殊的, 它的路径应该是路径的序对, 不过要给出这些路径的正确类型, 需要一些思考.
 
 假设 $\sm{x:A}P(x)$ 中有一个路径 $p:w=w'$.
-然后得到 $\ap{\proj{1}}{p}:\proj{1}(w)=\proj{1}(w')$.
-然而, 无法直接询问 $\proj{2}(w)$ 是否恒等于 $\proj{2}(w')$, 因为它们的类型不相同.
-不过可以沿着路径 $\ap{\proj{1}}{p}$ transport\index{transport} $\proj{2}(w)$, 而这给定了一个元素, 其类型和 $\proj{2}(w')$ 相同.
-根据路径归纳, 实际上得到了路径 $\trans{\ap{\proj{1}}{p}}{\proj{2}(w)}=\proj{2}(w')$.
+那么可以得到 $\ap{\proj{1}}{p}:\proj{1}(w)=\proj{1}(w')$.
+但是, 不能直接询问 $\proj{2}(w)$ 是否恒等于 $\proj{2}(w')$, 因为它们的类型不相同.
+不过可以沿着路径 $\ap{\proj{1}}{p}$ 运输\index{运输} $\proj{2}(w)$, 而这给定了一个元素, 其类型和 $\proj{2}(w')$ 相同.
+根据路径归纳, 实际能得到路径 $\trans{\ap{\proj{1}}{p}}{\proj{2}(w)}=\proj{2}(w')$.
 
 回顾之前 \cref{lem:mapdep} 的讨论,
 \narrowequation{
     \trans{\ap{\proj{1}}{p}}{\proj{2}(w)}=\proj{2}(w')
 }
-可以被视为是从 $\proj2(w)$ 到 $\proj2(w')$ 的路径, 并 lie over $A$ 中的路径 $\ap{\proj1}{p}$.
+可以被视为是从 $\proj2(w)$ 到 $\proj2(w')$ 的路径, 并覆盖 $A$ 中的路径 $\ap{\proj1}{p}$.
 \index{纤维化}%
 \index{全!空间}%
-因此, 可以全空间的路径 $w=w'$, 决定 (且取决) $A$ 中的路径 $p:\proj1(w)=\proj1(w')$ 与从 $\proj2(w)$ 到 $\proj2(w')$ 并 lying over $p$ 的路径, 这看起来合理.
+因此, 可以说全空间的路径 $w=w'$, 决定了 (且取决于) $A$ 中的路径 $p:\proj1(w)=\proj1(w')$ 与从 $\proj2(w)$ 到 $\proj2(w')$ 并覆盖 $p$ 的路径, 这看起来合理.
 
 \begin{rmk}
     注意如果有 $x:A$ 和 $u,v:P(x)$ 而 $(x,u)=(x,v)$, 不代表 $u=v$.
@@ -26,8 +26,8 @@
     位于相同纤维的点之间的纤维化, 它的群空间内存在一个路径 $(x,u)=(x,v)$ 并不意味存在一个路径 $u=v$ 存在\emph{于}这个纤维中.
 \end{rmk}
 
-接下来的定理说明可以反转这个过程.
-因为它是 \cref{thm:path-prod} 的直接推广, 会更简洁.
+接下来的定理说明这个过程可以被反转.
+因为它是 \cref{thm:path-prod} 的直接推广, 这里会简略一些.
 
 \begin{thm}
     \label{thm:path-sigma}
@@ -38,7 +38,7 @@
 \end{thm}
 
 \begin{proof}
-    定义一个函数
+    定义函数
     \begin{equation*}
         f : \prd{w,w':\sm{x:A}P(x)} (w=w') \to \dsm{p:\proj{1}(w)=\proj{1}(w')} \trans{p}{\proj{2}(w)}=\proj{2}(w')
     \end{equation*}
@@ -56,44 +56,46 @@
         \narrowbreak
         (w=w')
     \end{narrowmultline*}
-    首先在 $w$ 和 $w'$ 上进行归纳, 分别分离它们到 $(w_1,w_2)$ 和 $(w_1',w_2')$, 于是足以展示
+    首先在 $w$ 和 $w'$ 上进行归纳, 分别将它们拆分为 $(w_1,w_2)$ 和 $(w_1',w_2')$, 于是可以得到
     \begin{equation*}
         \Parens{\sm{p:w_1 = w_1'}\trans{p}{w_2}=w_2'} \to ((w_1,w_2)=(w_1',w_2')).
     \end{equation*}
-    然后, 给定一个对子 $\sm{p:w_1 = w_1'}\trans{p}{w_2}=w_2'$, 可以使用 $\Sigma$-归纳来得到 $p : w_1 = w_1'$ 和 $q : \trans{p}{w_2}=w_2'$.
-    在 $p$ 上归纳, 有 $q : \trans{(\refl{w_1})}{w_2}=w_2'$, 足以展示 $(w_1,w_2)=(w_1,w_2')$.
-    但是 $\trans{(\refl{w_1})}{w_2} \jdeq w_2$, 所以在 $q$ 上归纳化简目的为 $(w_1,w_2)=(w_1,w_2)$, 可以用 $\refl{(w_1,w_2)}$ 来证明.
+    然后, 给定序对 $\sm{p:w_1 = w_1'}\trans{p}{w_2}=w_2'$, 可以使用 $\Sigma$-归纳来得到 $p : w_1 = w_1'$ 和 $q : \trans{p}{w_2}=w_2'$.
+    在 $p$ 上归纳, 有 $q : \trans{(\refl{w_1})}{w_2}=w_2'$, 可以得到 $(w_1,w_2)=(w_1,w_2')$.
+    但是 $\trans{(\refl{w_1})}{w_2} \jdeq w_2$, 所以在 $q$ 上归纳化简, 得到 $(w_1,w_2)=(w_1,w_2)$, 然后用 $\refl{(w_1,w_2)}$ 来证明.
 
-    然后展示对于所有 $w$, $w'$ 和 $r$ 有 $f(g(r))=r$, 其中 $r$ 具有类型
+    然后要展示对于所有 $w$, $w'$ 和 $r$ 有 $f(g(r))=r$, 其中 $r$ 具有类型
     \[\dsm{p:\proj{1}(w)=\proj{1}(w')} (\trans{p}{\proj{2}(w)}=\proj{2}(w')).\]
-    首先, 用在对子 $w$, $w'$, 和 $r$ 上归纳来将其拆开, 并根据 $g$ 的定义, 然后使用两次路径归纳来化简 $r$ 的两个组件到 \refl{}.
-    而它足以展示根据定义
+    首先, 用在序对 $w$, $w'$, 和 $r$ 上归纳来将其拆开, 并根据 $g$ 的定义, 然后使用两次路径归纳来化简 $r$ 的两个组件到 \refl{}.
+    然后足以根据定义得到
     $f (g(\refl{w_1},\refl{w_2})) = (\refl{w_1},\refl{w_2})$ 为真.
 
-    类似地, 为了展示 对于所有 $w$, $w'$ 和 $p : w = w'$ 有 $g(f(p))=p$, 可以在路径 $p$ 上归纳, 然后在对子 $w$ 上归纳来拆开它, 而它足以展示根据定义
+    类似地, 为了展示对于所有 $w$, $w'$ 和 $p : w = w'$ 有 $g(f(p))=p$, 可以在路径 $p$ 上归纳, 然后在序对 $w$ 上归纳来拆开它, 然后足以根据定义得到
     $g(f (\refl{(w_1,w_2)})) = \refl{(w_1,w_2)}$ 为真.
 
-    因此, $f$ 有一个 quasi-inverse, 因此它是一个等价.
+    因此, $f$ 有一个准逆, 是一个等价.
 \end{proof}
 
 正如在笛卡尔积中所做的一样, 可以推导一个命题的唯一性原理作为一个特例.
 
 \begin{cor}
     \label{thm:eta-sigma}
-    \index{唯一性!原理, 命题的!依值对子类型的}%
+    \index{唯一性!原理, 命题的!依值序对类型的}%
     对于 $z:\sm{x:A} P(x)$, 有 $z = (\proj1(z),\proj2(z))$.
 \end{cor}
 \begin{proof}
-    因为有 $\refl{\proj1(z)} : \proj1(z) = \proj1(\proj1(z),\proj2(z))$, 所以通过 \cref{thm:path-sigma} 足以展示一个路径 $\trans{(\refl{\proj1(z)})}{\proj2(z)} = \proj2(\proj1(z),\proj2(z))$.
-    不过两边都判断等同于 $\proj2(z)$.
+    因为 $\refl{\proj1(z)} : \proj1(z) = \proj1(\proj1(z),\proj2(z))$, 所以通过 \cref{thm:path-sigma} 可以得到路径 $\trans{(\refl{\proj1(z)})}{\proj2(z)} = \proj2(\proj1(z),\proj2(z))$.
+    而两边都判断等同于 $\proj2(z)$.
 \end{proof}
 
-就像二元笛卡尔积, 可以认为\cref{thm:path-sigma}的反向作为一个构造器 (\pairpath{}{}), 正向是消去器 (\projpath{1} 和 \projpath{2}), 而这个等价给出了它们的命题上的计算规则和唯一性原理.
+就像二元笛卡尔积, 可以认为\cref{thm:path-sigma}的反向是构造器 (\pairpath{}{}), 正向是消去器 (\projpath{1} 和 \projpath{2}), 而等价给出了它们的命题上的计算规则和唯一性原理.
 
-注意 \cref{thm:path-lifting} 里定义的提升路径 $p:x=y$, 其中 $u:P(x)$ 于 $\mathsf{lift}(u,p)$. 恒等于这个特殊情况的构造器
-\[\pairpath(p,\refl{\trans p u}):(x,u) = (y,\trans p u).\]
-\index{transport!依值对子类型中}%
-这回出现在 $\Sigma$-类型上 transport 操作的语句中, 同样也是二元笛卡尔积的操作的推广:
+注意 \cref{thm:path-lifting} 里定义的 $p:x=y$ 在 $u:P(x)$ 上的提升路径 $\mathsf{lift}(u,p)$, 恒等于这个特殊情况的构造器
+\[
+    \pairpath(p,\refl{\trans p u}):(x,u) = (y,\trans p u).
+\]
+\index{运输!依值序对类型中}%
+这回出现在 $\Sigma$-类型上运输运算的语句中, 同样也是二元笛卡尔积的运算的推广:
 
 \begin{thm}
     \label{transport-Sigma}
@@ -119,6 +121,6 @@
     直接使用路径归纳.
 \end{proof}
 
-留给读者来展示和证明 \cref{thm:ap-prod} 的推广 (参见 \cref{ex:ap-sigma}), 并表征$\Sigma$-类型逐组件的自反, 逆, 和组合 .
+留给读者来展示和证明 \cref{thm:ap-prod} 的推广 (参见 \cref{ex:ap-sigma}), 并表征 $\Sigma$-类型逐组件的自反, 逆, 和组合.
 
-\index{类型!依值对子|)}%
+\index{类型!依值序对|)}%
