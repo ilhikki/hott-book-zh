@@ -1,20 +1,20 @@
 \index{type!unit|(}%
-有时琐碎的事情也很重要, 所以简单提一下单元类型~\unit.
+有时平凡的事情也很重要, 所以简单提一下单元类型~\unit.
 
 \begin{thm}\label{thm:path-unit}
   对于任何 $x,y:\unit$, 有 $\eqv{(x=y)}{\unit}$.
 \end{thm}
 
-也许可以从 $x$ 和 $y$ 上的 $\unit$-归纳开始证明, 化简问题为 $\eqv{(\ttt=\ttt)}{\unit}$.
-然而, 会卡住在这个点上, 因为无法在 $p:\ttt=\ttt$ 上作路径归纳.
-因此, 反而是尽可能地使用泛用的 $x$ 和 $y$, 最后才用归纳化简它们到 $\ttt$.
+也许会从 $x$ 和 $y$ 上的 $\unit$-归纳开始证明, 化简问题为 $\eqv{(\ttt=\ttt)}{\unit}$.
+然而, 会卡住在这个点上, 无法在 $p:\ttt=\ttt$ 上作路径归纳.
+因此, 改为尽可能地使用通用的 $x$ 和 $y$, 最后才用归纳化简它们到 $\ttt$.
 
 \begin{proof}
   函数 $(x=y)\to\unit$ 很容易定义, 对于任何输入都返回 \ttt.
   反过来, 对于任何 $x,y:\unit$ 可以通过归纳假定 $x\jdeq \ttt\jdeq y$.
-  这种情况下有 $\refl{\ttt}:x=y$, 得到一个常量函数 $\unit\to(x=y)$.
+  这种情况下有 $\refl{\ttt}:x=y$, 得到常量函数 $\unit\to(x=y)$.
 
-  为了展示它们互逆, 首先考虑一个元素 $u:\unit$.
+  为了展示它们互逆, 首先考虑元素 $u:\unit$.
   可以假定 $u\jdeq\ttt$, 而它也是这个组合 $\unit \to (x=y)\to\unit$ 的结果.
 
   另一变, 给定 $p:x=y$.
@@ -23,8 +23,8 @@
 \end{proof}
 
 特别地, 任何两个 $\unit$ 的元素是相等的.
-留给读者用表达式来形式化它的等价, 构造, 消去, 计算, 和唯一性规则.
-\index{transport!单元类型}%
-\unit 的 transport 引理就是常量类型族的传输引理 (\cref{thm:trans-trivial}).
+留给读者用表达式来形式该等价的构造, 消去, 计算, 和唯一性规则.
+\index{运输!单元类型}%
+\unit 的运输引理就是常量类型族的传输引理 (\cref{thm:trans-trivial}).
 
 \index{类型!单元|)}%
