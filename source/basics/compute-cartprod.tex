@@ -12,9 +12,9 @@
     对于任何 $x$ 和 $y$, 函数~\eqref{eq:path-prod} 是一个等价.
 \end{thm}
 
-从逻辑上阅读, 这说明两个对子相等, 就是它逐组成地相等.
-从范畴论上看, 这说明积群胚中的态射是态射的对子.
-从同伦论上看, 这说明积空间中的路径是路径的对子.
+从逻辑上阅读, 这说明两个序对相等, 就是它逐组成地相等.
+从范畴论上看, 这说明积群胚中的态射是态射的序对.
+从同伦论上看, 这说明积空间中的路径是路径的序对.
 
 \begin{proof}
     需要另一个方向的函数:
@@ -22,7 +22,7 @@
     (\id[A]{\proj1(x)}{\proj1(y)})
         \times (\id[B]{\proj2(x)}{\proj2(y)}) \to (\id[A\times B]{x}{y}). \label{eq:path-prod-inverse}
     \end{equation}
-    根据笛卡尔积的归纳规则, 可以任务 $x$ 和 $y$ 都是对子, 也就是 $x\jdeq (a,b)$ 和 $y\jdeq (a',b')$ 其中 $a,a':A$ 而 $b,b':B$.
+    根据笛卡尔积的归纳规则, 可以任务 $x$ 和 $y$ 都是序对, 也就是 $x\jdeq (a,b)$ 和 $y\jdeq (a',b')$ 其中 $a,a':A$ 而 $b,b':B$.
     这种情况下, 想要的就是函数
     \begin{equation*}
     (\id[A]{a}{a'})
@@ -41,7 +41,7 @@
     对 $x$ 归纳, 可以假定 $x\jdeq (a,b)$, 于是它就是 $(\refl a, \refl b)$.
     因此, 根据定义, ~\eqref{eq:path-prod-inverse} 得到 $\refl{(a,b)}$, 即 (根据目前的假定) $r$.
 
-    另一个方向, 如果从 $s:(\id[A]{\proj1(x)}{\proj1(y)}) \times (\id[B]{\proj2(x)}{\proj2(y)})$ 开始, 首先对 $x$ 和 $y$ 归纳, 假定它们分别是对子 $(a,b)$ 和 $(a',b')$, 然后对 $s:(\id[A]{a}{a'}) \times (\id[B]{b}{b'})$ 归纳来化简到对子 $(p,q)$, 其中 $p:a=a'$ 而 $q:b=b'$.
+    另一个方向, 如果从 $s:(\id[A]{\proj1(x)}{\proj1(y)}) \times (\id[B]{\proj2(x)}{\proj2(y)})$ 开始, 首先对 $x$ 和 $y$ 归纳, 假定它们分别是序对 $(a,b)$ 和 $(a',b')$, 然后对 $s:(\id[A]{a}{a'}) \times (\id[B]{b}{b'})$ 归纳来化简到序对 $(p,q)$, 其中 $p:a=a'$ 而 $q:b=b'$.
     现在对 $p$ 和 $q$ 归纳, 假定它们是自反 $\refl a$ 和 $\refl b$, 这种情况~\eqref{eq:path-prod-inverse} 得到 $\refl{(a,b)}$ 而~\eqref{eq:path-prod} 返回 $(\refl a,\refl b)\jdeq (p,q)\jdeq s$.
 \end{proof}
 
@@ -52,7 +52,7 @@
 \]
 注意这个特殊情况, 得到了乘积类型命题上的唯一性原理\index{唯一性!原理, 命题!乘积类型的}: $z = (\proj1(z),\proj2(z))$.
 
-可以将 \pairpath 看作 $\id x y$ 的\emph{构造器}或者\emph{构造规则}, 类似于 $A\times B$ 自己的``对子''构造器, 即给定 $a:A$ 和 $b:B$ 构造对子 $(a,b)$.
+可以将 \pairpath 看作 $\id x y$ 的\emph{构造器}或者\emph{构造规则}, 类似于 $A\times B$ 自己的``序对''构造器, 即给定 $a:A$ 和 $b:B$ 构造序对 $(a,b)$.
 从这个观点, ~\eqref{eq:path-prod} 的两个组成部分:
 \begin{align*}
     \projpath{1} &: (\id{x}{y}) \to (\id{\proj{1}(x)}{\proj{1} (y)})\\
@@ -60,7 +60,7 @@
 \end{align*}
 是\emph{消去}规则.
 类似的, 这两个同伦, 也就是 ~\eqref{eq:path-prod-inverse} 准逆于 ~\eqref{eq:path-prod} 的证据, 分别是\emph{命题上的计算规则}:
-\index{计算规则!命题上的!对子间的恒等}%
+\index{计算规则!命题上的!序对间的恒等}%
 \begin{align*}
 {\projpath{1}{(\pairpath(p, q)})}
     &= %_{(\id{\proj{1} x}{\proj{1} y})}
@@ -70,7 +70,7 @@
         {q}
 \end{align*}
 对于 $p:\id{\proj{1} x}{\proj{1} y}$ 和 $q:\id{\proj{2} x}{\proj{2} y}$, 有一个\emph{命题上的唯一性原理}:
-\index{唯一性!原理, 命题上的!对于对子之间的恒等}%
+\index{唯一性!原理, 命题上的!对于序对之间的恒等}%
 \[
     \id{r}{\pairpath(\projpath{1} (r), \projpath{2} (r)) }
     \qquad\text{for } r : \id[A \times B] x y.
