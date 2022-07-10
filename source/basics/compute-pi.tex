@@ -5,131 +5,134 @@
 期望 $\prd{x:A} B(x)$ 中从 $f$ 到 $g$ 的路径的类型 $f=g$, 逐点等价于路径:
 \index{逐点!函数的等同}%
 \begin{equation}
-  \eqvspaced{(\id{f}{g})}{\Parens{\prd{x:A} (\id[B(x)]{f(x)}{g(x)})}}.\label{eq:path-forall}
+    \eqvspaced{(\id{f}{g})}{\Parens{\prd{x:A} (\id[B(x)]{f(x)}{g(x)})}}.\label{eq:path-forall}
 \end{equation}
-按照传统的看法, 这意味每个点都相等的函数, 是相等的.
+按照传统的看法, 这意味在每个点上都相等的函数, 是相等的.
 \index{类型论中函数的连续性@类型论中函数的``连续性''}%
 按照拓扑学的看法, 这意味函数空间的路径和连续同伦是一样的.
 \index{类型论中函数的函子性@类型论中函数的``函子性''}%
 而按照范畴论的看法, 这意味函子范畴中的同构关系, 是同构关系的自然族.
 
 不过, 和上一节的情况不一样, 在\cref{cha:typetheory} 中提出的基本的类型论, 无法证明~\eqref{eq:path-forall}.
-只能说路径归纳轻松定义函数
+而只能通过路径归纳轻松定义函数
 \begin{equation}
-  \label{eq:happly}
-  \happly : (\id{f}{g}) \to \prd{x:A} (\id[B(x)]{f(x)}{g(x)}).
+    \label{eq:happly}
+    \happly : (\id{f}{g}) \to \prd{x:A} (\id[B(x)]{f(x)}{g(x)}).
 \end{equation}
 因此现在假定:
 
 \begin{axiom}[函数外延性]
-  \label{axiom:funext}
-  \indexsee{公理!函数外延性}{函数外延性}%
-  \indexdef{函数外延性}%
-  对于任何 $A$, $B$, $f$, 和 $g$, 函数~\eqref{eq:happly}是一个等价.
+    \label{axiom:funext}
+    \indexsee{公理!函数外延性}{函数外延性}%
+    \indexdef{函数外延性}%
+    对于任何 $A$, $B$, $f$, 和 $g$, 函数~\eqref{eq:happly}是一个等价.
 \end{axiom}
 
-后面的章节中, 宇价 (参见 \cref{sec:compute-universe,sec:univalence-implies-funext}) 和间点类型 (参见 \cref{sec:interval} 和 \cref{ex:funext-from-interval}) 都可以推出这个公理.
+后面的章节中, 一价 (参见 \cref{sec:compute-universe,sec:univalence-implies-funext}) 和间点类型 (参见 \cref{sec:interval} 和 \cref{ex:funext-from-interval}) 都可以推出这个公理.
 
-特殊的, \cref{axiom:funext} 暗示了~\eqref{eq:happly} 有一个 quasi-inverse
+特殊的, \cref{axiom:funext} 暗示了~\eqref{eq:happly} 有一个准逆
 \[
-  \funext : \Parens{\prd{x:A} (\id{f(x)}{g(x)})} \to {(\id{f}{g})}.
+    \funext : \Parens{\prd{x:A} (\id{f(x)}{g(x)})} \to {(\id{f}{g})}.
 \]
 这个函数也被称为 ``函数外延性''.
 就像在 \cref{sec:compute-cartprod} 中对 $\pairpath$ 做的一样, 可以将 $\funext$ 视为类型 $\id f g$ 的一个\emph{构造规则}.
-这样来看, $\happly$ 是\emph{消去规则}, 而见证 $\funext$ quasi-inverse $\happly$ 的同伦分别是: 一个命题的计算规则\index{计算规则!命题的!函数间的恒等的}
+根据这个观点, $\happly$ 是\emph{消去规则}, 而见证 $\funext$ 准逆于 $\happly$ 的同伦分别是: 一个命题的计算规则\index{计算规则!命题的!函数间的恒等的}
 \[
-  \id{\happly({\funext{(h)}},x)}{h(x)} \qquad\text{对于 } h:\prd{x:A} (\id{f(x)}{g(x)})
+    \id{\happly({\funext{(h)}},x)}{h(x)} \qquad\text{对于 } h:\prd{x:A} (\id{f(x)}{g(x)})
 \]
 和一个命题的唯一性原理\index{唯一性!原理!函数间的恒等的}:
 \[
-  \id{p}{\funext (x \mapsto \happly(p,{x}))} \qquad\text{对于 } p: \id f g.
+    \id{p}{\funext (x \mapsto \happly(p,{x}))} \qquad\text{对于 } p: \id f g.
 \]
 
-通过逐点的运算即可计算 $\Pi$-类型中的, 逆, 和组合:
+通过逐点的运算就能得到 $\Pi$-类型中的, 逆, 和组合:
 \index{逐点!函数上的运算}%
 \begin{align*}
-  \refl{f} &= \funext(x \mapsto \refl{f(x)}) \\
-  \opp{\alpha} &= \funext (x \mapsto \opp{\happly (\alpha,x)})  \\
-  {\alpha} \ct \beta &= \funext (x \mapsto {\happly({\alpha},x) \ct \happly({\beta},x)}).
+    \refl{f} &= \funext(x \mapsto \refl{f(x)}) \\
+    \opp{\alpha} &= \funext (x \mapsto \opp{\happly (\alpha,x)})  \\
+    {\alpha} \ct \beta &= \funext (x \mapsto {\happly({\alpha},x) \ct \happly({\beta},x)}).
 \end{align*}
-这些等式中的第一个从 $\happly$ 的定义中得到, 第二和第三个用路径归纳是简单的.
+第一个等式从 $\happly$ 的定义中得到, 第二个等式和第三个等式也很简单, 可以用路径归纳证明.
 
-对于依值函数类型 $\prd{x:A} B(x)$, 其中 $B$ 依赖于 $x$, 非依值类型 $A\to B$ 是它的一种特殊情况, 之前说的在非依值类型上都成立.
-\index{transport!函数类型中}%
-而 transport 的规则, 在非依值函数中更简单.
+对于依值函数类型 $\prd{x:A} B(x)$, 其中 $B$ 依赖于 $x$, 因为非依值类型 $A\to B$ 是它的一种特殊情况, 所以之前说的在非依值类型上都成立.
+\index{运输!函数类型中}%
+运输的规则, 在非依值函数中更简单.
 给定类型 $X$, 路径 $p:\id[X]{x_1}{x_2}$, 类型族 $A,B:X\to \type$, 函数 $f : A(x_1) \to B(x_1)$, 有
 \begin{align}
-  \label{eq:transport-arrow}
-  \transfib{A\to B}{p}{f} &=
-  \Big(x \mapsto \transfib{B}{p}{f(\transfib{A}{\opp p}{x})}\Big)
+    \label{eq:transport-arrow}
+    \transfib{A\to B}{p}{f} &=
+    \Big(x \mapsto \transfib{B}{p}{f(\transfib{A}{\opp p}{x})}\Big)
 \end{align}
-其中滥用 $A\to B$ 表示类型族 $X\to \type$, 其定义为
+其中滥用 $A\to B$ 表示类型族 $X\to \type$, 将其定义为
 \[
-  (A\to B)(x) \defeq (A(x)\to B(x)).
+    (A\to B)(x) \defeq (A(x)\to B(x)).
 \]
-换句话说, 当沿着 $p:x_1=x_2$ transport 函数 $f:A(x_1)\to B(x_1)$, 得到函数 $A(x_2)\to B(x_2)$, 它沿着 $p$ (在类型族 $A$ 中) 反向 transport 其参数, 应用 $f$, 然后沿着 $p$ (在类型族 $B$ 中) 正向 transport 结果.
+换句话说, 当沿着 $p:x_1=x_2$ 运输函数 $f:A(x_1)\to B(x_1)$, 得到函数 $A(x_2)\to B(x_2)$, 它沿着 $p$ (在类型族 $A$ 中) 反向运输其参数, 应用 $f$, 然后沿着 $p$ (在类型族 $B$ 中) 正向运输结果.
 这用很容易路径归纳证明.
 
-\index{transport!依值函数类型中}%
-Transporting 依值函数类型也类似, 不过更加复杂.
+\index{运输!依值函数类型中}%
+运输依值函数类型也类似, 不过更加复杂.
 和之前一样, 给定 $X$ 和 $p$, 类型族 $A:X\to \type$ 与 $B:\prd{x:X} (A(x)\to\type)$, 以及依值类型 $f : \prd{a:A(x_1)} B(x_1,a)$.
 然后对于 $a:A(x_2)$, 有
 \begin{narrowmultline*}
-  \transfib{\Pi_A(B)}{p}{f}(a) = \narrowbreak
-  \Transfib{\widehat{B}}{\opp{(\pairpath(\opp{p},\refl{ \trans{\opp p}{a} }))}}{f(\transfib{A}{\opp p}{a})}
+    \transfib{\Pi_A(B)}{p}{f}(a) = \narrowbreak
+    \Transfib{\widehat{B}}{\opp{(\pairpath(\opp{p},\refl{ \trans{\opp p}{a} }))}}{f(\transfib{A}{\opp p}{a})}
 \end{narrowmultline*}
 其中 $\Pi_A(B)$ 和 $\widehat{B}$ 分别代表这两个类型族
-\begin{equation}\label{eq:transport-arrow-families}
-\begin{array}{rclcl}
-\Pi_A(B) &\defeq& \big(x\mapsto \prd{a:A(x)} B(x,a) \big) &:& X\to \type\\
-\widehat{B} &\defeq& \big(w \mapsto B(\proj1w,\proj2w) \big) &:& \big(\sm{x:X} A(x)\big) \to \type.
-\end{array}
+\begin{equation}
+    \label{eq:transport-arrow-families}
+    \begin{array}{rclcl}
+        \Pi_A(B)    & \defeq & \big(x\mapsto \prd{a:A(x)} B(x,a) \big) & : & X\to \type                         \\
+        \widehat{B} & \defeq & \big(w \mapsto B(\proj1w,\proj2w) \big) & : & \big(\sm{x:X} A(x)\big) \to \type.
+    \end{array}
 \end{equation}
 如果它们的形式看起来有一点吓人, 别担心细节.
-其基本思路与非依值型函数类型相同: 反向 transport 参数, 应用这个函数, 然后再次反向 transport 结果.
+其基本思路与非依值型函数类型相同: 反向运输参数, 应用这个函数, 然后再次反向结果.
 
-现在回顾通用的类型族 $P:X\to\type$, 在 \cref{sec:functors} 中, 定义了从 $u:P(x)$ 到 $v:P(y)$ over $p:\id[X]xy$ 的\emph{依值路径}类型为 $\id[P(y)]{\trans{p}{u}}{v}$.
+现在回顾通用的类型族 $P:X\to\type$, 在 \cref{sec:functors} 中, 定义了从 $p:\id[X]xy$ 上 $u:P(x)$ 到 $v:P(y)$ 的\emph{依值路径}类型为 $\id[P(y)]{\trans{p}{u}}{v}$.
 然后 $P$ 是函数类型的一个族, 有一个更方便的方式来表现它.
 \index{路径!依值!函数类型中}
 
-\begin{lem}\label{thm:dpath-arrow}
-  给定类型族 $A,B:X\to\type$ 和 $p:\id[X]xy$, 以及 $f:A(x)\to B(x)$ 还有 $g:A(y)\to B(y)$, 有一个等价
-  \[ \eqvspaced{ \big(\trans{p}{f} = {g}\big) } { \prd{a:A(x)}  (\trans{p}{f(a)} = g(\trans{p}{a})) }. \]
-  此外, 若在这个等价关系下, $q:\trans{p}{f} = {g}$ 对应 $\widehat q$, 然后对于 $a:A(x)$, 路径
-  \[ \happly(q,\trans p a) : (\trans p f)(\trans p a) = g(\trans p a)\]
-  等于连接的路径 $i\ct j\ct k$, 其中
-  \begin{itemize}
-  \item $i:(\trans p f)(\trans p a) = \trans p {f (\trans {\opp p}{\trans p a})}$ 来自~\eqref{eq:transport-arrow},
-  \item $j:\trans p {f (\trans {\opp p}{\trans p a})} = \trans p {f(a)}$ 来自 \cref{thm:transport-concat,thm:omg}, 以及
-  \item $k:\trans p {f(a)}= g(\trans p a)$ 是 $\widehat{q}(a)$.
-  \end{itemize}
+\begin{lem}
+    \label{thm:dpath-arrow}
+    给定类型族 $A,B:X\to\type$ 和 $p:\id[X]xy$, 以及 $f:A(x)\to B(x)$ 还有 $g:A(y)\to B(y)$, 有一个等价
+    \[ \eqvspaced{ \big(\trans{p}{f} = {g}\big) } { \prd{a:A(x)}  (\trans{p}{f(a)} = g(\trans{p}{a})) }. \]
+    此外, 若在这个等价关系下, $q:\trans{p}{f} = {g}$ 对应 $\widehat q$, 然后对于 $a:A(x)$, 路径
+    \[ \happly(q,\trans p a) : (\trans p f)(\trans p a) = g(\trans p a)\]
+    等于连接的路径 $i\ct j\ct k$, 其中
+    \begin{itemize}
+        \item $i:(\trans p f)(\trans p a) = \trans p {f (\trans {\opp p}{\trans p a})}$ 来自~\eqref{eq:transport-arrow},
+        \item $j:\trans p {f (\trans {\opp p}{\trans p a})} = \trans p {f(a)}$ 来自 \cref{thm:transport-concat,thm:omg}, 以及
+        \item $k:\trans p {f(a)}= g(\trans p a)$ 是 $\widehat{q}(a)$.
+    \end{itemize}
 \end{lem}
 \begin{proof}
-  通过路径归纳, 可以假定 $p$ 为自反, 在这种情况下, 期望的等价化简为函数外延性.
-  第二个语句从函数外延性得到.
+    通过路径归纳, 可以认为 $p$ 为自反, 在这种情况下, 期望的等价化简为函数外延性.
+    第二个语句从函数外延性得到.
 \end{proof}
 
 通常, 要考虑一些路径的连接, 每条路径都由之前证明的一些公理或假设的对象产生, 像上面第二个语句中那样, 给连接中每个路径取一个名字没有意义.
 因此, 采用一个管理, 用熟悉的数学风格 ``带原因的等式链'', 并允许省略读者可以轻松填补的原因.
 例如, \cref{thm:dpath-arrow} 中的路径 $i\ct j\ct k$ 可以写作:
-  \begin{align*}
-    (\trans p f)(\trans p a)
+\begin{align*}
+(\trans p f)(\trans p a)
     &= \trans p {f (\trans {\opp p}{\trans p a})}
     \tag{by~\eqref{eq:transport-arrow}}\\
     &= \trans p {f(a)}\\
     &= g(\trans p a).
     \tag{by $\widehat{q}$}
-  \end{align*}
+\end{align*}
 在普通数学中, 这样的等式链, 只证明了两个事物是相等的.
 通过用它来描述它们间的\emph{特定}路径来强化它.
 
 一如既往, 有一个类似于 \cref{thm:dpath-arrow} 的依值函数类型版本, 不过更加复杂.
 \index{路径!依值!依值函数类型中}
 
-\begin{lem}\label{thm:dpath-forall}
-  给定类型族 $A:X\to\type$ 和 $B:\prd{x:X} A(x)\to\type$ 和 $p:\id[X]xy$, 以及 $f:\prd{a:A(x)} B(x,a)$ 和 $g:\prd{a:A(y)} B(y,a)$, 有一个等价
-  \[ \eqvspaced{ \big(\trans{p}{f} = {g}\big) } { \Parens{\prd{a:A(x)}  \transfib{\widehat{B}}{\pairpath(p,\refl{\trans pa})}{f(a)} = g(\trans{p}{a}) } } \]
-  其中 $\widehat{B}$ 和 ~\eqref{eq:transport-arrow-families} 中一样.
+\begin{lem}
+    \label{thm:dpath-forall}
+    给定类型族 $A:X\to\type$ 和 $B:\prd{x:X} A(x)\to\type$ 和 $p:\id[X]xy$, 以及 $f:\prd{a:A(x)} B(x,a)$ 和 $g:\prd{a:A(y)} B(y,a)$, 有一个等价
+    \[ \eqvspaced{ \big(\trans{p}{f} = {g}\big) } { \Parens{\prd{a:A(x)}  \transfib{\widehat{B}}{\pairpath(p,\refl{\trans pa})}{f(a)} = g(\trans{p}{a}) } } \]
+    其中 $\widehat{B}$ 和 ~\eqref{eq:transport-arrow-families} 中一样.
 \end{lem}
 
 留给读者来证明它, 并用公式表示一个适当的计算规则.
