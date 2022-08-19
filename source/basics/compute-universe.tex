@@ -1,99 +1,104 @@
 \index{类型!全集|(}%
 \index{等价关系|(}%
 给定两个类型 $A$ 和 $B$, 可以将它们视作全集类型 \type 的元素, 因此可以形成恒等类型 $\id[\type]AB$.
-正如导论中介提及的一样, 对于 $\id[\type]AB$ 和 $A$ 到 $B$ 的等价关系 $(\eqv AB)$, \emph{宇价}是它们的在 \cref{sec:basics-equivalences} 中描述的恒等关系.
-下面通过这个典型函数来表现这个恒等关系.
+正如导论中提及的一样, \emph{一价}在 \cref{sec:basics-equivalences} 中描述的, 恒等 $\id[\type]AB$ 和 $A$ 到 $B$ 的等价关系 $(\eqv AB)$.
+下面通过这个典型的函数来表现这个恒等关系.
 
-\begin{lem}\label{thm:idtoeqv}
-  对于类型 $A,B:\type$, 有一个典型的函数,
-  \begin{equation}\label{eq:uidtoeqv}
-    \idtoeqv : (\id[\type]AB) \to (\eqv A B),
-  \end{equation}
-  证明如下.
+\begin{lem}
+    \label{thm:idtoeqv}
+    对于类型 $A,B:\type$, 有一个经典的函数,
+    \begin{equation}
+        \label{eq:uidtoeqv}
+        \idtoeqv : (\id[\type]AB) \to (\eqv A B),
+    \end{equation}
+    证明如下.
 \end{lem}
 \begin{proof}
-  可以通过等同的归纳直接定义, 不过下列描述更方便.
-  \index{恒等!函数}%
-  \index{函数!恒等}%
-  注意恒等函数 $\idfunc[\type]:\type\to\type$ 可以被视为以全集 \type 为定义域的类型族; 它为每个类型 $X:\type$ 指定类型 $X$ 自己.
-  (当视为纤维化时, 全空间是``点类型''的类型 $\sm{A:\type}A$; 参见\cref{sec:object-classification}.)
-  因此, 给定路径 $p:A =_\type B$, 有一个 transport\index{transport} 函数 $\transf{p}:A \to B$.
-  我们主张 $\transf{p}$ 是一个等价.
-  而通过归纳, 足以假定 $p$ 是 $\refl A$, 这种情况下 $\transf{p} \jdeq \idfunc[A]$, 即根据\cref{eg:idequiv}是一个等价关系.
-  因此, 可以定义 $\idtoeqv(p)$ 为 $\transf{p}$ (以及上面它是等价关系的证明).
+    可以通过等同的归纳直接定义, 不过下列描述更方便.
+    \index{恒等!函数}%
+    \index{函数!恒等}%
+    注意恒等函数 $\idfunc[\type]:\type\to\type$ 可以被视为类型族, 其中定义域是全集 \type;
+    它为每个类型 $X:\type$ 返回类型 $X$ 自己.
+    (当视它为纤维化时, 它的全空间是``点类型''的类型 $\sm{A:\type}A$; 参见\cref{sec:object-classification}.)
+    因此, 给定路径 $p:A =_\type B$, 有一个运输\index{运输} 函数 $\transf{p}:A \to B$.
+    我们主张 $\transf{p}$ 是一个等价关系.
+    而通过归纳, 足以假定 $p$ 是 $\refl A$, 这种情况下 $\transf{p} \jdeq \idfunc[A]$, 即根据\cref{eg:idequiv}是一个等价关系.
+    因此, 可以定义 $\idtoeqv(p)$ 为 $\transf{p}$ (以及上面它是等价关系的证明).
 \end{proof}
 
 我们想说 \idtoeqv 是一个等价关系.
 然而, 正如 $\happly$ 之于函数类型, 在\cref{cha:typetheory} 中提出的基本的类型论无法证明它.
-因此, 就像对函数外延性做的一样, 将这个性质作为公理阐述: Voevodsky 的\emph{宇价公理}.
+因此, 就像对函数外延性做的一样, 我们将这个性质作为公理阐述: Voevodsky 的\emph{一价公理}.
 
-\begin{axiom}[Univalence]\label{axiom:univalence}
-  \indexdef{宇价公理}%
-  \indexsee{公理!宇价}{宇价公理}%
-  对于任何 $A,B:\type$, 函数~\eqref{eq:uidtoeqv} 是一个等价关系.
+\begin{axiom}[Univalence]
+    \label{axiom:univalence}
+    \indexdef{一价公理}%
+    \indexsee{公理!一价}{一价公理}%
+    对于任何 $A,B:\type$, 函数~\eqref{eq:uidtoeqv} 是一个等价关系.
 \end{axiom}
 
-特殊地, 因此, 我们有
-  \[
-\eqv{(\id[\type]{A}{B})}{(\eqv A B)}.
+特殊地, 因此有
+\[
+    \eqv{(\id[\type]{A}{B})}{(\eqv A B)}.
 \]
 
-严格地说, 宇价公理是关于特殊全集类型 $\UU$ 的声明.
-如果一个全集 $\UU$ 满足这个公理, 它是\define{宇价}的.
-\indexdef{类型!全集!宇价的}%
-\indexdef{宇价的全集}%
-除非另外说明 (例如 \cref{sec:univalence-implies-funext} 中) 假定\emph{所有}全集是宇价的.
+严格地说, 一价公理是关于特殊全集类型 $\UU$ 的声明.
+如果一个全集 $\UU$ 满足这个公理, 那么它是\define{一价}的.
+\indexdef{类型!全集!一价的}%
+\indexdef{一价的全集}%
+除非另外说明 (例如 \cref{sec:univalence-implies-funext} 中) 假定\emph{所有}全集是一价的.
 
 \begin{rmk}
-  宇价公理的重点在于, 使用\cref{sec:basics-equivalences} 中描述``好''的 $\isequiv$ 来定义 $\eqv AB$ , 而不是 (例如) $\sm{f:A\to B} \qinv(f)$.
-  参见 \cref{ex:qinv-univalence}.
+    一价公理的重点在于, 使用\cref{sec:basics-equivalences} 中描述``好''的 $\isequiv$ 来定义 $\eqv AB$ , 而不是 (例如) $\sm{f:A\to B} \qinv(f)$.
+    参见 \cref{ex:qinv-univalence}.
 \end{rmk}
 
-特别地, 宇价意味着\emph{等价的类型可以是恒等的}.
-就像在前一节一样, 将等价关系如下分解是有用的:
+特别地, 一价意味着\emph{等价的类型可以是恒等的}.
+和上节一样, 将等价关系如下分解是有用的:
 %
 \symlabel{ua}
 \begin{itemize}
-  \item 一个构造规则 {(\id[\type]{A}{B})}, 记 ``宇价公理'' 为 $\ua$:
-  \[
-    \ua : ({\eqv A B}) \to (\id[\type]{A}{B}).
-  \]
-  \item 消去规则, 即 $\idtoeqv$,
-  \[
-    \idtoeqv \jdeq \transfibf{X \mapsto X} : (\id[\type]{A}{B}) \to (\eqv A B).
-  \]
-  \item 命题式的计算规则\index{计算规则!命题式的!宇价},
-  \[
-    \transfib{X \mapsto X}{\ua(f)}{x} = f(x).
-  \]
-  \item 命题式的唯一性原理: \index{唯一性!原理, 命题式的!宇价的}
-  对于任何 $p : \id A B$,
-  \[
-    \id{p}{\ua(\transfibf{X \mapsto X}(p))}.
-  \]
+    \item 一个构造规则 {(\id[\type]{A}{B})}, 记 ``一价公理'' 为 $\ua$:
+    \[
+        \ua : ({\eqv A B}) \to (\id[\type]{A}{B}).
+    \]
+    \item 消去规则, 即 $\idtoeqv$,
+    \[
+        \idtoeqv \jdeq \transfibf{X \mapsto X} : (\id[\type]{A}{B}) \to (\eqv A B).
+    \]
+    \item 命题式的计算规则\index{计算规则!命题式的!一价},
+    \[
+        \transfib{X \mapsto X}{\ua(f)}{x} = f(x).
+    \]
+    \item 命题式的唯一性原理: \index{唯一性!原理, 命题式的!一价的}
+    对于任何 $p : \id A B$,
+    \[
+        \id{p}{\ua(\transfibf{X \mapsto X}(p))}.
+    \]
 \end{itemize}
 %
-We can also identify the reflexivity, concatenation, and inverses of equalities in the universe with the corresponding operations on equivalences:
+对于全集的等同关系, 可以表示出它的自反性, 串联, 和逆, 通过等价关系上的对应运算:
 \begin{align*}
-  \refl{A} &= \ua(\idfunc[A]) \\
-  \ua(f) \ct \ua(g) &= \ua(g\circ f) \\
-  \opp{\ua(f)} &= \ua(f^{-1}).
+    \refl{A} &= \ua(\idfunc[A]) \\
+    \ua(f) \ct \ua(g) &= \ua(g\circ f) \\
+    \opp{\ua(f)} &= \ua(f^{-1}).
 \end{align*}
 这些式子中, 第一个根据 $\idfunc[A] = \idtoeqv(\refl{A})$, 通过 \idtoeqv 的定义得到, 以及 \ua 是 \idtoeqv 的逆.
-对于第二个, 如果定义 $p \defeq \ua(f)$ 和 $q\defeq \ua(g)$, 然后有
+对于第二个, 如果定义 $p \defeq \ua(f)$ 和 $q\defeq \ua(g)$, 那么
 \[ \ua(g\circ f) = \ua(\idtoeqv(q) \circ \idtoeqv(p)) = \ua(\idtoeqv(p\ct q)) = p\ct q\]
 使用 \cref{thm:transport-concat} 和 $\idtoeqv$ 的定义.
 第三个也类似.
 
-以下观点是 \cref{thm:transport-compose} 的特殊情况, 在应用宇价公理时很有用.
+以下观点是 \cref{thm:transport-compose} 的特殊情况, 在应用一价公理时很有用.
 
-\begin{lem}\label{thm:transport-is-ap}
-  对于类型族 $B:A\to\type$ 和 $x,y:A$ 以及 $p:x=y$ 和 $u:B(x)$, 有
-  \begin{align*}
-    \transfib{B}{p}{u} &= \transfib{X\mapsto X}{\apfunc{B}(p)}{u}\\
-    &= \idtoeqv(\apfunc{B}(p))(u).
-  \end{align*}
+\begin{lem}
+    \label{thm:transport-is-ap}
+    对于类型族 $B:A\to\type$ 和 $x,y:A$ 以及 $p:x=y$ 和 $u:B(x)$, 有
+    \begin{align*}
+        \transfib{B}{p}{u} &= \transfib{X\mapsto X}{\apfunc{B}(p)}{u}\\
+        &= \idtoeqv(\apfunc{B}(p))(u).
+    \end{align*}
 \end{lem}
 
-\index{等价|)}%
+\index{等价关系|)}%
 \index{类型!全集|)}%
