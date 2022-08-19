@@ -1,15 +1,15 @@
 \index{类型!恒等|(}%
-就像类型 \id[A]{a}{a'} 定性为同构, 每个 $A$ 都有单独的 ``定义'', 路径 $p,q : \id[A]{a}{a'}$ 之间的路径 \id[{\id[A]{a}{a'}}]{p}{q} 却不能轻易定性.
-然而, 泛用版本的定理, 扩展了恒等类型, 例如它们遵循等价关系的事实.
+就像类型 \id[A]{a}{a'} 表征为同构, 其中每个 $A$ 都有单独的 ``定义'', 路径 $p,q : \id[A]{a}{a'}$ 之间的路径 \id[{\id[A]{a}{a'}}]{p}{q} 却不能轻易定性.
+然而, 通用版本的定理, 扩展了恒等类型, 例如它们遵循等价关系的事实.
 
 \begin{thm}
     \label{thm:paths-respects-equiv}
-    如果 $f : A \to B$ 是一个等价关系, 那么对于所有 $a,a':A$, 那么
+    如果 $f : A \to B$ 是一个等价关系, 那么对于所有 $a,a':A$,
     \[\apfunc{f} : (\id[A]{a}{a'}) \to (\id[B]{f(a)}{f(a')})\]
     也是一个等价关系.
 \end{thm}
 \begin{proof}
-    令  $f$ 的 quasi-inverse 为 $\opp f$ , 以及同伦关系
+    令  $f$ 是 $\opp f$ 的准逆, 以及同伦关系
     %
     \begin{equation*}
         \alpha:\prd{b:B} (f(\opp f(b))=b)
@@ -17,15 +17,21 @@
         \beta:\prd{a:A} (\opp f(f(a)) = a).
     \end{equation*}
     %
-    $\apfunc{f}$ 的 quasi-inverse 本质就是
-    \[\apfunc{\opp f} : (\id{f(a)}{f(a')}) \to (\id{\opp f(f(a))}{\opp f(f(a'))}).\]
+    $\apfunc{f}$ 的准逆本质就是
+    \[
+        \apfunc{\opp f} : (\id{f(a)}{f(a')}) \to (\id{\opp f(f(a))}{\opp f(f(a'))}).
+    \]
     而为了从 $\apfunc{\opp f}(q)$ 得到 $\id[A]{a}{a'}$ 的元素, 必须在两边连接路径 $\opp{\beta_a}$ 和 $\beta_{a'}$.
-    为了展示它, 给出 $\apfunc{f}$ 的 quasi-inverse, 一方面必须展示对于所有 $p:\id[A]{a}{a'}$ 有
-    \[ \opp{\beta_a} \ct \apfunc{\opp f}(\apfunc{f}(p)) \ct \beta_{a'} = p. \]
-    能从 $\apfunc{}$ 的函子性和同伦关系的自然性得到, 即 \cref{lem:ap-functor,lem:htpy-natural}.
+    为了展示它, 给出 $\apfunc{f}$ 的准逆, 一方面必须展示对于所有 $p:\id[A]{a}{a'}$ 有
+    \[
+        \opp{\beta_a} \ct \apfunc{\opp f}(\apfunc{f}(p)) \ct \beta_{a'} = p.
+    \]
+    从 $\apfunc{}$ 的函子性和同伦关系的自然性能得到它, \cref{lem:ap-functor,lem:htpy-natural}.
     另一方面, 必须展示对于所有 $q:\id[B]{f(a)}{f(a')}$ 有
-    \[ \apfunc{f}\big( \opp{\beta_a} \ct \apfunc{\opp f}(q) \ct \beta_{a'} \big) = q. \]
-    它的证明有一些复杂, 不过每一步都还是 \cref{lem:ap-functor,lem:htpy-natural} 的应用(或者简单消除逆路径):
+    \[
+        \apfunc{f}\big( \opp{\beta_a} \ct \apfunc{\opp f}(q) \ct \beta_{a'} \big) = q.
+    \]
+    它的证明有一些复杂, 不过每一步都还是 \cref{lem:ap-functor,lem:htpy-natural} 的应用(或者简单逆路径消除):
     \begin{align*}
         \apfunc{f}\big( \narrowamp\opp{\beta_a} \ct \apfunc{\opp f}(q) \ct \beta_{a'} \big) \narrowbreak
         &= \opp{\alpha_{f(a)}} \ct {\alpha_{f(a)}} \ct
@@ -44,7 +50,7 @@
     \end{align*}
 \end{proof}
 
-因此, 如果对于类型 $A$ 能对 $\id[A]{a}{a'}$ 充分定性, 类型 $\id[{\id[A]{a}{a'}}]{p}{q}$ 也是确定的.
+因此, 如果对于类型 $A$ 有一个 $\id[A]{a}{a'}$ 的充分的表征, 类型 $\id[{\id[A]{a}{a'}}]{p}{q}$ 也是确定的.
 例如:
 \begin{itemize}
     \item 路径 $p = q$, 其中 $p,q : \id[A \times B]{w}{w'}$, 它们等价于路径的对子
@@ -56,9 +62,9 @@
     \[\prd{x:A} (\id[f(x)=g(x)] {\happly(p)(x)}{\happly(q)(x)}).\]
 \end{itemize}
 
-\index{transport!恒等类型中}%
-接下来考虑路径的族中的 transport, 即 $C:A\to\type$ 中的 transport, 其中 $C(x)$ 是恒等类型.
-最简单的情况, $C(x)$ 是 $A$ 中自身路径的类型, 也许有一个端点是固定的.
+\index{运输!恒等类型中}%
+接下来考虑路径的族中的运输, 即 $C:A\to\type$ 中的运输, 其中 $C(x)$ 是恒等类型.
+最简单的情况, $C(x)$ 是 $A$ 中自身路径的类型, 允许固定其中一个端点.
 
 \begin{lem}
     \label{cor:transport-path-prepost}
@@ -77,7 +83,7 @@
     在 $p$ 上路径归纳, 根据组合的单元法则.
 \end{proof}
 
-换句话说, transport ${x \mapsto \id{c}{x}}$ 的结果, 是 post-composition, 而 transport ${x \mapsto \id{x}{c}}$ 的结果是逆变 pre-composition.
+换句话说, 运输 ${x \mapsto \id{c}{x}}$ 的结果, 是后连接, 而运输 ${x \mapsto \id{x}{c}}$ 的结果是逆变的前连接.
 它们就像范畴论中同伦函子的协变 $\hom(c, {\blank})$ 和逆变 $\hom({\blank},c)$ 的函子行为一样令人熟悉.
 
 类似地, 下面可以证明更泛用的 \cref{cor:transport-path-prepost}, 和\cref{thm:transport-compose} 有关.
@@ -92,7 +98,7 @@
 \end{thm}
 
 因为 $\apfunc{(x \mapsto x)}$ 是恒等函数, 而 $\apfunc{(x \mapsto c)}$ (其中 $c$ 是常数) 是 $p \mapsto\refl{c}$, \cref{cor:transport-path-prepost} 是一个特殊情况.
-更泛用的版本是, $B$ 是基于 $A$ 的类型族:
+更通用的版本是, $B$ 是基于 $A$ 的类型族:
 
 \begin{thm}
     \label{thm:transport-path2}
@@ -104,18 +110,18 @@
     \end{equation*}
 \end{thm}
 
-最后, 就像在\cref{sec:compute-pi} 中, 对于恒等类型族, 还有一个等价的依值路径定性方法.
+最后, 就像在\cref{sec:compute-pi} 中, 对于恒等类型族, 还有一个等价的依值路径的表征方法.
 \index{路径!依值!恒等路径中}
 
 \begin{thm}
     \label{thm:dpath-path}
-    For $p:\id[A]a{a'}$ with $q:a=a$ and $r:a'=a'$, we have
+    对于 $p:\id[A]a{a'}$ 其中 $q:a=a$ 和 $r:a'=a'$, 有
     \[ \eqvspaced{ \big(\transfib{x\mapsto (x=x)}{p}{q} = r \big) }{ \big( q \ct p = p \ct r \big). } \]
 \end{thm}
 \begin{proof}
-    在 $p$ 上路径归纳, 根据组合单元等同 $q\ct 1 = q$ 和 $r = 1\ct r$ 的事实, 是等价关系.
+    在 $p$ 上路径归纳, 根据组合单元等同 $q\ct 1 = q$ 和 $r = 1\ct r$ 的事实, 它是一个等价关系.
 \end{proof}
 
-有一些涉及函数应用的更一般的等价关系, 类似于 \cref{thm:transport-path,thm:transport-path2}.
+还有一些涉及函数应用的更通用的等价关系, 类似于 \cref{thm:transport-path,thm:transport-path2}.
 
 \index{类型!恒等|)}%
