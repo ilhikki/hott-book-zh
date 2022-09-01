@@ -7,7 +7,7 @@
 假设 $\sm{x:A}P(x)$ 中有一个路径 $p:w=w'$.
 那么可以得到 $\ap{\proj{1}}{p}:\proj{1}(w)=\proj{1}(w')$.
 但是, 不能直接询问 $\proj{2}(w)$ 是否恒等于 $\proj{2}(w')$, 因为它们的类型不相同.
-不过可以沿着路径 $\ap{\proj{1}}{p}$ 运输\index{运输} $\proj{2}(w)$, 而这给定了一个元素, 其类型和 $\proj{2}(w')$ 相同.
+不过可以沿着路径 $\ap{\proj{1}}{p}$ 传输\index{传输} $\proj{2}(w)$, 而这给定了一个元素, 其类型和 $\proj{2}(w')$ 相同.
 根据路径归纳, 实际能得到路径 $\trans{\ap{\proj{1}}{p}}{\proj{2}(w)}=\proj{2}(w')$.
 
 回顾之前 \cref{lem:mapdep} 的讨论,
@@ -94,8 +94,8 @@
 \[
     \pairpath(p,\refl{\trans p u}):(x,u) = (y,\trans p u).
 \]
-\index{运输!依值序对类型中}%
-这回出现在 $\Sigma$-类型上运输运算的语句中, 同样也是二元笛卡尔积的运算的推广:
+\index{传输!依值序对类型中}%
+这回出现在 $\Sigma$-类型上传输运算的语句中, 同样也是二元笛卡尔积的运算的推广:
 
 \begin{thm}
     \label{transport-Sigma}

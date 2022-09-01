@@ -1,6 +1,6 @@
 \index{自然数|(}%
-\index{encode-decode 方法|(}%
-可以使用 encode-decode 方法来塑造自然数的路径空间, 它同样也是正类型.
+\index{编解码方法|(}%
+自然数同样也是正类型, 可以使用编解码方法来塑造它的路径空间.
 这种情况, 不是固定一个端点, 而是一次塑造两端的路径空间.
 因此, 恒等的 codes 是类型族
 \[\code:\N\to\N\to\type,\]
@@ -23,7 +23,7 @@
 \begin{proof}
   定义
   \[ \encode : \prd{m,n:\N} (m=n) \to \code(m,n) \]
-  通过 transport, $\encode(m,n,p) \defeq \transfib{\code(m,{\blank})}{p}{r(m)}$.
+  通过传输 , $\encode(m,n,p) \defeq \transfib{\code(m,{\blank})}{p}{r(m)}$.
   并定义
   \[ \decode : \prd{m,n:\N} \code(m,n) \to (m=n) \]
   通过两次 $m,n$ 上的归纳.
