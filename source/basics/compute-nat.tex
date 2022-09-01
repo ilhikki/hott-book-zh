@@ -2,9 +2,9 @@
 \index{编解码方法|(}%
 自然数同样也是正类型, 可以使用编解码方法来塑造它的路径空间.
 这种情况, 不是固定一个端点, 而是一次塑造两端的路径空间.
-因此, 恒等的 codes 是类型族
+因此, 恒等的编解码是类型族
 \[\code:\N\to\N\to\type,\]
-由两次 \N 上的递归定义, 如下:
+通过在 \N 上递归两次定义, 如下:
 \begin{align*}
   \code(0,0) &\defeq \unit\\
   \code(\suc(m),0) &\defeq \emptyt\\
@@ -28,7 +28,7 @@
   \[ \decode : \prd{m,n:\N} \code(m,n) \to (m=n) \]
   通过两次 $m,n$ 上的归纳.
   当 $m$ 和 $n$ 都是 $0$ 时, 需要函数 $\unit \to (0=0)$, 定义对于所有输入, 返回 $\refl{0}$.
-  当 $m$ 是后继而 $n$ 是 $0$, 定义域 $\code(m,n)$ 为 \emptyt, 所以 \emptyt 的消元子即可, 反之亦然.
+  当 $m$ 是后继而 $n$ 是 $0$, 定义域 $\code(m,n)$ 为 \emptyt, 于是使用 \emptyt 的消元子即可, 反之亦然.
   而都为后继时, 可以定义 $\decode(\suc(m),\suc(n))$ 为组合
   %
   \begin{narrowmultline*}
@@ -39,16 +39,16 @@
     (\suc(m)=\suc(n)).
   \end{narrowmultline*}
   %
-  接下来展示, 对于所有 $m,n$, $\encode(m,n)$ 和 $\decode(m,n)$ 是 quasi-inverses.
+  接下来展示, 对于所有 $m,n$, $\encode(m,n)$ 准逆于 $\decode(m,n)$.
 
   一方面, 从 $p:m=n$ 开始, 通过在 $p$ 上归纳得到
   \[\decode(n,n,\encode(n,n,\refl{n}))=\refl{n}.\]
   而 $\encode(n,n,\refl{n}) \jdeq r(n)$, 所以得到 $\decode(n,n,r(n)) =\refl{n}$.
   通过在 $n$ 上归纳来证明它.
   如果 $n\jdeq 0$, 那么 $\decode(0,0,r(0)) =\refl{0}$, 通过 \decode 的定义.
-  而为后继的情况, 通过归纳法 $\decode(n,n,r(n)) = \refl{n}$, 可以得到 $\apfunc{\suc}(\refl{n}) \jdeq \refl{\suc(n)}$.
+  而后继的情况, 通过归纳法 $\decode(n,n,r(n)) = \refl{n}$, 可以得到 $\apfunc{\suc}(\refl{n}) \jdeq \refl{\suc(n)}$.
 
-  另一变, 从 $c:\code(m,n)$ 开始, 在 $m$ 和 $n$ 上做两次归纳.
+  另一边, 从 $c:\code(m,n)$ 开始, 在 $m$ 和 $n$ 上做两次归纳.
   如果都是 $0$, 那么 $\decode(0,0,c) \jdeq \refl{0}$, 而 $\encode(0,0,\refl{0})\jdeq r(0) \jdeq \ttt$.
   因此, 可以从 \cref{sec:compute-unit} 中的所有 $\unit$ 的居留元等于 \ttt 得到.
   如果 $m$ 是 $0$ 但 $n$ 是后继, 那么 $c:\emptyt$, 于是结束, 反之亦然.
@@ -66,7 +66,7 @@
   \end{multline*}
 \end{proof}
 
-特殊地, 有
+特殊的, 有
 \begin{equation}\label{eq:zero-not-succ}
   \encode(\suc(m),0) : (\suc(m)=0) \to \emptyt
 \end{equation}
@@ -84,5 +84,5 @@
 在 \cref{cha:induction,cha:hits} 将学习更通用的正类型.
 在 \cref{cha:homotopy} 可以看到, 用于塑造余积和 \nat 的恒等类型的技术, 还可用于计算球体的同伦群.
 
-\index{encode-decode 方法|)}%
+\index{编解码方法|)}%
 \index{自然数)}%
