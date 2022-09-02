@@ -1,4 +1,4 @@
-同伦类型论：数学的一价语义基础
+同伦类型论：数学的单值语义基础
 =
 本书是 [The HoTT Book](https://github.com/HoTT/book) 的非官方翻译。
 当前进度是第一章。
