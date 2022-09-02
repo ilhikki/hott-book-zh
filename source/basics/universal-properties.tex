@@ -1,5 +1,5 @@
 \index{泛!性质|(}%
-结合上节中的路径计算规则, 各种路径的形成运算满足预期的泛性质, 以同伦的方式, 被解释为等价.
+结合上节描述的路径计算规则, 各种路径的形成运算满足预期的泛性质, 以同伦的方式, 被解释为等价.
 例如, 给定类型 $X,A,B$, 函数
 \index{type!product}%
 \begin{equation}
@@ -14,8 +14,8 @@
     \eqref{eq:prod-ump-map}是一个等价关系.
 \end{thm}
 \begin{proof}
-    定义 quasi-inverse 为输入 $(g,h)$ 输出 $\lam{x}(g(x),h(x))$.
-    (技术上, 使用了笛卡尔积 $(X\to A)\times (X\to B)$ 的归纳原理, 来化简为对子.
+    将准逆定义为, 输入 $(g,h)$ 输出 $\lam{x}(g(x),h(x))$.
+    (技术上, 使用了笛卡尔积 $(X\to A)\times (X\to B)$ 的归纳原理, 来化简为序对.
     现在开始会经常用到这个原理, 而不显式说明.)
 
     现在给定 $f:X\to A\times B$, 往返的组合产生了这个函数
@@ -25,8 +25,8 @@
     根据\cref{thm:path-prod}, 对于任何 $x:X$ 有 $(\proj1(f(x)),\proj2(f(x))) = f(x)$.
     因此, 根据函数的外延性, 函数~\eqref{eq:prod-ump-rt1}等于 $f$.
 
-    另外一边, 给定 $(g,h)$, 往返的组合产生了这个对子 $(\lam{x} g(x),\lam{x} h(x))$.
-    通过函数的唯一性定理, 它 (判断) 等于 $(g,h)$.
+    另外一边, 给定 $(g,h)$, 往返的组合产生了这个序对 $(\lam{x} g(x),\lam{x} h(x))$.
+    通过函数的唯一性定理, 它 (判断上) 等同于 $(g,h)$.
 \end{proof}
 
 实际上, 还有一个依值类型版本的泛性质.
@@ -47,7 +47,7 @@
 \end{proof}
 
 就像 $\Sigma$-类型是笛卡尔积的推广, 它们满足这个泛性质的推广版本.
-直接到依值类型的版本, 假设有类型 $X$ 和类型族 $A:X\to \type$ 与 $P:\prd{x:X} A(x)\to\type$.
+直接看依值类型的版本, 假设有类型 $X$ 和类型族 $A:X\to \type$ 与 $P:\prd{x:X} A(x)\to\type$.
 那么有一个函数
 \index{type!dependent pair}%
 \begin{equation}
@@ -59,7 +59,7 @@
 
 \begin{thm}
     \label{thm:ttac}
-    \index{泛!性质!依值对子类型}%
+    \index{泛!性质!依值序对类型}%
     \eqref{eq:sigma-ump-map} 是一个等价关系.
 \end{thm}
 \begin{proof}
@@ -75,11 +75,11 @@
     \end{equation*}
     %
     因此, 根据函数外延性,~\eqref{eq:prod-ump-rt2} 等于 $f$.
-    另一边, 给定 $(g,h)$, 往返的组合产生了 $(\lam {x} g(x),\lam{x} h(x))$, 也判断等同于 $(g,h)$.
+    另一边, 给定 $(g,h)$, 往返的组合产生了 $(\lam {x} g(x),\lam{x} h(x))$, 它在判断上也等同于 $(g,h)$.
 \end{proof}
 
 \index{公理!选择!类型论的}
-值得注意的是, 因为命题即证明说明~\eqref{eq:sigma-ump-map} 是 ``选择公理''.
+值得注意的是, 按照命题作为证明, ~\eqref{eq:sigma-ump-map} 就是 ``选择公理''.
 如果将 $\Sigma$ 看作 ``存在'' 而将 $\Pi$ (有时)看作 ``对于所有'', 可以宣布:
 \begin{itemize}
     \item $\prd{x:X} \sm{a:A(x)} P(x,a)$ 是 ``对于所有 $x:X$ 存在 $a:A(x)$ 满足 $P(x,a)$'', 而且
@@ -89,15 +89,15 @@
 (一方面, 古典的\index{数学家!古典的}数学会发现~\eqref{eq:sigma-ump-map}不具有选择公理的常规含义, 因为已经指定了 $g$ 的值, 并没有选择可言.
 会在\cref{sec:axiom-choice}回到这一点.)
 
-上面对子类型的泛性质针对 ``映射入'', 也就是范畴论中令人熟悉的积的概念.
-然而, 对子类型还有针对 ``映射出'' 的泛性质, 而不那么熟悉.
+上面序对类型的泛性质针对 ``映射入'', 也就是范畴论中令人熟悉的积的概念.
+然而, 序对类型还有针对 ``映射出'' 的泛性质, 而不那么熟悉.
 笛卡尔积的情况下, 非依值版本简单表示了这个笛卡尔闭伴随\index{伴随!函子}:
 \[ \eqvspaced{\big((A\times B) \to C\big)}{\big(A\to (B\to C)\big)}.\]
 它的依值版本由类型族 $C:A\times B\to \type$ 表示:
 \[ \eqvspaced{\Parens{\prd{w:A\times B} C(w)}}{\Parens{\prd{x:A}{y:B} C(x,y)}}. \]
-这里从右到左的函数就是 $A\times B$ 的归纳原理, 而从左到右的是对子的求值.
-留给读者证明它们是 quasi-inverses.
-同样有 $\Sigma$-类型的版本:
+这里从右到左的函数就是 $A\times B$ 的归纳原理, 而从左到右的是序对的求值.
+留给读者证明它们互为准逆.
+也有 $\Sigma$-类型的版本:
 \begin{equation}
     \eqvspaced{\Parens{\prd{w:\sm{x:A} B(x)} C(w)}}{\Parens{\prd{x:A}{y:B(x)} C(x,y)}}.\label{eq:sigma-lump}
 \end{equation}
@@ -118,8 +118,8 @@
 \index{类型!余极限}%
 \index{极限!类型的}%
 \index{余极限!类型的}%
-因为 \cref{thm:prod-ump} 表示了笛卡尔积的常规泛性质 (在恰当的同伦论的意义上), 范畴倾向的读者可能想知道其它类型的极限和余极限.
-\cref{ex:coprod-ump} 询问读者余积类型 $A+B$ 预期的泛性质, 而 $\unit$ (终对象) 和 $\emptyt$ (始对象) 的零元情况是容易的.
+因为 \cref{thm:prod-ump} 表示了笛卡尔积的常规泛性质 (在恰当的同伦论的意义上), 范畴上, 读者可能想知道其它类型的极限和余极限.
+\cref{ex:coprod-ump} 中询问了读者余积类型 $A+B$ 预期的泛性质, 而 $\unit$ (终对象) 和 $\emptyt$ (始对象) 的零元情况非常简单.
 \index{类型!空}%
 \index{类型!单元}%
 \indexsee{始!类型}{类型, 空}%
