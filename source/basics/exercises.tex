@@ -2,20 +2,20 @@
 
 \begin{ex}
     \label{ex:basics:concat}
-    逐对展示\cref{lem:concat}的三个显然的证明相等.
+    展示\cref{lem:concat}的三个明显的证明, 两两相等.
 \end{ex}
 
 \begin{ex}
     \label{ex:eq-proofs-commute}
     展示上一个练习中构建的三个等式构成一个可交换三角形.
-    换句话说, 如果三个串接的定义被记作 $(p \mathbin{\ct_1} q)$, $(p\mathbin{\ct_2} q)$, 和 $(p\mathbin{\ct_3} q)$, 那么串接的等同关系
+    换句话说, 如果三个串接的定义被记作 $(p \mathbin{\ct_1} q)$, $(p\mathbin{\ct_2} q)$, 和 $(p\mathbin{\ct_3} q)$, 那么串联的等同关系
     \[(p\mathbin{\ct_1} q) = (p\mathbin{\ct_2} q) = (p\mathbin{\ct_3} q)\]
     等于等同关系 $(p\mathbin{\ct_1} q) = (p\mathbin{\ct_3} q)$.
 \end{ex}
 
 \begin{ex}
     \label{ex:fourth-concat}
-    给出\cref{lem:concat}的第四个不同的证明, 并证明它等同于其它的.
+    给出\cref{lem:concat}的第四个不同的证明, 并证明它等同于其它的证明.
 \end{ex}
 
 \begin{ex}
@@ -41,7 +41,7 @@
 
 \begin{ex}
     \label{ex:ap-coprod}
-    陈述并证明, 对于余积, \cref{thm:ap-prod} 的类似.
+    陈述并证明, 对于余积, \cref{thm:ap-prod} 的类似情况.
 \end{ex}
 
 \begin{ex}
@@ -72,7 +72,7 @@
             C
         }}
     \end{equation*}
-    存在函数 $f$, $g$, $h$, 以及 $k$ 如图所示, 其中路径 $f \circ h= g \circ k$.
+    已知函数 $f$, $g$, $h$, 以及 $k$ 如图所示, 以及路径 $f \circ h= g \circ k$.
     注意这恰好是是定义在~\eqref{eq:defn-pullback}的拉回 $(P\to A) \times_{P\to C} (P\to B)$ 的一个元素.
     交换方形被称为 (同伦) \define{拉回方形}
     \indexdef{拉回}%
@@ -106,7 +106,7 @@
 
 \begin{ex}
     \label{ex:equality-reflection}
-    假设添加 \emph{等同关系自反规则} 到类型论, 也就是说如果有一元素 $p:x=y$, 那么 $x\jdeq y$.
+    假设添加 \emph{等同关系自反规则} 到类型论, 也就是说如果有一个元素 $p:x=y$, 那么 $x\jdeq y$.
     证明对于任何 $p:x=x$ 有 $p\jdeq \refl{x}$.
     (这暗示了所有类型, 在 \cref{sec:basics-sets} 中介绍的意义中, 都是 \emph{集合}; 参见 \cref{sec:hedberg}.)
 \end{ex}
@@ -121,9 +121,9 @@
 
 \begin{ex}
     \label{ex:strong-from-weak-funext}
-    假设没有函数外延性 (\cref{axiom:funext}), 而是只假设存在一个元素
+    假设没有函数外延性 (\cref{axiom:funext}), 而是只存在一个元素
     \[ \funext : \prd{A:\UU}{B:A\to \UU}{f,g:\prd{x:A} B(x)} (f\htpy g) \to (f=g) \]
-    (假定和 $\happly$ 没有关系).
+    (和 $\happly$ 没有关系).
     证明实际上, 这意味整个函数外延性公理 (即 $\happly$ 是一个等价关系).
     这源自 Voevodsky; 它的证明是复杂的而且需要接下来的章中的概念.
 \end{ex}
@@ -132,7 +132,7 @@
     \label{ex:equiv-functor-types}\
     \begin{enumerate}
         \item 展示如果 $\eqv{A}{A'}$  而且 $\eqv{B}{B'}$, 那么 $\eqv{(A\times B)}{(A'\times B')}$.
-        \item 给定两个这个事实的证明, 一个使用单值性而另一个不使用, 然后展示这两个证明相等.
+        \item 给定两个这个事实的证明, 一个使用单值而另一个不使用, 然后展示这两个证明相等.
         \item 用公式表示并证明其他类型形成器的类似结果: $\Sigma$, $\to$, $\Pi$, 以及 $+$.
     \end{enumerate}
 \end{ex}
