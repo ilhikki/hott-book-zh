@@ -1,0 +1,96 @@
+\index{axiom!of choice|(defstyle}%
+\index{denial|(}%
+We can now properly formulate the axiom of choice in homotopy type theory.
+Assume a type $X$ and type families
+%
+\begin{equation*}
+  A:X\to\type
+  \qquad\text{and}\qquad
+  P:\prd{x:X} A(x)\to\type,
+\end{equation*}
+%
+and moreover that
+\begin{itemize}
+\item $X$ is a set,
+\item $A(x)$ is a set for all $x:X$, and
+\item $P(x,a)$ is a mere proposition for all $x:X$ and $a:A(x)$.
+\end{itemize}
+The \define{axiom of choice}
+$\choice{}$ asserts that under these assumptions,
+\begin{equation}\label{eq:ac}
+  \Parens{\prd{x:X} \Brck{\sm{a:A(x)} P(x,a)}}
+  \to
+  \Brck{\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))}.
+\end{equation}
+Of course, this is a direct translation of~\eqref{eq:english-ac} where we read ``there exists $x:A$ such that $B(x)$'' as $\brck{\sm{x:A}B(x)}$, so we could have written the statement in the familiar logical notation as
+\begin{narrowmultline*}
+  \textstyle
+  \Big(\fall{x:X}\exis{a:A(x)} P(x,a)\Big)
+  \Rightarrow \narrowbreak
+  \Big(\exis{g : \prd{x:X} A(x)} \fall{x : X} P(x,g(x))\Big).
+\end{narrowmultline*}
+%
+In particular, note that the propositional truncation appears twice.
+The truncation in the domain means we assume that for every $x$ there exists some $a:A(x)$ such that $P(x,a)$, but that these values are not chosen or specified in any known way.
+The truncation in the codomain means we conclude that there exists some function $g$, but this function is not determined or specified in any known way.
+
+In fact, because of \cref{thm:ttac}, this axiom can also be expressed in a simpler form.
+
+\begin{lem}\label{thm:ac-epis-split}
+  The axiom of choice~\eqref{eq:ac} is equivalent to the statement that for any set $X$ and any $Y:X\to\type$ such that each $Y(x)$ is a set, we have
+  \begin{equation}
+    \Parens{\prd{x:X} \Brck{Y(x)}}
+    \to
+    \Brck{\prd{x:X} Y(x)}.\label{eq:epis-split}
+  \end{equation}
+\end{lem}
+
+This corresponds to a well-known equivalent form of the classical\index{mathematics!classical} axiom of choice, namely ``the cartesian product of a family of nonempty sets is nonempty''.
+
+\begin{proof}
+  By \cref{thm:ttac}, the codomain of~\eqref{eq:ac} is equivalent to
+  \[\Brck{\prd{x:X} \sm{a:A(x)} P(x,a)}.\]
+  Thus,~\eqref{eq:ac} is equivalent to the instance of~\eqref{eq:epis-split} where \narrowequation{Y(x) \defeq \sm{a:A(x)} P(x,a).}
+  (This is a set by \cref{thm:isset-prod,thm:prop-set}.)
+  Conversely,~\eqref{eq:epis-split} is equivalent to the instance of~\eqref{eq:ac} where $A(x)\defeq Y(x)$ and $P(x,a)\defeq\unit$.
+  Thus, the two are logically equivalent.
+  Since both are mere propositions, by \cref{lem:equiv-iff-hprop} they are equivalent types.
+\end{proof}
+
+As with \LEM{}, the equivalent forms~\eqref{eq:ac} and~\eqref{eq:epis-split} are not a consequence of our basic type theory, but they may consistently be assumed as axioms.
+
+\begin{rmk}
+  It is easy to show that the right side of~\eqref{eq:epis-split} always implies the left.
+  Since both are mere propositions, by \cref{lem:equiv-iff-hprop} the axiom of choice is also equivalent to asking for an equivalence
+  \[ \eqv{\Parens{\prd{x:X} \Brck{Y(x)}}}{\Brck{\prd{x:X} Y(x)}} \]
+  This illustrates a common pitfall: although dependent function types preserve mere propositions (\cref{thm:isprop-forall}), they do not commute with truncation: $\brck{\prd{x:A} P(x)}$ is not generally equivalent to $\prd{x:A} \brck{P(x)}$.
+  The axiom of choice, if we assume it, says that this is true \emph{for sets}; as we will see below, it fails in general.
+\end{rmk}
+
+The restriction in the axiom of choice to types that are sets can be relaxed to a certain extent.
+For instance, we may allow $A$ and $P$ in~\eqref{eq:ac}, or $Y$ in~\eqref{eq:epis-split}, to be arbitrary type families; this results in a seemingly stronger statement that is equally consistent.
+We may also replace the propositional truncation by the more general $n$-truncations to be considered in \cref{cha:hlevels}, obtaining a spectrum of axioms $\choice n$ interpolating between~\eqref{eq:ac}, which we call simply \choice{} (or $\choice{-1}$ for emphasis), and \cref{thm:ttac}, which we shall call $\choice\infty$.
+See also \cref{ex:acnm,ex:acconn}.
+However, observe that we cannot relax the requirement that $X$ be a set.
+
+\begin{lem}\label{thm:no-higher-ac}
+  There exists a type $X$ and a family $Y:X\to \type$ such that each $Y(x)$ is a set, but such that~\eqref{eq:epis-split} is false.
+\end{lem}
+\begin{proof}
+  Define $X\defeq \sm{A:\type} \brck{\bool = A}$, and let $x_0 \defeq (\bool, \bproj{\refl{\bool}}) : X$.
+  Then by the identification of paths in $\Sigma$-types, the fact that $\brck{A=\bool}$ is a mere proposition, and univalence, for any $(A,p),(B,q):X$ we have $\eqv{(\id[X]{(A,p)}{(B,q)})}{(\eqv AB)}$.
+  In particular, $\eqv{(\id[X]{x_0}{x_0})}{(\eqv \bool\bool)}$, so as in \cref{thm:type-is-not-a-set}, $X$ is not a set.
+
+  On the other hand, if $(A,p):X$, then $A$ is a set; this follows by induction on truncation for $p:\brck{\bool=A}$ and the fact that $\bool$ is a set.
+  Since $\eqv A B$ is a set whenever $A$ and $B$ are, it follows that $\id[X]{x_1}{x_2}$ is a set for any $x_1,x_2:X$, i.e.\ $X$ is a 1-type.
+  In particular, if we define $Y:X\to\UU$ by $Y(x) \defeq (x_0=x)$, then each $Y(x)$ is a set.
+
+  Now by definition, for any $(A,p):X$ we have $\brck{\bool=A}$, and hence $\brck{x_0 = (A,p)}$.
+  Thus, we have $\prd{x:X} \brck{Y(x)}$.
+  If~\eqref{eq:epis-split} held for this $X$ and $Y$, then we would also have $\brck{\prd{x:X} Y(x)}$.
+  Since we are trying to derive a contradiction ($\emptyt$), which is a mere proposition, we may assume $\prd{x:X} Y(x)$, i.e.\ that $\prd{x:X} (x_0=x)$.
+  But this implies $X$ is a mere proposition, and hence a set, which is a contradiction.
+\end{proof}
+
+\index{denial|)}%
+\index{axiom!of choice|)}%

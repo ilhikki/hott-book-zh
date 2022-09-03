@@ -1,0 +1,94 @@
+\index{logic!constructive vs classical|(}%
+\index{denial|(}%
+With the notion of mere proposition in hand, we can now give the proper formulation of the \define{law of excluded middle}
+\indexdef{excluded middle}%
+\indexsee{axiom!excluded middle}{excluded middle}%
+\indexsee{law!of excluded middle}{excluded middle}%
+in homotopy type theory:
+\begin{equation}
+  \label{eq:lem}
+  \LEM{}\;\defeq\;
+  \prd{A:\UU} \Big(\isprop(A) \to (A + \neg A)\Big).
+\end{equation}
+Similarly, the \define{law of double negation}
+\indexdef{double negation, law of}%
+\indexdef{axiom!double negation}%
+\indexdef{law!of double negation}%
+is
+\begin{equation}
+  \label{eq:ldn}
+  % \mathsf{DN}\;\defeq\;
+  \prd{A:\UU} \Big(\isprop(A) \to (\neg\neg A \to A)\Big).
+\end{equation}
+The two are also easily seen to be equivalent to each other---see \cref{ex:lem-ldn}---so from now on we will generally speak only of \LEM{}.
+
+This formulation of \LEM{} avoids the ``paradoxes'' of \cref{thm:not-dneg,thm:not-lem}, since \bool is not a mere proposition.
+In order to distinguish it from the more general propositions-as-types formulation, we rename the latter:
+\symlabel{lem-infty}
+\begin{equation*}
+  \LEM\infty \defeq \prd{A:\UU} (A + \neg A).
+\end{equation*}
+For emphasis, the proper version~\eqref{eq:lem}
+may be denoted $\LEM{-1}$;
+see also \cref{ex:lemnm}.
+Although $\LEM{}$
+is not a consequence of the basic type theory described in \cref{cha:typetheory}, it may be consistently assumed as an axiom (unlike its $\infty$-counterpart).
+For instance, we will assume it in \cref{sec:wellorderings}.
+
+However, it can be surprising how far we can get without using \LEM{}.
+Quite often, a simple reformulation of a definition or theorem enables us to avoid invoking excluded middle.
+While this takes a little getting used to sometimes, it is often worth the hassle, resulting in more elegant and more general proofs.
+We discussed some of the benefits of this in the introduction.
+
+For instance, in classical\index{mathematics!classical} mathematics, double negations are frequently used unnecessarily.
+A very simple example is the common assumption that a set $A$ is ``nonempty'', which literally means it is \emph{not} the case that $A$ contains \emph{no} elements.
+Almost always what is really meant is the positive assertion that $A$ \emph{does} contain at least one element, and by removing the double negation we make the statement less dependent on \LEM{}.
+Recall that we say that a type $A$ is \emph{inhabited}
+\index{inhabited type}%
+when we assert $A$ itself as a proposition (i.e.\ we construct an element of $A$, usually unnamed).
+Thus, often when translating a classical proof into constructive logic, we replace the word ``nonempty'' by ``inhabited'' (although sometimes we must replace it instead by ``merely inhabited''; see \cref{subsec:prop-trunc}).
+
+Similarly, it is not uncommon in classical mathematics to find unnecessary proofs by contradiction.
+\index{proof!by contradiction}%
+Of course, the classical form of proof by contradiction proceeds by way of the law of double negation: we assume $\neg A$ and derive a contradiction, thereby deducing $\neg \neg A$, and thus by double negation we obtain $A$.
+However, often the derivation of a contradiction from $\neg A$ can be rephrased slightly so as to yield a direct proof of $A$, avoiding the need for \LEM{}.
+
+It is also important to note that if the goal is to prove a \emph{negation}\index{negation}, then ``proof by contradiction'' does not involve \LEM{}.
+In fact, since $\neg A$ is by definition the type $A\to\emptyt$, by definition to prove $\neg A$ is to prove a contradiction (\emptyt) under the assumption of $A$.
+Similarly, the law of double negation does hold for negated propositions: $\neg\neg\neg A \to \neg A$.
+With practice, one learns to distinguish more carefully between negated and non-negated propositions and to notice when \LEM{} is being used and when it is not.
+
+Thus, contrary to how it may appear on the surface, doing mathematics ``constructively'' does not usually involve giving up important theorems, but rather finding the best way to state the definitions so as to make the important theorems constructively provable.
+That is, we may freely use the \LEM{} when first investigating a subject, but once that subject is better understood, we can hope to refine its definitions and proofs so as to avoid that axiom.
+% For instance, the theory of ordinal numbers, which classically makes heavy use of \LEM{}, works quite well constructively once we choose the correct definition of ``ordinal''; see \cref{sec:ordinals}.
+This sort of observation is even more pronounced in \emph{homotopy} type theory, where the powerful tools of univalence and higher inductive types allow us to constructively attack many problems that traditionally would require classical\index{mathematics!classical} reasoning.
+We will see several examples of this in \cref{part:mathematics}.
+% For instance, none of the ``synthetic'' homotopy theory we will develop in \cref{cha:homotopy} requires \LEM{} --- despite the fact that classical homotopy theory (formulated using topological spaces or simplicial sets) makes heavy use of them (as well as the axiom of choice).
+
+It is also worth mentioning that even in constructive mathematics, the law of excluded middle can hold for \emph{some} propositions.
+The name traditionally given to such propositions is \emph{decidable}.
+
+\begin{defn}\label{defn:decidable-equality}
+  \mbox{}
+  \begin{enumerate}
+  \item A type $A$ is called \define{decidable}
+    \indexdef{decidable!type}%
+    \indexdef{type!decidable}%
+    if $A+\neg A$.
+  \item Similarly, a type family $B:A\to \type$ is \define{decidable}
+    \indexdef{decidable!type family}%
+    \indexdef{type!family of!decidable}%
+    if \narrowequation{\prd{a:A} (B(a)+\neg B(a)).} \label{item:decidable-equality2}
+  \item In particular, $A$ has \define{decidable equality}
+    \indexdef{decidable!equality}%
+    \indexsee{equality!decidable}{decidable equality}%
+    if \narrowequation{\prd{a,b:A} ((a=b) + \neg(a=b)).}
+  \end{enumerate}
+\end{defn}
+
+Thus, $\LEM{}$ is exactly the statement that all mere propositions are decidable, and hence so are all families of mere propositions.
+In particular, $\LEM{}$ implies that all sets (in the sense of \cref{sec:basics-sets}) have decidable equality.
+Having decidable equality in this sense is very strong; see \cref{thm:hedberg}.
+
+\index{denial|)}%
+\index{logic!constructive vs classical|)}%

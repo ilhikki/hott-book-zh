@@ -1,0 +1,36 @@
+\index{logic!of mere propositions|(}%
+We mentioned in \cref{sec:types-vs-sets} that in contrast to type theory, which has only one basic notion (types), set-theoretic foundations have two basic notions: sets and propositions.
+Thus, a classical\index{mathematics!classical} mathematician is accustomed to manipulating these two kinds of objects separately.
+
+It is possible to recover a similar dichotomy in type theory, with the role of the set-theoretic propositions being played by the types (and type families) that are \emph{mere} propositions.
+In many cases, the logical connectives and quantifiers can be represented in this logic by simply restricting the corresponding type-former to the mere propositions.
+Of course, this requires knowing that the type-former in question preserves mere propositions.
+
+\begin{eg}
+  If $A$ and $B$ are mere propositions, so is $A\times B$.
+  This is easy to show using the characterization of paths in products, just like \cref{thm:isset-prod} but simpler.
+  Thus, the connective ``and'' preserves mere propositions.
+\end{eg}
+
+\begin{eg}\label{thm:isprop-forall}
+  If $A$ is any type and $B:A\to \type$ is such that for all $x:A$, the type $B(x)$ is a mere proposition, then $\prd{x:A} B(x)$ is a mere proposition.
+  The proof is just like \cref{thm:isset-forall} but simpler: given $f,g:\prd{x:A} B(x)$, for any $x:A$ we have $f(x)=g(x)$ since $B(x)$ is a mere proposition.
+  But then by function extensionality, we have $f=g$.
+
+  In particular, if $B$ is a mere proposition, then so is $A\to B$ regardless of what $A$ is.
+  In even more particular, since \emptyt is a mere proposition, so is $\neg A \jdeq (A\to\emptyt)$.
+  \index{quantifier!universal}%
+  Thus, the connectives ``implies'' and ``not'' preserve mere propositions, as does the quantifier ``for all''.
+\end{eg}
+
+On the other hand, some type formers do not preserve mere propositions.
+Even if $A$ and $B$ are mere propositions, $A+B$ will not in general be.
+For instance, \unit is a mere proposition, but $\bool=\unit+\unit$ is not.
+Logically speaking, $A+B$ is a ``purely constructive'' sort of ``or'': a witness of it contains the additional information of \emph{which} disjunct is true.
+Sometimes this is very useful, but if we want a more classical sort of ``or'' that preserves mere propositions, we need a way to ``truncate'' this type into a mere proposition by forgetting this additional information.
+
+\index{quantifier!existential}%
+The same issue arises with the $\Sigma$-type $\sm{x:A} P(x)$.
+This is a purely constructive interpretation of ``there exists an $x:A$ such that $P(x)$'' which remembers the witness $x$, and hence is not generally a mere proposition even if each type $P(x)$ is.
+(Recall that we observed in \cref{subsec:prop-subsets} that $\sm{x:A} P(x)$ can also be regarded as ``the subset of those $x:A$ such that $P(x)$''.)
+

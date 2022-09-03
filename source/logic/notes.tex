@@ -1,0 +1,34 @@
+The fact that it is possible to define sets, mere propositions, and contractible types in type theory, with all higher homotopies automatically taken care of as in \cref{sec:basics-sets,subsec:hprops,sec:contractibility}, was first observed by Voevodsky.
+In fact, he defined the entire hierarchy of $n$-types by induction, as we will do in \cref{cha:hlevels}.\index{n-type@$n$-type!definable in type theory}%
+
+\cref{thm:not-dneg,thm:not-lem} rely in essence on a classical theorem of Hedberg,
+\index{Hedberg's theorem}%
+\index{theorem!Hedberg's}%
+which we will prove in \cref{sec:hedberg}.
+The implication that the propositions-as-types form of \LEM{} contradicts univalence was observed by Mart\'\i n Escard\'o on the \Agda mailing list.
+The proof we have given of \cref{thm:not-dneg} is due to Thierry Coquand.
+
+The propositional truncation was introduced in the extensional type theory of
+\index{proof!assistant!\NuPRL}%
+\NuPRL in 1983 by Constable~\cite{Con85} as an
+application of ``subset'' and ``quotient'' types.  What is here called the
+``propositional truncation'' was called ``squashing'' in the \NuPRL type theory~\cite{constable+86nuprl-book}.
+Rules characterizing the propositional truncation directly, still in extensional type theory, were given in~\cite{ab:bracket-types}.
+The intensional version in homotopy type theory was constructed by Voevodsky using an impredicative\index{impredicative!truncation} quantification, and later by Lumsdaine using higher inductive types (see \cref{sec:hittruncations}).
+
+\index{propositional!resizing}%
+Voevodsky~\cite{Universe-poly} has proposed resizing rules of the kind considered in \cref{subsec:prop-subsets}.
+\index{axiom!of reducibility}\index{resizing}%
+These are clearly related to the notorious \emph{axiom of reducibility} proposed by Russell in his and Whitehead's \emph{Principia Mathematica}~\cite{PM2}.\index{Russell, Bertrand}
+
+The adverb ``purely'' as used to refer to untruncated logic is a reference to the use of monadic modalities to model effects in programming languages; see \cref{sec:modalities} and the Notes to \cref{cha:hlevels}.
+
+There are many different ways in which logic can be treated relative to type theory.
+For instance, in addition to the plain propositions-as-types logic described in \cref{sec:pat}, and the alternative which uses mere propositions only as described in \cref{subsec:logic-hprop}, one may introduce a separate ``sort'' of propositions, which behave somewhat like types but are not identified with them.
+This is the approach taken in logic enriched type theory~\cite{aczel2002collection} and in some presentations of the internal languages of toposes\index{topos} and related categories (e.g.~\cite{jacobs1999categorical,elephant}), as well as in the proof assistant \Coq.\index{proof!assistant!Coq@\textsc{Coq}}
+Such an approach is more general, but less powerful.
+For instance, the principle of unique choice (\cref{sec:unique-choice}) fails in the category of so-called setoids in \Coq~\cite{Spiwack}, in logic enriched type theory~\cite{aczel2002collection}, and in minimal type theory~\cite{maietti2005toward}.\index{setoid}
+Thus, the univalence axiom makes our type theory behave more like the internal logic of a topos;~see also \cref{cha:set-math}.\index{topos}
+
+Martin-L\"of~\cite{martin2006100} provides a discussion on the history of axioms of choice.
+Of course, constructive and intuitionistic mathematics has a long and complicated history, which we will not delve into here; see for instance~\cite{TroelstraI,TroelstraII}.
