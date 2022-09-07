@@ -1,144 +1,155 @@
 \index{set|(defstyle}%
 
-In order to explain the connection between the logic of type theory and the logic of set theory, it is helpful to have a notion of \emph{set} in type theory.
-While types in general behave like spaces or higher groupoids, there is a subclass of them that behave more like the sets in a traditional set-theoretic system.
-Categorically, we may consider \emph{discrete} groupoids, which are determined by a set of objects and only identity morphisms as higher morphisms; while topologically, we may consider spaces having the discrete topology.\index{discrete!space}
-More generally, we may consider groupoids or spaces that are \emph{equivalent} to ones of this sort; since everything we do in type theory is up to homotopy, we can't expect to tell the difference.
+在类型论中, 有一个\emph{集合}的概念, 可以帮助解释类型论的逻辑和集合论逻辑之间的联系.
+尽管类型的行为通常类似空间或者高阶广群, 但还是有子类别, 更类似传统集合论系统中的集合.
+范畴学上, 我们会考虑使用\emph{离散}广群, 它只由对象的一个集合确定, 并仅将恒等映射作为高阶映射;
+拓扑学上, 我们会考虑使用离散范畴所在的空间.\index{离散!空间}
+更通用的, 我们会考虑\emph{等价}于此类的广群或空间; 因为我们在类型论中做的最终都是同伦, 无法说有什么区别.
 
-Intuitively, we would expect a type to ``be a set'' in this sense if it has no higher homotopical information: any two parallel paths are equal (up to homotopy), and similarly for parallel higher paths at all dimensions.
-Fortunately, because everything in homotopy type theory is automatically functorial/continuous,
-\index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-\index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-it turns out to be sufficient to ask this at the bottom level.
+直观地, 我们认为类型 ``是一个集合'' 意味着它没有高阶同伦信息: 任意两条相同的路径都相等 (直到同伦), 而且所有尺寸的高阶路径都一样.
+幸运地,因为同伦类型论天然的函子性/连续性,
+\index{类型论中函数的连续性@类型论中函数的连续性``连续性''}%
+\index{类型论中函数的函子性@类型论中函数的``函子性''}%
+只需要考虑最低的等级就足够了.
 
-\begin{defn}\label{defn:set}
-  A type $A$ is a \define{set}
-  if for all $x,y:A$ and all $p,q:x=y$, we have $p=q$.
+\begin{defn}
+    \label{defn:set}
+    当对于所有 $x,y:A$ 和所有 $p,q:x=y$, 都存在 $p=q$ 时,
+    类型 $A$ 是一个 \define{集合}.
 \end{defn}
 
-More precisely, the proposition $\isset(A)$ is defined to be the type
+更准确地, 命题 $\isset(A)$ 被定义为这个类型
 \[ \isset(A) \defeq \prd{x,y:A}{p,q:x=y} (p=q). \]
 
-As mentioned in \cref{sec:types-vs-sets},
-the sets in homotopy type theory are not like the sets in ZF set theory, in that there is no global ``membership predicate'' $\in$.
-They are more like the sets used in structural mathematics and in category theory, whose elements are ``abstract points'' to which we give structure with functions and relations.
-This is all we need in order to use them as a foundational system for most set-based mathematics; we will see some examples in \cref{cha:set-math}.
+就像在 \cref{sec:types-vs-sets} 中提及的,
+同伦类型论中的集合不像 ZT 类型论中的集合, 也就是没有一个通用的 ``所属关系断言'' $\in$.
+它们更像结构数学和范畴学中用到的集合, 其元素是 ``抽象点'', 而我们用函数和关系给定其结构.
+这样就可以将它当作大多数基于集合的数学的基础系统;
+在 \cref{cha:set-math} 中有一些例子.
 
-Which types are sets?
-In \cref{cha:hlevels} we will study a more general form of this question in depth, but for now we can observe some easy examples.
+哪些类型是集合?
+在\cref{cha:hlevels}会深入地学习这个问题更通用的形式, 不过现在可以观察一些简单的例子.
 
-\begin{eg}\label{eg:isset-unit}
-  The type \unit is a set.
-  For by \cref{thm:path-unit}, for any $x,y:\unit$ the type $(x=y)$ is equivalent to \unit.
-  Since any two elements of \unit are equal, this implies that any two elements of $x=y$ are equal.
+\begin{eg}
+    \label{eg:isset-unit}
+    类型 \unit 是一个集合.
+    根据\cref{thm:path-unit}, 对于任何 $x,y:\unit$ 类型 $(x=y)$ 等价于 \unit.
+    因为任意两个 \unit 的元素都相等, 这意味着任意两个 $x=y$ 的元素都相等.
 \end{eg}
 
-\begin{eg}\label{eg:isset-empty}
-  The type $\emptyt$ is a set, for given any $x,y:\emptyt$ we may deduce anything we like, by the induction principle of $\emptyt$.
+\begin{eg}
+    \label{eg:isset-empty}
+    类型 $\emptyt$ 是一个集合, 根据 $\emptyt$ 的归纳原理, 给定任意 $x,y:\emptyt$ 可以演绎任何想要的东西.
 \end{eg}
 
-\begin{eg}\label{thm:nat-set}
-  The type \nat of natural numbers is also a set.
-  This follows from \cref{thm:path-nat}, since all equality types $\id[\nat]xy$ are equivalent to either \unit or \emptyt, and any two inhabitants of \unit or \emptyt are equal.
-  We will see another proof of this fact in \cref{cha:hlevels}.
+\begin{eg}
+    \label{thm:nat-set}
+    自然数的类型 \nat 也是一个集合.
+    根据 \cref{thm:path-nat}, 因为所有等同类型 $\id[\nat]xy$ 等价于 \unit 或者 \emptyt, 而且 \unit 或 \emptyt 的两个居留元都相等.
+    在 \cref{cha:hlevels} 中, 还有另外一种证明.
 \end{eg}
 
-Most of the type forming operations we have considered so far also preserve sets.
+大部分我们考虑过的类型都是集合.
 
-\begin{eg}\label{thm:isset-prod}
-  If $A$ and $B$ are sets, then so is $A\times B$.
-  For given $x,y:A\times B$ and $p,q:x=y$, by \cref{thm:path-prod} we have $p= \pairpath(\projpath1(p),\projpath2(p))$ and $q= \pairpath(\projpath1(q),\projpath2(q))$.
-  But $\projpath1(p)=\projpath1(q)$ since $A$ is a set, and $\projpath2(p)=\projpath2(q)$ since $B$ is a set; hence $p=q$.
+\begin{eg}
+    \label{thm:isset-prod}
+    如果 $A$ 和 $B$ 是集合, 那么 $A\times B$ 也如此.
+    给定 $x,y:A\times B$ 和 $p,q:x=y$, 根据 \cref{thm:path-prod} 有 $p= \pairpath(\projpath1(p),\projpath2(p))$ 和 $q= \pairpath(\projpath1(q),\projpath2(q))$.
+    而 $\projpath1(p)=\projpath1(q)$,  因为 $A$ 是集合, 以及 $\projpath2(p)=\projpath2(q)$, 因为 $B$ 是集合; 所以 $p=q$.
 
-  Similarly, if $A$ is a set and $B:A\to\type$ is such that each $B(x)$ is a set, then $\sm{x:A} B(x)$ is a set.
+    类似地, 如果 $A$ 是集合而且 $B:A\to\type$ 满足所有 $B(x)$ 是集合, 那么 $\sm{x:A} B(x)$ 是一个集合.
 \end{eg}
 
-\begin{eg}\label{thm:isset-forall}
-  If $A$ is \emph{any} type and $B:A\to \type$ is such that each $B(x)$ is a set, then the type $\prd{x:A} B(x)$ is a set.
-  For suppose $f,g:\prd{x:A} B(x)$ and $p,q:f=g$.
-  By function extensionality, we have
-  %
-  \begin{equation*}
-    p = {\funext (x \mapsto \happly(p,x))}
-    \quad\text{and}\quad
-    q = {\funext (x \mapsto \happly(q,x))}.
-  \end{equation*}
-  %
-  But for any $x:A$, we have
-  %
-  \begin{equation*}
-   \happly(p,x):f(x)=g(x)
-   \qquad\text{and}\qquad
-   \happly(q,x):f(x)=g(x),
-  \end{equation*}
-  %
-  so since $B(x)$ is a set we have $\happly(p,x) = \happly(q,x)$.
-  Now using function extensionality again, the dependent functions $(x \mapsto \happly(p,x))$ and $(x \mapsto \happly(q,x))$ are equal, and hence (applying $\apfunc{\funext}$) so are~$p$ and~$q$.
+\begin{eg}
+    \label{thm:isset-forall}
+    如果 $A$ 是\emph{任意}类型, 而 $B:A\to \type$ 满足每个 $B(x)$ 是一个集合, 那么类型 $\prd{x:A} B(x)$ 是一个集合.
+    提供 $f,g:\prd{x:A} B(x)$ 和 $p,q:f=g$.
+    根据函数外延性, 有
+    %
+    \begin{equation*}
+        p = {\funext (x \mapsto \happly(p,x))}
+        \quad\text{和}\quad
+        q = {\funext (x \mapsto \happly(q,x))}.
+    \end{equation*}
+    %
+    不过对于所有 $x:A$, 有
+    %
+    \begin{equation*}
+        \happly(p,x):f(x)=g(x)
+        \qquad\text{和}\qquad
+        \happly(q,x):f(x)=g(x),
+    \end{equation*}
+    %
+    因为 $B(x)$ 是一个集合, 有 $\happly(p,x) = \happly(q,x)$.
+    再次使用函数的外延性, 依值函数 $(x \mapsto \happly(p,x))$ 等于 $(x \mapsto \happly(q,x))$, 因此 (应用 $\apfunc{\funext}$) 就是~$p$ 和~$q$.
 \end{eg}
 
-For more examples, see \cref{ex:isset-coprod,ex:isset-sigma}.  For a more systematic investigation of the subsystem (category) of all sets in homotopy type theory, see~\cref{cha:set-math}.
+更多的例子, 参见 \cref{ex:isset-coprod,ex:isset-sigma}. 为了更系统地了解同伦类型论中所有集合的子系统(范畴), 参见~\cref{cha:set-math}.
 
-\index{n-type@$n$-type|(}%
+\index{n-阶类型@$n$-阶类型|(}%
 
-Sets are just the first rung on a ladder of what are called \emph{homotopy $n$-types}.
-The next rung consists of \emph{$1$-types}, which are analogous to $1$-groupoids in category theory.
-The defining property of a set (which we may also call a \emph{$0$-type}) is that it has no non-trivial paths.
-Similarly, the defining property of a $1$-type is that it has no non-trivial paths between paths:
+集合只是\emph{同伦 $n$-阶类型}中的第一层级.
+下一层由 \emph{$1$-types} 组成, 和范畴论中的 $1$-阶广群类似.
+定义集合的的性质 (又叫做 \emph{$0$-阶类型}) 是它没有非平凡的性质.
+类似地, 定义 $1$-阶类型的性质是它的路径之间没有非平凡的路径:
 
-\begin{defn}\label{defn:1type}
-  A type $A$ is a \define{1-type}
-  \indexdef{1-type}%
-  if for all $x,y:A$ and $p,q:x=y$ and $r,s:p=q$, we have $r=s$.
+\begin{defn}
+    \label{defn:1type}
+    类型 $A$ 是一个 \define{1-阶类型}
+    \indexdef{1-阶类型}%
+    对于所有 $x,y:A$ 和 $p,q:x=y$ 以及 $r,s:p=q$, 有 $r=s$.
 \end{defn}
 
-Similarly, we can define $2$-types, $3$-types, and so on.
-We will define the general notion of $n$-type inductively in \cref{cha:hlevels}, and study the relationships between $n$-types for different values of $n$.
+类似地, 可以定义 $2$-阶类型, $3$-阶类型, 等等.
+在\cref{cha:hlevels}中, 会定义 $n$-阶类型的归纳的通用概念, 并学习不同 $n$ 值之间, $n$-阶类型的关系.
 
-However, for now it is useful to have two facts in mind.
-First, the levels are upward-closed: if $A$ is an $n$-type then $A$ is an $(n+1)$-type.
-For example:
+不过, 现在只需要注意两个现象.
+首先, 这些等级是向上封闭的: 如果 $A$ 是一个 $n$-阶类型, 那么 $A$ 是一个 $(n+1)$-阶类型.
+例如:
 %%  will make precise the sense in which this
 %% ``suffices for all higher levels'', but as an example, we observe that
 %% it suffices for the next level up.
 
-\begin{lem}\label{thm:isset-is1type}
-  If $A$ is a set (that is, $\isset(A)$ is inhabited), then $A$ is a 1-type.
+\begin{lem}
+    \label{thm:isset-is1type}
+    如果 $A$ 是一个集合 (也就是说 $\isset(A)$ 有居留元), 那么 $A$ 是 1-阶类型.
 \end{lem}
 \begin{proof}
-  Suppose $f:\isset(A)$; then for any $x,y:A$ and $p,q:x=y$ we have $f(x,y,p,q):p=q$.
-  Fix $x$, $y$, and $p$, and define $g: \prd{q:x=y} (p=q)$ by $g(q) \defeq f (x,y,p,q)$.
-  Then for any $r:q=q'$, we have $\apdfunc{g}(r) : \trans{r}{g(q)} = g(q')$.
-  By \cref{cor:transport-path-prepost}, therefore, we have $g(q) \ct r = g(q')$.
+    给定 $f:\isset(A)$; 那么对于任何 $x,y:A$ 和 $p,q:x=y$ 有 $f(x,y,p,q):p=q$.
+    固定 $x$, $y$, 和 $p$, 并定义 $g: \prd{q:x=y} (p=q)$ 为 $g(q) \defeq f (x,y,p,q)$.
+    那么对于任何 $r:q=q'$, 有 $\apdfunc{g}(r) : \trans{r}{g(q)} = g(q')$.
+    根据 \cref{cor:transport-path-prepost}, 于是有 $g(q) \ct r = g(q')$.
 
-  In particular, suppose given $x,y,p,q$ and $r,s:p=q$, as in \cref{defn:1type}, and define $g$ as above.
-  Then $g(p) \ct r = g(q)$ and also $g(p) \ct s = g(q)$, hence by cancellation $r=s$.
+    特殊地, 给定 $x,y,p,q$ 和 $r,s:p=q$, 按照 \cref{defn:1type}, 定义 $g$ 如上.
+    然后 $g(p) \ct r = g(q)$ 而且 $g(p) \ct s = g(q)$, 约去后得到 $r=s$.
 \end{proof}
 
-Second, this stratification of types by level is not degenerate, in the
-sense that not all types are sets:
+第二, 这种按类型等级的分层并不退化, 也就说意味着不是所有类型都是集合:
 
-\begin{eg}\label{thm:type-is-not-a-set}
-  \index{type!universe}%
-  The universe \type is not a set.
-  To prove this, it suffices to exhibit a type $A$ and a path $p:A=A$ which is not equal to $\refl A$.
-  Take $A=\bool$, and let $f:A\to A$ be defined by $f(\bfalse)\defeq \btrue$ and $f(\btrue)\defeq \bfalse$.
-  Then $f(f(x))=x$ for all $x$ (by an easy case analysis), so $f$ is an equivalence.
-  Hence, by univalence, $f$ gives rise to a path $p:A=A$.
+\begin{eg}
+    \label{thm:type-is-not-a-set}
+    \index{类型!全集}%
+    全集 \type 不是集合.
+    为了证明它, 展示类型 $A$ 和路径 $p:A=A$ 且不等于 $\refl A$ 即可.
+    令 $A=\bool$, 并定义 $f:A\to A$ 为 $f(\bfalse)\defeq \btrue$ 和 $f(\btrue)\defeq \bfalse$.
+    然后 $f(f(x))=x$ 对于所有 $x$ (很容易分析), 所以 $f$ 是一个等价.
+    因此, 按照单值性, $f$ 可以得到 $p:A=A$.
 
-  If $p$ were equal to $\refl A$, then (again by univalence) $f$ would equal the identity function of $A$.
-  But this would imply that $\bfalse=\btrue$, contradicting \cref{rmk:true-neq-false}.
+    如果 $p$ 等于 $\refl A$, 那么 (再次根据单值性) $f$ 会等于 $A$ 的恒等函数.
+    不过这样会得到 $\bfalse=\btrue$, 和 \cref{rmk:true-neq-false} 矛盾.
 \end{eg}
 
-In \cref{cha:hits,cha:homotopy} we will show that for any $n$, there are types which are not $n$-types.
+\cref{cha:hits,cha:homotopy}中, 会展示对于任意 $n$, 都有不是 $n$-阶类型的类型.
 
-Note that $A$ is a 1-type exactly when for any $x,y:A$, the identity type $\id[A]xy$ is a set.
-(Thus, \cref{thm:isset-is1type} could equivalently be read as saying that the identity types of a set are also sets.)
-This will be the basis of the recursive definition of $n$-types we will give in \cref{cha:hlevels}.
+注意 $A$ 是一个 1-阶类型当且仅当对于任何 $x,y:A$, 恒等类型 $\id[A]xy$ 是一个集合.
+(因此, \cref{thm:isset-is1type} 等价于说集合的恒等类型也是集合.)
+这是 \cref{cha:hlevels} 中将给出的递归地定义 $n$-阶类型的基础.
 
-We can also extend this characterization ``downwards'' from sets.
-That is, a type $A$ is a set just when for any $x,y:A$, any two elements of $\id[A]xy$ are equal.
-Since sets are equivalently 0-types, it is natural to call a type a \emph{$(-1)$-type} if it has this latter property (any two elements of it are equal).
-Such types may be regarded as \emph{propositions in a narrow sense}, and their study is just what is usually called ``logic''; it will occupy us for the rest of this chapter.
+还可以从集合 ``向下'' 扩展这个概念.
+也就是说, 类型 $A$ 是一个集合仅当对于任意 $x,y:A$, $\id[A]xy$ 的两个元素都是相等的.
+因为集合等价于 0-阶类型, 自然地, 有一个 \emph{$(-1)$-阶类型}, 如果它们有后者的性质 (任意两个元素都相等).
+这些类型可以被视为 \emph{狭义上的命题}, 而它们的研究也就是常说的 ``逻辑'';
+它会在本章的剩余部分出现.
 
-\index{n-type@$n$-type|)}%
-\index{set|)}%
+\index{n-阶类型@$n$-阶类型|)}%
+\index{集合|)}%
