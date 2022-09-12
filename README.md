@@ -25,5 +25,5 @@ make hott-online.pdf
 
 ## 其它
 本项目使用的翻译辅助工具是 [OmegaT](https://github.com/omegat-org/omegat) 。
-但是修改了它的 LaTex 过滤器，暂时没有上传翻译库和词汇表到此项目中。
+但是修改了它的 LaTeX 过滤器，暂时没有上传翻译库和词汇表到此项目中。
 
