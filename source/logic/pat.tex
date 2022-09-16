@@ -1,92 +1,99 @@
-\index{proposition!as types|(}%
-\index{logic!constructive vs classical|(}%
+\index{命题!作为类型|(}%
+\index{逻辑!构建主义与经典的|(}%
 \index{anger|(}%
-Until now, we have been following the straightforward ``propositions as types'' philosophy described in \cref{sec:pat}, according to which English phrases such as ``there exists an $x:A$ such that $P(x)$'' are interpreted by corresponding types such as $\sm{x:A} P(x)$, with the proof of a statement being regarded as judging some specific element to inhabit that type.
-However, we have also seen some ways in which the ``logic'' resulting from this reading seems unfamiliar to a classical mathematician.
-For instance, in \cref{thm:ttac} we saw that the statement
-\index{axiom!of choice!type-theoretic}%
-\begin{equation}\label{eq:english-ac}
-  \parbox{\textwidth-2cm}{``If for all $x:X$ there exists an $a:A(x)$ such that $P(x,a)$, then there exists a function $g:\prd{x:X} A(x)$ such that for all $x:X$ we have $P(x,g(x))$'',}
+直到现在, 都在遵循 \cref{sec:pat} 中``命题作为类型''的简单哲学, 也就是自然语言的 ``存在 $x:A$ 满足 $P(x)$'' 可以理解为对应的类型 $\sm{x:A} P(x)$, 而证明一个语句被视为判断某些特殊的元素居留于这个类型.
+不过, 也有一些经典数学家不熟悉的 ``逻辑''.
+例如, \cref{thm:ttac} 中的这个语句
+\index{公理!选择!类型论风格}%
+\begin{equation}
+    \label{eq:english-ac}
+    \parbox{\textwidth-2cm}{``如果对于所有 $x:X$ 存在一个 $a:A(x)$ 满足 $P(x,a)$, 那么存在函数 $g:\prd{x:X} A(x)$ 满足对于所有 $x:X$ 有 $P(x,g(x))$'',}
 \end{equation}
-which looks like the classical\index{mathematics!classical} \emph{axiom of choice}, is always true under this reading. This is a noteworthy, and often useful, feature of the propositions-as-types logic, but it also illustrates how significantly it differs from the classical interpretation of logic, under which the axiom of choice is not a logical truth, but an additional ``axiom''.
+这看起来像是经典的\index{数学!经典的}\emph{选择公理}, 这种情况下永远是对的.
+这是一个常用的重点, 命题作为类型的逻辑, 不过这也说明了它和经典的逻辑演绎的显著区别, 后者的选择公理不在逻辑上成立, 而是额外的 ``公理''.
 
-On the other hand, we can now also show that corresponding statements looking like the classical \emph{law of double negation} and \emph{law of excluded middle} are incompatible with the univalence axiom.
-\index{univalence axiom}%
+另一方面, 还会展示经典的\emph{双重否定}以及\emph{排中律}与单值公理不相容.
+\index{单值公理}%
 
-\begin{thm}\label{thm:not-dneg}
-  \index{double negation, law of}%
-  It is not the case that for all $A:\UU$ we have $\neg(\neg A) \to A$.
+\begin{thm}
+    \label{thm:not-dneg}
+    \index{双重否定, 律}%
+    这是错误的: 对于所有 $A:\UU$ 都有 $\neg(\neg A) \to A$.
 \end{thm}
 \begin{proof}
-  Recall that $\neg A \jdeq (A\to\emptyt)$.
-  We also read ``it is not the case that \dots'' as the operator $\neg$.
-  Thus, in order to prove this statement, it suffices to assume given some $f:\prd{A:\UU} (\neg\neg A \to A)$ and construct an element of \emptyt.
+    回顾 $\neg A \jdeq (A\to\emptyt)$.
+    可以将运算符 $\neg$ 看作 ``\dots 是错误的''.
+    因此, 为了证明这个语句, 根据 $f:\prd{A:\UU} (\neg\neg A \to A)$ 构建 \emptyt 的元素既可.
 
-  The idea of the following proof is to observe that $f$, like any function in type theory, is ``continuous''.
-  \index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-  \index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-  By univalence, this implies that $f$ is \emph{natural} with respect to equivalences of types.
-  From this, and a fixed-point-free autoequivalence\index{automorphism!fixed-point-free}, we will be able to extract a contradiction.
+    下面这个证明的理念是观察 $f$, 与类型论中任何的函数一样, 都是 ``连续的''.
+    \index{类型论中函数的连续性@类型论中函数的``连续性''}%
+    \index{类型论中函数的函子性@类型论中函数的``函子性''}%
+    根据单值, 这意味 $f$ \emph{天然}地遵循类型的等价.
+    由此以及一个 fixed-point-free autoequivalence\index{automorphism!fixed-point-free}, 可以提取一个结论.
 
-  Let $e:\eqv\bool\bool$ be the equivalence defined by $e(\btrue)\defeq\bfalse$ and $e(\bfalse)\defeq\btrue$, as in \cref{thm:type-is-not-a-set}.
-  Let $p:\bool=\bool$ be the path corresponding to $e$ by univalence, i.e.\ $p\defeq \ua(e)$.
-  Then we have $f(\bool) : \neg\neg\bool \to\bool$ and
-  \[\apd f p : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)} = f(\bool).\]
-  Hence, for any $u:\neg\neg\bool$, we have
-  \[\happly(\apd f p,u) : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)}(u) = f(\bool)(u).\]
+    定义等价 $e:\eqv\bool\bool$, 其中 $e(\btrue)\defeq\bfalse$ 而 $e(\bfalse)\defeq\btrue$, 就像 \cref{thm:type-is-not-a-set}.
+    令 $p:\bool=\bool$ 为 $e$ 由单值对应的路径, 即 $p\defeq \ua(e)$.
+    然后有 $f(\bool) : \neg\neg\bool \to\bool$ 和
+    \[\apd f p : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)} = f(\bool).\]
+    因此, 对于任何 $u:\neg\neg\bool$, 有
+    \[\happly(\apd f p,u) : \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)}(u) = f(\bool)(u).\]
 
-  Now by~\eqref{eq:transport-arrow}, transporting $f(\bool):\neg\neg\bool\to\bool$ along $p$ in the type family ${A\mapsto (\neg\neg A \to A)}$ is equal to the function which transports its argument along $\opp p$ in the type family $A\mapsto \neg\neg A$, applies $f(\bool)$, then transports the result along $p$ in the type family $A\mapsto A$:
-  \begin{narrowmultline*}
-    \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)}(u) =
-    \narrowbreak
-    \transfib{A\mapsto A}{p}{f(\bool) (\transfib{A\mapsto \neg\neg
+    现在通过~\eqref{eq:transport-arrow}, 沿着 $p$ 在类型族 ${A\mapsto (\neg\neg A \to A)}$ 中运输 $f(\bool):\neg\neg\bool\to\bool$, 它等于一个函数, 这个函数沿着 $\opp p$ 在类型族 $A\mapsto \neg\neg A$ 中运输, 应用 $f(\bool)$ 后, 沿着 $p$ 在类型族 $A\mapsto A$ 运输:
+    \begin{narrowmultline*}
+        \transfib{A\mapsto (\neg\neg A \to A)}{p}{f(\bool)}(u) =
+        \narrowbreak
+        \transfib{A\mapsto A}{p}{f(\bool) (\transfib{A\mapsto \neg\neg
         A}{\opp{p}}{u})}.
-  \end{narrowmultline*}
-  %
-  However, any two points $u,v:\neg\neg\bool$ are equal by function extensionality, since for any $x:\neg\bool$ we have $u(x):\emptyt$ and thus we can derive any conclusion, in particular $u(x)=v(x)$.
-  Thus, we have $\transfib{A\mapsto \neg\neg A}{\opp{p}}{u} = u$, and so from $\happly(\apd f p,u)$ we obtain an equality
-  \[ \transfib{A\mapsto A}{p}{f(\bool)(u)} = f(\bool)(u).\]
-  Finally, as discussed in \cref{sec:compute-universe}, transporting in the type family $A\mapsto A$ along the path $p\jdeq \ua(e)$ is equivalent to applying the equivalence $e$; thus we have
-  \begin{equation}
-    e(f(\bool)(u)) = f(\bool)(u).\label{eq:fpaut}
-  \end{equation}
-  %
-  However, we can also prove that
-  \begin{equation}
-    \prd{x:\bool} \neg(e(x)=x).\label{eq:fpfaut}
-  \end{equation}
-  This follows from a case analysis on $x$: both cases are immediate from the definition of $e$ and the fact that $\bfalse\neq\btrue$ (\cref{rmk:true-neq-false}).
-  Thus, applying~\eqref{eq:fpfaut} to $f(\bool)(u)$ and~\eqref{eq:fpaut}, we obtain an element of $\emptyt$.
+    \end{narrowmultline*}
+    %
+    而任意两个点 $u,v:\neg\neg\bool$ 按照函数外延性都相等, 应为对于任何 $x:\neg\bool$ 有 $u(x):\emptyt$ 因此可以得到任意结论, 比如 $u(x)=v(x)$.
+    因此, 有 $\transfib{A\mapsto \neg\neg A}{\opp{p}}{u} = u$, 陨石从 $\happly(\apd f p,u)$ 得到一个等同
+    \[ \transfib{A\mapsto A}{p}{f(\bool)(u)} = f(\bool)(u).\]
+    最后, 就像在 \cref{sec:compute-universe} 中讨论的, 沿着路径 $p\jdeq \ua(e)$ 运输类型族 $A\mapsto A$ 的结果等价于应用这个等价 $e$;
+    因此有
+    \begin{equation}
+        e(f(\bool)(u)) = f(\bool)(u).\label{eq:fpaut}
+    \end{equation}
+    %
+    也可以证明
+    \begin{equation}
+        \prd{x:\bool} \neg(e(x)=x).\label{eq:fpfaut}
+    \end{equation}
+    这可以通过在 $x$ 上分析情况得到: 每个情况都直接代入 $e$ 的定义而实际上 $\bfalse\neq\btrue$ (\cref{rmk:true-neq-false}).
+    因此, 应用~\eqref{eq:fpfaut} 于 $f(\bool)(u)$ 和~\eqref{eq:fpaut}, 可以得到 $\emptyt$ 的元素.
 \end{proof}
 
 \begin{rmk}
-  \index{choice operator}%
-  \indexsee{operator!choice}{choice operator}%
-  In particular, this implies that there can be no Hilbert-style ``choice operator'' which selects an element of every nonempty type.
-  The point is that no such operator can be \emph{natural}, and under the univalence axiom, all functions acting on types must be natural with respect to equivalences.
+    \index{选择运算符}%
+    \indexsee{运算符!选择}{选择运算符}%
+    实际上, 这意味着没有 Hilbert 风格的 ``选择运算符'', 即选择每个非空类型的一个元素.
+    关键在于没有\emph{天然的}这种运算, 在单值公理下, 作用于类型的所有函数必须是天然地遵循等价性.
 \end{rmk}
 
 \begin{rmk}
-  It is, however, still the case that $\neg\neg\neg A \to \neg A$ for any $A$; see \cref{ex:neg-ldn}.
+    不过, 对于任何 $A$ 还是有 $\neg\neg\neg A \to \neg A$; 参见 \cref{ex:neg-ldn}.
 \end{rmk}
 
-\begin{cor}\label{thm:not-lem}
-  \index{excluded middle}%
-  It is not the case that for all $A:\UU$ we have $A+(\neg A)$.
+\begin{cor}
+    \label{thm:not-lem}
+    \index{排中}%
+    这是错误的: 对于所有 $A:\UU$ 有 $A+(\neg A)$.
 \end{cor}
 \begin{proof}
-  Suppose we had $g:\prd{A:\UU} (A+(\neg A))$.
-  We will show that then $\prd{A:\UU} (\neg\neg A \to A)$, so that we can apply \cref{thm:not-dneg}.
-  Thus, suppose $A:\UU$ and $u:\neg\neg A$; we want to construct an element of $A$.
+    给定 $g:\prd{A:\UU} (A+(\neg A))$.
+    只要能得到 $\prd{A:\UU} (\neg\neg A \to A)$, 就能应用 \cref{thm:not-dneg}.
+    因此, 给定 $A:\UU$ 和 $u:\neg\neg A$;
+    要构造 $A$ 的元素.
 
-  Now $g(A):A+(\neg A)$, so by case analysis, we may assume either $g(A)\jdeq \inl(a)$ for some $a:A$, or $g(A)\jdeq \inr(w)$ for some $w:\neg A$.
-  In the first case, we have $a:A$, while in the second case we have $u(w):\emptyt$ and so we can obtain anything we wish (such as $A$).
-  Thus, in both cases we have an element of $A$, as desired.
+    现在 $g(A):A+(\neg A)$, 于是根据模式匹配, 只有 $g(A)\jdeq \inl(a)$ 其中 $a:A$, 或者 $g(A)\jdeq \inr(w)$ 其中 $w:\neg A$ 两种情况.
+    第一种情况, 有 $a:A$, 而第二种情况有 $u(w):\emptyt$ 于是可以得到任何想要的 (比如 $A$).
+    因此, 每种情况都能得到所需的 $A$ 的元素.
 \end{proof}
 
-Thus, if we want to assume the univalence axiom (which, of course, we do) and still leave ourselves the option of classical\index{mathematics!classical} reasoning (which is also desirable), we cannot use the unmodified propositions-as-types principle to interpret \emph{all} informal mathematical statements into type theory, since then the law of excluded middle would be false.
-However, neither do we want to discard propositions-as-types entirely, because of its many good properties (such as simplicity, constructivity, and computability).
-We now discuss a modification of propositions-as-types which resolves these problems; in \cref{subsec:when-trunc} we will return to the question of which logic to use when.
+因此, 如果像假定单值公理 (当然, 我们会这样), 仍然可以选择(所需的)经典\index{数学!经典的}定理, 不能使用未改动的命题作为类型原则来诠释 \emph{所有} 非形式的数学语句到类型轮中, 因为排中律可能是错的.
+不过, 我们也不想完全地放弃命题作为类型, 因为它有很多好的性质 (比如简单, 可构造, 可计算).
+接下来会讨论一个命题作为类型的改进, 可以解决这个问题;
+在 \cref{subsec:when-trunc} 会回到什么时候使用什么逻辑的问题.
 \index{anger|)}%
-\index{proposition!as types|)}%
-\index{logic!constructive vs classical|)}%
+\index{命题!作为类型|)}%
+\index{逻辑!构造主义与经典的|)}%
