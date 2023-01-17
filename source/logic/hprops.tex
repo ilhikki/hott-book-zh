@@ -1,94 +1,92 @@
-\index{logic!of mere propositions|(}%
-\index{mere proposition|(defstyle}%
-\indexsee{proposition!mere}{mere proposition}%
-We have seen that the propositions-as-types logic has both good and bad properties.
-Both have a common cause: when types are viewed as propositions, they can contain more information than mere truth or falsity, and all ``logical'' constructions on them must respect this additional information.
-This suggests that we could obtain a more conventional logic by restricting attention to types that do \emph{not} contain any more information than a truth value, and only regarding these as logical propositions.
+\index{逻辑!纯命题的|(}%
+\index{纯命题(defstyle}%
+\indexsee{命题!纯}{纯命题}%
+我们已经看到命题作为类型的逻辑的优点和缺点.
+它们有这样的共性: 当类型视为命题, 它们存在更多的信息, 不止是对和错, 它们上的 ``逻辑'' 构造都遵循这些额外信息.
+这表明我们可以得到更常规的逻辑, 通过只关注\emph{不}包含任何比真值外信息的类型, 并单纯视其为逻辑命题.
 
-Such a type $A$ will be ``true'' if it is inhabited, and ``false'' if its inhabitation yields a contradiction (i.e.\ if $\neg A \jdeq (A\to\emptyt)$ is inhabited).
-\index{inhabited type}%
-What we want to avoid, in order to obtain a more traditional sort of logic, is treating as logical propositions those types for which giving an element of them gives more information than simply knowing that the type is inhabited.
-For instance, if we are given an element of \bool, then we receive more information than the mere fact that \bool contains some element.
-Indeed, we receive exactly \emph{one bit}
-\index{bit}%
-more information: we know \emph{which} element of \bool we were given.
-By contrast, if we are given an element of \unit, then we receive no more information than the mere fact that \unit contains an element, since any two elements of \unit are equal to each other.
-This suggests the following definition.
+比如类型 $A$ 为 ``真'' 当其被居留时, 而 ``假'' 如果它的居留元可以得到矛盾 (即 $\neg A \jdeq (A\to\emptyt)$ 被居留).
+\index{被居留的类型}%
+为了得到更加传统的逻辑, 要避免将这样的类型视为逻辑命题, 给出它们的元素比知道这个类型被居留提供了更多的信息.
+例如, 如果给出 \bool 的元素, 那么会收到根多的信息, 相比 \bool 存在元素这个单纯的事实.
+确实, 得到了确切的\emph{一比特}
+\index{比特}%
+的额外信息: 知道了给出的是 \bool 的\emph{哪个}元素.
+相反的, 如果给出 \unit 的元素, 那么不会得到更多的信息, 相比 \unit 存在元素这个单纯的事实, 因为任何两个 \unit 的元素彼此相等.
+这启发了这个定义.
 
 \begin{defn}\label{defn:isprop}
-  A type $P$ is a \define{mere proposition}
-  if for all $x,y:P$ we have $x=y$.
+  类型 $P$ 是一个\define{纯命题}
+  如果对于所有 $x,y:P$ 有 $x=y$.
 \end{defn}
 
-Note that since we are still doing mathematics \emph{in} type theory, this is a definition \emph{in} type theory, which means it is a type --- or, rather, a type family.
-Specifically, for any $P:\type$, the type $\isprop(P)$ is defined to be
+主义因为我们还是在类型论\emph{中}做数学, 这个定义\emph{在}类型论\emph{中}, 意味着一个类型 --- 或是一个类型族.
+特殊的, 对于任意 $P:\type$, 类型 $\isprop(P)$ 被定义为
 \[ \isprop(P) \defeq \prd{x,y:P} (x=y). \]
-Thus, to assert that ``$P$ is a mere proposition'' means to exhibit an inhabitant of $\isprop(P)$, which is a dependent function connecting any two elements of $P$ by a path.
-The continuity/naturality of this function implies that not only are any two elements of $P$ equal, but $P$ contains no higher homotopy either.
+因此, 假定 ``$P$ 是纯命题'' 意味着展示 $\isprop(P)$ 的一个居留元, 即通过路径连接任意两个 $P$ 的元素的依值函数.
+该函数的连续性/自然性暗示了不仅 $P$ 的任意两个元素都相等, 而且 $P$ 也不存在高阶同伦.
 
 \begin{lem}\label{thm:inhabprop-eqvunit}
-  If $P$ is a mere proposition and $x_0:P$, then $\eqv P \unit$.
+  如果 $P$ 是纯命题而且 $x_0:P$, 那么 $\eqv P \unit$.
 \end{lem}
 \begin{proof}
-  Define $f:P\to\unit$ by $f(x)\defeq \ttt$, and $g:\unit\to P$ by $g(u)\defeq x_0$.
-  The claim follows from the next lemma, and the observation that \unit is a mere proposition by \cref{thm:path-unit}.
+  定义 $f:P\to\unit$ 为 $f(x)\defeq \ttt$, 而 $g:\unit\to P$ 为 $g(u)\defeq x_0$.
+  然后使用下面的引理, 其中根据 \cref{thm:path-unit}, \unit 是纯命题.
 \end{proof}
 
 \begin{lem}\label{lem:equiv-iff-hprop}
-  If $P$ and $Q$ are mere propositions such that $P\to Q$ and $Q\to P$, then $\eqv P Q$.
+  如果 $P$ 和 $Q$ 是纯命题而 $P\to Q$ 且 $Q\to P$, 那么 $\eqv P Q$.
 \end{lem}
 \begin{proof}
-  Suppose given $f:P\to Q$ and $g:Q\to P$.
-  Then for any $x:P$, we have $g(f(x))=x$ since $P$ is a mere proposition.
-  Similarly, for any $y:Q$ we have $f(g(y))=y$ since $Q$ is a mere proposition; thus $f$ and $g$ are quasi-inverses.
+  提供 $f:P\to Q$ 和 $g:Q\to P$.
+  对于任何 $x:P$, 有 $g(f(x))=x$ 因为 $P$ 是纯命题.
+  类似地, 对于任何 $y:Q$ 有 $f(g(y))=y$ 因为 $Q$ 是纯命题; 因此 $f$ 准逆于 $g$.
 \end{proof}
 
-That is, as promised in \cref{sec:pat}, if two mere propositions are logically equivalent, then they are equivalent.
+也就是正如 \cref{sec:pat} 中约定的一样, 如果两个纯命题之间逻辑上等价, 那么它们等价.
 
-In homotopy theory, a space that is homotopy equivalent to \unit is said to be \emph{contractible}.
-Thus, any mere proposition which is inhabited is contractible (see also \cref{sec:contractibility}).
-On the other hand, the uninhabited type \emptyt is also (vacuously) a mere proposition.
-In classical\index{mathematics!classical} mathematics, at least, these are the only two possibilities.
+同伦论中, 同伦等价于 \unit 的空间是\emph{可缩的}.
+因此, 任何被居留的纯命题都是可缩的 (参见 \cref{sec:contractibility}).
+另外, 不被居留的类型 \emptyt 也是 (空洞的) 纯命题.
+至少在经典\index{数学!经典的}数学中, 只有这两种可能.
 
-Mere propositions are also called \emph{subterminal objects} (if thinking categorically), \emph{subsingletons} (if thinking set-theoretically), or \emph{h-propositions}.
-\indexsee{object!subterminal}{mere proposition}%
-\indexsee{subterminal object}{mere proposition}%
-\indexsee{subsingleton}{mere proposition}%
-\indexsee{h-proposition}{mere proposition}
-The discussion in \cref{sec:basics-sets} suggests we should also call them \emph{$(-1)$-types}; we will return to this in \cref{cha:hlevels}.
-The adjective ``mere'' emphasizes that although any type may be regarded as a proposition (which we prove by giving an inhabitant of it), a type that is a mere proposition cannot usefully be regarded as any \emph{more} than a proposition: there is no additional information contained in a witness of its truth.
+纯命题也被称为\emph{子终止对象} (范畴学上), \emph{单元素子集} (集合论上), 或者\emph{h-propositions}.
+\indexsee{对象!子终结}{纯命题}%
+\indexsee{子终结对象}{纯命题}%
+\indexsee{子终结}{纯命题}%
+\indexsee{h-proposition}{纯命题}
+按照 \cref{sec:basics-sets} 中的讨论, 应该把它们称为 \emph{$(-1)$-类型}; 在 \cref{cha:hlevels} 会返回到它.
+形容词 ``纯'' 强调尽管可以将任何类型视为命题 (通过给出居留元来证明它), 作为纯命题的类型, 只有将其视为命题, 否则没有意义: 它为真的见证不包含额外信息.
 
-Note that a type $A$ is a set if and only if for all $x,y:A$, the identity type $\id[A]xy$ is a mere proposition.
-On the other hand, by copying and simplifying the proof of \cref{thm:isset-is1type}, we have:
+注意类型 $A$ 是一个集合当且仅当对于所有 $x,y:A$, 恒等类型 $\id[A]xy$ 是纯命题.
+另一方面, 通过复制和简化 \cref{thm:isset-is1type} 的证明, 有:
 
 \begin{lem}\label{thm:prop-set}
-  Every mere proposition is a set.
+  每个纯命题都是集合.
 \end{lem}
 \begin{proof}
-  Suppose $f:\isprop(A)$; thus for all $x,y:A$ we have $f(x,y):x=y$.  Fix $x:A$
-  and define $g(y)\defeq f(x,y)$.   Then for any $y,z:A$ and $p:y=z$ we have $\apd
-  g p : \trans{p}{g(y)}={g(z)}$.  Hence by \cref{cor:transport-path-prepost}, we have
-  $g(y)\ct p = g(z)$, which is to say that $p=\opp{g(y)}\ct g(z)$.  Thus, for
-  any $p,q:x=y$, we have $p = \opp{g(x)}\ct g(y) = q$.
+  假设 $f:\isprop(A)$; 因此对于所有 $x,y:A$ 有 $f(x,y):x=y$.
+  固定 $x:A$ 并定义 $g(y)\defeq f(x,y)$.
+  然后对于任何 $y,z:A$ 且 $p:y=z$ 有 $\apd g p : \trans{p}{g(y)}={g(z)}$.
+  于是通过 \cref{cor:transport-path-prepost}, 有 $g(y)\ct p = g(z)$, 也就是说 $p=\opp{g(y)}\ct g(z)$.
+  因此, 对于所有 $p,q:x=y$, 有 $p = \opp{g(x)}\ct g(y) = q$.
 \end{proof}
 
-In particular, this implies:
+特别地, 这意味着:
 
 \begin{lem}\label{thm:isprop-isprop}\label{thm:isprop-isset}
-  For any type $A$, the types $\isprop(A)$ and $\isset(A)$ are mere propositions.
+  对于任何类型 $A$, 类型 $\isprop(A)$ 和 $\isset(A)$ 都是纯命题.
 \end{lem}
 \begin{proof}
-  Suppose $f,g:\isprop(A)$.  By function extensionality, to show $f=g$ it
-  suffices to show $f(x,y)=g(x,y)$ for any $x,y:A$.  But $f(x,y)$ and $g(x,y)$
-  are both paths in $A$, and hence are equal because, by either $f$ or $g$, we
-  have that $A$ is a mere proposition, and hence by \cref{thm:prop-set} is a
-  set.  Similarly, suppose $f,g:\isset(A)$, which is to say that for all
-  $a,b:A$ and $p,q:a=b$, we have $f(a,b,p,q):p=q$ and $g(a,b,p,q):p=q$.  But by then since $A$ is a set (by
-  either $f$ or $g$), and hence a 1-type, it follows that $f(a,b,p,q)=g(a,b,p,q)$; hence $f=g$ by
-  function extensionality.
+  假设 $f,g:\isprop(A)$.
+  通过函数外延性, 为了展示 $f=g$ 只需展示 $f(x,y)=g(x,y)$ 对于任何 $x,y:A$.
+  不过 $f(x,y)$ 和 $g(x,y)$ 都是 $A$ 中的路径, 而它们相等, 因为根据 $f$ 或 $g$, $A$ 是纯命题, 因此根据 \cref{thm:prop-set} 它是集合.
+  类似地, 假设 $f,g:\isset(A)$, 也就是说对于所有 $a,b:A$ 和 $p,q:a=b$, 有 $f(a,b,p,q):p=q$ 和 $g(a,b,p,q):p=q$.
+  因为 $A$ 是集合 (根据 $f$ 或 $g$), 所以也是 1-阶类型, 于是有 $f(a,b,p,q)=g(a,b,p,q)$;
+  因此根据函数外延性 $f=g$.
 \end{proof}
 
-We have seen one other example so far: condition~\ref{item:be3} in \cref{sec:basics-equivalences} asserts that for any function $f$, the type $\isequiv (f)$ should be a mere proposition.
+以前的已经见过了另一个例子: \cref{sec:basics-equivalences} 中的判断~\ref{item:be3} 假定对于任何函数 $f$, 类型 $\isequiv (f)$ 应该是纯命题.
 
-\index{logic!of mere propositions|)}%
-\index{mere proposition|)}%
+\index{逻辑!,纯命题的|)}%
+\index{纯命题)}%
