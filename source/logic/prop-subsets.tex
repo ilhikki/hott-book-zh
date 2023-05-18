@@ -1,103 +1,104 @@
-\index{mere proposition|(}%
+\index{纯命题(}%
 
-As another example of the usefulness of mere propositions, we discuss subsets (and more generally subtypes).
-Suppose $P:A\to\type$ is a type family, with each type $P(x)$ regarded as a proposition.
-Then $P$ itself is a \emph{predicate} on $A$, or a \emph{property} of elements of $A$.
+作为纯命题的另一个有用的例子, 我们来讨论子集合 (并推广到子类型).
+假设 $P:A\to\type$ 是类型族, 每个类型 $P(x)$ 被视为一个命题.
+然后 $P$ 本身就是 $A$ 上的一个\emph{断言}, 或者 $A$ 的元素的一个 \emph{性质} .
 
-In set theory, whenever we have a predicate $P$ on a set $A$, we may form the subset $\setof{x\in A | P(x)}$.
-As mentioned briefly in \cref{sec:pat}, the obvious analogue in type theory is the $\Sigma$-type $\sm{x:A} P(x)$.
-An inhabitant of $\sm{x:A} P(x)$ is, of course, a pair $(x,p)$ where $x:A$ and $p$ is a proof of $P(x)$.
-However, for general $P$, an element $a:A$ might give rise to more than one distinct element of $\sm{x:A} P(x)$, if the proposition $P(a)$ has more than one distinct proof.
-This is counter to the usual intuition of a subset.
-But if $P$ is a \emph{mere} proposition, then this cannot happen.
+集合论中, 只要在集合 $A$ 上有断言 $P$ 时, 就可以构造子集合 $\setof{x\in A | P(x)}$.
+正如 \cref{sec:pat} 中提起的一样, 类型论中对应的就是 $\Sigma$-类型 $\sm{x:A} P(x)$.
+$\sm{x:A} P(x)$ 的居留元显然就是 $(x,p)$, 其中 $x:A$ 而 $p$ 是 $P(x)$ 的一个证明.
+不过, 对于更通用的 $P$, 元素 $a:A$ 可以可以对应 $\sm{x:A} P(x)$ 的多个元素, 如果命题 $P(a)$ 有超过一个证明.
+这与常规的子集合直觉相反.
+不过 $P$ 是\emph{纯}命题, 这将不会发生.
 
-\begin{lem}\label{thm:path-subset}
-  Suppose $P:A\to\type$ is a type family such that $P(x)$ is a mere proposition for all $x:A$.
-  If $u,v:\sm{x:A} P(x)$ are such that $\proj1(u) = \proj1(v)$, then $u=v$.
+\begin{lem}
+    \label{thm:path-subset}
+    假设 $P:A\to\type$ 是类型族, 那么对于所有 $x:A$, $P(x)$ 是纯命题.
+    如果 $u,v:\sm{x:A} P(x)$ 满足 $\proj1(u) = \proj1(v)$, 那么 $u=v$.
 \end{lem}
 \begin{proof}
-  Suppose $p:\proj1(u) = \proj1(v)$.
-  By \cref{thm:path-sigma}, to show $u=v$ it suffices to show $\trans{p}{\proj2(u)} = \proj2(v)$.
-  But $\trans{p}{\proj2(u)}$ and $\proj2(v)$ are both elements of $P(\proj1(v))$, which is a mere proposition; hence they are equal.
+    假设 $p:\proj1(u) = \proj1(v)$.
+    根据 \cref{thm:path-sigma}, 为了得到 $u=v$, 展示 $\trans{p}{\proj2(u)} = \proj2(v)$ 即可.
+    而 $\trans{p}{\proj2(u)}$ 和 $\proj2(v)$ 都是 $P(\proj1(v))$ 的元素, 而它是纯命题; 因此它们相等.
 \end{proof}
 
-For instance, recall that in \cref{sec:basics-equivalences} we defined
+例如, 回顾 \cref{sec:basics-equivalences}, 定义了
 \[(\eqv A B) \;\defeq\; \sm{f:A\to B} \isequiv (f),\]
-where each type $\isequiv (f)$ was supposed to be a mere proposition.
-It follows that if two equivalences have equal underlying functions, then they are equal as equivalences.
+其中每个类型 $\isequiv (f)$ 都被假设为了纯命题.
+因此如果两个等价内部的函数都相等, 那么这两个等价彼此也相等.
 
 \label{defn:setof}%
-Henceforth, if $P:A\to \type$ is a family of mere propositions (i.e.\ each $P(x)$ is a mere proposition), we may write
+现在开始, 如果 $P:A\to \type$ 是纯命题的类型族 (即每个 $P(x)$ 都是纯命题), 可以将
 %
 \begin{equation}
-  \label{eq:subset}
-  \setof{x:A | P(x)}
+    \label{eq:subset}
+    \setof{x:A | P(x)}
 \end{equation}
 %
-as an alternative notation for $\sm{x:A} P(x)$.
-(There is no technical reason not to use this notation for arbitrary $P$ as well, but such usage could be confusing due to unintended connotations.)
-If $A$ is a set, we call \eqref{eq:subset} a \define{subset}
-\indexdef{subset}%
-\indexdef{type!subset}%
-of $A$; for general $A$ we might call it a \define{subtype}.
-\indexdef{subtype}%
-We may also refer to $P$ itself as a \emph{subset} or \emph{subtype} of $A$; this is actually more correct, since the type~\eqref{eq:subset} in isolation doesn't remember its relationship to $A$.
+用另外的符号 $\sm{x:A} P(x)$ 代替.
+(技术上没有理由限制对 $P$ 使用这个符号, 不过这种无意识的做法可能会带来困扰.)
+如果 $A$ 是集合, 可以将\eqref{eq:subset}称为 $A$ 的\define{子集合};
+\indexdef{子集合}%
+\indexdef{类型!子集合}%
+作为推广可以把 $A$ 称为\define{子类型}.
+\indexdef{子类型}%
+也可以将 $P$ 称为 $A$ 的\emph{子集合}或\emph{子类型};
+实际上，这更正确，因为孤立地看，类型~\eqref{eq:subset}不记得它和 $A$ 的关系.
 
 \symlabel{membership}
-Given such a $P$ and $a:A$, we may write $a\in P$ or $a\in \setof{x:A | P(x)}$ to refer to the mere proposition $P(a)$.
-If it holds, we may say that $a$ is a \define{member} of $P$.
+给定 $P$ 和 $a:A$, 可以写作 $a\in P$ 或 $a\in \setof{x:A | P(x)}$ 来表示纯命题 $P(a)$.
+如果它成立, 那可以说 $a$ 是 $P$ 的\define{成员}.
 \symlabel{subset}
-Similarly, if $\setof{x:A | Q(x)}$ is another subset of $A$, then we say that $P$ is \define{contained}
-\indexdef{containment!of subsets}%
-\indexdef{inclusion!of subsets}%
-in $Q$, and write $P\subseteq Q$, if we have $\prd{x:A}(P(x)\rightarrow Q(x))$.
+类似地, 如果 $\setof{x:A | Q(x)}$ 是 $A$ 的另一个集合, 且 $\prd{x:A}(P(x)\rightarrow Q(x))$, 那么可以说 $P$ \define{包含于}%
+\indexdef{包含关系!子集合}%
+$Q$ 中, 并写作 $P\subseteq Q$.
 
-As further examples of subtypes, we may define the ``subuniverses'' of sets and of mere propositions in a universe \UU:
+进一步地, 可以在全集 \UU 中, 定义集合与纯命题的 ``子全集'':
 \symlabel{setU}\symlabel{propU}
 \begin{align*}
-  \setU &\defeq \setof{A:\UU | \isset(A) },\\
-  \propU &\defeq \setof{A:\UU | \isprop(A) }.
+    \setU &\defeq \setof{A:\UU | \isset(A) },\\
+    \propU &\defeq \setof{A:\UU | \isprop(A) }.
 \end{align*}
-An element of $\setU$ is a type $A:\UU$ together with evidence $s:\isset(A)$, and similarly for $\propU$.
-\cref{thm:path-subset} implies that $\id[\setU]{(A,s)}{(B,t)}$ is equivalent to $\id[\UU]AB$ (and hence to $\eqv AB$).
-Thus, we will frequently abuse notation and write simply $A:\setU$ instead of $(A,s):\setU$.
-We may also drop the subscript \UU if there is no need to specify the universe in question.
+$\setU$ 的元素是类型 $A:\UU$ 以及证明 $s:\isset(A)$, 而 $\propU$ 也类似.
+\cref{thm:path-subset} 中暗示了 $\id[\setU]{(A,s)}{(B,t)}$ 等价于 $\id[\UU]AB$ (因此有 $\eqv AB$).
+因此, 我们会经常滥用记号, 用 $A:\setU$ 代表 $(A,s):\setU$.
+有时也会省略下标 \UU, 如果不需要具体说明问题中的全集.
 
-Recall that for any two universes $\UU_i$ and $\UU_{i+1}$, if $A:\UU_i$ then also $A:\UU_{i+1}$.
-Thus, for any $(A,s):\set_{\UU_i}$ we also have $(A,s):\set_{\UU_{i+1}}$, and similarly for $\prop_{\UU_i}$, giving natural maps
+回顾对于任意两个全集 $\UU_i$ 和 $\UU_{i+1}$, 如果 $A:\UU_i$ 那么 $A:\UU_{i+1}$.
+因此, 对于任意 $(A,s):\set_{\UU_i}$ 同样有 $(A,s):\set_{\UU_{i+1}}$, 而 $\prop_{\UU_i}$ 也类似, 得到一个自然的映射
 \begin{align}
-  \set_{\UU_i} &\to \set_{\UU_{i+1}}\label{eq:set-up},\\
-  \prop_{\UU_i} &\to \prop_{\UU_{i+1}}.\label{eq:prop-up}
+    \set_{\UU_i} &\to \set_{\UU_{i+1}}\label{eq:set-up},\\
+    \prop_{\UU_i} &\to \prop_{\UU_{i+1}}.\label{eq:prop-up}
 \end{align}
-The map~\eqref{eq:set-up} cannot be an equivalence, since then we could reproduce the paradoxes\index{paradox} of self-reference that are familiar from Cantorian set theory.
-However, although~\eqref{eq:prop-up} is not automatically an equivalence in the type theory we have presented so far, it is consistent to suppose that it is.
-That is, we may consider adding to type theory the following axiom.
+该映射~\eqref{eq:set-up}不是等价的, 否则可以产生类似于 Cantorian 集合论的自指的悖论\index{悖论}.
+不过, 尽管~\eqref{eq:prop-up} 在我们提出的类型论中暂时还不是天然的等价, 不过它是一致的.
+也就是说, 可以考虑在类型论中添加这样的公理.
 
-\begin{axiom}[Propositional resizing]
-  \indexsee{axiom!propositional resizing}{propositional resizing}%
-  \indexdef{propositional!resizing}%
-  \indexsee{resizing!propositional}{propositional resizing}%
-  The map $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ is an equivalence.
+\begin{axiom}[命题缩放]
+    \indexsee{公理!命题缩放}{命题缩放}%
+    \indexdef{命题!缩放}%
+    \indexsee{缩放!命题}{命题缩放}%
+    映射 $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ 是等价.
 \end{axiom}
 
-We refer to this axiom as \define{propositional resizing},
-since it means that any mere proposition in the universe $\UU_{i+1}$ can be ``resized'' to an equivalent one in the smaller universe $\UU_i$.
-It follows automatically if $\UU_{i+1}$ satisfies \LEM{} (see \cref{ex:lem-impred}).
-We will not assume this axiom in general, although in some places we will use it as an explicit hypothesis.
-It is a form of \emph{impredicativity} for mere propositions, and by avoiding its use, the type theory is said to remain \emph{predicative}.
-\indexsee{impredicativity!for mere propositions}{propositional resizing}%
-\indexdef{mathematics!predicative}%
+这个公理被称为\define{命题缩放},
+因为它意味着全集 $\UU_{i+1}$ 的任何纯命题可以 ``缩小'' 到等价的更小的全集 $\UU_i$.
+它自动地成立, 前提是 $\UU_{i+1}$ 满足 \LEM{} (参见 \cref{ex:lem-impred}).
+我们不会在所有场景假设这个公理成立, 尽管在某些地方会将它作为明确的假设.
+这是纯命题\emph{非直谓}的构造, 通过避免使用它, 类型论可以保留\emph{直谓性}.
+\indexsee{非直谓!纯命题的}{直谓的缩放}%
+\indexdef{数学!直谓性}%
 
-In practice, what we want most frequently is a slightly different statement: that a universe \UU under consideration contains a type which ``classifies all mere propositions''.
-In other words, we want a type $\Omega:\UU$ together with an $\Omega$-indexed family of mere propositions, which contains every mere proposition up to equivalence.
-This statement follows from propositional resizing as stated above if $\UU$ is not the smallest universe $\UU_0$, since then we can define $\Omega\defeq \prop_{\UU_0}$.
+实践中, 我们最想要的是一个不同的陈述: 考虑某全集 \UU 包含类型 ``classifies all mere propositions''.
+换句话说, 我们想要一个类型 $\Omega:\UU$, 以及以 $\Omega$-为索引的纯命题类型族, 其中包含所有纯命题的等价类.
+这个陈述遵循之前的命题缩放, 如果 $\UU$ 不是最小的全集 $\UU_0$, 因为可以定义 $\Omega\defeq \prop_{\UU_0}$.
 
-One use for impredicativity is to define power sets.
-It is natural to define the \define{power set}\indexdef{power set} of a set $A$ to be $A\to\propU$; but in the absence of impredicativity, this definition depends
-(even up to equivalence) on the choice of the universe \UU.
-But with propositional resizing, we can define the power set to be
+非直谓性的一个用处是定义幂集合.
+可以自然地定义 $A$ 的\define{幂集合}\indexdef{幂集合}为 $A\to\propU$;
+不过如果缺少非直谓性, 这个定义依赖 (甚至是等价于) 宇宙的算则 \UU.
+不过根据命题缩放, 可以定义幂集合为
 \symlabel{powerset}%
 \[ \power A \defeq (A\to\Omega),\]
-which is then independent of $\UU$.
-See also \cref{subsec:piw}.
+这样就不依赖 $\UU$.
+参见 \cref{subsec:piw}.
 
