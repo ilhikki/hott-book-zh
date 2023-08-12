@@ -1,36 +1,36 @@
-\index{logic!of mere propositions|(}%
-We mentioned in \cref{sec:types-vs-sets} that in contrast to type theory, which has only one basic notion (types), set-theoretic foundations have two basic notions: sets and propositions.
-Thus, a classical\index{mathematics!classical} mathematician is accustomed to manipulating these two kinds of objects separately.
+\index{逻辑!纯命题的|(}%
+注意\cref{sec:types-vs-sets}中, 类型论只有一个基础概念 (类型), 集合论有两个基础概念: 集合和类型.
+因此, 经典数学家\index{数学!经典的}习惯于分开处理这两种对象.
 
-It is possible to recover a similar dichotomy in type theory, with the role of the set-theoretic propositions being played by the types (and type families) that are \emph{mere} propositions.
-In many cases, the logical connectives and quantifiers can be represented in this logic by simply restricting the corresponding type-former to the mere propositions.
-Of course, this requires knowing that the type-former in question preserves mere propositions.
+在类型论中可能还原类似的区分, 其中集合论的命题, 在类型论中被表现为\emph{纯}命题的类型(或者类型族).
+在很多时候, 逻辑的连词和量词可以被通过限制对应的类型构造器为纯命题来表示.
+当然, 需要确保问题中的类型构造器保留了纯命题.
 
 \begin{eg}
-  If $A$ and $B$ are mere propositions, so is $A\times B$.
-  This is easy to show using the characterization of paths in products, just like \cref{thm:isset-prod} but simpler.
-  Thus, the connective ``and'' preserves mere propositions.
+  如果 $A$ 和 $B$ 是纯命题, 那么 $A\times B$ 也是.
+  使用乘积中路径的特征即可, 类似于 \cref{thm:isset-prod}, 而且更简单.
+  因此, 连词 ``与'' 保留了纯命题.
 \end{eg}
 
 \begin{eg}\label{thm:isprop-forall}
-  If $A$ is any type and $B:A\to \type$ is such that for all $x:A$, the type $B(x)$ is a mere proposition, then $\prd{x:A} B(x)$ is a mere proposition.
-  The proof is just like \cref{thm:isset-forall} but simpler: given $f,g:\prd{x:A} B(x)$, for any $x:A$ we have $f(x)=g(x)$ since $B(x)$ is a mere proposition.
-  But then by function extensionality, we have $f=g$.
+  如果 $A$ 是一个类型而且 $B:A\to \type$ 满足对于所有 $x:A$ 类型 $B(x)$ 是命题, 那么 $\prd{x:A} B(x)$ 是纯命题.
+  证明类似于 \cref{thm:isset-forall} 而且更佳简单: 给定 $f,g:\prd{x:A} B(x)$, 对于任何 $x:A$ 有 $f(x)=g(x)$ 因为 $B(x)$ 是纯命题.
+  然后根据函数的外延性, 有 $f=g$.
 
-  In particular, if $B$ is a mere proposition, then so is $A\to B$ regardless of what $A$ is.
-  In even more particular, since \emptyt is a mere proposition, so is $\neg A \jdeq (A\to\emptyt)$.
-  \index{quantifier!universal}%
-  Thus, the connectives ``implies'' and ``not'' preserve mere propositions, as does the quantifier ``for all''.
+  特别地, 如果 $B$ 是纯命题, $A\to B$ 也是, 无论 $A$ 是否为纯命题.
+  更特殊地, 因为 \emptyt 是纯命题, 所以 $\neg A \jdeq (A\to\emptyt)$ 也是.
+  \index{量词!通用的}%
+  因此, 连词 ``蕴含'' 和 ``非'' 保留纯命题, 量词 ``对于所有'' 也是.
 \end{eg}
 
-On the other hand, some type formers do not preserve mere propositions.
-Even if $A$ and $B$ are mere propositions, $A+B$ will not in general be.
-For instance, \unit is a mere proposition, but $\bool=\unit+\unit$ is not.
-Logically speaking, $A+B$ is a ``purely constructive'' sort of ``or'': a witness of it contains the additional information of \emph{which} disjunct is true.
-Sometimes this is very useful, but if we want a more classical sort of ``or'' that preserves mere propositions, we need a way to ``truncate'' this type into a mere proposition by forgetting this additional information.
+另一方面, 一些类型构造不保留纯命题.
+即使 $A$ 和 $B$ 都是纯命题, $A+B$ 也通常不是.
+例如, \unit 是纯命题, 但 $\bool=\unit+\unit$ 不是.
+逻辑上来讲, $A+B$ 是一种``纯构造性''的``或'': 它是一个证明, 而且包含了额外的信息, 即\emph{哪个}分支为真.
+某些时候这很有用, 但是如果需要保留纯命题的更经典的``或'', 需要一个方法来``截取''这个类型, 通过抛弃额外的信息.
 
-\index{quantifier!existential}%
-The same issue arises with the $\Sigma$-type $\sm{x:A} P(x)$.
-This is a purely constructive interpretation of ``there exists an $x:A$ such that $P(x)$'' which remembers the witness $x$, and hence is not generally a mere proposition even if each type $P(x)$ is.
-(Recall that we observed in \cref{subsec:prop-subsets} that $\sm{x:A} P(x)$ can also be regarded as ``the subset of those $x:A$ such that $P(x)$''.)
+\index{量词!外延的}%
+类似的问题在 $\Sigma$-类型 $\sm{x:A} P(x)$ 也存在.
+这是关于 ``存在 $x:A$ 满足 $P(x)$'' 的一个纯构造性解释, 而且包含了证据 $x$, 因此它通常也不是纯命题. 即使 $P(x)$ 是纯命题.
+(回顾在 \cref{subsec:prop-subsets} 观察的, $\sm{x:A} P(x)$ 可以被视为是 ``满足 $P(x)$ 的 $x:A$ 的子集''.)
 
