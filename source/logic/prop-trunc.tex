@@ -1,82 +1,81 @@
-\index{truncation!propositional|(defstyle}%
+\index{截断!命题|(defstyle}%
 \indexsee{type!squash}{truncation, propositional}%
 \indexsee{squash type}{truncation, propositional}%
 \indexsee{bracket type}{truncation, propositional}%
 \indexsee{type!bracket}{truncation, propositional}%
-The \emph{propositional truncation}, also called the \emph{$(-1)$-truncation}, \emph{bracket type}, or \emph{squash type}, is an additional type former which ``squashes'' or ``truncates'' a type down to a mere proposition, forgetting all information contained in inhabitants of that type other than their existence.
+\emph{命题截断}, 也被称为 \emph{$(-1)$-截断}, \emph{bracket type}, 或 \emph{挤压类型}, 是一种额外的类型构造器, 它把类型 ``挤压'' 或 ``截断'' 为一个纯命题, 遗忘该类型的居留元除了它们是否存在外的信息.
 
-More precisely, for any type $A$, there is a type $\brck{A}$.
-It has two constructors:
+准确地说, 对于任何类型 $A$, 有类型 $\brck{A}$.
+它有两个构造器:
 \begin{itemize}
-\item For any $a:A$ we have $\bproj a : \brck A$.
-\item For any $x,y:\brck A$, we have $x=y$.
+    \item 对于 $a:A$ 有 $\bproj a : \brck A$.
+    \item 对于任何 $x,y:\brck A$, 有 $x=y$.
 \end{itemize}
-The first constructor means that if $A$ is inhabited, so is $\brck A$.
-The second ensures that $\brck A$ is a mere proposition; usually we leave the witness of this fact nameless.
+第一个构造器意味着若 $A$ 被居留, 那么 $\brck A$ 也如此.
+第二个确定了 $\brck A$ 是纯命题; 我们通常不会为这个事实的证明指定名字.
 
-\index{recursion principle!for truncation}%
-The recursion principle of $\brck A$ says that:
+\index{递归原理!截断的}%
+$\brck A$ 的递归原理表示:
 \begin{itemize}
-\item If $B$ is a mere proposition and we have $f:A\to B$, then there is an induced $g:\brck A \to B$ such that $g(\bproj a) \jdeq f(a)$ for all $a:A$.
+    \item 如果 $B$ 是纯命题而且有 $f:A\to B$, 那么存在一个归纳函数 $g:\brck A \to B$ 对于所有 $a:A$ 满足 $g(\bproj a) \jdeq f(a)$.
 \end{itemize}
-In other words, any mere proposition which follows from (the inhabitedness of) $A$ already follows from $\brck A$.
-Thus, $\brck A$, as a mere proposition, contains no more information than the inhabitedness of $A$.
-(There is also an induction principle for $\brck A$, but it is not especially useful; see \cref{ex:prop-trunc-ind}.)
+换句话说, 任何纯命题, 如果可以从 $A$ (被居留) 可以推导出来, 那么也可以从 $\brck A$ 推导出来.
+因此, $\brck A$, 作为一个纯命题, 除了 $A$ 被居留外的任何信息都不存在.
+($\brck A$ 的归纳原理也是存在的, 但是并没有更加有用; 参见 \cref{ex:prop-trunc-ind}.)
 
-In \cref{ex:lem-brck,ex:impred-brck,sec:hittruncations} we will describe some ways to construct $\brck{A}$ in terms of more general things.
-For now, we simply assume it as an additional rule alongside those of \cref{cha:typetheory}.
+在 \cref{ex:lem-brck,ex:impred-brck,sec:hittruncations} 会描述一些构造 $\brck{A}$ 的更一般的方法.
+目前, 仅仅是假定为与 \cref{cha:typetheory} 的规则并列的额外规则.
 
-With the propositional truncation, we can extend the ``logic of mere propositions'' to cover disjunction and the existential quantifier.
-Specifically, $\brck{A+B}$ is a mere propositional version of ``$A$ or $B$'', which does not ``remember'' the information of which disjunct is true.
+根据命题截断, 可以将 ``纯命题的逻辑'' 扩展到析取和存在量词.
+也就是说, $\brck{A+B}$ 是 ``$A$ 或 $B$'' 的纯命题版本, 它不会 ``记住'' 那个析取项为真的信息.
 
-The recursion principle of truncation implies that we can still do a case analysis on $\brck{A+B}$ \emph{when attempting to prove a mere proposition}.
-That is, suppose we have an assumption $u:\brck{A+B}$ and we are trying to prove a mere proposition $Q$.
-In other words, we are trying to define an element of $\brck{A+B} \to Q$.
-Since $Q$ is a mere proposition, by the recursion principle for propositional truncation, it suffices to construct a function $A+B\to Q$.
-But now we can use case analysis on $A+B$.
+截断的递归原则意味着\emph{当试图证明一个纯粹命题时}, 我们仍然可以对 $\brck{A+B}$ 进行情况分析.
+也就是, 假设有 $u:\brck{A+B}$ 而试图证明纯命题 $Q$.
+换句话说, 试图定义 $\brck{A+B} \to Q$ 的元素.
+由于 $Q$  是纯命题, 根据命题截断的递归原则, 定义元素 $A+B\to Q$ 即可.
+但现在我们可以在 $A+B$ 上进行情况分析.
 
-Similarly, for a type family $P:A\to\type$, we can consider $\brck{\sm{x:A} P(x)}$, which is a mere propositional version of ``there exists an $x:A$ such that $P(x)$''.
-As for disjunction, by combining the induction principles of truncation and $\Sigma$-types, if we have an assumption of type $\brck{\sm{x:A} P(x)}$, we may introduce new assumptions $x:A$ and $y:P(x)$ \emph{when attempting to prove a mere proposition}.
-In other words, if we know that there exists some $x:A$ such that $P(x)$, but we don't have a particular such $x$ in hand, then we are free to make use of such an $x$ as long as we aren't trying to construct anything which might depend on the particular value of $x$.
-Requiring the codomain to be a mere proposition expresses this independence of the result on the witness, since all possible inhabitants of such a type must be equal.
+类似地, 对于类型族 $P:A\to\type$, 可以考虑 $\brck{\sm{x:A} P(x)}$, 它是 ``存在 $x:A$ 满足 $P(x)$'' 的纯命题版本.
+关于析取, 结合截断和 $\Sigma$-类型的归纳原则, 如果有类型为 $\brck{\sm{x:A} P(x)}$ 的假设, \emph{在试图证明一个纯粹命题时} 可以引入新的假设 $x:A$ 和 $y:P(x)$ .
+换句话说, 如果知道存在某个 $x:A$ 使得 $P(x)$ 成立, 但我们手头没有特定的 $x$, 可以自由使用这样的 $x$, 只要不试图构造可能依赖于特定 $x$ 的内容.
+要求目标类型是一个纯粹命题表达了结果与证明的独立性, 因为这样类型的所有可能成员都必须相等.
 
-For the purposes of set-level mathematics in \cref{cha:real-numbers,cha:set-math},
-where we deal mostly with sets and mere propositions, it is convenient to use the
-traditional logical notations to refer only to ``propositionally truncated logic''.
+在 \cref{cha:real-numbers,cha:set-math} 中主要处理集合和纯粹命题的集合水平数学, 因此使用传统的逻辑符号来表示 ``命题截断逻辑'' 会更加方便.
 
-\begin{defn} \label{defn:logical-notation}
-  We define \define{traditional logical notation}
-  \indexdef{implication}%
-  \indexdef{traditional logical notation}%
-  \indexdef{logical notation, traditional}%
-  \index{quantifier}%
-  \indexsee{existential quantifier}{quantifier, existential}%
-  \index{quantifier!existential}%
-  \indexsee{universal!quantifier}{quantifier, universal}%
-  \index{quantifier!universal}%
-  \indexdef{conjunction}%
-  \indexdef{disjunction}%
-  \indexdef{true}%
-  \indexdef{false}%
-  using truncation as follows, where $P$ and $Q$ denote mere propositions (or families thereof):
-  {\allowdisplaybreaks
-  \begin{align*}
-    \top            &\ \defeq \ \unit \\
-    \bot            &\ \defeq \ \emptyt \\
-    P \land Q       &\ \defeq \ P \times Q \\
-    P \Rightarrow Q &\ \defeq \ P \to Q \\
-    P \Leftrightarrow Q &\ \defeq \ P = Q \\
-    \neg P          &\ \defeq \ P \to \emptyt \\
-    P \lor Q        &\ \defeq \ \brck{P + Q} \\
-    \fall{x : A} P(x) &\ \defeq \ \prd{x : A} P(x) \\
-    \exis{x : A} P(x) &\ \defeq \ \Brck{\sm{x : A} P(x)}
-  \end{align*}}
+\begin{defn}
+    \label{defn:logical-notation}
+    使用截断定义 \define{传统逻辑符号}
+    \indexdef{implication}%
+    \indexdef{traditional logical notation}%
+    \indexdef{logical notation, traditional}%
+    \index{量词}%
+    \indexsee{existential quantifier}{quantifier, existential}%
+    \index{量词!存在}%
+    \indexsee{universal!quantifier}{quantifier, universal}%
+    \index{量词!全称}%
+    \indexdef{conjunction}%
+    \indexdef{disjunction}%
+    \indexdef{true}%
+    \indexdef{false}%
+    如下, 其中 $P$ 和 $Q$ 代表纯命题 (或它们的族):
+        {\allowdisplaybreaks
+    \begin{align*}
+        \top            &\ \defeq \ \unit \\
+        \bot            &\ \defeq \ \emptyt \\
+        P \land Q       &\ \defeq \ P \times Q \\
+        P \Rightarrow Q &\ \defeq \ P \to Q \\
+        P \Leftrightarrow Q &\ \defeq \ P = Q \\
+        \neg P          &\ \defeq \ P \to \emptyt \\
+        P \lor Q        &\ \defeq \ \brck{P + Q} \\
+        \fall{x : A} P(x) &\ \defeq \ \prd{x : A} P(x) \\
+        \exis{x : A} P(x) &\ \defeq \ \Brck{\sm{x : A} P(x)}
+    \end{align*}}
 \end{defn}
 
-The notations $\land$ and $\lor$ are also used in homotopy theory for the smash product and the wedge of pointed spaces, which we will introduce in \cref{cha:hits}.
-This technically creates a potential for conflict, but no confusion will generally arise.
+符号 $\land$ 和 $\lor$ 在同伦论中也用于表示点空间的粘合积和楔积, 在 \cref{cha:hits} 中会介绍它们.
+技术上这可能会引发潜在的冲突, 但通常不会导致混淆.
 
-Similarly, when discussing subsets as in \cref{subsec:prop-subsets}, we may use the traditional notation for intersections, unions, and complements:
+类似地, 在讨论 \cref{subsec:prop-subsets} 时, 可以使用传统的符号表示交集, 并集, 和补集:
 \indexdef{intersection!of subsets}%
 \symlabel{intersection}%
 \indexdef{union!of subsets}%
@@ -84,16 +83,16 @@ Similarly, when discussing subsets as in \cref{subsec:prop-subsets}, we may use 
 \indexdef{complement, of a subset}%
 \symlabel{complement}%
 \begin{align*}
-  \setof{x:A | P(x)} \cap \setof{x:A | Q(x)}
-  &\defeq \setof{x:A | P(x) \land Q(x)},\\
-  \setof{x:A | P(x)} \cup \setof{x:A | Q(x)}
-  &\defeq \setof{x:A | P(x) \lor Q(x)},\\
-  A \setminus \setof{x:A | P(x)}
-  &\defeq \setof{x:A | \neg P(x)}.
+    \setof{x:A | P(x)} \cap \setof{x:A | Q(x)}
+    &\defeq \setof{x:A | P(x) \land Q(x)},\\
+    \setof{x:A | P(x)} \cup \setof{x:A | Q(x)}
+    &\defeq \setof{x:A | P(x) \lor Q(x)},\\
+    A \setminus \setof{x:A | P(x)}
+    &\defeq \setof{x:A | \neg P(x)}.
 \end{align*}
-Of course, in the absence of \LEM{}, the latter are not ``complements'' in the usual sense: we may not have $B \cup (A\setminus B) = A$ for every subset $B$ of $A$.
+当然, 当没有排中律 \LEM{} 时, 后者不是通常意义上的 ``补集'': 不一定对于集合 $A$ 中的每个子集 $B$ 都有 $B \cup (A\setminus B) = A$.
 
-\index{truncation!propositional|)}%
-\index{mere proposition|)}%
-\index{logic!of mere propositions|)}%
+\index{截断!命题|)}%
+\index{纯命题|)}%
+\index{逻辑!纯命题的|)}%
 
