@@ -1,96 +1,101 @@
-\index{axiom!of choice|(defstyle}%
-\index{denial|(}%
-We can now properly formulate the axiom of choice in homotopy type theory.
-Assume a type $X$ and type families
+\index{公理!选择|(defstyle}%
+\index{否定|(}%
+现在可以在同伦类型论中正式表述选择公理.
+给定一个类型 $X$ 和类型族
 %
 \begin{equation*}
-  A:X\to\type
-  \qquad\text{and}\qquad
-  P:\prd{x:X} A(x)\to\type,
+    A:X\to\type
+    \qquad\text{和}\qquad
+    P:\prd{x:X} A(x)\to\type,
 \end{equation*}
 %
-and moreover that
+以及
 \begin{itemize}
-\item $X$ is a set,
-\item $A(x)$ is a set for all $x:X$, and
-\item $P(x,a)$ is a mere proposition for all $x:X$ and $a:A(x)$.
+    \item $X$ 是一个集合,
+    \item 对于所有 $x:X$, $A(x)$ 是一个集合
+    \item 对于所有 $x:X$ 和 $a:A(x)$, $P(x,a)$ 是一个纯命题.
 \end{itemize}
-The \define{axiom of choice}
-$\choice{}$ asserts that under these assumptions,
-\begin{equation}\label{eq:ac}
-  \Parens{\prd{x:X} \Brck{\sm{a:A(x)} P(x,a)}}
-  \to
-  \Brck{\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))}.
+\define{选择公理}
+$\choice{}$ 可以表示为,
+\begin{equation}
+    \label{eq:ac}
+    \Parens{\prd{x:X} \Brck{\sm{a:A(x)} P(x,a)}}
+    \to
+    \Brck{\sm{g:\prd{x:X} A(x)} \prd{x:X} P(x,g(x))}.
 \end{equation}
-Of course, this is a direct translation of~\eqref{eq:english-ac} where we read ``there exists $x:A$ such that $B(x)$'' as $\brck{\sm{x:A}B(x)}$, so we could have written the statement in the familiar logical notation as
+当然, 这对~\eqref{eq:english-ac} 的直接翻译,  可以将 ``存在 $x:A$ 满足 $B(x)$'' 视作 $\brck{\sm{x:A}B(x)}$, 于是可以将这个命题用熟悉的符号表示
 \begin{narrowmultline*}
-  \textstyle
-  \Big(\fall{x:X}\exis{a:A(x)} P(x,a)\Big)
-  \Rightarrow \narrowbreak
-  \Big(\exis{g : \prd{x:X} A(x)} \fall{x : X} P(x,g(x))\Big).
+    \textstyle
+    \Big(\fall{x:X}\exis{a:A(x)} P(x,a)\Big)
+    \Rightarrow \narrowbreak
+    \Big(\exis{g : \prd{x:X} A(x)} \fall{x : X} P(x,g(x))\Big).
 \end{narrowmultline*}
 %
-In particular, note that the propositional truncation appears twice.
-The truncation in the domain means we assume that for every $x$ there exists some $a:A(x)$ such that $P(x,a)$, but that these values are not chosen or specified in any known way.
-The truncation in the codomain means we conclude that there exists some function $g$, but this function is not determined or specified in any known way.
+特别地, 注意命题截断出现了两次.
+定义域中出现的截断代表着, 对于每个 $x$ 存在一些 $a:A(x)$ 满足 $P(x,a)$, 但是它们的值没有被任何方式选择或指定.
+值域中出现的截断代表着, 可以推断出存在一些函数 $g$, 但是这些函数无法被确定或指定.
 
-In fact, because of \cref{thm:ttac}, this axiom can also be expressed in a simpler form.
+实际上, 因为 \cref{thm:ttac}, 这个公理可以被简化表示.
 
-\begin{lem}\label{thm:ac-epis-split}
-  The axiom of choice~\eqref{eq:ac} is equivalent to the statement that for any set $X$ and any $Y:X\to\type$ such that each $Y(x)$ is a set, we have
-  \begin{equation}
-    \Parens{\prd{x:X} \Brck{Y(x)}}
-    \to
-    \Brck{\prd{x:X} Y(x)}.\label{eq:epis-split}
-  \end{equation}
+\begin{lem}
+    \label{thm:ac-epis-split}
+    选择公理~\eqref{eq:ac} 等价于这个语句: 对于任意集合 $X$ 和任意 $Y:X\to\type$ 使得每个 $Y(x)$ 都是集合, 有
+    \begin{equation}
+        \Parens{\prd{x:X} \Brck{Y(x)}}
+        \to
+        \Brck{\prd{x:X} Y(x)}.\label{eq:epis-split}
+    \end{equation}
 \end{lem}
 
-This corresponds to a well-known equivalent form of the classical\index{mathematics!classical} axiom of choice, namely ``the cartesian product of a family of nonempty sets is nonempty''.
+这对应于经典\index{数学的!经典的}选择公理的等价形式, 即 ``非空集合族的笛卡尔积是非空的''.
 
 \begin{proof}
-  By \cref{thm:ttac}, the codomain of~\eqref{eq:ac} is equivalent to
-  \[\Brck{\prd{x:X} \sm{a:A(x)} P(x,a)}.\]
-  Thus,~\eqref{eq:ac} is equivalent to the instance of~\eqref{eq:epis-split} where \narrowequation{Y(x) \defeq \sm{a:A(x)} P(x,a).}
-  (This is a set by \cref{thm:isset-prod,thm:prop-set}.)
-  Conversely,~\eqref{eq:epis-split} is equivalent to the instance of~\eqref{eq:ac} where $A(x)\defeq Y(x)$ and $P(x,a)\defeq\unit$.
-  Thus, the two are logically equivalent.
-  Since both are mere propositions, by \cref{lem:equiv-iff-hprop} they are equivalent types.
+    通过 \cref{thm:ttac}, ~\eqref{eq:ac} 的值域等价于
+    \[\Brck{\prd{x:X} \sm{a:A(x)} P(x,a)}.\]
+    因此,~\eqref{eq:ac} 等价于~\eqref{eq:epis-split} 的实例, 其中 \narrowequation{Y(x) \defeq \sm{a:A(x)} P(x,a).}
+    (根据 \cref{thm:isset-prod,thm:prop-set}, 这是一个集合.)
+    反过来,~\eqref{eq:epis-split} 等价于~\eqref{eq:ac} 的实例, 其中 $A(x)\defeq Y(x)$ 而 $P(x,a)\defeq\unit$.
+    因此, 两边都逻辑地等价.
+    因为它们都是纯命题, 根据 \cref{lem:equiv-iff-hprop} 它们是等价的类型.
 \end{proof}
 
-As with \LEM{}, the equivalent forms~\eqref{eq:ac} and~\eqref{eq:epis-split} are not a consequence of our basic type theory, but they may consistently be assumed as axioms.
+类似于 \LEM{}, ~\eqref{eq:ac} 和~\eqref{eq:epis-split} 的等价形式不是我们的基本类型论中的推论, 但是可以作为公理假设, 且具备一致性.
 
 \begin{rmk}
-  It is easy to show that the right side of~\eqref{eq:epis-split} always implies the left.
-  Since both are mere propositions, by \cref{lem:equiv-iff-hprop} the axiom of choice is also equivalent to asking for an equivalence
-  \[ \eqv{\Parens{\prd{x:X} \Brck{Y(x)}}}{\Brck{\prd{x:X} Y(x)}} \]
-  This illustrates a common pitfall: although dependent function types preserve mere propositions (\cref{thm:isprop-forall}), they do not commute with truncation: $\brck{\prd{x:A} P(x)}$ is not generally equivalent to $\prd{x:A} \brck{P(x)}$.
-  The axiom of choice, if we assume it, says that this is true \emph{for sets}; as we will see below, it fails in general.
+    很容易证明~\eqref{eq:epis-split} 的右边可以推出左边.
+    因为它们都是纯命题, 根据 \cref{lem:equiv-iff-hprop} 选择公理也等价于要求这个等价关系
+    \[ \eqv{\Parens{\prd{x:X} \Brck{Y(x)}}}{\Brck{\prd{x:X} Y(x)}} \]
+    这说明了一个常见的陷阱: 尽管依赖函数类型保持纯命题 (\cref{thm:isprop-forall}), 但它们与截断不是交换的: $\brck{\prd{x:A} P(x)}$ 通常不等价于 $\prd{x:A} \brck{P(x)}$.
+    选择公理, 如果假定了它, 代表\emph{对于集合}是成立的; 正如我们将在下文看到的, 一般是不成立的.
 \end{rmk}
 
-The restriction in the axiom of choice to types that are sets can be relaxed to a certain extent.
-For instance, we may allow $A$ and $P$ in~\eqref{eq:ac}, or $Y$ in~\eqref{eq:epis-split}, to be arbitrary type families; this results in a seemingly stronger statement that is equally consistent.
-We may also replace the propositional truncation by the more general $n$-truncations to be considered in \cref{cha:hlevels}, obtaining a spectrum of axioms $\choice n$ interpolating between~\eqref{eq:ac}, which we call simply \choice{} (or $\choice{-1}$ for emphasis), and \cref{thm:ttac}, which we shall call $\choice\infty$.
-See also \cref{ex:acnm,ex:acconn}.
-However, observe that we cannot relax the requirement that $X$ be a set.
+对于选择公理的限制, 可以在一定程度上放宽为任意类型.
+例如, 在 在~\eqref{eq:ac} 中可以放宽 $A$ 和 $P$, 或放宽 ~\eqref{eq:epis-split} 中的 $Y$, 为任意的类型族;
+这会导致一个看似更强的语句, 但同样是一致的.
+也可以用\cref{cha:hlevels} 中, 更一般的 $n$-截断替换命题截断, 得到一系列 $\choice n$, 插值于在~\eqref{eq:ac}, 简称 \choice{} (或强调为 $\choice{-1}$ ), 和 \cref{thm:ttac}, 又叫做 $\choice\infty$ 之间.
+参见 \cref{ex:acnm,ex:acconn}.
+不过, 需要注意的是我们无法放宽 $X$ 是一个集合的要求.
 
-\begin{lem}\label{thm:no-higher-ac}
-  There exists a type $X$ and a family $Y:X\to \type$ such that each $Y(x)$ is a set, but such that~\eqref{eq:epis-split} is false.
+\begin{lem}
+    \label{thm:no-higher-ac}
+    存在类型 $X$ 和族 $Y:X\to \type$ 满足每个 $Y(x)$ 都是集合, 但是~\eqref{eq:epis-split} 不成立.
 \end{lem}
 \begin{proof}
-  Define $X\defeq \sm{A:\type} \brck{\bool = A}$, and let $x_0 \defeq (\bool, \bproj{\refl{\bool}}) : X$.
-  Then by the identification of paths in $\Sigma$-types, the fact that $\brck{A=\bool}$ is a mere proposition, and univalence, for any $(A,p),(B,q):X$ we have $\eqv{(\id[X]{(A,p)}{(B,q)})}{(\eqv AB)}$.
-  In particular, $\eqv{(\id[X]{x_0}{x_0})}{(\eqv \bool\bool)}$, so as in \cref{thm:type-is-not-a-set}, $X$ is not a set.
+    定义 $X\defeq \sm{A:\type} \brck{\bool = A}$, 并令 $x_0 \defeq (\bool, \bproj{\refl{\bool}}) : X$.
+    然后通过 $\Sigma$-类型的路径的恒等性, 事实上 $\brck{A=\bool}$ 是纯命题, 以及单值性, 对于任意 $(A,p),(B,q):X$ 有 $\eqv{(\id[X]{(A,p)}{(B,q)})}{(\eqv AB)}$.
+    特别的, $\eqv{(\id[X]{x_0}{x_0})}{(\eqv \bool\bool)}$, 所以正如 \cref{thm:type-is-not-a-set}, $X$ 不是集合.
 
-  On the other hand, if $(A,p):X$, then $A$ is a set; this follows by induction on truncation for $p:\brck{\bool=A}$ and the fact that $\bool$ is a set.
-  Since $\eqv A B$ is a set whenever $A$ and $B$ are, it follows that $\id[X]{x_1}{x_2}$ is a set for any $x_1,x_2:X$, i.e.\ $X$ is a 1-type.
-  In particular, if we define $Y:X\to\UU$ by $Y(x) \defeq (x_0=x)$, then each $Y(x)$ is a set.
+    另一边, 如果 $(A,p):X$, 那么 $A$ 是一个集合;
+    可以这样得到: 对截断 $p:\brck{\bool=A}$ 归纳以及 $\bool$ 是一个集合.
+    因为 $\eqv A B$ 是一个集合无论 $A$ 和 $B$ 是不是, 这代表 $\id[X]{x_1}{x_2}$ 对于任意 $x_1,x_2:X$ 是集合, 即 $X$ 是 1-类型.
+    特别的, 如果通过 $Y(x) \defeq (x_0=x)$ 定义 $Y:X\to\UU$, 那么每个 $Y(x)$ 都是一个集合.
 
-  Now by definition, for any $(A,p):X$ we have $\brck{\bool=A}$, and hence $\brck{x_0 = (A,p)}$.
-  Thus, we have $\prd{x:X} \brck{Y(x)}$.
-  If~\eqref{eq:epis-split} held for this $X$ and $Y$, then we would also have $\brck{\prd{x:X} Y(x)}$.
-  Since we are trying to derive a contradiction ($\emptyt$), which is a mere proposition, we may assume $\prd{x:X} Y(x)$, i.e.\ that $\prd{x:X} (x_0=x)$.
-  But this implies $X$ is a mere proposition, and hence a set, which is a contradiction.
+    现在通过定义, 对于任何 $(A,p):X$ 有 $\brck{\bool=A}$, 因此 $\brck{x_0 = (A,p)}$.
+    于是, 有 $\prd{x:X} \brck{Y(x)}$.
+    如果~\eqref{eq:epis-split} 保留这样的 $X$ 和 $Y$, 那么同样有 $\brck{\prd{x:X} Y(x)}$.
+    因为我们正在尝试推导出矛盾 ($\emptyt$), 是一个纯命题, 假设 $\prd{x:X} Y(x)$, 即 $\prd{x:X} (x_0=x)$.
+    而 $X$ 是一个纯命题, 因此也是一个集合, 所以这是一个矛盾.
 \end{proof}
 
-\index{denial|)}%
-\index{axiom!of choice|)}%
+\index{否定|)}%
+\index{公理!选择|)}%
