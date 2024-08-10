@@ -1,47 +1,49 @@
-\index{unique!choice|(defstyle}%
-\indexsee{axiom!of choice!unique}{unique choice}%
+\index{唯一!选择|(defstyle}%
+\indexsee{公理!选择!唯一}{唯一选择}%
 
-The following observation is trivial, but very useful.
+接下来的内容是平凡的, 但又是很有用的.
 
-\begin{lem}\label{thm:prop-equiv-trunc}
-  If $P$ is a mere proposition, then $\eqv P {\brck P}$.
+\begin{lem}
+    \label{thm:prop-equiv-trunc}
+    如果 $P$ 是纯命题, 那么 $\eqv P {\brck P}$.
 \end{lem}
 \begin{proof}
-  Of course, we have $P\to \brck{P}$ by definition.
-  And since $P$ is a mere proposition, the universal property of $\brck P$ applied to $\idfunc[P] :P\to P$ yields $\brck P \to P$.
-  These functions are quasi-inverses by \cref{lem:equiv-iff-hprop}.
+    显然, 根据定义, 有 $P\to \brck{P}$.
+    然后因为 $P$ 是纯命题,  将 $\brck P$ 的泛性质应用于 $\idfunc[P] :P\to P$ 得到 $\brck P \to P$.
+    这些函数互为准逆, 因为 \cref{lem:equiv-iff-hprop}.
 \end{proof}
 
-Among its important consequences is the following.
+其中重要的结论如下.
 
-\begin{cor}[The principle of unique choice]\label{cor:UC}
-  Suppose a type family $P:A\to \type$ such that
-  \begin{enumerate}
-  \item For each $x$, the type $P(x)$ is a mere proposition, and
-  \item For each $x$ we have $\brck {P(x)}$.
-  \end{enumerate}
-  Then we have $\prd{x:A} P(x)$.
+\begin{cor}[The principle of unique choice]
+    \label{cor:UC}
+    假设类型族 $P:A\to \type$ 满足
+    \begin{enumerate}
+        \item 对于每个 $x$, 类型 $P(x)$ 是纯命题, 并且
+        \item 对于每个 $x$ 有 $\brck {P(x)}$.
+    \end{enumerate}
+    然后有 $\prd{x:A} P(x)$.
 \end{cor}
 \begin{proof}
-  Immediate from the two assumptions and the previous lemma.
+    从这两个假设和上一个引理直接可得.
 \end{proof}
 
-The corollary also encapsulates a very useful technique of reasoning.
-Namely, suppose we know that $\brck A$, and we want to use this to construct an element of some other type $B$.
-We would like to use an element of $A$ in our construction of an element of $B$, but this is allowed only if $B$ is a mere proposition, so that we can apply the induction principle for the propositional truncation $\brck A$; the most we could hope to do in general is to show $\brck B$.
+这个推论还包含了一种非常有用的推理技巧.
+具体来说, 假设知道 $\brck A$, 并且想利用它来构建某个其他类型 $B$ 的元素.
+我们希望使用 $A$ 的一个元素, 用于构建 $B$ 的元素, 但是这只有在 $B$ 是纯命题时才可以, 这样才能应用命题截断 $\brck A$ 的归纳原理;
+通常我们期望的最好的结果就是证明 $\brck B$.
 %
-Instead, we can extend $B$ with additional data which characterizes \emph{uniquely} the object we wish to construct.
-Specifically, we define a predicate $Q:B\to\type$ such that $\sm{x:B} Q(x)$ is a mere proposition.
-Then from an element of $A$ we construct an element $b:B$ such that $Q(b)$, hence from $\brck A$ we can construct $\brck{\sm{x:B} Q(x)}$, and because $\brck{\sm{x:B} Q(x)}$ is equivalent to $\sm{x:B} Q(x)$ an element of $B$ may be projected from it.
-An example can be found in \cref{ex:decidable-choice}.
+作为替代, 可以扩展 $B$, 通过添加额外的数据, 来\emph{唯一地}表征希望构建的对象.
+具体来说, 定义一个性质 $Q:B\to\type$ 使得 $\sm{x:B} Q(x)$ 是纯命题.
+然后从 $A$ 的一个元素, 构造出 $b:B$ 并满足 $Q(b)$, 从而可以从 $\brck A$ 构建 $\brck{\sm{x:B} Q(x)}$, 并且因为 $\brck{\sm{x:B} Q(x)}$ 等价于 $\sm{x:B} Q(x)$, 可以从中投影出 $B$ 的一个元素.
+在 \cref{ex:decidable-choice} 中有一个例子.
 
-A similar issue arises in set-theoretic mathematics, although it manifests slightly
-differently. If we are trying to define a function $f: A \to B$, and depending on an
-element $a : A$ we are able to prove mere existence of some $b : B$, we are not done yet
-because we need to actually pinpoint an element of~$B$, not just prove its existence.
-One option is of course to refine the argument to unique existence of $b : B$, as we did in type theory. But in set theory the problem can often be avoided more simply by an application of the axiom of choice, which picks the required elements for us.
-In homotopy type theory, however, quite apart from any desire to avoid choice, the available forms of choice are simply less applicable, since they require that the domain of choice be a \emph{set}.
-Thus, if $A$ is not a set (such as perhaps a universe $\UU$), there is no consistent form of choice that will allow us to simply pick an element of $B$ for each $a : A$ to use in defining $f(a)$.
+集合论中, 也存在类似的问题, 尽管表现方式不同.
+如果尝试定义函数 $f: A \to B$, 并依赖于 $a : A$ 的一个元素, 我们只能够证明某个 $b : B$ 的存在, 这并没有完成,因为需要实际的给出 $B$ 的一个元素, 而不是仅仅证明它存在.
+一种选择是将论证细化到证明 $b : B$ 的唯一性, 就像在我们类型论做的那样.
+但是在集合论中, 这个问题通常可以被避免, 只需应用选择公理, 它可以挑选我们需要的元素.
+但是在同伦类型论中, 除了避免使用选择公理的想法以外, 可用的选择公理的形式也更少适用, 因为这要求选择的定义域是\emph{集合}.
+因此, 如果 $A$ 不是集合 (比如可能是一个 $\UU$), 就没有一致的选择形式允许为每个 $a : A$ 直接挑选 $B$ 中的一个元素, 用来定义 $f(a)$.
 
-\index{unique!choice|)}%
+\index{唯一!选择|)}%
 
