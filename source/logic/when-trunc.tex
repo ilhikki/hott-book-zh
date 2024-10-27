@@ -1,82 +1,85 @@
-\index{logic!of mere propositions|(}%
-\index{mere proposition|(}%
-\index{logic!truncated}%
+\index{逻辑!纯命题|(}%
+\index{纯命题|(}%
+\index{逻辑!截断}%
 
-At first glance, it may seem that the truncated versions of $+$ and $\Sigma$ are actually closer to the informal mathematical meaning of ``or'' and ``there exists'' than the untruncated ones.
-Certainly, they are closer to the \emph{precise} meaning of ``or'' and ``there exists'' in the first-order logic \index{first-order!logic} which underlies formal set theory, since the latter makes no attempt to remember any witnesses to the truth of propositions.
-However, it may come as a surprise to realize that the practice of \emph{informal} mathematics is often more accurately described by the untruncated forms.
+初看起来, $+$ 和 $\Sigma$ 的截断的版本, 比非截断的版本更接近``或''和``存在''在非正式数学中的含义.
+当然, 截断版本更接近一阶逻辑\index{一阶!逻辑}中的``或''和``存在'' 的\emph{准确}含义, 因为一阶逻辑中并不试图记住命题为真的任何证据, 而一阶逻辑是形式集合论的基础.
+然而, 令人惊讶的是, \emph{非正式}的数学的实践中, 往往使用非截断版本.
 
-\index{prime number}%
-For example, consider a statement like ``every prime number is either $2$ or odd''.
-The working mathematician feels no compunction about using this fact not only to prove \emph{theorems} about prime numbers, but also to perform \emph{constructions} on prime numbers, perhaps doing one thing in the case of $2$ and another in the case of an odd prime.
-The end result of the construction is not merely the truth of some statement, but a piece of data which may depend on the parity of the prime number.
-Thus, from a type-theoretic perspective, such a construction is naturally phrased using the induction principle for the coproduct type ``$(p=2)+(p\text{ is odd})$'', not its propositional truncation.
+\index{素数}%
+例如, 考虑这个陈述 ``素数要么是 $2$ 要么是奇数''.
+数学家会在毫无顾忌地使用这一事实, 不仅是证明关于素数的\emph{定理}, 还用来\emph{构造}素数, 在素数是 $2$ 的情况下做一件事, 而在素数是奇数时做另一件事.
+构造的结果不仅是某个陈述是对的, 还是一段可能依赖素数奇偶性的数据信息.
+因此, 从类型论的视角, 这种构造自然地用余积类型 ``$(p=2)+(p\text{ 是奇数})$'' 表示, 而不是它的命题截断.
 
-Admittedly, this is not an ideal example, since ``$p=2$'' and ``$p$ is odd'' are mutually exclusive, so that $(p=2)+(p\text{ is odd})$ is in fact already a mere proposition and hence equivalent to its truncation (see \cref{ex:disjoint-or}).
-More compelling examples come from the existential quantifier.
-It is not uncommon to prove a theorem of the form ``there exists an $x$ such that \dots'' and then refer later on to ``the $x$ constructed in Theorem Y'' (note the definite article).
-Moreover, when deriving further properties of this $x$, one may use phrases such as ``by the construction of $x$ in the proof of Theorem Y''.
+诚然, 这不是一个理想的例子, 因为 ``$p=2$'' 和 ``$p$ 是奇数'' 互不相交, 所以 $(p=2)+(p\text{ 是奇数})$ 实际上已经是纯命题, 因此它等于它的截断 (参见 \cref{ex:disjoint-or}).
+更令人信服的例子来自于存在两次.
+常见的做法是, 先证明一个形如 ``存在 $x$ 满足 \dots'' 的定理, 然后在后面引用它 ``该 $x$ 在定理 Y 中构建'' (注意定冠词的使用).
+此外, 当进一步推导 $x$ 的性质时, 可能会使用 ``由证明 Y 时构造的 $x$'' 这样的短语.
 
-A very common example is ``$A$ is isomorphic to $B$'', which strictly speaking means only that there exists \emph{some} isomorphism between $A$ and~$B$.
-But almost invariably, when proving such a statement, one exhibits a specific isomorphism or proves that some previously known map is an isomorphism, and it often matters later on what particular isomorphism was given.
+一个非常常见的例子是 ``$A$ 同构于 $B$'', 严格意义上这仅代表存在\emph{某些} $A$ 和 $B$ 之间的同构.
+但几乎在证明这样的陈述时, 总会展示一个特定的同构, 或是证明已知的映射是同构, 而且给出的这个同态往往很重要.
 
-Set-theoretically trained mathematicians often feel a twinge of guilt at such ``abuses of language''.\index{abuse!of language}
-We may attempt to apologize for them, expunge them from final drafts, or weasel out of them with vague words like ``canonical''.
-The problem is exacerbated by the fact that in formalized set theory, there is technically no way to ``construct'' objects at all --- we can only prove that an object with certain properties exists.
-Untruncated logic in type theory thus captures some common practices of informal mathematics that the set theoretic reconstruction obscures.
-(This is similar to how the univalence axiom validates the common, but formally unjustified, practice of identifying isomorphic objects.)
+接受集合论训练的数学家通常对这种``语言滥用''感到一丝愧疚.\index{滥用!语言}
+我们可能试图为此道歉, 从最终稿中删除这些表达, 或者用 ``典范'' 这样模糊的词来替代.
+% 比如 Show that if $\UU_{i+1}$ satisfies \LEM{}, then the canonical inclusion $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ is an equivalence.
+这个问题在形式化的集合论中更加严重, 因为技术上根本无法 ``构建'' 对象 --- 只能证明某个具有特定属性的对象存在.
+因此, 类型论中的未截断逻辑能够更直接地反映非正式数学中的一些常见做法, 而这些做法在集合论的重构中往往被模糊掉了.
+(这类似于单值公理如何使识别同构对象的常见做法合法化, 尽管这种做法缺乏正式的证明.)
 
-On the other hand, sometimes truncated logic is essential.
-We have seen this in the statements of \LEM{} and \choice{}; some other examples will appear later on in the book.
-Thus, we are faced with the problem: when writing informal type theory, what should we mean by the words ``or'' and ``there exists'' (along with common synonyms such as ``there is'' and ``we have'')?
+一方面, 某些时候截断是必要的.
+我们已经在 \LEM{} 和 \choice{} 的陈述中看到了这一点;
+一些其他的例子会在本书的稍后出现.
+因此, 我们面对一个问题: 当编写非正式类型论时, ``或'' 和 ``存在'' 这两个词应该意味什么 (以及 ``有'' 和 ``我们有'' 等常见同义词)?
 
-A universal consensus may not be possible.
-Perhaps depending on the sort of mathematics being done, one convention or the other may be more useful --- or, perhaps, the choice of convention may be irrelevant.
-In this case, a remark at the beginning of a mathematical paper may suffice to inform the reader of the linguistic conventions in use therein.
-However, even after one overall convention is chosen, the other sort of logic will usually arise at least occasionally, so we need a way to refer to it.
-More generally, one may consider replacing the propositional truncation with another operation on types that behaves similarly, such as the double negation operation $A\mapsto \neg\neg A$, or the $n$-truncations to be considered in \cref{cha:hlevels}.
-As an experiment in exposition,  in what follows we will occasionally use \emph{adverbs}\index{adverb} to denote the application of such ``modalities'' as propositional truncation.
+达成普遍共识好像不太可能.
+根据数学分类, 也许一种约定可能比另一种更有用 --- 也有可能无关紧要.
+这种情况下, 数学论文开头的备注可能就将其使用的语言约定告知读者.
+然而, 尽管选择了总体约定, 其他种类的逻辑也可能偶尔出现, 所以需要一种方法来引用它.
+更通俗一些说, 可以考虑把命题截断替换为, 表现类似的其他的操作, 例如双重否定 $A\mapsto \neg\neg A$, 或者 \cref{cha:hlevels} 中出现的 $n$-截断.
+作为一种表达的实验, 在接下来的内容中, 偶尔使用\emph{副词}\index{副词}来表示诸如类型截断 ``模态'' 的应用.
 
-For instance, if untruncated logic is the default convention, we may use the adverb \define{merely}
-\indexdef{merely}%
-to denote propositional truncation.
-Thus the phrase
+例如, 如果非截断逻辑是默认约定, 那么会使用副词\define{仅}%
+\indexdef{仅}%
+来表示截断命题.
+因此短句
 \begin{center}
-  ``there merely exists an $x:A$ such that $P(x)$''
+    ``仅存在 $x:A$ 满足 $P(x)$''
 \end{center}
-indicates the type $\brck{\sm{x:A} P(x)}$.
-Similarly, we will say that a type $A$ is \define{merely inhabited}
-\indexdef{merely!inhabited}%
-\indexdef{inhabited type!merely}%
-to mean that its propositional truncation $\brck A$ is inhabited (i.e.\ that we have an unnamed element of it).
-Note that this is a \emph{definition}\index{definition!of adverbs} of the adverb ``merely'' as it is to be used in our informal mathematical English, in the same way that we define nouns\index{noun} like ``group'' and ``ring'', and adjectives\index{adjective} like ``regular'' and ``normal'', to have precise mathematical meanings.
-We are not claiming that the dictionary definition of ``merely'' refers to propositional truncation; the choice of word is meant only to remind the mathematician reader that a mere proposition contains ``merely'' the information of a truth value and nothing more.
+表示类型 $\brck{\sm{x:A} P(x)}$.
+类似地, 可以说类型 $A$ \define{仅被居留}%
+\indexdef{仅!被居留}%
+\indexdef{被居留类型!仅}%
+来代表命题截断 $\brck A$ 被居留 (例如我们有该类型的未命名的元素).
+注意这里对副词``仅''的\emph{定义}\index{定义!副词} 是为了在我们的非正式数学语言中使用, 就像我们定义有特定数学含义的词一样, 比如名词\index{名词} ``群'' 和 ``环'', 形容词\index{形容词} ``正规'' 和 ``正态''.
+我们并没没有说字典里的 ``仅'' 的定义指的是命题截断;
+选择这个词的意义只是提醒数学读者, 纯命题的包含``仅''一个真值的信息, 而没有其他(``纯命题'' 的英语是 ``mere proposition'', 而副词的英语是 ``merely'').
 
-On the other hand, if truncated logic is the current default convention, we may use an adverb such as \define{purely}
-\indexdef{purely}%
-or \define{constructively} to indicate its absence, so that
+另一方面, 如果被截断逻辑是默认约定, 会使用副词\define{确实}%
+\indexdef{确实}%
+或 \define{构建性地} 来表示没有截断, 所以
 \begin{center}
-``there purely exists an $x:A$ such that $P(x)$''
+    ``确实存在 $x:A$ 满足 $P(x)$''
 \end{center}
-would denote the type $\sm{x:A} P(x)$.
-We may also use ``purely'' or ``actually'' just to emphasize the absence of truncation, even when that is the default convention.
+表示类型 $\sm{x:A} P(x)$.
+即使在默认的情况下, 也可以使用 ``确实'' 来强调缺少截断.
 
-In this book we will continue using untruncated logic as the default convention, for a number of reasons.
+本书会继续使用非截断逻辑作为默认约定, 有这些原因.
 \begin{enumerate}[label=(\arabic*)]
-\item We want to encourage the newcomer to experiment with it, rather than sticking to truncated logic simply because it is more familiar.
-\item Using truncated logic as the default in type theory suffers from the same sort of ``abuse of language''\index{abuse!of language} problems as set-theoretic foundations, which untruncated logic avoids.
-  For instance, our definition of ``$\eqv A B$'' as the type of equivalences between $A$ and $B$, rather than its propositional truncation, means that to prove a theorem of the form ``$\eqv A B$'' is literally to construct a particular such equivalence.
-  This specific equivalence can then be referred to later on.
-\item We want to emphasize that the notion of ``mere proposition'' is not a fundamental part of type theory.
-  As we will see in \cref{cha:hlevels}, mere propositions are just the second rung on an infinite ladder, and there are also many other modalities not lying on this ladder at all.
-\item Many statements that classically are mere propositions are no longer so in homotopy type theory.
-  Of course, foremost among these is equality.
-\item On the other hand, one of the most interesting observations of homotopy type theory is that a surprising number of types are \emph{automatically} mere propositions, or can be slightly modified to become so, without the need for any truncation.
-  (See \cref{thm:isprop-isprop,cha:equivalences,cha:hlevels,cha:category-theory,cha:set-math}.)
-  Thus, although these types contain no data beyond a truth value, we can nevertheless use them to construct untruncated objects, since there is no need to use the induction principle of propositional truncation.
-  This useful fact is more clumsy to express if propositional truncation is applied to all statements by default.
-\item Finally, truncations are not very useful for most of the mathematics we will be doing in this book, so it is simpler to notate them explicitly when they occur.
+    \item 我们希望鼓励新手去尝试它, 而不是仅仅因为更熟悉而坚持使用截断逻辑.
+    \item 在类型论中使用截断逻辑作为默认会面临与集合论基础相同种类的 ``语言滥用''\index{滥用!语言}问题, 而非截断逻辑不会.
+    例如, 定义 ``$\eqv A B$'' 作为 $A$ 和 $B$ 之间的等价类型, 而不是它的命题截断, 这代表证明定理 ``$\eqv A B$'' 字面上是构造一个具体的等价.
+    这个具体的等价可以在之后引用
+    \item 希望强调 ``纯命题'' 这个概念不是类型论的一部分.
+    正如 \cref{cha:hlevels} 中所见的, 纯命题只是无限阶梯的第二层, 而且有许多其他模态根本不在这条阶梯上.
+    \item 许多本来是纯命题的经典陈述, 在同伦类型论中, 不再是纯命题了.
+    当然, 其中最重要的就是等同.
+    \item 一方面, 同伦类型论最有趣的地方是, 很多类型居然\emph{自动地}就是纯命题, 或者只需稍加修改就能称为这样, 而不需要任何截断.
+    (参见 \cref{thm:isprop-isprop,cha:equivalences,cha:hlevels,cha:category-theory,cha:set-math}.)
+    因此, 尽管这些类型不存在超出命题为真的任何数据, 也可以用它来构造非截断的对象, 因为不需要使用命题截断的归纳原则.
+    如果命题截断对于所有的语句都是默认, 会跟臃肿地表达这些有用的事实.
+    \item 最后, 截断在本书的大部分数学中并不是很有用, 因此在发生时明确标记它们会更简单.
 \end{enumerate}
 
-\index{mere proposition|)}%
-\index{logic!of mere propositions|)}%
+\index{纯命题|)}%
+\index{逻辑!纯命题|)}%
