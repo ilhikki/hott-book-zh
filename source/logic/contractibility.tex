@@ -1,160 +1,169 @@
-\index{type!contractible|(defstyle}%
-\index{contractible!type|(defstyle}%
+\index{类型!可缩的|(defstyle}%
+\index{可缩的!类型|(defstyle}%
 
-In \cref{thm:inhabprop-eqvunit} we observed that a mere proposition which is inhabited must be equivalent to $\unit$,
+在 \cref{thm:inhabprop-eqvunit} 中可以观察到, 有居留元的纯命题必须等价于 $\unit$,
 \index{type!unit}%
-and it is not hard to see that the converse also holds.
-A type with this property is called \emph{contractible}.
-Another equivalent definition of contractibility, which is also sometimes convenient, is the following.
+不难看到, 反过来也一样.
+类型的这种性质叫做 \emph{可缩性}.
+收缩性的另一个等效定义有时也很方便, 如下所示.
 
-\begin{defn}\label{defn:contractible}
-  A type $A$ is \define{contractible},
-  or a \define{singleton},
-  \indexdef{type!singleton}%
-  \indexsee{singleton type}{type, singleton}%
-  if there is $a:A$, called the \define{center of contraction},
-  \indexdef{center!of contraction}%
-  such that $a=x$ for all $x:A$.
-  We denote the specified path $a=x$ by $\contr_x$.
+\begin{defn}
+    \label{defn:contractible}
+    对于类型 $A$, 如果有 $a:A$, ,
+    \indexdef{中心!收缩}%
+    对于所有 $x:A$ 满足 $a=x$.
+    那么类型 $A$ 是 \define{可收缩的},
+    或者 \define{单例},
+    \indexdef{类型!单例}%
+    \indexsee{单例类型}{类型, 单例}%
+    $x:A$ 是它的 \define{收缩中心}.
+    这个特定的路径 $a=x$ 记作 $\contr_x$.
 \end{defn}
 
-In other words, the type $\iscontr(A)$ is defined to be
+换句话说, 类型 $\iscontr(A)$ 的定义是
 \[ \iscontr(A) \defeq \sm{a:A} \prd{x:A}(a=x). \]
-Note that under the usual propositions-as-types reading, we can pronounce $\iscontr(A)$ as ``$A$ contains exactly one element'', or more precisely ``$A$ contains an element, and every element of $A$ is equal to that element''.
+注意从命题作为类型的视角来看, 可以将 $\iscontr(A)$ 读作 ``$A$ 确实存在一个元素'', 或更准确地 ``$A$ 存在一个元素, 而且所有 $A$ 的元素都彼此相等''.
 
 \begin{rmk}
-  We can also pronounce $\iscontr(A)$ more topologically as ``there is a point $a:A$ such that for all $x:A$ there exists a path from $a$ to $x$''.
-  Note that to a classical ear, this sounds like a definition of \emph{connectedness} rather than contractibility.
-  \index{continuity of functions in type theory@``continuity'' of functions in type theory}%
-  \index{functoriality of functions in type theory@``functoriality'' of functions in type theory}%
-  The point is that the meaning of ``there exists'' in this sentence is a continuous/natural one.
+    也可以把 $\iscontr(A)$ 读作拓扑学上的 ``存在 $a:A$ 满足对于所有 $x:A$ 存在从 $a$ 到 $x$ 的路径''.
+    对于熟悉经典数学概念的人来说, 这个定义听起来像是\emph{连通性}而不是可缩性.
+    \index{类型论中的函数的连续性@类型论中的函数的``连续性''}%
+    \index{类型论中的函数的函子性@类型论中的函数的``函子性''}%
+    重点在于, 这句话中的 ``存在'' 是连续或者自然的.
 
-  A better way to express connectedness would be $\sm{a:A}\prd{x:A} \brck{a=x}$.
-  This is indeed correct if $A$ is assumed to be pointed --- see the remark after \cref{thm:connected-pointed} --- but in general a type can be connected without being pointed.
-  In \cref{sec:connectivity} we will define connectedness as the $n=0$ case of a general notion of $n$-connectedness, and in \cref{ex:connectivity-inductively} the reader is asked to show that this definition is equivalent to having both $\brck{A}$ and $\prd{x,y:A} \brck{x=y}$.
+    连通性可以更好地表示为 $\sm{a:A}\prd{x:A} \brck{a=x}$.
+    当 $A$ 可以被视为是点时, 这是正确的 --- 参见 \cref{thm:connected-pointed} --- 但是对于更一般的类型, 没有点也可以是连通的.
+    在 \cref{sec:connectivity} 将连通性定义为一般意义上$n$-连同的 $n=0$ 的情况, 而在 \cref{ex:connectivity-inductively} 中, 读者被要求证明这个定义等价于 $\brck{A}$ 且 $\prd{x,y:A} \brck{x=y}$.
 \end{rmk}
 
-\begin{lem}\label{thm:contr-unit}
-  For a type $A$, the following are logically equivalent.
-  \begin{enumerate}
-  \item $A$ is contractible in the sense of \cref{defn:contractible}.\label{item:contr}
-  \item $A$ is a mere proposition, and there is a point $a:A$.\label{item:contr-inhabited-prop}
-  \item $A$ is equivalent to \unit.\label{item:contr-eqv-unit}
-  \end{enumerate}
+\begin{lem}
+    \label{thm:contr-unit}
+    对于类型 $A$, 以下是逻辑上等价的.
+    \begin{enumerate}
+        \item $A$ 于 \cref{defn:contractible} 意义上是可缩的.\label{item:contr}
+        \item $A$ 是纯命题,而且存在点 $a:A$.\label{item:contr-inhabited-prop}
+        \item $A$ 等价于 \unit.\label{item:contr-eqv-unit}
+    \end{enumerate}
 \end{lem}
 \begin{proof}
-  If $A$ is contractible, then it certainly has a point $a:A$ (the center of contraction), while for any $x,y:A$ we have $x=a=y$; thus $A$ is a mere proposition.
-  Conversely, if we have $a:A$ and $A$ is a mere proposition, then for any $x:A$ we have $x=a$; thus $A$ is contractible.
-  And we showed~\ref{item:contr-inhabited-prop}$\Rightarrow$\ref{item:contr-eqv-unit} in \cref{thm:inhabprop-eqvunit}, while the converse follows since \unit easily has property~\ref{item:contr-inhabited-prop}.
+    如果 $A$ 是可缩的, 那么必然存在点 $a:A$ (即收缩的中心), 于是对于任意 $x,y:A$ 有 $x=a=y$; 因此 $A$ 是纯命题.
+    相反, 如果有 $a:A$ 而且 $A$ 是纯命题, 那么多余任何 $x:A$ 有 $x=a$; 因此 $A$ 是可缩的.
+    然后在 \cref{thm:inhabprop-eqvunit} 中有 ~\ref{item:contr-inhabited-prop}$\Rightarrow$\ref{item:contr-eqv-unit}, 而反方向易证 \unit 有性质~\ref{item:contr-inhabited-prop}.
 \end{proof}
 
-\begin{lem}\label{thm:isprop-iscontr}
-  For any type $A$, the type $\iscontr(A)$ is a mere proposition.
+\begin{lem}
+    \label{thm:isprop-iscontr}
+    对于任何类型 $A$, 类型 $\iscontr(A)$ 是纯命题.
 \end{lem}
 \begin{proof}
-  Suppose given $c,c':\iscontr(A)$.
-  We may assume $c\jdeq(a,p)$ and $c'\jdeq(a',p')$ for $a,a':A$ and $p:\prd{x:A} (a=x)$ and $p':\prd{x:A} (a'=x)$.
-  By the characterization of paths in $\Sigma$-types, to show $c=c'$ it suffices to exhibit $q:a=a'$ such that $\trans{q}{p}=p'$.
-  %
-  We choose $q\defeq p(a')$.
-  Now since $A$ is contractible (by $c$ or $c'$), by \cref{thm:contr-unit} it is a mere proposition.
-  Hence, by \cref{thm:prop-set,thm:isprop-forall}, so is $\prd{x:A}(a'=x)$; thus $\trans{q}{p}=p'$ is automatic.
+    给定 $c,c':\iscontr(A)$.
+    假设 $c\jdeq(a,p)$ 和 $c'\jdeq(a',p')$ 对于 $a,a':A$ 和 $p:\prd{x:A} (a=x)$ 和 $p':\prd{x:A} (a'=x)$.
+    通过 $\Sigma$-类型中的路径中的特征, 证明 $c=c'$ 只需展示 $q:a=a'$ 满足 $\trans{q}{p}=p'$.
+    %
+    选择 $q\defeq p(a')$.
+    现在因为 $A$ 是可缩的 (根据 $c$ 或 $c'$), 因为 \cref{thm:contr-unit} 是纯命题.
+    因此, 通过 \cref{thm:prop-set,thm:isprop-forall}, 所以 $\prd{x:A}(a'=x)$; 因此 $\trans{q}{p}=p'$.
 \end{proof}
 
-\begin{cor}\label{thm:contr-contr}
-  If $A$ is contractible, then so is $\iscontr(A)$.
+\begin{cor}
+    \label{thm:contr-contr}
+    如果 $A$ 可缩, 那么 $\iscontr(A)$ 也是.
 \end{cor}
 \begin{proof}
-  By \cref{thm:isprop-iscontr} and \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}.
+    根据 \cref{thm:isprop-iscontr} 和 \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}.
 \end{proof}
 
-Like mere propositions, contractible types are preserved by many type constructors.
-For instance, we have:
+就像纯命题, 可缩类型被很多类型构造器保留.
+例如, 有:
 
-\begin{lem}\label{thm:contr-forall}
-  If $P:A\to\type$ is a type family such that each $P(a)$ is contractible, then $\prd{x:A} P(x)$ is contractible.
+\begin{lem}
+    \label{thm:contr-forall}
+    如果 $P:A\to\type$ 是类型族而且每个 $P(a)$ 都是可缩的, 那么 $\prd{x:A} P(x)$ 是可缩的.
 \end{lem}
 \begin{proof}
-  By \cref{thm:isprop-forall}, $\prd{x:A} P(x)$ is a mere proposition since each $P(x)$ is.
-  But it also has an element, namely the function sending each $x:A$ to the center of contraction of $P(x)$.
-  Thus by \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}, $\prd{x:A} P(x)$ is contractible.
+    根据 \cref{thm:isprop-forall}, 因为每个 $P(x)$ 都是纯命题, 所以 $\prd{x:A} P(x)$ 是纯命题.
+    但是也有元素, 即函数发送每个 $x:A$ 到 $P(x)$ 收缩的中心.
+    因此根据 \cref{thm:contr-unit}\ref{item:contr-inhabited-prop}, $\prd{x:A} P(x)$ 是可缩的.
 \end{proof}
 
-\index{function extensionality}%
-(In fact, the statement of \cref{thm:contr-forall} is equivalent to the function extensionality axiom.
-See~\cref{sec:univalence-implies-funext}.)
+\index{函数外延性}%
+(实际上, 语句 \cref{thm:contr-forall} 等价于函数外延性公理.
+参见~\cref{sec:univalence-implies-funext}.)
 
-Of course, if $A$ is equivalent to $B$ and $A$ is contractible, then so is $B$.
-More generally, it suffices for $B$ to be a \emph{retract} of $A$.
-By definition, a \define{retraction}
-\indexdef{retraction}%
-\indexdef{function!retraction}%
-is a function $r : A \to B$ such that there exists a function $s : B \to A$, called its \define{section},
-\indexdef{section}%
-\indexdef{function!section}%
-and a homotopy $\epsilon:\prd{y:B} (r(s(y))=y)$; then we say that $B$ is a \define{retract}%
-\indexdef{retract!of a type}
-of $A$.
+当然, 如果 $A$ 等价于 $B$ 而且 $A$ 可缩, 那么 $B$ 也如此.
+跟一般地, 它满足 $B$ 是 $A$ \emph{retract}.
+根据定义, \define{收缩映射}
+\indexdef{收缩映射}%
+\indexdef{函数!收缩映射}%
+是函数 $r : A \to B$ 满足存在 $s : B \to A$, 也就是 \define{截面},
+\indexdef{截面}%
+\indexdef{函数!截面}%
+和同伦 $\epsilon:\prd{y:B} (r(s(y))=y)$; 那么 $B$ 是 $A$ 的 \define{收缩映射}%
+\indexdef{收缩映射!类型}.
 
-\begin{lem}\label{thm:retract-contr}
-  If $B$ is a retract of $A$, and $A$ is contractible, then so is $B$.
+\begin{lem}
+    \label{thm:retract-contr}
+    如果 $B$ 是 $A$ 的收缩映射, 而且 $A$ 是可缩的, 那么 $B$ 也如此.
 \end{lem}
 \begin{proof}
-  Let $a_0 : A$ be the center of contraction.
-  We claim that $b_0 \defeq r(a_0) : B$ is a center of contraction for $B$.
-  Let $b : B$; we need a path $b = b_0$.
-  But we have $\epsilon_b : r(s(b)) = b$ and $\contr_{s(b)} : s(b) = a_0$, so by composition
-  \[ \opp{\epsilon_b} \ct \ap{r}{\contr_{s(b)}} : b = r(a_0) \jdeq b_0. \qedhere\]
+    令 $a_0 : A$ 为收缩的中心.
+    我们声称 $b_0 \defeq r(a_0) : B$ 是 $B$ 的收缩中心.
+    令 $b : B$; 需要路径 $b = b_0$.
+    而 $\epsilon_b : r(s(b)) = b$ 且 $\contr_{s(b)} : s(b) = a_0$, 所以通过组合
+    \[ \opp{\epsilon_b} \ct \ap{r}{\contr_{s(b)}} : b = r(a_0) \jdeq b_0. \qedhere\]
 \end{proof}
 
-Contractible types may not seem very interesting, since they are all equivalent to \unit.
-One reason the notion is useful is that sometimes a collection of individually nontrivial data will collectively form a contractible type.
-An important example is the space of paths with one free endpoint.
-As we will see in \cref{sec:identity-systems}, this fact essentially
-encapsulates the based path induction principle for identity types.
+可缩类型看起来不是很有意思, 因为它们都等价于 \unit.
+它们有用的一个原因是, 有时一组单个的平凡数据可以共同的构成一个可缩类型.
+一个重要的例子是一些空间上的路径, 它们具有一个自由端点.
+在 \cref{sec:identity-systems} 会看到, 这个事实本质上概括了恒等类型的基础路径归纳原理.
 
 
-\begin{lem}\label{thm:contr-paths}
-  For any $A$ and any $a:A$, the type $\sm{x:A} (a=x)$ is contractible.
+\begin{lem}
+    \label{thm:contr-paths}
+    对于任何 $A$ 和任何 $a:A$, 类型 $\sm{x:A} (a=x)$ 是可缩的.
 \end{lem}
 \begin{proof}
-  We choose as center the point $(a,\refl a)$.
-  Now suppose $(x,p):\sm{x:A}(a=x)$; we must show $(a,\refl a) = (x,p)$.
-  By the characterization of paths in $\Sigma$-types, it suffices to exhibit $q:a=x$ such that $\trans{q}{\refl a} = p$.
-  But we can take $q\defeq p$, in which case $\trans{q}{\refl a} = p$ follows from the characterization of transport in path types.
+    选择点 $(a,\refl a)$ 作为中心.
+    现在假设 $(x,p):\sm{x:A}(a=x)$;
+    需要证明 $(a,\refl a) = (x,p)$.
+    根据 $\Sigma$-类型中的路径的特征, 足以得到 $q:a=x$ 满足 $\trans{q}{\refl a} = p$.
+    不过可以获取 $q\defeq p$, 这种情况下 $\trans{q}{\refl a} = p$ 从路径类型中的传输特征.
 \end{proof}
 
-When this happens, it can allow us to simplify a complicated construction up to equivalence, using the informal principle that contractible data can be freely ignored.
-This principle consists of many lemmas, most of which we leave to the reader; the following is an example.
+这种情况发生时, 允许我们化简复杂的构造到等价, 非正式定理中可收缩的数据可以自由地省略.
+这个定理包含很多引理, 大部分留给读者; 一下是一些例子.
 
-\begin{lem}\label{thm:omit-contr}
-  Let $P:A\to\type$ be a type family.
-  \begin{enumerate}
-  \item If each $P(x)$ is contractible, then $\sm{x:A} P(x)$ is equivalent to $A$.\label{item:omitcontr1}
-  \item If $A$ is contractible with center $a$, then $\sm{x:A} P(x)$ is equivalent to $P(a)$.\label{item:omitcontr2}
-  \end{enumerate}
+\begin{lem}
+    \label{thm:omit-contr}
+    令 $P:A\to\type$ 为类型族.
+    \begin{enumerate}
+        \item 如果每个 $P(x)$ 是可缩的, 那么 $\sm{x:A} P(x)$ 等价于 $A$.\label{item:omitcontr1}
+        \item 如果 $A$ 是可缩的, 而且中心是 $a$, 那么 $\sm{x:A} P(x)$ 等价于 $P(a)$.\label{item:omitcontr2}
+    \end{enumerate}
 \end{lem}
 \begin{proof}
-  In the situation of~\ref{item:omitcontr1}, we show that $\proj1:\sm{x:A} P(x) \to A$ is an equivalence.
-  For quasi-inverse we define $g(x)\defeq (x,c_x)$ where $c_x$ is the center of $P(x)$.
-  The composite $\proj1 \circ g$ is obviously $\idfunc[A]$, whereas the opposite composite is homotopic to the identity by using the contractions of each $P(x)$.
+    在~\ref{item:omitcontr1}中, 我们证明了 $\proj1:\sm{x:A} P(x) \to A$ 是一个等价关系.
+    对于准逆我们定义 $g(x)\defeq (x,c_x)$ 其中 $c_x$ 是 $P(x)$ 的中心.
+    组合 $\proj1 \circ g$ 明显地 $\idfunc[A]$, 然而对应的组成同伦于很等, 通过使用每个 $P(x)$ 的可缩性.
 
-  We leave the proof of~\ref{item:omitcontr2} to the reader (see \cref{ex:omit-contr2}).
+    我们在 ~\ref{item:omitcontr2} 会将这个证明留给读者(参见 \cref{ex:omit-contr2}).
 \end{proof}
 
-Another reason contractible types are interesting is that they extend the ladder of $n$-types mentioned in \cref{sec:basics-sets} downwards one more step.
+另一个可缩类型有意思的理由是, 它们\cref{sec:basics-sets}中提到的 $n$-类型的阶梯向下移动了一步.
 
-\begin{lem}\label{thm:prop-minusonetype}
-  A type $A$ is a mere proposition if and only if for all $x,y:A$, the type $\id[A]xy$ is contractible.
+\begin{lem}
+    \label{thm:prop-minusonetype}
+    类型 $A$ 是纯命题当且仅当对于所有 $x,y:A$, 类型 $\id[A]xy$ 可缩.
 \end{lem}
 \begin{proof}
-  For ``if'', we simply observe that any contractible type is inhabited.
-  For ``only if'', we observed in \cref{subsec:hprops} that every mere proposition is a set, so that each type $\id[A]xy$ is a mere proposition.
-  But it is also inhabited (since $A$ is a mere proposition), and hence by \cref{thm:contr-unit}\ref{item:contr-inhabited-prop} it is contractible.
+    对于 ``当'', 容易观察到任意类型都满足.
+    对于 ``仅当'', 观察在 \cref{subsec:hprops} 中每个纯命题是集合, 所以每个类型 $\id[A]xy$ 是纯命题.
+    但它也未被居留 (因为 $A$ 是纯命题), 因此通过 \cref{thm:contr-unit}\ref{item:contr-inhabited-prop} 它可缩.
 \end{proof}
 
-Thus, contractible types may also be called \define{$(-2)$-types}.
-They are the bottom rung of the ladder of $n$-types, and will be the base case of the recursive definition of $n$-types in \cref{cha:hlevels}.
+因此, 可缩类型也被叫做 \define{$(-2)$-类型}.
+它们是 $n$-类型阶梯的底部, 而且在 \cref{cha:hlevels} 中会使递归定义 $n$-类型的基础情况.
 
-\index{type!contractible|)}%
-\index{contractible!type|)}%
+\index{类型!可缩|)}%
+\index{可缩!类型|)}%
