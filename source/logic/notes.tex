@@ -1,34 +1,35 @@
-The fact that it is possible to define sets, mere propositions, and contractible types in type theory, with all higher homotopies automatically taken care of as in \cref{sec:basics-sets,subsec:hprops,sec:contractibility}, was first observed by Voevodsky.
-In fact, he defined the entire hierarchy of $n$-types by induction, as we will do in \cref{cha:hlevels}.\index{n-type@$n$-type!definable in type theory}%
+VoevodskyThe 最先观察到, 类型论中可以定义集合, 纯命题, 和高阶可缩类型, 而且所有的高阶同伦都会被自动处理, 就像\cref{sec:basics-sets,subsec:hprops,sec:contractibility}中一样.
+事实上, 他通过归纳定义了 $n$-类型全部层级, 参见 \cref{cha:hlevels}.\index{n-type@$n$-type!definable in type theory}%
 
-\cref{thm:not-dneg,thm:not-lem} rely in essence on a classical theorem of Hedberg,
-\index{Hedberg's theorem}%
-\index{theorem!Hedberg's}%
-which we will prove in \cref{sec:hedberg}.
-The implication that the propositions-as-types form of \LEM{} contradicts univalence was observed by Mart\'\i n Escard\'o on the \Agda mailing list.
-The proof we have given of \cref{thm:not-dneg} is due to Thierry Coquand.
+\cref{thm:not-dneg,thm:not-lem} 本质上依赖于 Hedberg 的经典理论,
+\index{Hedberg 的理论}%
+\index{理论!Hedberg 的}%
+我们在 \cref{sec:hedberg} 中证明了这个理论.
+Mart\'\i n Escard\'o 在 \Agda 的邮件列表中发现到, 命题即类型形式中的 \LEM{} 和单值性之间存在矛盾.
+这件事在 \cref{thm:not-dneg} 给出了证明, 它是由 Thierry Coquand 完成的.
 
-The propositional truncation was introduced in the extensional type theory of
-\index{proof!assistant!\NuPRL}%
-\NuPRL in 1983 by Constable~\cite{Con85} as an
-application of ``subset'' and ``quotient'' types.  What is here called the
-``propositional truncation'' was called ``squashing'' in the \NuPRL type theory~\cite{constable+86nuprl-book}.
-Rules characterizing the propositional truncation directly, still in extensional type theory, were given in~\cite{ab:bracket-types}.
-The intensional version in homotopy type theory was constructed by Voevodsky using an impredicative\index{impredicative!truncation} quantification, and later by Lumsdaine using higher inductive types (see \cref{sec:hittruncations}).
+命题截断在 1983 年被 Constable~\cite{Con85} 引入到 \index{证明!助手!\NuPRL}, 作为 ``子集'' 和 ``商'' 类型.
+本书中的 ``命题截断'' 在 \NuPRL 类型论~\cite{constable+86nuprl-book} 中叫做 ``挤压''.
+在~\cite{ab:bracket-types}中, 给出了外延类型论中, 能直接描述命题截断的规则.
+Voevodsky 构造了同伦类型论中内延的版本, 使用了非直谓\index{非直谓!截断}的量词, 然后 Lumsdaine 使用高阶归纳类型 (参见 \cref{sec:hittruncations}).
 
-\index{propositional!resizing}%
-Voevodsky~\cite{Universe-poly} has proposed resizing rules of the kind considered in \cref{subsec:prop-subsets}.
-\index{axiom!of reducibility}\index{resizing}%
-These are clearly related to the notorious \emph{axiom of reducibility} proposed by Russell in his and Whitehead's \emph{Principia Mathematica}~\cite{PM2}.\index{Russell, Bertrand}
+\index{命题的!重调大小}%
+Voevodsky~\cite{Universe-poly} 提出了 \cref{subsec:prop-subsets} 中讨论的重调大小规则 .
+\index{公理!可约性}\index{重调大小}%
+这显然与著名的 Russell 在他和 Whitehead 的 \emph{Principia Mathematica}~\cite{PM2} 书中的\emph{可约性公理}有关.\index{Russell, Bertrand}
 
-The adverb ``purely'' as used to refer to untruncated logic is a reference to the use of monadic modalities to model effects in programming languages; see \cref{sec:modalities} and the Notes to \cref{cha:hlevels}.
+副词 ``纯'' 用于指代未截断逻辑时, 用了单子模式在编程语言中用于建模的效果的用法;
+参见 \cref{sec:modalities} 和 \cref{cha:hlevels} 的备注.
 
-There are many different ways in which logic can be treated relative to type theory.
-For instance, in addition to the plain propositions-as-types logic described in \cref{sec:pat}, and the alternative which uses mere propositions only as described in \cref{subsec:logic-hprop}, one may introduce a separate ``sort'' of propositions, which behave somewhat like types but are not identified with them.
-This is the approach taken in logic enriched type theory~\cite{aczel2002collection} and in some presentations of the internal languages of toposes\index{topos} and related categories (e.g.~\cite{jacobs1999categorical,elephant}), as well as in the proof assistant \Coq.\index{proof!assistant!Coq@\textsc{Coq}}
-Such an approach is more general, but less powerful.
-For instance, the principle of unique choice (\cref{sec:unique-choice}) fails in the category of so-called setoids in \Coq~\cite{Spiwack}, in logic enriched type theory~\cite{aczel2002collection}, and in minimal type theory~\cite{maietti2005toward}.\index{setoid}
-Thus, the univalence axiom makes our type theory behave more like the internal logic of a topos;~see also \cref{cha:set-math}.\index{topos}
+类型论中有很多方式来处理逻辑关系.
+例如, 除了在 \cref{sec:pat} 描述的命题即类型逻辑, 以及 \cref{subsec:logic-hprop} 中仅使用纯命题的替代方案外, 还可以引入一种独立的命题 ``种类'', 它的行为与类型类似, 但和类型不完全相同.
+这种方法被用于逻辑扩展类型理论~\cite{aczel2002collection}, 如拓扑斯\index{拓扑斯}及相关范畴的内部语言(例如~\cite{jacobs1999categorical,elephant}), 以及证明助手 \Coq 也有体现.\index{证明!助手!Coq@\textsc{Coq}}
+这种方法更为一般化, 但也较为局限.
+例如, 在 \Coq~\cite{Spiwack} 的集值范畴, 逻辑扩展类型理论~\cite{aczel2002collection}, 以及最小类型理论y~\cite{maietti2005toward}中, 唯一选择原理 (\cref{sec:unique-choice}) 不成立.
+\index{集值}
+因此, 单值公理让我们的类型理论更像是一个拓扑斯的内部逻辑;
+参见 \cref{cha:set-math}.\index{拓扑斯}
 
-Martin-L\"of~\cite{martin2006100} provides a discussion on the history of axioms of choice.
-Of course, constructive and intuitionistic mathematics has a long and complicated history, which we will not delve into here; see for instance~\cite{TroelstraI,TroelstraII}.
+Martin-L\"of~\cite{martin2006100} 提供了一段关于选择公理历史的讨论.
+当然, 构造性和直觉主义数学有着悠久且复杂的历史, 在此不作深入探讨;
+参见~\cite{TroelstraI,TroelstraII}.
