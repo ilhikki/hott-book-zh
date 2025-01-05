@@ -1,30 +1,37 @@
-\begin{ex}\label{ex:equiv-functor-set}
-  Prove that if $\eqv A B$ and $A$ is a set, then so is $B$.
+\begin{ex}
+    \label{ex:equiv-functor-set}
+    证明 $\eqv A B$ 且 $A$ 是集合, 那么 $B$ 也是集合.
 \end{ex}
 
-\begin{ex}\label{ex:isset-coprod}
-  Prove that if $A$ and $B$ are sets, then so is $A+B$.
+\begin{ex}
+    \label{ex:isset-coprod}
+    证明如果 $A$ 和 $B$ 都是集合, 那么 $A+B$ 也是集合.
 \end{ex}
 
-\begin{ex}\label{ex:isset-sigma}
-  Prove that if $A$ is a set and $B:A\to \type$ is a type family such that $B(x)$ is a set for all $x:A$, then $\sm{x:A} B(x)$ is a set.
+\begin{ex}
+    \label{ex:isset-sigma}
+    证明如果 $A$ 是集合, $B:A\to \type$ 是类型族, 而且对于所有 $x:A$, $B(x)$ 是集合, 那么 $\sm{x:A} B(x)$ 是集合.
 \end{ex}
 
-\begin{ex}\label{ex:prop-endocontr}
-  Show that $A$ is a mere proposition if and only if $A\to A$ is contractible.
+\begin{ex}
+    \label{ex:prop-endocontr}
+    证明 $A$ 是纯命题, 当且仅当 $A\to A$ 可缩.
 \end{ex}
 
-\begin{ex}\label{ex:prop-inhabcontr}
-  Show that $\eqv{\isprop(A)}{(A\to\iscontr(A))}$.
+\begin{ex}
+    \label{ex:prop-inhabcontr}
+    证明 $\eqv{\isprop(A)}{(A\to\iscontr(A))}$.
 \end{ex}
 
-\begin{ex}\label{ex:lem-mereprop}
-  Show that if $A$ is a mere proposition, then so is $A+(\neg A)$.
-  Thus, there is no need to insert a propositional truncation in~\eqref{eq:lem}.
+\begin{ex}
+    \label{ex:lem-mereprop}
+    证明如果 $A$ 是纯命题, 那么 $A+(\neg A)$ 也是纯命题.
+    因此, 在 \eqref{eq:lem} 中不需要插入命题截断.
 \end{ex}
 
-\begin{ex}\label{ex:disjoint-or}
-  More generally, show that if $A$ and $B$ are mere propositions and $\neg(A\times B)$, then $A+B$ is also a mere proposition.
+\begin{ex}
+    \label{ex:disjoint-or}
+    更概括地, 证明 $A$ 和 $B$ 是纯命题而且 $\neg(A\times B)$, 那么 $A+B$ 也是纯命题.
 \end{ex}
 
 % \begin{ex}\label{ex:hprop-iff-equiv}
@@ -39,90 +46,108 @@
 %   Show that if $A$ is already a mere proposition, then $\eqv A{\brck{A}}$.
 % \end{ex}
 
-\begin{ex}\label{ex:brck-qinv}
-  Assuming that some type $\isequiv(f)$ satisfies conditions~\ref{item:be1}--\ref{item:be3} of \cref{sec:basics-equivalences}, show that the type $\brck{\qinv(f)}$ satisfies the same conditions and is equivalent to $\isequiv(f)$.
+\begin{ex}
+    \label{ex:brck-qinv}
+    假定一些类型 $\isequiv(f)$ 满足 \cref{sec:basics-equivalences} 中的条件 \ref{item:be1}--\ref{item:be3}, 证明类型 $\brck{\qinv(f)}$ 同样的条件而且等价于 $\isequiv(f)$.
 \end{ex}
 
-\begin{ex}\label{ex:lem-impl-prop-equiv-bool}
-  Show that if \LEM{} holds, then the type $\prop \defeq \sm{A:\type} \isprop(A)$ is equivalent to \bool.
+\begin{ex}
+    \label{ex:lem-impl-prop-equiv-bool}
+    证明如果 \LEM{} 成立, 那么类型 $\prop \defeq \sm{A:\type} \isprop(A)$ 等价于 \bool.
 \end{ex}
 
-\begin{ex}\label{ex:lem-impred}
-  Show that if $\UU_{i+1}$ satisfies \LEM{}, then the canonical inclusion $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ is an equivalence.
+\begin{ex}
+    \label{ex:lem-impred}
+    证明 $\UU_{i+1}$ 满足 \LEM{}, 典范包含 $\prop_{\UU_i} \to \prop_{\UU_{i+1}}$ 是一个等价.
 \end{ex}
 
-\begin{ex}\label{ex:not-brck-A-impl-A}
-  Show that it is not the case that for all $A:\type$ we have $\brck{A} \to A$.
-  (However, there can be particular types for which $\brck{A}\to A$.
-  \cref{ex:brck-qinv} implies that $\qinv(f)$ is such.)
+\begin{ex}
+    \label{ex:not-brck-A-impl-A}
+    证明并非对于所有类型 $A:\type$ 有 $\brck{A} \to A$.
+    (然而, 纯在特定的类型有 $\brck{A}\to A$.
+    \cref{ex:brck-qinv} 表明 $\qinv(f)$ 就是这样的类型.)
 \end{ex}
 
-\begin{ex}\label{ex:lem-impl-simple-ac}
-  \index{axiom!of choice}%
-  Show that if \LEM{} holds, then for all $A:\type$ we have $\bbrck{(\brck A \to A)}$.
-  (This property is a very simple form of the axiom of choice, which can fail in the absence of \LEM{}; see~\cite{krausgeneralizations}.)
+\begin{ex}
+    \label{ex:lem-impl-simple-ac}
+    \index{公理!选择}%
+    注意如果 \LEM{} 成立, 那么对于所有 $A:\type$ 有 $\bbrck{(\brck A \to A)}$.
+    (从选择公理很容易得到这个性质, 没有 \LEM{} 的情况可能失败;
+    参见 \cite{krausgeneralizations}.)
 \end{ex}
 
-\begin{ex}\label{ex:naive-lem-impl-ac}
-  We showed in \cref{thm:not-lem} that the following naive form of \LEM{} is inconsistent with univalence:
-  \[ \prd{A:\type} (A+(\neg A)) \]
-  In the absence of univalence, this axiom is consistent.
-  However, show that it implies the axiom of choice~\eqref{eq:ac}.
+\begin{ex}
+    \label{ex:naive-lem-impl-ac}
+    在 \cref{thm:not-lem} 下面的 \LEM{} 的朴素形式和单值是不一致的:
+    \[ \prd{A:\type} (A+(\neg A)) \]
+    没有单值的情况, 这个公理是一致的.
+    然而, 证明这个公理暗含了 \eqref{eq:ac}.
 \end{ex}
 
-\begin{ex}\label{ex:lem-brck}
-  Show that assuming \LEM{}, the double negation $\neg \neg A$ has the same recursion principle as the propositional truncation $\brck A$ but with a propositional computation rule rather than a judgmental one.
-  In other words, prove that assuming \LEM{}, if $B$ is a mere proposition and we have $f:A\to B$, then there is an induced $g:\neg\neg A \to B$ such that $g(\bproj a) = f(a)$ for all $a:A$.
-  Deduce that (assuming \LEM{}) we have $\eqv{\neg\neg A}{\brck{A}}$.
-  Thus, under \LEM{}, the propositional truncation can be defined rather than taken as a separate type former.
+\begin{ex}
+    \label{ex:lem-brck}
+    假定 \LEM{} 成立, 证明双重否定 $\neg \neg A$ 有和命题截断 $\brck A$ 相同的递归原则, 但是使用的是命题计算规则而不是判断计算规则.
+    换句话说, 假设 \LEM{} 成立, 证明如果 $B$ 是纯命题而且有 $f:A\to B$, 那么有一个诱导的 $g:\neg\neg A \to B$ 满足 $g(\bproj a) = f(a)$ 对于所有 $a:A$.
+    推导 (假设 \LEM{} 成立) $\eqv{\neg\neg A}{\brck{A}}$.
+    因此, 在 \LEM{} 成立的情况, 命题截断可以被定义, 而不是作为一个单独的类型构造器.
 \end{ex}
 
-\begin{ex}\label{ex:impred-brck}
-  \index{propositional!resizing}%
-  Show that if we assume propositional resizing as in \cref{subsec:prop-subsets}, then the type
-  \[\prd{P:\prop} \Parens{(A\to P)\to P}\]
-  has the same recursion principle as $\brck A$, \emph{with} the same judgmental computation rule.
-  Thus, we can also define the propositional truncation in this case.
+\begin{ex}
+    \label{ex:impred-brck}
+    \index{命题的!重调大小}%
+    证明如果假设命题重调, 就像 \cref{subsec:prop-subsets} 中的一样, 那么类型
+    \[\prd{P:\prop} \Parens{(A\to P)\to P}\]
+    有相同的归纳命题 $\brck A$, \emph{以及}相同的判断计算规则.
+    因此, 也可以这样定义命题截断.
 \end{ex}
 
-\begin{ex}\label{ex:lem-impl-dn-commutes}
-  Assuming \LEM{}, show that double negation commutes with universal quantification of mere propositions over sets.
-  That is, show that if $X$ is a set and each $Y(x)$ is a mere proposition, then \LEM{} implies
-  \begin{equation}
-    \eqv{\Parens{\prd{x:X} \neg\neg Y(x)}}{\Parens{\neg\neg \prd{x:X} Y(x)}}.\label{eq:dnshift}
-  \end{equation}
-  Observe that if we assume instead that each $Y(x)$ is a set, then~\eqref{eq:dnshift} becomes equivalent to the axiom of choice~\eqref{eq:epis-split}.
+\begin{ex}
+    \label{ex:lem-impl-dn-commutes}
+    假设 \LEM{} 成立, 证明双重否定交换于集合上的纯命题的全称量词.
+    也就是说, 证明如果 $X$ 是集合而且每个 $Y(x)$ 是纯命题, 那么 \LEM{} 意味
+    \begin{equation}
+        \eqv{\Parens{\prd{x:X} \neg\neg Y(x)}}{\Parens{\neg\neg \prd{x:X} Y(x)}}.\label{eq:dnshift}
+    \end{equation}
+    观察到如果假设每个 $Y(x)$ 是集合, 那么 \eqref{eq:dnshift} 等价于选择公理 \eqref{eq:epis-split}.
 \end{ex}
 
-\begin{ex}\label{ex:prop-trunc-ind}
-  \index{induction principle!for truncation}%
-  Show that the rules for the propositional truncation given in \cref{subsec:prop-trunc} are sufficient to imply the following induction principle: for any type family $B:\brck A \to \type$ such that each $B(x)$ is a mere proposition, if for every $a:A$ we have $B(\bproj a)$, then for every $x:\brck A$ we have $B(x)$.
+\begin{ex}
+    \label{ex:prop-trunc-ind}
+    \index{induction principle!for truncation}%
+    证明 \cref{subsec:prop-trunc} 给定的命题截断规则可以推断出下面的归纳原理:
+    对于任何类型族 $B:\brck A \to \type$, 其中 $B(x)$ 是纯命题, 如果对于每个 $a:A$ 有 $B(\bproj a)$, 那么对于每个 $x:\brck A$ 有 $B(x)$.
 \end{ex}
 
-\begin{ex}\label{ex:lem-ldn}
-  Show that the law of excluded middle~\eqref{eq:lem} and the law of double negation~\eqref{eq:ldn} are logically equivalent.
+\begin{ex}
+    \label{ex:lem-ldn}
+    证明排中律\eqref{eq:lem}和双重否定\eqref{eq:ldn}是逻辑等价的.
 \end{ex}
 
-\begin{ex}\label{ex:decidable-choice}
-  Suppose $P:\nat\to\type$ is a decidable family (see \cref{defn:decidable-equality}\ref{item:decidable-equality2}) of mere propositions.
-  Prove that
-  \[ \Brck{\sm{n:\nat} P(n)} \;\to\; \sm{n:\nat}P(n).\]
+\begin{ex}
+    \label{ex:decidable-choice}
+    假设 $P:\nat\to\type$ 是纯命题的一个可判定的族 (参见 \cref{defn:decidable-equality}\ref{item:decidable-equality2}).
+    证明
+    \[ \Brck{\sm{n:\nat} P(n)} \;\to\; \sm{n:\nat}P(n).\]
 \end{ex}
 
-\begin{ex}\label{ex:omit-contr2}
-  Prove \cref{thm:omit-contr}\ref{item:omitcontr2}: if $A$ is contractible with center $a$, then $\sm{x:A} P(x)$ is equivalent to $P(a)$.
+\begin{ex}
+    \label{ex:omit-contr2}
+    证明 \cref{thm:omit-contr}\ref{item:omitcontr2}: 如果 $A$ 是可错的, 而且中心是 $a$, 那么 $\sm{x:A} P(x)$ 等价于 $P(a)$.
 \end{ex}
 
-\begin{ex}\label{ex:isprop-equiv-equiv-bracket}
-  Prove that $\isprop(P) \simeq (P \simeq \brck P)$.
+\begin{ex}
+    \label{ex:isprop-equiv-equiv-bracket}
+    证明 $\isprop(P) \simeq (P \simeq \brck P)$.
 \end{ex}
 
-\begin{ex}\label{ex:finite-choice}
-  As in classical set theory, the finite version of the axiom of choice is a theorem.  Prove that the axiom of choice \eqref{eq:ac} holds when $X$ is a finite type $\Fin(n)$ (as defined in \cref{ex:fin}).
+\begin{ex}
+    \label{ex:finite-choice}
+    在经典集合论中, 选择公理的有限版本是一个定理. 证明选择公理 \eqref{eq:ac} 成立, 当 $X$ 是有限类型 $\Fin(n)$ (定义于 \cref{ex:fin}).
 \end{ex}
 
-\begin{ex}\label{ex:decidable-choice-strong}
-  Show that the conclusion of \cref{ex:decidable-choice} is true if $P:\nat\to\type$ is any decidable family.
+\begin{ex}
+    \label{ex:decidable-choice-strong}
+    如果 $P:\nat\to\type$ 是可判定的族, 证明 \cref{ex:decidable-choice} 的结论为真.
 \end{ex}
 
 % Local Variables:
